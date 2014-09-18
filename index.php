@@ -163,7 +163,7 @@ background-color: #213449; /* dark blue */
 <div id="thePageRHeader">
 <div id="thePageRHeaderTop">
 <?php
-echo "Hello, world!";
+include './thePageRHeaderTop/main.php';
 ?>
 </div><!--thePageRHeaderTop-->
 

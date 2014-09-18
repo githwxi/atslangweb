@@ -19,7 +19,7 @@ all:: thePageRHeaderSep
 
 ######
 
-index:: ; $(CPF) $(SOURCE)/index.html .
+index:: ; $(CPF) $(SOURCE)/index.php index.php
 thePageRHeaderTop:: ; $(CPF) $(SOURCE)/thePageRHeaderTop/main.php ./thePageRHeaderTop/.
 thePageRHeaderSep:: ; $(CPF) $(SOURCE)/thePageRHeaderSep/main.php ./thePageRHeaderSep/.
 
