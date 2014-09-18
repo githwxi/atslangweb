@@ -11,7 +11,7 @@
 parent: thePage
 children: 
 */
-background-color: #36efef;
+background-color: #7a3f37;
 } /* thePageLeft */
 
 #thePageRHeaderTop {
@@ -19,7 +19,7 @@ background-color: #36efef;
 parent: thePageRHeader
 children: 
 */
-background-color: #334d2c;
+background-color: #56a46a;
 } /* thePageRHeaderTop */
 
 #thePageRHeaderSep {
@@ -27,7 +27,7 @@ background-color: #334d2c;
 parent: thePageRHeader
 children: 
 */
-background-color: #526a10;
+background-color: #e4ec87;
 } /* thePageRHeaderSep */
 
 #thePageRHeader {
@@ -35,7 +35,7 @@ background-color: #526a10;
 parent: thePageRight
 children: thePageRHeaderTop, thePageRHeaderSep
 */
-background-color: #815e9;
+background-color: #83eff3;
 } /* thePageRHeader */
 
 #thePageRBodyLHeader {
@@ -43,7 +43,7 @@ background-color: #815e9;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #6ad480;
+background-color: #73f69;
 } /* thePageRBodyLHeader */
 
 #thePageRBodyLContent {
@@ -51,7 +51,7 @@ background-color: #6ad480;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #bacb6a;
+background-color: #3383b8;
 } /* thePageRBodyLContent */
 
 #thePageRBodyLeft {
@@ -60,7 +60,7 @@ parent: thePageRBody
 children: thePageRBodyLHeader, thePageRBodyLContent
 */
 height: 600px ;
-background-color: #a13dd3;
+background-color: #c12062;
 } /* thePageRBodyLeft */
 
 #thePageRBodyRight {
@@ -69,7 +69,7 @@ parent: thePageRBody
 children: 
 */
 height: 600px ;
-background-color: #388a35;
+background-color: #7f44d9;
 } /* thePageRBodyRight */
 
 #thePageRBody {
@@ -77,7 +77,7 @@ background-color: #388a35;
 parent: thePageRight
 children: thePageRBodyLeft, thePageRBodyRight
 */
-background-color: #dc41d2;
+background-color: #2a01f;
 } /* thePageRBody */
 
 #thePageRFooterSep {
@@ -85,7 +85,7 @@ background-color: #dc41d2;
 parent: thePageRFooter
 children: 
 */
-background-color: #7126d0;
+background-color: #28b0;
 } /* thePageRFooterSep */
 
 #thePageRFooterRest {
@@ -93,7 +93,7 @@ background-color: #7126d0;
 parent: thePageRFooter
 children: 
 */
-background-color: #e12ee5;
+background-color: #8b8b9f;
 } /* thePageRFooterRest */
 
 #thePageRFooter {
@@ -101,7 +101,7 @@ background-color: #e12ee5;
 parent: thePageRight
 children: thePageRFooterSep, thePageRFooterRest
 */
-background-color: #82259;
+background-color: #cbfef7;
 } /* thePageRFooter */
 
 #thePageRight {
@@ -109,7 +109,7 @@ background-color: #82259;
 parent: thePage
 children: thePageRHeader, thePageRBody, thePageRFooter
 */
-background-color: #247770;
+background-color: #ab889;
 } /* thePageRight */
 
 #thePage {
@@ -117,7 +117,7 @@ background-color: #247770;
 parent: theBodyProp
 children: thePageLeft, thePageRight
 */
-background-color: #f7eac7;
+background-color: #744f98;
 } /* thePage */
 
 #theBodyProp {
@@ -154,7 +154,9 @@ background-color: #213449; /* dark blue */
 <tr>
 <td style="vertical-align: top; width: 15%;">
 <div id="thePageLeft">
-[thePageLeft]
+<?php
+include './thePageLeft/main.php';
+?>
 </div><!--thePageLeft-->
 </td>
 
