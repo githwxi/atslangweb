@@ -20,15 +20,19 @@ short program of functional style:<br>
 
 <TEXTAREA
  ID="hello_dats"
- ROWS="9" COLS="36">
+ ROWS="13" COLS="38">
 //
 // Say Hello! once
 //
-val()=print"Hello!"
+val () = print"Hello!"
 //
 // Say Hello! 5 times
 //
-val()=repeat(5, print"Hello!")
+val () =
+  repeat (5, a) where
+{
+  val a = $delay(print"Hello!")
+}
 //
 </TEXTAREA>
 
@@ -42,7 +46,7 @@ at compile-time:<br>
 
 <TEXTAREA
  ID="listsub_dats"
- ROWS="10" COLS="36">
+ ROWS="10" COLS="38">
 //
 // Build a list of 3
 //

@@ -19,7 +19,11 @@ memory-wise and supports a variety of programming paradigms that include:
 <ul>
 
 <li>
-ATS can enforce great precision in practical programming.
+ATS can greatly enforce precision in practical programming.
+</li>
+
+<li>
+ATS can greatly facilitate refinement-based software development.
 </li>
 
 <li>
@@ -43,8 +47,9 @@ kernels.
 </li>
 
 <li>
-ATS can help teach type theory, demonstrating concretely
-the power and potential of types in constructing high-quality software.
+ATS can help teach type theory, demonstrating both convincingly and
+concretely the power and potential of types in constructing high-quality
+software.
 </li>
 
 </ul>
