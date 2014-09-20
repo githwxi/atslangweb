@@ -1,6 +1,9 @@
 <?php
 //
-$MYPHPDIR = "SERVER/mycode";
+$MYPHPDIR = "";
+/*
+$MYPHPDIR = "SERVER/mycode"; // for testing
+*/
 //
 include
 "./$MYPHPDIR/libatscc2php_all.php";
