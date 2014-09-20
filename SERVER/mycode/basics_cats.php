@@ -64,6 +64,8 @@ $atslangweb__patsopt_atscc2js_preamble = "
 #include
 \"{\$LIBATSCC2JS}/staloadall.hats\"
 //
+staload \"{\$LIBATSCC2JS}/SATS/print.sats\"
+//
 #define ATS_MAINATSFLAG 1
 #define ATS_DYNLOADNAME \"my_dynload\"
 //
