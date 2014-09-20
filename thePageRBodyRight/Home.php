@@ -16,7 +16,7 @@
 </style>
 
 ATS is versatile in its support for programming syntax.
-For example, a short program in ATS of functional style is given as
+For example, a tiny program in ATS of functional style is given as
 follows:<br>
 
 <TEXTAREA
@@ -41,9 +41,9 @@ repeat(5, a) where
 
 <p>
 
-ATS allows for great precision in typechecking.
-The following code demonstrates the detection of out-of-bounds subscripting
-at compile-time:<br>
+ATS allows for great precision in typechecking.  The following code
+demonstrates the ability of ATS to detect out-of-bounds subscripting at
+compile-time:<br>
 
 <TEXTAREA
  ID="listsub_dats"
