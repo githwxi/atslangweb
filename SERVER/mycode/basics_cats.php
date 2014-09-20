@@ -63,10 +63,11 @@ $atslangweb__patsopt_atscc2js_preamble = "
 \"share/atspre_define.hats\"
 #include
 \"{\$LIBATSCC2JS}/staloadall.hats\"
-" ; // end of [$atslangweb__patsopt_atscc2js_preamble]
 //
 #define ATS_MAINATSFLAG 1
 #define ATS_DYNLOADNAME \"my_dynload\"
+//
+" ; // end of [$atslangweb__patsopt_atscc2js_preamble]
 //
 $atslangweb__patsopt_atscc2js_postamble = "
 %{\$
