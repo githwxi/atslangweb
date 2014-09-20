@@ -16,6 +16,7 @@ putenv("PATSHOME=$PATSHOME");
 $PATSHOMERELOC = "$HOME/app-root/repo/ats2-lang-contrib";
 putenv("PATSHOMERELOC=$PATSHOMERELOC");
 //
+$PATH = getenv("PATH");
 putenv("PATH=$PATH:$PATSHOME/bin");
 //
 $mycode =
