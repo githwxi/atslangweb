@@ -29,7 +29,7 @@ val () = print"Hello!"
 // Say Hello! 5 times
 //
 val () =
-  repeat (5, a) where
+repeat(5, a) where
 {
   val a = $delay(print"Hello!")
 } (* end of [where] *)
