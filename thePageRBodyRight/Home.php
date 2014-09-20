@@ -25,14 +25,14 @@ follows:<br>
 //
 // Say Hello! once
 //
-val () = print"Hello!"
+val () = print"Hello!\n"
 //
 // Say Hello! 5 times
 //
 val () =
 repeat(5, a) where
 {
-  val a = $delay(print"Hello!")
+  val a = $delay(print"Hello!\n")
 } (* end of [where] *)
 //
 </TEXTAREA>

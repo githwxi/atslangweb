@@ -36,27 +36,14 @@ atslangweb__exec_retval
 
 /* ****** ****** */
 //
-$atslangweb__patsopt_code_preamble = "
+$atslangweb__patsopt_tcats_preamble = "
 #include
 \"share/atspre_define.hats\"
-staload\"{\$LIBATSCC2JS}/staloadall.hats\"
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNFLAGNAME \"my_dynload\"
-" ; // end of [$atslangweb__patsopt_code_preamble]
+#include
+\"share/HATS/atspre_staload_libats_ML.hats\"
+" ; // end of [$atslangweb__patsopt_tcats_preamble]
 //
-$atslangweb__patsopt_code_postamble = "
-%{\$
-//
-function
-my_main()
-{
-ats2jspre_the_print_store_clear();
-my_dyload();
-alert(ats2jspre_the_print_store_join());
-}
-//
-%} // end of [%{\001]
-" ; // end of [$atslangweb__patsopt_code_postamble]
+$atslangweb__patsopt_tcats_postamble = ""
 //
 /* ****** ****** */
 
