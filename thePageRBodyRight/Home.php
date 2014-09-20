@@ -15,8 +15,9 @@
 }
 </style>
 
-ATS is versatile in its support for programming syntax.  Following is a
-short program of functional style:<br>
+ATS is versatile in its support for programming syntax.
+For example, a short program in ATS of functional style is given as
+follows:<br>
 
 <TEXTAREA
  ID="hello_dats"
