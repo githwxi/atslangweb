@@ -36,7 +36,7 @@ repeat(5, a) where
 //
 </TEXTAREA>
 
-<button type="button" onclick="HOME_hello_onclick()">Try-it-yourself</button>
+<button type="button" onclick="Home_hello_onclick()">Try-it-yourself</button>
 
 <p>
 

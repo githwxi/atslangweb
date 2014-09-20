@@ -11,7 +11,7 @@
 parent: thePage
 children: 
 */
-background-color: #d5837;
+background-color: #b2a91c;
 } /* thePageLeft */
 
 #thePageRHeaderTop {
@@ -19,7 +19,7 @@ background-color: #d5837;
 parent: thePageRHeader
 children: 
 */
-background-color: #ff4c70;
+background-color: #a4fab0;
 } /* thePageRHeaderTop */
 
 #thePageRHeaderSep {
@@ -27,7 +27,7 @@ background-color: #ff4c70;
 parent: thePageRHeader
 children: 
 */
-background-color: #16b0d8;
+background-color: #7114f;
 } /* thePageRHeaderSep */
 
 #thePageRHeader {
@@ -35,7 +35,7 @@ background-color: #16b0d8;
 parent: thePageRight
 children: thePageRHeaderTop, thePageRHeaderSep
 */
-background-color: #c871de;
+background-color: #54d1e8;
 } /* thePageRHeader */
 
 #thePageRBodyLHeader {
@@ -43,7 +43,7 @@ background-color: #c871de;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #6cac6c;
+background-color: #61de0;
 } /* thePageRBodyLHeader */
 
 #thePageRBodyLContent {
@@ -51,7 +51,7 @@ background-color: #6cac6c;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #df5c9;
+background-color: #9f92f3;
 } /* thePageRBodyLContent */
 
 #thePageRBodyLeft {
@@ -59,7 +59,7 @@ background-color: #df5c9;
 parent: thePageRBody
 children: thePageRBodyLHeader, thePageRBodyLContent
 */
-background-color: #b4f789;
+background-color: #d399b;
 } /* thePageRBodyLeft */
 
 #thePageRBodyRight {
@@ -67,7 +67,7 @@ background-color: #b4f789;
 parent: thePageRBody
 children: 
 */
-background-color: #e18c1d;
+background-color: #99b68c;
 } /* thePageRBodyRight */
 
 #thePageRBody {
@@ -75,7 +75,7 @@ background-color: #e18c1d;
 parent: thePageRight
 children: thePageRBodyLeft, thePageRBodyRight
 */
-background-color: #b73d4c;
+background-color: #61ece0;
 } /* thePageRBody */
 
 #thePageRFooterSep {
@@ -83,7 +83,7 @@ background-color: #b73d4c;
 parent: thePageRFooter
 children: 
 */
-background-color: #548db3;
+background-color: #fb21c2;
 } /* thePageRFooterSep */
 
 #thePageRFooterRest {
@@ -91,7 +91,7 @@ background-color: #548db3;
 parent: thePageRFooter
 children: 
 */
-background-color: #f15525;
+background-color: #b47594;
 } /* thePageRFooterRest */
 
 #thePageRFooter {
@@ -99,7 +99,7 @@ background-color: #f15525;
 parent: thePageRight
 children: thePageRFooterSep, thePageRFooterRest
 */
-background-color: #1d3212;
+background-color: #df449c;
 } /* thePageRFooter */
 
 #thePageRight {
@@ -107,7 +107,7 @@ background-color: #1d3212;
 parent: thePage
 children: thePageRHeader, thePageRBody, thePageRFooter
 */
-background-color: #5ba19d;
+background-color: #dd26b9;
 } /* thePageRight */
 
 #thePage {
@@ -115,7 +115,7 @@ background-color: #5ba19d;
 parent: theBodyProp
 children: thePageLeft, thePageRight
 */
-background-color: #b09d3e;
+background-color: #b4f340;
 } /* thePage */
 
 #theBodyProp {
@@ -140,7 +140,9 @@ background-color: #213449; /* dark blue */
   text-align: center;
 }
 </style>
-<script src="./CLIENT/mycode/libatscc2js_all_cats.js"></script><script src="./CLIENT/mycode/atslangweb_utils_dats.js"></script></head>
+<script src="./CLIENT/mycode/libatscc2js_all.js"></script>
+<script src="./CLIENT/mycode/atslangweb_utils_dats.js"></script>
+</head>
 <body>
 <div id="theBodyProp">
 <div id="thePage">
