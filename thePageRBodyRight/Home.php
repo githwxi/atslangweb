@@ -60,6 +60,6 @@ val x3 = xs[3] // illegal
 //
 </TEXTAREA>
 
-<button type="button" onclick="">Try-it-yourself</button>
+<button type="button" onclick="Home_listsub_onclick()">Try-it-yourself</button>
 
 <?php /* end of [Home.php] */ ?>
