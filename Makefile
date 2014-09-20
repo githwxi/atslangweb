@@ -20,6 +20,7 @@ all:: thePageRHeaderSep
 all:: thePageRBodyLHeader
 all:: thePageRBodyLContent
 all:: thePageRBodyRight
+all:: CLIENT_mycode
 all:: SERVER_mycode
 
 ######
@@ -41,6 +42,7 @@ $(CPF) $(SOURCE)/thePageRBodyRight/Home.php ./thePageRBodyRight/.
 #
 ######
 
+CLIENT_mycode:: ; $(CPF) $(SOURCE)/CLIENT/mycode/*.js ./CLIENT/mycode/.
 SERVER_mycode:: ; $(CPF) $(SOURCE)/SERVER/mycode/*.php ./SERVER/mycode/.
 
 ######
