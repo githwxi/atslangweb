@@ -36,14 +36,47 @@ atslangweb__exec_retval
 
 /* ****** ****** */
 //
-$atslangweb__patsopt_tcats_preamble = "
+$atslangweb__patsopt_tcats_preamble = '
 #include
-\"share/atspre_define.hats\"
+"share/atspre_define.hats"
 #include
-\"share/HATS/atspre_staload_libats_ML.hats\"
-" ; // end of [$atslangweb__patsopt_tcats_preamble]
+"share/HATS/atspre_staload_libats_ML.hats"
+' ; // end of [$atslangweb__patsopt_tcats_preamble]
 //
 $atslangweb__patsopt_tcats_postamble = ""
+//
+/* ****** ****** */
+//
+$atslangweb__patsopt_ccats_preamble = '
+#include
+"share/atspre_define.hats"
+#include
+"share/HATS/atspre_staload_libats_ML.hats"
+' ; // end of [$atslangweb__patsopt_ccats_preamble]
+//
+$atslangweb__patsopt_ccats_postamble = ""
+//
+/* ****** ****** */
+//
+$atslangweb__patsopt_atscc2js_preamble = '
+#include
+"share/atspre_define.hats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
+' ; // end of [$atslangweb__patsopt_atscc2js_preamble]
+//
+#define ATS_MAINATSFLAG 1
+#define ATS_DYNLOADNAME "my_dynload"
+//
+$atslangweb__patsopt_atscc2js_postamble = '
+%{$
+//
+ats2jspre_the_print_store_clear();
+my_dynload();
+alert(ats2jspre_the_print_store_join());
+//
+%} // end of [%{$}
+' ; // end of [$atslangweb__patsopt_atscc2js_postamble]
 //
 /* ****** ****** */
 
