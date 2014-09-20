@@ -1,6 +1,6 @@
 #
 # Makefile for
-# ATS-parse-emit-php
+# ATS-parse-emit-javascript
 #
 
 ######
@@ -15,8 +15,8 @@ CFLAGS += -O2
 ######
 
 LDFLAGS += -lm
-# LDFLAGS += -lgc
-# MALLOCFLAG = -DATS_MEMALLOC_GCBDW
+LDFLAGS += -lgc
+MALLOCFLAG = -DATS_MEMALLOC_GCBDW
 
 ######
 
@@ -49,14 +49,14 @@ SOURCES_DATS += atsparemit_parsing_instr.dats
 SOURCES_DATS += atsparemit_emit.dats
 SOURCES_DATS += atsparemit_typedef.dats
 #
-SOURCES_DATS += atsparemit_emit_php.dats
-SOURCES_DATS += atsparemit_emit2_php.dats
+SOURCES_DATS += atsparemit_emit_js.dats
+SOURCES_DATS += atsparemit_emit2_js.dats
 #
-SOURCES_DATS += atsparemit_main_php.dats
+SOURCES_DATS += atsparemit_main_js.dats
 #
 ######
 
-MYTARGET=atscc2php
+MYTARGET=atscc2js
 
 ######
 
@@ -73,7 +73,7 @@ cleanats:: ; $(RMF) *_?ats.c
 
 ######
 
-cleanall:: ; $(RMF) atscc2php
+cleanall:: ; $(RMF) atscc2js
 
 ######
 
