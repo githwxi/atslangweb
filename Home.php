@@ -11,7 +11,7 @@
 parent: thePage
 children: 
 */
-background-color: #7331e1;
+background-color: #f63b2b;
 } /* thePageLeft */
 
 #thePageRHeaderTop {
@@ -19,7 +19,7 @@ background-color: #7331e1;
 parent: thePageRHeader
 children: 
 */
-background-color: #86111c;
+background-color: #24994;
 } /* thePageRHeaderTop */
 
 #thePageRHeaderSep {
@@ -27,7 +27,7 @@ background-color: #86111c;
 parent: thePageRHeader
 children: 
 */
-background-color: #dfa023;
+background-color: #517ed1;
 } /* thePageRHeaderSep */
 
 #thePageRHeader {
@@ -35,7 +35,7 @@ background-color: #dfa023;
 parent: thePageRight
 children: thePageRHeaderTop, thePageRHeaderSep
 */
-background-color: #f720da;
+background-color: #b3981f;
 } /* thePageRHeader */
 
 #thePageRBodyLHeader {
@@ -43,7 +43,7 @@ background-color: #f720da;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #15ef5b;
+background-color: #466222;
 } /* thePageRBodyLHeader */
 
 #thePageRBodyLContent {
@@ -51,7 +51,7 @@ background-color: #15ef5b;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #79dae8;
+background-color: #4312cd;
 } /* thePageRBodyLContent */
 
 #thePageRBodyLeft {
@@ -59,7 +59,7 @@ background-color: #79dae8;
 parent: thePageRBody
 children: thePageRBodyLHeader, thePageRBodyLContent
 */
-background-color: #89a8;
+background-color: #ef2816;
 } /* thePageRBodyLeft */
 
 #thePageRBodyRight {
@@ -67,7 +67,7 @@ background-color: #89a8;
 parent: thePageRBody
 children: 
 */
-background-color: #3c26c5;
+background-color: #f541fc;
 } /* thePageRBodyRight */
 
 #thePageRBody {
@@ -75,7 +75,7 @@ background-color: #3c26c5;
 parent: thePageRight
 children: thePageRBodyLeft, thePageRBodyRight
 */
-background-color: #ca228b;
+background-color: #d152dd;
 } /* thePageRBody */
 
 #thePageRFooterSep {
@@ -83,7 +83,7 @@ background-color: #ca228b;
 parent: thePageRFooter
 children: 
 */
-background-color: #e470f6;
+background-color: #1440f2;
 } /* thePageRFooterSep */
 
 #thePageRFooterRest {
@@ -91,7 +91,7 @@ background-color: #e470f6;
 parent: thePageRFooter
 children: 
 */
-background-color: #586717;
+background-color: #d2f48b;
 } /* thePageRFooterRest */
 
 #thePageRFooter {
@@ -99,7 +99,7 @@ background-color: #586717;
 parent: thePageRight
 children: thePageRFooterSep, thePageRFooterRest
 */
-background-color: #34d19;
+background-color: #e999;
 } /* thePageRFooter */
 
 #thePageRight {
@@ -107,7 +107,7 @@ background-color: #34d19;
 parent: thePage
 children: thePageRHeader, thePageRBody, thePageRFooter
 */
-background-color: #22dd74;
+background-color: #37e9bd;
 } /* thePageRight */
 
 #thePage {
@@ -115,7 +115,7 @@ background-color: #22dd74;
 parent: theBodyProp
 children: thePageLeft, thePageRight
 */
-background-color: #ea8d89;
+background-color: #b0aba6;
 } /* thePage */
 
 #theBodyProp {

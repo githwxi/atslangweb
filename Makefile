@@ -20,6 +20,7 @@ all:: Downloads
 #
 Home:: ; $(CPF) $(SOURCE)/Home.php .
 Downloads:: ; $(CPF) $(SOURCE)/Downloads.php .
+Documents:: ; $(CPF) $(SOURCE)/Documents.php .
 #
 ######
 
@@ -47,6 +48,8 @@ thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Home.php ./thePageRBodyLHeader/.
 thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Downloads.php ./thePageRBodyLHeader/.
+thePageRBodyLHeader:: ; \
+$(CPF) $(SOURCE)/thePageRBodyLHeader/Documents.php ./thePageRBodyLHeader/.
 #
 thePageRBodyLContent:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLContent/Home.php ./thePageRBodyLContent/.
