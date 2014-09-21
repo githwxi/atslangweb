@@ -66,8 +66,9 @@ val x3 = xs[3] // illegal
 <p>
 
 The template system of ATS provides a highly flexible approach to code
-sharing. The following example show probably reminds someone of
-higher-order functions but it is every bit a first-order implementation:
+sharing. The following example should probably reminds someone of
+higher-order functions but it is actually every bit of a first-order
+implementation:
 
 <TEXTAREA
  ID="repeat_f0f1_dats"
@@ -81,7 +82,8 @@ extern
 fun{}
 repeat_f0f1 (n: int): int
 //
-implement{}
+implement
+{}(*tmp*)
 repeat_f0f1(n) =
   if n = 0
     then f0()
@@ -89,8 +91,9 @@ repeat_f0f1(n) =
   // end of [if]
 //
 fun
-times
-  (m:int, n:int) =
+times (
+  m:int, n:int
+) : int = // m*n
   repeat_f0f1 (m) where
 {
   implement f0<> () = 0
@@ -98,8 +101,9 @@ times
 }
 //
 fun
-power
-  (m:int, n:int): int =
+power (
+  m:int, n:int
+) : int = // m^n
   repeat_f0f1 (n) where
 {
   implement f0<> () = 1
