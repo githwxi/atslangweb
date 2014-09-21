@@ -18,7 +18,7 @@ all:: Downloads
 
 ######
 #
-Home:: ; $(CPF) $(SOURCE)/index.php .
+Home:: ; $(CPF) $(SOURCE)/Home.php .
 Downloads:: ; $(CPF) $(SOURCE)/Downloads.php .
 #
 ######
