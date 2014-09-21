@@ -18,4 +18,4 @@
 </style>
 <div id="theHeaderLine1">The ATS Programming Language</div>
 <div id="theHeaderLine2">Unleashing the Potential of Types and Templates!</div>
-<?php /* end of [main.php] */ ?>
+<?php /* end of [Home.php] */ ?>

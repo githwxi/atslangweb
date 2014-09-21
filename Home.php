@@ -11,7 +11,7 @@
 parent: thePage
 children: 
 */
-background-color: #f63b2b;
+background-color: #77f2a;
 } /* thePageLeft */
 
 #thePageRHeaderTop {
@@ -19,7 +19,7 @@ background-color: #f63b2b;
 parent: thePageRHeader
 children: 
 */
-background-color: #24994;
+background-color: #6cfbd8;
 } /* thePageRHeaderTop */
 
 #thePageRHeaderSep {
@@ -27,7 +27,7 @@ background-color: #24994;
 parent: thePageRHeader
 children: 
 */
-background-color: #517ed1;
+background-color: #9fedaa;
 } /* thePageRHeaderSep */
 
 #thePageRHeader {
@@ -35,7 +35,7 @@ background-color: #517ed1;
 parent: thePageRight
 children: thePageRHeaderTop, thePageRHeaderSep
 */
-background-color: #b3981f;
+background-color: #8c91bc;
 } /* thePageRHeader */
 
 #thePageRBodyLHeader {
@@ -43,7 +43,7 @@ background-color: #b3981f;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #466222;
+background-color: #19c22a;
 } /* thePageRBodyLHeader */
 
 #thePageRBodyLContent {
@@ -51,7 +51,7 @@ background-color: #466222;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #4312cd;
+background-color: #7fb8b0;
 } /* thePageRBodyLContent */
 
 #thePageRBodyLeft {
@@ -59,7 +59,7 @@ background-color: #4312cd;
 parent: thePageRBody
 children: thePageRBodyLHeader, thePageRBodyLContent
 */
-background-color: #ef2816;
+background-color: #6cd95e;
 } /* thePageRBodyLeft */
 
 #thePageRBodyRight {
@@ -67,7 +67,7 @@ background-color: #ef2816;
 parent: thePageRBody
 children: 
 */
-background-color: #f541fc;
+background-color: #93fd5c;
 } /* thePageRBodyRight */
 
 #thePageRBody {
@@ -75,7 +75,7 @@ background-color: #f541fc;
 parent: thePageRight
 children: thePageRBodyLeft, thePageRBodyRight
 */
-background-color: #d152dd;
+background-color: #452237;
 } /* thePageRBody */
 
 #thePageRFooterSep {
@@ -83,7 +83,7 @@ background-color: #d152dd;
 parent: thePageRFooter
 children: 
 */
-background-color: #1440f2;
+background-color: #e4388c;
 } /* thePageRFooterSep */
 
 #thePageRFooterRest {
@@ -91,7 +91,7 @@ background-color: #1440f2;
 parent: thePageRFooter
 children: 
 */
-background-color: #d2f48b;
+background-color: #7bc51d;
 } /* thePageRFooterRest */
 
 #thePageRFooter {
@@ -99,7 +99,7 @@ background-color: #d2f48b;
 parent: thePageRight
 children: thePageRFooterSep, thePageRFooterRest
 */
-background-color: #e999;
+background-color: #b9bf2f;
 } /* thePageRFooter */
 
 #thePageRight {
@@ -107,7 +107,7 @@ background-color: #e999;
 parent: thePage
 children: thePageRHeader, thePageRBody, thePageRFooter
 */
-background-color: #37e9bd;
+background-color: #795d97;
 } /* thePageRight */
 
 #thePage {
@@ -115,7 +115,7 @@ background-color: #37e9bd;
 parent: theBodyProp
 children: thePageLeft, thePageRight
 */
-background-color: #b0aba6;
+background-color: #f6863a;
 } /* thePage */
 
 #theBodyProp {
@@ -152,7 +152,7 @@ background-color: #213449; /* dark blue */
 <td style="vertical-align: top; width: 15%;">
 <div id="thePageLeft">
 <?php
-include './thePageLeft/main.php';
+include './thePageLeft/Home.php';
 ?>
 </div><!--thePageLeft-->
 </td>
@@ -162,13 +162,13 @@ include './thePageLeft/main.php';
 <div id="thePageRHeader">
 <div id="thePageRHeaderTop">
 <?php
-include './thePageRHeaderTop/main.php';
+include './thePageRHeaderTop/Home.php';
 ?>
 </div><!--thePageRHeaderTop-->
 
 <div id="thePageRHeaderSep">
 <?php
-include './thePageRHeaderSep/main.php';
+include './thePageRHeaderSep/Home.php';
 ?>
 </div><!--thePageRHeaderSep-->
 </div><!--thePageRHeader-->

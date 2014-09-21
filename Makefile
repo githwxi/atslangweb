@@ -37,13 +37,13 @@ all:: SERVER_mycode
 ######
 #
 thePageLeft:: ; \
-$(CPF) $(SOURCE)/thePageLeft/main.php ./thePageLeft/.
+$(CPF) $(SOURCE)/thePageLeft/Home.php ./thePageLeft/.
 #
 thePageRHeaderTop:: ; \
-$(CPF) $(SOURCE)/thePageRHeaderTop/main.php ./thePageRHeaderTop/.
+$(CPF) $(SOURCE)/thePageRHeaderTop/Home.php ./thePageRHeaderTop/.
 #
 thePageRHeaderSep:: ; \
-$(CPF) $(SOURCE)/thePageRHeaderSep/main.php ./thePageRHeaderSep/.
+$(CPF) $(SOURCE)/thePageRHeaderSep/Home.php ./thePageRHeaderSep/.
 #
 thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Home.php ./thePageRBodyLHeader/.
