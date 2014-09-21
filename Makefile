@@ -36,14 +36,21 @@ all:: SERVER_mycode
 #
 thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/main.php ./thePageLeft/.
+#
 thePageRHeaderTop:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderTop/main.php ./thePageRHeaderTop/.
+#
 thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/main.php ./thePageRHeaderSep/.
+#
 thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Home.php ./thePageRBodyLHeader/.
+thePageRBodyLHeader:: ; \
+$(CPF) $(SOURCE)/thePageRBodyLHeader/Downloads.php ./thePageRBodyLHeader/.
+#
 thePageRBodyLContent:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLContent/Home.php ./thePageRBodyLContent/.
+#
 thePageRBodyRight:: ; \
 $(CPF) $(SOURCE)/thePageRBodyRight/Home.php ./thePageRBodyRight/.
 #
