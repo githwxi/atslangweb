@@ -27,10 +27,10 @@ follows:<br>
 //
 val () = print"Hello!\n"
 //
-// Say Hello! 5 times
+// Say Hello! 3 times
 //
 val () =
-repeat(5, a) where
+repeat(3, a) where
 {
   val a = $delay(print"Hello!")
 } (* end of [where] *)
@@ -42,8 +42,8 @@ val () = print_newline((*void*))
 
 <p>
 
-ATS allows for great precision in typechecking.  The following code
-demonstrates the ability of ATS to detect out-of-bounds subscripting at
+ATS can support typechecking with great precision. The following code
+demonstrates the ability of ATS in detecting out-of-bounds subscripting at
 compile-time:<br>
 
 <TEXTAREA
@@ -62,5 +62,51 @@ val x3 = xs[3] // illegal
 </TEXTAREA>
 
 <button type="button" onclick="Home_listsub_onclick()">Try-it-yourself</button>
+
+<p>
+
+<TEXTAREA
+ ID="listsub_dats"
+ ROWS="10" COLS="38">
+//
+extern
+fun{} f0 (): int
+extern
+fun{} f1 (n: int): int
+extern
+fun{}
+repeat_f0_f1 (n: int): int
+//
+implement{}
+repeat_f0_f1(n) =
+  if n = 0
+    then f0()
+    else f1(repeat_f0_f1(n-1))
+  // end of [if]
+//
+fun
+times2 (n) =
+  repeat_f0_f1(n) where
+{
+  implement f0<> () = 0
+  implement f1<> (n) = n + 2
+}
+//
+fun
+power2 (n) =
+  repeat_f0_f1(n) where
+{
+  implement f0<> () = 1
+  implement f1<> (n) = 2 * n
+}
+//
+val () =
+println! ("times2(10) = ", times2(10))
+val () =
+println! ("power2(10) = ", power2(10))
+//
+</TEXTAREA>
+
+<button type="button" onclick="Home_repeat_f0_f1_onclick()">Try-it-yourself</button>
 
 <?php /* end of [Home.php] */ ?>
