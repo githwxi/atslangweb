@@ -47,7 +47,7 @@ val () = print_newline((*void*))
 
 <p>
 
-ATS can support (static) typechecking with great precision.
+ATS enables (static) typechecking with great precision.
 The following code demonstrates the ability of ATS in detecting
 out-of-bounds subscripting at compile-time:<br>
 
@@ -70,10 +70,10 @@ val x3 = xs[3] // illegal
 
 <p>
 
-The template system of ATS provides a highly flexible approach to code
-sharing. The following example should probably reminds someone of
-higher-order functions but it is actually every bit of a first-order
-implementation:
+ATS supports a template-based approach to code sharing that is both
+effective and flexible. As an example, the following code should probably
+remind someone of higher-order functions but it is actually every bit of a
+first-order implementation in ATS:
 
 <TEXTAREA
  ID="repeat_f0f1_dats"

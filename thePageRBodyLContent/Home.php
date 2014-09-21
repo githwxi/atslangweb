@@ -10,8 +10,9 @@ dependent types and linear types are available in ATS.
 
 <p>
 The current implementation of ATS2 (ATS/Postiats) is written in ATS1
-(ATS/Anairiats). ATS can be as efficient as C/C++ both time-wise and
-memory-wise and supports a variety of programming paradigms that include:
+(ATS/Anairiats), consisting of more than 150K lines of code. ATS can be as
+efficient as C/C++ both time-wise and memory-wise and supports a variety of
+programming paradigms that include:
 </p>
 
 <h2>What is ATS good for?</h2>
