@@ -67,7 +67,7 @@ val x3 = xs[3] // illegal
 
 <TEXTAREA
  ID="listsub_dats"
- ROWS="10" COLS="38">
+ ROWS="38" COLS="38">
 //
 extern
 fun{} f0 (): int
