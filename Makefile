@@ -13,7 +13,16 @@ RMF=rm -f
 
 ######
 
-all:: index
+all:: Home
+all:: Downloads
+
+######
+#
+Home:: ; $(CPF) $(SOURCE)/index.php .
+Downloads:: ; $(CPF) $(SOURCE)/Downloads.php .
+#
+######
+
 all:: thePageLeft
 all:: thePageRHeaderTop
 all:: thePageRHeaderSep
@@ -24,8 +33,6 @@ all:: CLIENT_mycode
 all:: SERVER_mycode
 
 ######
-#
-index:: ; $(CPF) $(SOURCE)/index.php index.php
 #
 thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/main.php ./thePageLeft/.
