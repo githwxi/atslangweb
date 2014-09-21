@@ -15,6 +15,7 @@ RMF=rm -f
 
 all:: Home
 all:: Downloads
+all:: Documents
 
 ######
 #
