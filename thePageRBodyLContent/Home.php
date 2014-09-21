@@ -15,6 +15,45 @@ efficient as C/C++ both time-wise and memory-wise and supports a variety of
 programming paradigms that include:
 </p>
 
+<ul>
+<li>
+<strong>Functional programming</strong>.
+The core of ATS is a functional language based on eager
+(aka. call-by-value) evaluation, which can also accommodate lazy
+(aka. call-by-need) evaluation. The availability of linear types in ATS
+often makes functional programs written in it run not only with
+surprisingly high efficiency (when compared to C) but also with
+surprisingly small (memory) footprint (when compared to C as well).
+</li>
+
+<li>
+<strong>Imperative programming</strong>.
+The novel and unique approach to imperative programming in ATS is firmly
+rooted in the paradigm of <em>programming with theorem-proving</em>. The
+type system of ATS allows many features considered dangerous in other
+languages (e.g., explicit pointer arithmetic and explicit memory
+allocation/deallocation) to be safely supported in ATS, making ATS a viable
+programming language for low-level systems programming.
+</li>
+
+<li>
+<strong>Concurrent programming</strong>.
+ATS, equipped with a multicore-safe implementation of garbage collection,
+can support multithreaded programming through the use of pthreads. The
+availability of linear types for tracking and safely manipulating resources
+provides an effective means to constructing reliable programs that can take
+advantage of multicore architectures.
+</li>
+
+<li>
+<strong>Modular programming</strong>.
+The module system of ATS is largely infuenced by that of Modula-3, which is
+both simple and general as well as effective in supporting large scale
+programming.
+</li>
+
+</ul>
+
 <h2>What is ATS good for?</h2>
 
 <ul>
