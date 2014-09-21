@@ -66,7 +66,7 @@ val x3 = xs[3] // illegal
 <p>
 
 <TEXTAREA
- ID="listsub_dats"
+ ID="repeat_f0f1_dats"
  ROWS="38" COLS="38">
 //
 extern
@@ -75,18 +75,18 @@ extern
 fun{} f1 (n: int): int
 extern
 fun{}
-repeat_f0_f1 (n: int): int
+repeat_f0f1 (n: int): int
 //
 implement{}
-repeat_f0_f1(n) =
+repeat_f0f1(n) =
   if n = 0
     then f0()
-    else f1(repeat_f0_f1(n-1))
+    else f1(repeat_f0f1(n-1))
   // end of [if]
 //
 fun
 times2 (n) =
-  repeat_f0_f1(n) where
+  repeat_f0f1(n) where
 {
   implement f0<> () = 0
   implement f1<> (n) = n + 2
@@ -94,19 +94,19 @@ times2 (n) =
 //
 fun
 power2 (n) =
-  repeat_f0_f1(n) where
+  repeat_f0f1(n) where
 {
   implement f0<> () = 1
   implement f1<> (n) = 2 * n
 }
 //
 val () =
-println! ("times2(10) = ", times2(10))
+println! ("2*10 = ", times2(10))
 val () =
-println! ("power2(10) = ", power2(10))
+println! ("2^10 = ", power2(10))
 //
 </TEXTAREA>
 
-<button type="button" onclick="Home_repeat_f0_f1_onclick()">Try-it-yourself</button>
+<button type="button" onclick="Home_repeat_f0f1_onclick()">Try-it-yourself</button>
 
 <?php /* end of [Home.php] */ ?>
