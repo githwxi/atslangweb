@@ -42,9 +42,9 @@ val () = print_newline((*void*))
 
 <p>
 
-ATS can support typechecking with great precision. The following code
-demonstrates the ability of ATS in detecting out-of-bounds subscripting at
-compile-time:<br>
+ATS can support (static) typechecking with great precision.
+The following code demonstrates the ability of ATS in detecting
+out-of-bounds subscripting at compile-time:<br>
 
 <TEXTAREA
  ID="listsub_dats"
@@ -65,14 +65,18 @@ val x3 = xs[3] // illegal
 
 <p>
 
+The template system of ATS provides a highly flexible approach to code
+sharing. The following example show probably reminds someone of
+higher-order functions but it is every bit a first-order implementation:
+
 <TEXTAREA
  ID="repeat_f0f1_dats"
- ROWS="38" COLS="38">
+ ROWS="16" COLS="38">
 //
 extern
 fun{} f0 (): int
 extern
-fun{} f1 (n: int): int
+fun{} f1 (x: int): int
 extern
 fun{}
 repeat_f0f1 (n: int): int
@@ -85,25 +89,29 @@ repeat_f0f1(n) =
   // end of [if]
 //
 fun
-times2 (n) =
-  repeat_f0f1(n) where
+times
+  (m:int, n:int) =
+  repeat_f0f1 (m) where
 {
   implement f0<> () = 0
-  implement f1<> (n) = n + 2
+  implement f1<> (x) = x + n
 }
 //
 fun
-power2 (n) =
-  repeat_f0f1(n) where
+power
+  (m:int, n:int): int =
+  repeat_f0f1 (n) where
 {
   implement f0<> () = 1
-  implement f1<> (n) = 2 * n
+  implement f1<> (x) = m * x
 }
 //
 val () =
-println! ("2*10 = ", times2(10))
+println! ("5*5 = ", times(5,5))
 val () =
-println! ("2^10 = ", power2(10))
+println! ("5^2 = ", power(5,2))
+val () =
+println! ("2^5 = ", power(2,5))
 //
 </TEXTAREA>
 
