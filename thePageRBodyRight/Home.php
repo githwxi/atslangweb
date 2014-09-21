@@ -21,7 +21,7 @@ follows:<br>
 
 <TEXTAREA
  ID="hello_dats"
- ROWS="13" COLS="38">
+ ROWS="14" COLS="38">
 //
 // Say Hello! once
 //
@@ -32,8 +32,9 @@ val () = print"Hello!\n"
 val () =
 repeat(5, a) where
 {
-  val a = $delay(print"Hello!\n")
+  val a = $delay(print"Hello!")
 } (* end of [where] *)
+val () = print_newline((*void*))
 //
 </TEXTAREA>
 
