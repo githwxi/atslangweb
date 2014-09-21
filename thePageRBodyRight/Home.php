@@ -1,11 +1,16 @@
 <style>
 #hello_dats {
-  font-size: 8pt;
+  font-size: 9pt;
   font-family: monospace;
   background-color: #c0c0c0;
 }
 #listsub_dats {
-  font-size: 8pt;
+  font-size: 9pt;
+  font-family: monospace;
+  background-color: #c0c0c0;
+}
+#repeat_f0f1_dats {
+  font-size: 9pt;
   font-family: monospace;
   background-color: #c0c0c0;
 }
