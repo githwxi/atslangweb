@@ -8,9 +8,9 @@ style="margin-left:8px;"
 -->
 
 <ul>
-<li>What is ATS?</hi>
-<li>What is ATS good for?</hi>
-<li>Acknowledgments</hi>
+<li><a href="#What_is_ATS">What is ATS?<a></li>
+<li><a href="#What_is_ATS_good_for">What is ATS good for?<a></li>
+<li><a href="#Acknowledgments">Acknowledgments</a></li>
 </ul>
 
 </div>

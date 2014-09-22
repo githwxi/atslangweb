@@ -3,10 +3,12 @@
 {
   color: #FFFFF0;
 }
+
 #thePageRHeaderSepL
 {
   text-align: left;
 }
+
 #thePageRHeaderSepL ul
 {
   margin: 0px;
@@ -17,6 +19,20 @@
 {
   display: inline;
 }
+
+#thePageRHeaderSepL a:link
+{
+  color: #FFFFF0;
+}
+#thePageRHeaderSepL a:hover
+{
+  color: #BFBFB0;
+}
+#thePageRHeaderSepL a:visited
+{
+  color: #8F8F80;
+}
+
 #thePageRHeaderSepR
 {
   float: right;
@@ -36,11 +52,11 @@
 <td width="75%">
 <div id="thePageRHeaderSepL">
 <ul>
-<li>Home</li>
-<li>Downloads</li>
-<li>Documents</li>
-<li>Libraries</li>
-<li>Communities</li>
+<li><a href="Home.php">Home</a></li>
+<li><a href="Downloads.php">Downloads</a></li>
+<li><a href="Documents.php">Documents</a></li>
+<li><a href="Libraries.php">Libraries</a></li>
+<li><a href="Communities.php">Communities</a></li>
 </ul>
 </div>
 </td>
