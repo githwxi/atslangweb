@@ -4,7 +4,7 @@ class="thePageRBodyLContent"
 
 <hr></hr>
 
-<h2>ATS packages for download</h2>
+<h2><a id="#ATS_packages">ATS packages for download</a><h2>
 
 <p>
 ATS is Open Source and Free Software, and it is freely available under the
@@ -14,7 +14,7 @@ ATS/Postiats or simply Postiats. Sometimes, this implementation is also
 referred to as ATS2 for it is the successor of the previous ATS programming
 language, which may be referred to as ATS1. The latest released
 ATS/Postiats packages are available at the following links: 
-<p>
+</p>
 
 </div>
 
