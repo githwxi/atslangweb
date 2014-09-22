@@ -17,12 +17,20 @@
 #thePageRBodyRight
 {
   font-size: 11pt;
+  background: #d1d360;
 }
 </style>
 
-ATS is versatile in its support for programming syntax.
-For example, a tiny program in ATS of functional style is given as
-follows:<br>
+<div
+style="margin-top:8px;padding-top:10px;padding-left:6px"
+>
+
+<h2 style="display:inline;">Yes, ATS can!</h2>
+
+<p>
+ATS is versatile in its support for programming syntax. For instance, the
+following tiny ATS program is written in a style of functional programming:
+</p>
 
 <TEXTAREA
  ID="hello_dats"
@@ -46,10 +54,9 @@ val () = print_newline((*void*))
 <button type="button" onclick="Home_hello_onclick()">Try-it-yourself</button>
 
 <p>
-
-ATS enables (static) typechecking with great precision.
-The following code demonstrates the ability of ATS in detecting
-out-of-bounds subscripting at compile-time:<br>
+ATS is both accurate and expressive in its support for (static)
+typechecking.  The following code demonstrates the ability of ATS in
+detecting out-of-bounds subscripting at compile-time: </p>
 
 <TEXTAREA
  ID="listsub_dats"
@@ -69,11 +76,11 @@ val x3 = xs[3] // illegal
 <button type="button" onclick="Home_listsub_onclick()">Try-it-yourself</button>
 
 <p>
-
-ATS supports a template-based approach to code sharing that is both
-effective and flexible. As an example, the following code should probably
+ATS is highly effective and flexible in its support for a template-based
+approach to code reuse. As an example, the following code is likely to
 remind someone of higher-order functions but it is actually every bit of a
 first-order implementation in ATS:
+</p>
 
 <TEXTAREA
  ID="repeat_f0f1_dats"
@@ -126,4 +133,5 @@ println! ("2^5 = ", power(2,5))
 
 <button type="button" onclick="Home_repeat_f0f1_onclick()">Try-it-yourself</button>
 
+</div>
 <?php /* end of [Home.php] */ ?>

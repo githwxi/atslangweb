@@ -3,6 +3,8 @@ style="margin-left:8px;"
 style="padding-top:12px;"
 >
 
+<hr></hr>
+
 <h2>What is ATS?</h2>
 <!--
 <h2 style="display:inline;">What is ATS?</h2>

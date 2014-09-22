@@ -76,6 +76,7 @@ children: thePageRBodyLeft, thePageRBodyRight
 parent: thePageRFooter
 children: 
 */
+background-color: #8f0222;
 } /* thePageRFooterSep */
 
 #thePageRFooterRest {

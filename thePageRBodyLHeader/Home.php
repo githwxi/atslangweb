@@ -1,6 +1,5 @@
 <div
 style="margin-left:8px;"
-style="padding-top:12px;"
 >
 
 <h1>About ATS</h1>
