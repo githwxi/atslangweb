@@ -1,6 +1,5 @@
 <div
-style="margin-left:8px;"
-style="padding-top:12px;"
+style="margin-left:8px;padding-top:12px;"
 >
 
 <hr></hr>
@@ -136,6 +135,8 @@ no. CNS-0202067, no. CCF-0702665 and no CCF-1018601.
 As always, <em>any opinions, findings, and conclusions or recommendations
 expressed here are those of the author(s) and do not necessarily reflect
 the views of the NSF.</em>
+
+<br></br>
 
 </div>
 

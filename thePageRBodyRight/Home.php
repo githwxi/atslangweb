@@ -38,7 +38,9 @@ following tiny ATS program is written in a style of functional programming:
 
 <TEXTAREA
  ID="hello_dats"
- ROWS="14" COLS="38">
+ ROWS="14" COLS="38"
+ style="color:#780c0c;"
+>
 //
 // Say Hello! once
 //
@@ -67,7 +69,9 @@ detecting out-of-bounds subscripting at compile-time:
 
 <TEXTAREA
  ID="listsub_dats"
- ROWS="10" COLS="38">
+ ROWS="10" COLS="38"
+ style="color:#780c0c;"
+>
 //
 // Build a list of 3
 //
@@ -93,7 +97,9 @@ first-order implementation in ATS:
 
 <TEXTAREA
  ID="repeat_f0f1_dats"
- ROWS="16" COLS="38">
+ ROWS="16" COLS="38"
+ style="color:#780c0c;"
+>
 //
 extern
 fun{} f0 (): int
