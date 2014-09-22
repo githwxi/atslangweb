@@ -138,6 +138,12 @@ body {
   background-color: #1e5799;
   background-image: linear-gradient(to right, #1e5799, #7db9e8);
 }
+.thePageRBodyLContent
+{
+  margin-left: 8px;
+  margin-right: 8px;
+  padding-top: 12px;
+}
 </style>
 <script src="./CLIENT/mycode/libatscc2js_all.js"></script>
 <script src="./CLIENT/mycode/libatscc2js_print_store.js"></script>
