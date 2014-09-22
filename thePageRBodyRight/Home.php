@@ -43,12 +43,12 @@ following tiny ATS program is written in a style of functional programming:
  ID="hello_dats" ROWS="14" COLS="38"
 >
 //
-// Say Hello! once
+// Yes, you can edit
 //
+(* Say Hello! once *)
 val () = print"Hello!\n"
 //
-// Say Hello! 3 times
-//
+(* Say Hello! 3 times *)
 val () =
 repeat(3, a) where
 {
@@ -72,12 +72,13 @@ detecting out-of-bounds subscripting at compile-time:
 </p>
 
 <TEXTAREA
- ID="listsub_dats" ROWS="10" COLS="38"
+ ID="listsub_dats" ROWS="11" COLS="38"
 >
 //
-// Build a list of 3
+// Yes, you can edit
 //
-val xs = $list(0,1,2)
+(* Build a list of 3 *)
+val xs = $list(0, 1, 2)
 //
 val x0 = xs[0] // legal
 val x1 = xs[1] // legal
@@ -104,13 +105,14 @@ first-order implementation in ATS:
  ID="repeat_f0f1_dats" ROWS="16" COLS="38"
 >
 //
+// Yes, you can edit
+//
 extern
 fun{} f0 (): int
 extern
-fun{} f1 (x: int): int
+fun{} f1 (int): int
 extern
-fun{}
-repeat_f0f1 (n: int): int
+fun{} repeat_f0f1 (int): int
 //
 implement
 {}(*tmp*)
