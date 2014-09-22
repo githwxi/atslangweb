@@ -58,7 +58,7 @@ action="https://www.google.com/cse"
 <td>
 <input
 id="thePageRHeaderSepR_input"
-type="text" name="q" size="24"
+type="text" name="q" size="21"
 onblur="if (/^\s*$/.test(this.value)) this.style.background='#FFFFF0 url(//www.google.com/coop/intl/en/images/google_custom_search_watermark.gif) left no-repeat'"
 onfocus="this.style.background='#FFFFF0'"
 />
