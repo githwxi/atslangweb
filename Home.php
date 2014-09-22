@@ -142,8 +142,8 @@ background-color: #213449; /* dark blue */
 <div id="theBodyProp">
 <div id="thePage">
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td style="vertical-align: top; width: 15%;">
+<tr height="100%">
+<td style="vertical-align:top;width:15%;">
 <div id="thePageLeft">
 <?php
 include './thePageLeft/Home.php';
@@ -151,7 +151,7 @@ include './thePageLeft/Home.php';
 </div><!--thePageLeft-->
 </td>
 
-<td style="vertical-align: top;">
+<td style="vertical-align:top;">
 <div id="thePageRight">
 <div id="thePageRHeader">
 <div id="thePageRHeaderTop">
@@ -169,8 +169,8 @@ include './thePageRHeaderSep/Home.php';
 
 <div id="thePageRBody">
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td style="vertical-align: top; width: 72%;">
+<tr height="100%">
+<td style="vertical-align:top;width:72%;">
 <div id="thePageRBodyLeft">
 <div id="thePageRBodyLHeader">
 <?php
@@ -186,7 +186,7 @@ include './thePageRBodyLContent/Home.php';
 </div><!--thePageRBodyLeft-->
 </td>
 
-<td style="vertical-align: top; width: 28%;">
+<td style="vertical-align:top;width:28%;">
 <div id="thePageRBodyRight">
 <?php
 include './thePageRBodyRight/Home.php';
