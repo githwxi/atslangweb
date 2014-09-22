@@ -46,6 +46,8 @@ thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/Home.php ./thePageRHeaderSep/.
 #
 thePageRBodyLHeader:: ; \
+$(CPF) $(SOURCE)/thePageRBodyLHeader/share.php ./thePageRBodyLHeader/.
+thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Home.php ./thePageRBodyLHeader/.
 thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Downloads.php ./thePageRBodyLHeader/.
