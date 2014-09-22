@@ -2,17 +2,20 @@
 #hello_dats {
   font-size: 9pt;
   font-family: monospace;
-  background-color: #c0c0c0;
+  color: #7f0c2c;
+  background-color: #eaeaea;
 }
 #listsub_dats {
   font-size: 9pt;
   font-family: monospace;
-  background-color: #c0c0c0;
+  color: #7f0c2c;
+  background-color: #eaeaea;
 }
 #repeat_f0f1_dats {
   font-size: 9pt;
   font-family: monospace;
-  background-color: #c0c0c0;
+  color: #7f0c2c;
+  background-color: #eaeaea;
 }
 #thePageRBodyRight
 {
@@ -39,7 +42,6 @@ following tiny ATS program is written in a style of functional programming:
 <TEXTAREA
  ID="hello_dats"
  ROWS="14" COLS="38"
- style="color:#780c0c;"
 >
 //
 // Say Hello! once
@@ -70,7 +72,6 @@ detecting out-of-bounds subscripting at compile-time:
 <TEXTAREA
  ID="listsub_dats"
  ROWS="10" COLS="38"
- style="color:#780c0c;"
 >
 //
 // Build a list of 3
@@ -98,7 +99,6 @@ first-order implementation in ATS:
 <TEXTAREA
  ID="repeat_f0f1_dats"
  ROWS="16" COLS="38"
- style="color:#780c0c;"
 >
 //
 extern
