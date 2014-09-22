@@ -43,6 +43,10 @@ thePageRHeaderTop:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderTop/Home.php ./thePageRHeaderTop/.
 #
 thePageRHeaderSep:: ; \
+$(CPF) $(SOURCE)/thePageRHeaderSep/share.php ./thePageRHeaderSep/.
+thePageRHeaderSep:: ; \
+$(CPF) $(SOURCE)/thePageRHeaderSep/share2.php ./thePageRHeaderSep/.
+thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/Home.php ./thePageRHeaderSep/.
 #
 thePageRBodyLHeader:: ; \
