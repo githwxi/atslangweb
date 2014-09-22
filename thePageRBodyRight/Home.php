@@ -59,7 +59,10 @@ val () = print_newline((*void*))
 //
 </TEXTAREA>
 
-<button type="button" onclick="Home_hello_onclick()">Try-it-yourself</button>
+<button
+ ID="hello_button"
+ type="button" onclick="Home_hello_onclick()"
+>Try-it-yourself</button>
 
 <hr></hr>
 
