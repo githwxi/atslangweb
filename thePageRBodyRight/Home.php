@@ -40,8 +40,7 @@ following tiny ATS program is written in a style of functional programming:
 </p>
 
 <TEXTAREA
- ID="hello_dats"
- ROWS="14" COLS="38"
+ ID="hello_dats" ROWS="14" COLS="38"
 >
 //
 // Say Hello! once
@@ -73,8 +72,7 @@ detecting out-of-bounds subscripting at compile-time:
 </p>
 
 <TEXTAREA
- ID="listsub_dats"
- ROWS="10" COLS="38"
+ ID="listsub_dats" ROWS="10" COLS="38"
 >
 //
 // Build a list of 3
@@ -88,7 +86,10 @@ val x3 = xs[3] // illegal
 //
 </TEXTAREA>
 
-<button type="button" onclick="Home_listsub_onclick()">Try-it-yourself</button>
+<button
+ ID="listsub_button"
+ type="button" onclick="Home_listsub_onclick()"
+>Try-it-yourself</button>
 
 <hr></hr>
 
@@ -100,8 +101,7 @@ first-order implementation in ATS:
 </p>
 
 <TEXTAREA
- ID="repeat_f0f1_dats"
- ROWS="16" COLS="38"
+ ID="repeat_f0f1_dats" ROWS="16" COLS="38"
 >
 //
 extern
@@ -149,7 +149,10 @@ println! ("2^5 = ", power(2,5))
 //
 </TEXTAREA>
 
-<button type="button" onclick="Home_repeat_f0f1_onclick()">Try-it-yourself</button>
+<button
+ ID="repeat_f0f1_button"
+ type="button" onclick="Home_repeat_f0f1_onclick()"
+>Try-it-yourself</button>
 
 </div>
 <?php /* end of [Home.php] */ ?>
