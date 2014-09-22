@@ -22,15 +22,19 @@
 
 #thePageRHeaderSepL a:link
 {
-  color: #FFFFF0;
-}
-#thePageRHeaderSepL a:hover
-{
-  color: #BFBFB0;
+  color: #FFFFFF;
 }
 #thePageRHeaderSepL a:visited
 {
-  color: #8F8F80;
+  color: #7F7F7F;
+}
+#thePageRHeaderSepL a:hover
+{
+  color: #C8C8C8;
+}
+#thePageRHeaderSepL a:active
+{
+  color: #A0A0A0;
 }
 
 #thePageRHeaderSepR
