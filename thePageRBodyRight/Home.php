@@ -18,6 +18,8 @@
 {
   font-size: 11pt;
   background: #d1d360;
+  border-top-left-radius:12px;
+  border-bottom-left-radius:12px;
 }
 </style>
 
@@ -26,6 +28,8 @@ style="margin-top:8px;padding-top:10px;padding-left:6px"
 >
 
 <h2 style="display:inline;">Yes, ATS can!</h2>
+
+<hr></hr>
 
 <p>
 ATS is versatile in its support for programming syntax. For instance, the
@@ -53,10 +57,13 @@ val () = print_newline((*void*))
 
 <button type="button" onclick="Home_hello_onclick()">Try-it-yourself</button>
 
+<hr></hr>
+
 <p>
 ATS is both accurate and expressive in its support for (static)
 typechecking.  The following code demonstrates the ability of ATS in
-detecting out-of-bounds subscripting at compile-time: </p>
+detecting out-of-bounds subscripting at compile-time:
+</p>
 
 <TEXTAREA
  ID="listsub_dats"
@@ -74,6 +81,8 @@ val x3 = xs[3] // illegal
 </TEXTAREA>
 
 <button type="button" onclick="Home_listsub_onclick()">Try-it-yourself</button>
+
+<hr></hr>
 
 <p>
 ATS is highly effective and flexible in its support for a template-based

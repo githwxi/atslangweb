@@ -55,6 +55,7 @@ children:
 parent: thePageRBody
 children: thePageRBodyLHeader, thePageRBodyLContent
 */
+height: 100% ;
 } /* thePageRBodyLeft */
 
 #thePageRBodyRight {
@@ -62,6 +63,7 @@ children: thePageRBodyLHeader, thePageRBodyLContent
 parent: thePageRBody
 children: 
 */
+height: 100% ;
 } /* thePageRBodyRight */
 
 #thePageRBody {
