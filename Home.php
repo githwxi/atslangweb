@@ -11,7 +11,7 @@
 parent: thePage
 children: 
 */
-background-color: #77f2a;
+height: 100% ;
 } /* thePageLeft */
 
 #thePageRHeaderTop {
@@ -19,7 +19,6 @@ background-color: #77f2a;
 parent: thePageRHeader
 children: 
 */
-background-color: #6cfbd8;
 } /* thePageRHeaderTop */
 
 #thePageRHeaderSep {
@@ -27,7 +26,7 @@ background-color: #6cfbd8;
 parent: thePageRHeader
 children: 
 */
-background-color: #9fedaa;
+background-color: #8f0222;
 } /* thePageRHeaderSep */
 
 #thePageRHeader {
@@ -35,7 +34,6 @@ background-color: #9fedaa;
 parent: thePageRight
 children: thePageRHeaderTop, thePageRHeaderSep
 */
-background-color: #8c91bc;
 } /* thePageRHeader */
 
 #thePageRBodyLHeader {
@@ -43,7 +41,6 @@ background-color: #8c91bc;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #19c22a;
 } /* thePageRBodyLHeader */
 
 #thePageRBodyLContent {
@@ -51,7 +48,6 @@ background-color: #19c22a;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #7fb8b0;
 } /* thePageRBodyLContent */
 
 #thePageRBodyLeft {
@@ -59,7 +55,6 @@ background-color: #7fb8b0;
 parent: thePageRBody
 children: thePageRBodyLHeader, thePageRBodyLContent
 */
-background-color: #6cd95e;
 } /* thePageRBodyLeft */
 
 #thePageRBodyRight {
@@ -67,7 +62,6 @@ background-color: #6cd95e;
 parent: thePageRBody
 children: 
 */
-background-color: #93fd5c;
 } /* thePageRBodyRight */
 
 #thePageRBody {
@@ -75,7 +69,6 @@ background-color: #93fd5c;
 parent: thePageRight
 children: thePageRBodyLeft, thePageRBodyRight
 */
-background-color: #452237;
 } /* thePageRBody */
 
 #thePageRFooterSep {
@@ -83,7 +76,6 @@ background-color: #452237;
 parent: thePageRFooter
 children: 
 */
-background-color: #e4388c;
 } /* thePageRFooterSep */
 
 #thePageRFooterRest {
@@ -91,7 +83,6 @@ background-color: #e4388c;
 parent: thePageRFooter
 children: 
 */
-background-color: #7bc51d;
 } /* thePageRFooterRest */
 
 #thePageRFooter {
@@ -99,7 +90,6 @@ background-color: #7bc51d;
 parent: thePageRight
 children: thePageRFooterSep, thePageRFooterRest
 */
-background-color: #b9bf2f;
 } /* thePageRFooter */
 
 #thePageRight {
@@ -107,7 +97,7 @@ background-color: #b9bf2f;
 parent: thePage
 children: thePageRHeader, thePageRBody, thePageRFooter
 */
-background-color: #795d97;
+height: 100% ;
 } /* thePageRight */
 
 #thePage {
@@ -115,7 +105,7 @@ background-color: #795d97;
 parent: theBodyProp
 children: thePageLeft, thePageRight
 */
-background-color: #f6863a;
+background-color: #d6f0fd;
 } /* thePage */
 
 #theBodyProp {
@@ -139,6 +129,10 @@ background-color: #213449; /* dark blue */
 #thePageRFooter {
   text-align: center;
 }
+#thePageLeft {
+  background-color: #1e5799;
+  background-image: linear-gradient(to right, #1e5799, #7db9e8);
+}
 </style>
 <script src="./CLIENT/mycode/libatscc2js_all.js"></script>
 <script src="./CLIENT/mycode/libatscc2js_print_store.js"></script>
@@ -147,7 +141,7 @@ background-color: #213449; /* dark blue */
 <body>
 <div id="theBodyProp">
 <div id="thePage">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td style="vertical-align: top; width: 15%;">
 <div id="thePageLeft">
@@ -174,7 +168,7 @@ include './thePageRHeaderSep/Home.php';
 </div><!--thePageRHeader-->
 
 <div id="thePageRBody">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td style="vertical-align: top; width: 72%;">
 <div id="thePageRBodyLeft">
