@@ -2,20 +2,20 @@
 #hello_dats {
   font-size: 9pt;
   font-family: monospace;
-  color: #7f0c2c;
-  background-color: #eaeaea;
+  color: #A22222;
+  background-color: #FFFAF0;
 }
 #listsub_dats {
   font-size: 9pt;
   font-family: monospace;
-  color: #7f0c2c;
-  background-color: #eaeaea;
+  color: #A22222;
+  background-color: #FFFAF0;
 }
 #repeat_f0f1_dats {
   font-size: 9pt;
   font-family: monospace;
-  color: #7f0c2c;
-  background-color: #eaeaea;
+  color: #A22222;
+  background-color: #FFFAF0;
 }
 #thePageRBodyRight
 {

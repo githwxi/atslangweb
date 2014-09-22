@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
+
 <style>
 .center {
   margin-left: auto;
@@ -118,8 +120,8 @@ children: thePage
 */
 } /* theBodyProp */
 body {
-font-family: sans-serif;
-background-color: #213449; /* dark blue */
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #213449; /* dark blue */
 }
 #thePage {
   width: 85%;
