@@ -56,6 +56,8 @@ thePageRBodyLContent:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLContent/Home.php ./thePageRBodyLContent/.
 thePageRBodyLContent:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLContent/Downloads.php ./thePageRBodyLContent/.
+thePageRBodyLContent:: ; \
+$(CPF) $(SOURCE)/thePageRBodyLContent/Documents.php ./thePageRBodyLContent/.
 #
 thePageRBodyRight:: ; \
 $(CPF) $(SOURCE)/thePageRBodyRight/Home.php ./thePageRBodyRight/.

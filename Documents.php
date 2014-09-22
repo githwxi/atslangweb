@@ -11,7 +11,7 @@
 parent: thePage
 children: 
 */
-background-color: #47bb15;
+height: 100% ;
 } /* thePageLeft */
 
 #thePageRHeaderTop {
@@ -19,7 +19,6 @@ background-color: #47bb15;
 parent: thePageRHeader
 children: 
 */
-background-color: #473c60;
 } /* thePageRHeaderTop */
 
 #thePageRHeaderSep {
@@ -27,7 +26,7 @@ background-color: #473c60;
 parent: thePageRHeader
 children: 
 */
-background-color: #2f91fe;
+background-color: #8f0222;
 } /* thePageRHeaderSep */
 
 #thePageRHeader {
@@ -35,7 +34,6 @@ background-color: #2f91fe;
 parent: thePageRight
 children: thePageRHeaderTop, thePageRHeaderSep
 */
-background-color: #6c788;
 } /* thePageRHeader */
 
 #thePageRBodyLHeader {
@@ -43,7 +41,6 @@ background-color: #6c788;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #0466b;
 } /* thePageRBodyLHeader */
 
 #thePageRBodyLContent {
@@ -51,7 +48,6 @@ background-color: #0466b;
 parent: thePageRBodyLeft
 children: 
 */
-background-color: #40452;
 } /* thePageRBodyLContent */
 
 #thePageRBodyLeft {
@@ -59,7 +55,7 @@ background-color: #40452;
 parent: thePageRBody
 children: thePageRBodyLHeader, thePageRBodyLContent
 */
-background-color: #801e14;
+height: 100% ;
 } /* thePageRBodyLeft */
 
 #thePageRBodyRight {
@@ -67,7 +63,7 @@ background-color: #801e14;
 parent: thePageRBody
 children: 
 */
-background-color: #eba689;
+height: 100% ;
 } /* thePageRBodyRight */
 
 #thePageRBody {
@@ -75,7 +71,6 @@ background-color: #eba689;
 parent: thePageRight
 children: thePageRBodyLeft, thePageRBodyRight
 */
-background-color: #d9a61b;
 } /* thePageRBody */
 
 #thePageRFooterSep {
@@ -83,7 +78,7 @@ background-color: #d9a61b;
 parent: thePageRFooter
 children: 
 */
-background-color: #f131cb;
+background-color: #8f0222;
 } /* thePageRFooterSep */
 
 #thePageRFooterRest {
@@ -91,7 +86,6 @@ background-color: #f131cb;
 parent: thePageRFooter
 children: 
 */
-background-color: #803892;
 } /* thePageRFooterRest */
 
 #thePageRFooter {
@@ -99,7 +93,6 @@ background-color: #803892;
 parent: thePageRight
 children: thePageRFooterSep, thePageRFooterRest
 */
-background-color: #dc8cbd;
 } /* thePageRFooter */
 
 #thePageRight {
@@ -107,7 +100,7 @@ background-color: #dc8cbd;
 parent: thePage
 children: thePageRHeader, thePageRBody, thePageRFooter
 */
-background-color: #a5d8f;
+height: 100% ;
 } /* thePageRight */
 
 #thePage {
@@ -115,7 +108,7 @@ background-color: #a5d8f;
 parent: theBodyProp
 children: thePageLeft, thePageRight
 */
-background-color: #ff979c;
+background-color: #d6f0fd;
 } /* thePage */
 
 #theBodyProp {
@@ -138,6 +131,10 @@ background-color: #213449; /* dark blue */
 }
 #thePageRFooter {
   text-align: center;
+}
+#thePageLeft {
+  background-color: #1e5799;
+  background-image: linear-gradient(to right, #1e5799, #7db9e8);
 }
 </style>
 <script src="./CLIENT/mycode/libatscc2js_all.js"></script>
@@ -195,7 +192,7 @@ include './thePageRBodyLContent/Documents.php';
 <td style="vertical-align:top;width:28%;">
 <div id="thePageRBodyRight">
 <?php
-include './thePageRBodyRight/Documents.php';
+include './thePageRBodyRight/Home.php';
 ?>
 </div><!--thePageRBodyRight-->
 </td>
