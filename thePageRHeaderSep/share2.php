@@ -52,6 +52,15 @@
   color: #A0A0A0;
 }
 
+.thePageRHeaderSepL_submenu
+{
+  display: none;
+  position: absolute;
+  padding: 6px;
+  border-radius: 6px;
+  background-color: #C0C0C0;
+}
+
 #thePageRHeaderSepR
 {
   float: right;
@@ -64,6 +73,37 @@
   background: #FFFFF0 url(//www.google.com/coop/intl/en/images/google_custom_search_watermark.gif) left no-repeat;
 }
 </style>
+
+<script>
+//
+function
+submenu_mouseout(name)
+{
+  var jqi, jqt;
+/*
+  alert("Leaving submenu: " + name);
+*/
+  jqi = $('#thePageRHeaderSepL > ul > li[name="'+name+'"]');
+  jqt = jqi.next('table');
+  jqt.css({display:'none'})
+  return;
+}
+function
+submenu_mouseover(name)
+{
+  var jqi, jqt;
+/*
+  alert("Entering submenu: " + name);
+*/
+  jqi = $('#thePageRHeaderSepL > ul > li[name="'+name+'"]');
+  jqt = jqi.next('table');
+  jqt.css({top:jqi.position().top+jqi.outerHeight()+6});
+  jqt.css({left:jqi.position().left});
+  jqt.css({display:'table'});
+  return;
+}
+//
+</script>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
