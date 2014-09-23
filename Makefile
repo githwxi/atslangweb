@@ -25,6 +25,7 @@ Documents:: ; $(CPF) $(SOURCE)/Documents.php .
 #
 ######
 
+all:: thePage
 all:: thePageLeft
 all:: thePageRHeaderTop
 all:: thePageRHeaderSep
@@ -35,6 +36,9 @@ all:: CLIENT_mycode
 all:: SERVER_mycode
 
 ######
+#
+thePage:: ; \
+$(CPF) $(SOURCE)/thePage/share.php ./thePage/.
 #
 thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/Home.php ./thePageLeft/.
@@ -48,6 +52,10 @@ thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/share2.php ./thePageRHeaderSep/.
 thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/Home.php ./thePageRHeaderSep/.
+thePageRHeaderSep:: ; \
+$(CPF) $(SOURCE)/thePageRHeaderSep/Downloads.php ./thePageRHeaderSep/.
+thePageRHeaderSep:: ; \
+$(CPF) $(SOURCE)/thePageRHeaderSep/Documents.php ./thePageRHeaderSep/.
 #
 thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/share.php ./thePageRBodyLHeader/.

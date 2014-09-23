@@ -148,7 +148,7 @@ body {
 <script src="./CLIENT/mycode/libatscc2js_all.js"></script>
 <script src="./CLIENT/mycode/libatscc2js_print_store.js"></script>
 <script src="./CLIENT/mycode/atslangweb_utils_dats.js"></script>
-<?php include './thePageRBodyLHeader/share.php'; ?></head>
+<?php include './thePage/share.php'; ?><?php include './thePageRBodyLHeader/share.php'; ?></head>
 <body>
 <div id="theBodyProp">
 <div id="thePage">
@@ -173,7 +173,7 @@ include './thePageRHeaderTop/Home.php';
 
 <div id="thePageRHeaderSep">
 <?php
-include './thePageRHeaderSep/Home.php';
+include './thePageRHeaderSep/Downloads.php';
 ?>
 </div><!--thePageRHeaderSep-->
 </div><!--thePageRHeader-->

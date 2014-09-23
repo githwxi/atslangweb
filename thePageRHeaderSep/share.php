@@ -1,17 +1,6 @@
 <?php
 
 function
-atslangweb_get_pgname()
-{
-  return $GLOBALS['the_atslangweb_pgname'];
-}
-function
-atslangweb_set_pgname($name)
-{
-  $GLOBALS['the_atslangweb_pgname'] = $name; return;
-}
-
-function
 thePageRHeaderSep_menu()
 {
   echo '<ul>'; echo "\n";
