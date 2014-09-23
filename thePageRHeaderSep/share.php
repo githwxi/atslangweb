@@ -17,9 +17,9 @@ thePageRHeaderSep_menuitem($name)
 {
   if (atslangweb__get_pgname()===$name)
   {
-    echo "<li>$name</li>\n";
+    echo "<li class=\"self\">$name</li>\n";
   } else {
-    echo "<li><a href=\"$name.php\">$name</a></li>\n";
+    echo "<li class=\"other\"><a href=\"$name.php\">$name</a></li>\n";
   }
   return;
 }

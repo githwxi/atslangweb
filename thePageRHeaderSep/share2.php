@@ -20,6 +20,15 @@
   display: inline;
 }
 
+#thePageRHeaderSepL li.self
+{
+  font-weight: bold;
+}
+#thePageRHeaderSepL li.other
+{
+  font-weight: normal;
+}
+
 #thePageRHeaderSepL a:link
 {
   color: #FFFFFF;
