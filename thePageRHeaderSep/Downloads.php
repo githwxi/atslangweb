@@ -1,6 +1,6 @@
 <?php
 //
-atslangweb_set_pgname('Downloads.php);
+atslangweb__set_pgname('Downloads.php);
 //
 include "./thePageRHeaderSep/share2.php";
 //

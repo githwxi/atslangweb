@@ -15,7 +15,7 @@ thePageRHeaderSep_menu()
 function
 thePageRHeaderSep_menuitem($name)
 {
-  if (atslangweb_get_pgname()===$name)
+  if (atslangweb__get_pgname()===$name)
   {
     echo "<li>$name</li>\n";
   } else {
