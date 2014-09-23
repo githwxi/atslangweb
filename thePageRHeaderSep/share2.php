@@ -7,6 +7,7 @@
 #thePageRHeaderSepL
 {
   text-align: left;
+  padding-left: 6px;
 }
 
 #thePageRHeaderSepL ul
@@ -18,6 +19,11 @@
 #thePageRHeaderSepL ul li
 {
   display: inline;
+  border-width: 2px;
+  border-color: #ffffff;
+  border-right-style: solid;
+  padding-left: 2px;
+  padding-right: 6px;
 }
 
 #thePageRHeaderSepL li.self
