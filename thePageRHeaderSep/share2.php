@@ -19,9 +19,9 @@
 #thePageRHeaderSepL ul li
 {
   display: inline;
-  border-width: 2px;
+  border-width: 1px;
   border-color: #ffffff;
-  border-right-style: solid;
+  border-right-style: double;
   padding-left: 2px;
   padding-right: 6px;
 }
