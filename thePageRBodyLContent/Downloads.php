@@ -50,14 +50,16 @@ ATS is supported under the following operating systems:
 </ul>
 </li>
 <li>
-Programming Language requirement: GNU C-Compiler (gcc). Other
-C-compilers (e.g., clang and tcc) should also work.
+Programming Language requirement: GNU C-Compiler (gcc). Other C-compilers
+should also work in principle. In particular, it is known that both clang
+and <a href="http://bellard.org/tcc/">tcc</a> can succeed in compiling both
+ATS1 and ATS2.
 </li>
 </ul>
 
 <p>
-If you have succeeded in porting ATS to a platform not listed here,
-please drop us a note.
+If you are able to port ATS to a platform not listed here, please drop us
+a note so that other users of ATS may benefit.
 </p>
 
 <p>
