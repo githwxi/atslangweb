@@ -43,6 +43,10 @@ $(CPF) $(SOURCE)/thePage/share.php ./thePage/.
 thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/Home.php ./thePageLeft/.
 thePageLeft:: ; \
+$(CPF) $(SOURCE)/thePageLeft/Downloads.php ./thePageLeft/.
+thePageLeft:: ; \
+$(CPF) $(SOURCE)/thePageLeft/Documents.php ./thePageLeft/.
+thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/share.php ./thePageLeft/.
 thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/share2.php ./thePageLeft/.
