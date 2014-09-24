@@ -12,7 +12,7 @@
 style="margin-top:8px;padding-top:10px;padding-left:6px"
 ><!--div-->
 
-<h2 style="display:inline;">Where to find information on ATS?</h2>
+<h2 style="display:inline;">How should one learn programming in ATS?</h2>
 
 <hr></hr>
 
