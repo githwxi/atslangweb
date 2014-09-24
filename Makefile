@@ -42,29 +42,33 @@ $(CPF) $(SOURCE)/thePage/share.php ./thePage/.
 #
 thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/Home.php ./thePageLeft/.
+thePageLeft:: ; \
+$(CPF) $(SOURCE)/thePageLeft/share.php ./thePageLeft/.
+thePageLeft:: ; \
+$(CPF) $(SOURCE)/thePageLeft/share2.php ./thePageLeft/.
 #
 thePageRHeaderTop:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderTop/Home.php ./thePageRHeaderTop/.
 #
-thePageRHeaderSep:: ; \
-$(CPF) $(SOURCE)/thePageRHeaderSep/share.php ./thePageRHeaderSep/.
-thePageRHeaderSep:: ; \
-$(CPF) $(SOURCE)/thePageRHeaderSep/share2.php ./thePageRHeaderSep/.
 thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/Home.php ./thePageRHeaderSep/.
 thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/Downloads.php ./thePageRHeaderSep/.
 thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/Documents.php ./thePageRHeaderSep/.
+thePageRHeaderSep:: ; \
+$(CPF) $(SOURCE)/thePageRHeaderSep/share.php ./thePageRHeaderSep/.
+thePageRHeaderSep:: ; \
+$(CPF) $(SOURCE)/thePageRHeaderSep/share2.php ./thePageRHeaderSep/.
 #
-thePageRBodyLHeader:: ; \
-$(CPF) $(SOURCE)/thePageRBodyLHeader/share.php ./thePageRBodyLHeader/.
 thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Home.php ./thePageRBodyLHeader/.
 thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Downloads.php ./thePageRBodyLHeader/.
 thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Documents.php ./thePageRBodyLHeader/.
+thePageRBodyLHeader:: ; \
+$(CPF) $(SOURCE)/thePageRBodyLHeader/share.php ./thePageRBodyLHeader/.
 #
 thePageRBodyLContent:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLContent/Home.php ./thePageRBodyLContent/.

@@ -113,11 +113,12 @@ submenu_mouseover(name)
   var jqi;
   theSubmenuTable_hide();
   theSubmenuTimeout_clear();
-  jqi = $('#thePageRHeaderSepL > ul > li[name="'+name+'"]');
+  jqi =
+  $('#thePageRHeaderSepL>ul>li[name="'+name+'"]');
   theSubmenuTable = jqi.next('table');
   theSubmenuTable.css({display:'table'});
   theSubmenuTable.css (
-    {top:jqi.position().top+jqi.outerHeight()+8}
+    {top:jqi.position().top+jqi.outerHeight(true)+8}
   ) ; // end of [theSubmenuTable.css]
   theSubmenuTable.css({left:jqi.position().left});
   return;

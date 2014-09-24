@@ -157,7 +157,7 @@ body {
 <script
  src="./CLIENT/mycode/atslangweb_utils_dats.js">
 </script>
-<?php include './thePage/share.php'; ?><?php include './thePageRHeaderSep/share.php'; ?><?php include './thePageRBodyLHeader/share.php'; ?></head>
+<?php include './thePage/share.php'; ?><?php include './thePageLeft/share.php'; ?><?php include './thePageRHeaderSep/share.php'; ?><?php include './thePageRBodyLHeader/share.php'; ?></head>
 <body>
 <div id="theBodyProp">
 <div id="thePage">

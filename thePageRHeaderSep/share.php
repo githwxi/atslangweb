@@ -4,7 +4,7 @@ function
 thePageRHeaderSep_menu()
 {
 //
-  echo '<ul>'; echo "\n";
+  echo "<ul>\n";
 //
   thePageRHeaderSep_menuitem('Home');
   thePageRHeaderSep_submenu_for_Home('Home');
@@ -16,7 +16,7 @@ thePageRHeaderSep_menu()
   thePageRHeaderSep_menuitem('Libraries');
   thePageRHeaderSep_menuitem('Communities');
 //
-  echo '</ul>'; echo "\n";
+  echo "</ul>\n";
 //
   return;
 //
