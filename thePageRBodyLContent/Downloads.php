@@ -126,7 +126,7 @@ ${PATSHOME}.
 
 <p>
 
-If you have access to the #emphasis("git") command, then you can also do a
+If you have access to the <em>git</em< command, then you can also do a
 git-clone to obtain the current release of ATS2-contrib:
 
 <div>
