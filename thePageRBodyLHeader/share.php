@@ -29,6 +29,7 @@ thePageRBodyLHeader_Documents()
 {
   echo "<ul name=\"Documents\">\n";
   echo "<li><a href=\"#INT2PROGINATS\">Introduction to Programming in ATS</a></li>\n";
+  echo "<li><a href=\"#TUT2PROGINATS\">A Tutorial on Programming Features in ATS</a></li>\n";
   echo "</ul>\n";
   return;
 } /* end of [thePageRBodyLHeader_Documents] */
