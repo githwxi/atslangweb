@@ -83,6 +83,10 @@ $(CPF) $(SOURCE)/thePageRBodyLContent/Documents.php ./thePageRBodyLContent/.
 #
 thePageRBodyRight:: ; \
 $(CPF) $(SOURCE)/thePageRBodyRight/Home.php ./thePageRBodyRight/.
+thePageRBodyRight:: ; \
+$(CPF) $(SOURCE)/thePageRBodyRight/Downloads.php ./thePageRBodyRight/.
+thePageRBodyRight:: ; \
+$(CPF) $(SOURCE)/thePageRBodyRight/Documents.php ./thePageRBodyRight/.
 #
 ######
 
