@@ -18,24 +18,54 @@ ATS/Postiats packages are available at the following links:
 
 <ul>
 <li>
-The current <em>stable</em> release of ATS2 is
-<p>
-<a href="http://sourceforge.net/projects/ats2-lang/download">ATS2-0.1.2</a>
-</p>
+The current <em>stable</em> release of ATS2 is at
+<a href="http://sourceforge.net/projects/ats2-lang/download">ATS2-0.1.2</a>.
 </li>
 <li>
-The current <em>stable</em> release of ATS2-contrib is
-<p>
-<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">ATS2-contrib-0.1.2</a>
-</p>
+The current <em>stable</em> release of ATS2-contrib is at
+<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">ATS2-contrib-0.1.2</a>.
 </li>
 <li>
-The current <em>unstable</em> version is
-<p>
-<a href="http://www.cs.bu.edu/~hwxi/ATS/IMPLEMENTATION/Positats/ATS2-0.1.3.tgz">ATS-0.1.3</a>
-</p>
+The current <em>unstable</em> release of ATS2 is at
+<a href="http://www.ats-lang.org/IMPLEMENT/Positats/ATS2-0.1.3.tgz">ATS-0.1.3</a>.
 </li>
 </ul>
+
+<hr></hr>
+
+<h2><a id="#Requirements_for_installation">Requirements for installation</a></h2>
+
+<p>
+The following requirements are supposed to be met in order to install ATS:
+</p>
+
+<ul>
+<li>
+Operating System requirement:
+ATS is supported under the following operating systems:
+<ul>
+<li>Linux</li>
+<li>Windows with Cygwin</li>
+<li>MacOS</li>
+</ul>
+</li>
+<li>
+Programming Language requirement: GNU C-Compiler (gcc). Other
+C-compilers (e.g., clang and tcc) should also work.
+</li>
+</ul>
+
+<p>
+If you have succeeded in porting ATS to a platform not listed here,
+please drop us a note.
+</p>
+
+<p>
+The GMP library (libgmp.a), which is in general included in a GNU/Linux
+distribution, is currently required for installing a release of ATS2.
+Please see <a href="http://gmplib.org">http://gmplib.org</a> for more
+details on GMP.
+</p>
 
 </div>
 
