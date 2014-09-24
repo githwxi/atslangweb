@@ -106,8 +106,7 @@ instance, can be done by executing the following command-line:
 </p>
 
 <div
-class="center command"
-style="width:96%;padding:10px;border-radius:6px"
+class="command_line"
 >tar -zvxf ATS2-contrib-x.x.x.tgz
 </div>
 
@@ -129,8 +128,7 @@ ${PATSHOME}.
 If you have access to the <em>git</em> command, then you can also do a
 git-clone to obtain the current release of ATS2-contrib:
 <div
-class="center command"
-style="width:96%;padding:10px;border-radius:6px"
+class="command_line"
 >git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS-Postiats-contrib
 </div>
 </p>
