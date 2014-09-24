@@ -8,6 +8,11 @@
   margin-left: auto;
   margin-right: auto;
 }
+.command {
+  width: 100%;
+  color: #000000;
+  background-color: #FFFFFF;  
+}
 #thePageLeft {
 /*
 parent: thePage
