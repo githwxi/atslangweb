@@ -16,6 +16,27 @@ language, which may be referred to as ATS1. The latest released
 ATS/Postiats packages are available at the following links: 
 </p>
 
+<ul>
+<li>
+The current <em>stable</em> release of ATS2 is
+<p>
+<a href="http://sourceforge.net/projects/ats2-lang/download">ATS2-0.1.2</a>
+</p>
+</li>
+<li>
+The current <em>stable</em> release of ATS2-contrib is
+<p>
+<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">ATS2-contrib-0.1.2</a>
+</p>
+</li>
+<li>
+The current <em>unstable</em> version is
+<p>
+<a href="http://www.cs.bu.edu/~hwxi/ATS/IMPLEMENTATION/Positats/ATS2-0.1.3.tgz">ATS-0.1.3</a>
+</p>
+</li>
+</ul>
+
 </div>
 
 <?php /* end of [Downloads.php] */ ?>
