@@ -12,9 +12,9 @@ thePageLeft_menu()
   thePageLeft_menuitem('Papers');
   thePageLeft_menuitem('Examples');
   thePageLeft_menuitem('Implementations');
-  thePageLeft_menuitem('IRC-channel');
-  thePageLeft_menuitem('Mailing-list');
-  thePageLeft_menuitem('Google-groups');
+  echo "<tr><td><a href=\"https://lists.sourceforge.net/lists/listinfo/ats-lang-users\">Mailing-list</a></td></tr>\n";
+  echo "<tr><td>IRC-channel</td></tr>\n";
+  echo "<tr><td>Google-groups</td></tr>\n";
 //
   return;
 //
