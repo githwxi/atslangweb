@@ -33,7 +33,7 @@ The current <em>unstable</em> release of ATS2 is at
 
 <hr></hr>
 
-<h2><a id="#Requirements_for_installation">Requirements for installation</a></h2>
+<h2><a id="#Requirements_install">Requirements for installation</a></h2>
 
 <p>
 The following requirements are supposed to be met in order to install ATS:
@@ -45,8 +45,8 @@ Operating System requirement:
 ATS is supported under the following operating systems:
 <ul>
 <li>Linux</li>
-<li>Windows with Cygwin</li>
 <li>MacOS</li>
+<li>Windows with Cygwin</li>
 </ul>
 </li>
 <li>
