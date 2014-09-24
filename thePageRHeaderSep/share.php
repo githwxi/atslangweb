@@ -13,6 +13,8 @@ thePageRHeaderSep_menu()
   thePageRHeaderSep_submenu_for_Downloads('Downloads');
 //
   thePageRHeaderSep_menuitem('Documents');
+  thePageRHeaderSep_submenu_for_Documents('Documents');
+//
   thePageRHeaderSep_menuitem('Libraries');
   thePageRHeaderSep_menuitem('Communities');
 //
