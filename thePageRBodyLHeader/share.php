@@ -17,7 +17,7 @@ thePageRBodyLHeader_Downloads()
   echo "<ul name=\"Downloads\">\n";
   echo "<li><a href=\"#ATS_packages\">ATS packages for download</a></li>\n";
   echo "<li><a href=\"#Requirements_install\">Requirements for installation</a></li>\n";
-  echo "<li><a href=\"#precompiledpack_install\">Precompiled packages for instalation</a></li>\n";
+  echo "<li><a href=\"#Precompiledpack_install\">Precompiled packages for installation</a></li>\n";
   echo "<li><a href=\"#Installation_sourcecomp\">Installation through source compilation</a></li>\n";
   echo "<li><a href=\"#Installation_ATS2_contrib\">Installation of ATS2-contrib</a></li>\n";
   echo "</ul>\n";
