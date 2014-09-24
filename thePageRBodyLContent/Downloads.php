@@ -107,8 +107,7 @@ instance, can be done by executing the following command-line:
 <div
 class="command"
 style="padding:10px;"
->
-tar -zvxf ATS2-contrib-x.x.x.tgz
+>tar -zvxf ATS2-contrib-x.x.x.tgz
 </div>
 
 where <u>ATS2-contrib-x.x.x.tgz</u> refers to the downloaded package and
@@ -135,8 +134,7 @@ git-clone to obtain the current release of ATS2-contrib:
 <div
 class="command"
 style="padding:10px;"
->
-git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS-Postiats-contrib
+>git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS-Postiats-contrib
 </div>
 
 </p>
