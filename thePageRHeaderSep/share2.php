@@ -76,32 +76,57 @@
 
 <script>
 //
+var
+theSubmenuTable = 0;
+theSubmenuTimeout = 0;
+//
 function
-submenu_mouseout(name)
+theSubmenuTable_hide()
 {
-  var jqi, jqt;
-/*
-  alert("Leaving submenu: " + name);
-*/
-  jqi = $('#thePageRHeaderSepL > ul > li[name="'+name+'"]');
-  jqt = jqi.next('table');
-  jqt.css({display:'none'})
+  if(theSubmenuTable)
+  {
+    theSubmenuTable.css({display:'none'});
+  }
+}
+function
+theSubmenuTimeout_clear()
+{
+  if(theSubmenuTimeout)
+  {
+    clearTimeout(theSubmenuTimeout); theSubmenuTimeout = 0;
+  }
+}
+//
+function
+submenu_mouseout()
+{
+  theSubmenuTimeout =
+  setTimeout (
+    function(){theSubmenuTimeout=0;theSubmenuTable_hide();}, 500
+  ) ; // end of [setTimeout]
   return;
 }
+//
 function
 submenu_mouseover(name)
 {
-  var jqi, jqt;
-/*
-  alert("Entering submenu: " + name);
-*/
+  var jqi;
+  theSubmenuTable_hide();
+  theSubmenuTimeout_clear();
   jqi = $('#thePageRHeaderSepL > ul > li[name="'+name+'"]');
-  jqt = jqi.next('table');
-  jqt.css({top:jqi.position().top+jqi.outerHeight()+6});
-  jqt.css({left:jqi.position().left});
-  jqt.css({display:'table'});
+  theSubmenuTable = jqi.next('table');
+  theSubmenuTable.css({display:'table'});
+  theSubmenuTable.css (
+    {top:jqi.position().top+jqi.outerHeight()+4}
+  ) ; // end of [theSubmenuTable.css]
+  theSubmenuTable.css({left:jqi.position().left});
   return;
 }
+//
+function
+submenu_table_mouseout() { submenu_mouseout(); }
+function
+submenu_table_mouseover() { theSubmenuTimeout_clear(); }
 //
 </script>
 

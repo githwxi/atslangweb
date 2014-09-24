@@ -26,7 +26,7 @@ function
 thePageRHeaderSep_menuitem($name)
 {
 //
-  $onmouseout = "onmouseout=\"submenu_mouseout('$name')\"";
+  $onmouseout = "onmouseout=\"submenu_mouseout()\"";
   $onmouseover = "onmouseover=\"submenu_mouseover('$name')\"";
 //
   if (atslangweb__get_pgname()===$name)
@@ -45,24 +45,28 @@ thePageRHeaderSep_menuitem($name)
 function
 thePageRHeaderSep_submenu_for_Home()
 {
-  echo '<table class="thePageRHeaderSepL_submenu">'; echo "\n";
-  echo '<tr><td><a href="#What_is_ATS">What is ATS?<a></td></tr>'; echo "\n";
-  echo '<tr><td><a href="#What_is_ATS_good_for">What is ATS good for?<a></td></tr>'; echo "\n";
-  echo '<tr><td><a href="#Acknowledgments">Acknowledgments</a></td></tr>'; echo "\n";
-  echo '</table>'; echo "\n";
+  $onmouseout = "onmouseout=\"submenu_table_mouseout()\"";
+  $onmouseover = "onmouseover=\"submenu_table_mouseover()\"";
+  echo "<table class=\"thePageRHeaderSepL_submenu\" $onmouseover $onmouseout>\n";
+  echo "<tr><td><a href=\"#What_is_ATS\">What is ATS?<a></td></tr>\n";
+  echo "<tr><td><a href=\"#What_is_ATS_good_for\">What is ATS good for?<a></td></tr>\n";
+  echo "<tr><td><a href=\"#Acknowledgments\">Acknowledgments</a></td></tr>\n";
+  echo "</table>\n";
   return;
 } /* end of [thePageRBodyLHeader_Home] */
 
 function
 thePageRHeaderSep_submenu_for_Downloads()
 {
-  echo '<table class="thePageRHeaderSepL_submenu">'; echo "\n";
-  echo '<tr><td><a href="#ATS_packages">ATS packages for download</a></td></tr>'; echo "\n";
-  echo '<tr><td><a href="#Requirements_install">Requirements for installation</a></td></tr>'; echo "\n";
-  echo '<tr><td><a href="#Installation_precompile">Installation with precompiled code</a></td></tr>'; echo "\n";
-  echo '<tr><td><a href="#Installation_sourcecomp">Installation through source compilation</a></td></tr>'; echo "\n";
-  echo '<tr><td><a href="#Installation_ATS2_contrib">Installation of ATS2-contrib</a></td></tr>'; echo "\n";
-  echo '</table>'; echo "\n";
+  $onmouseout = "onmouseout=\"submenu_table_mouseout()\"";
+  $onmouseover = "onmouseover=\"submenu_table_mouseover()\"";
+  echo "<table class=\"thePageRHeaderSepL_submenu\" $onmouseover $onmouseout>\n";
+  echo "<tr><td><a href=\"#ATS_packages\">ATS packages for download</a></td></tr>\n";
+  echo "<tr><td><a href=\"#Requirements_install\">Requirements for installation</a></td></tr>\n";
+  echo "<tr><td><a href=\"#Installation_precompile\">Installation with precompiled code</a></td></tr>\n";
+  echo "<tr><td><a href=\"#Installation_sourcecomp\">Installation through source compilation</a></td></tr>\n";
+  echo "<tr><td><a href=\"#Installation_ATS2_contrib\">Installation of ATS2-contrib</a></td></tr>\n";
+  echo "</table>\n";
   return;
 } /* end of [thePageRBodyLHeader_Downloads] */
 
