@@ -11,6 +11,7 @@ thePageLeft_menu()
   thePageLeft_menuitem('Communities');
   thePageLeft_menuitem('Papers');
   thePageLeft_menuitem('Examples');
+  thePageLeft_menuitem('Resources');
   thePageLeft_menuitem('Implementations');
   echo "<tr><td><a href=\"https://lists.sourceforge.net/lists/listinfo/ats-lang-users\">Mailing-list</a></td></tr>\n";
   echo "<tr><td>IRC-channel</td></tr>\n";

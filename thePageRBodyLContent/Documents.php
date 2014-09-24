@@ -24,12 +24,14 @@ Links:
 </tr>
 </table>
 
+<hr></hr>
+
 <h2><a id="#TUT2PROGINATS">A Tutorial on Programming Features in ATS</a></h2>
 
 <table>
 <tr>
 <td>
-The primary purpose of the tutorial is to bring deep insights into a rich
+The primary purpose of this tutorial is to bring deep insights into a rich
 set of programming features in ATS and also demonstrate through concrete
 examples that these features can be made of effective use in the
 construction of high-quality programs. For someone familiar with both ML
