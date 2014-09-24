@@ -28,7 +28,7 @@ children:
 parent: thePageRHeader
 children: 
 */
-background-color: #8f0222;
+background-color: rgb(143,2,34);
 } /* thePageRHeaderSep */
 
 #thePageRHeader {

@@ -41,15 +41,15 @@
 }
 #thePageRHeaderSepL a:visited
 {
-  color: #7F7F7F;
+  color: #80C0C0;
 }
 #thePageRHeaderSepL a:hover
 {
-  color: #C8C8C8;
+  color: #C0E0E0;
 }
 #thePageRHeaderSepL a:active
 {
-  color: #A0A0A0;
+  color: #C0C0C0;
 }
 
 .thePageRHeaderSepL_submenu
@@ -57,8 +57,8 @@
   display: none;
   position: absolute;
   padding: 6px;
-  border-radius: 6px;
-  background-color: #C0C0C0;
+  border-radius: 12px;
+  background-color: rgba(143,2,34,0.825)
 }
 
 #thePageRHeaderSepR
@@ -117,7 +117,7 @@ submenu_mouseover(name)
   theSubmenuTable = jqi.next('table');
   theSubmenuTable.css({display:'table'});
   theSubmenuTable.css (
-    {top:jqi.position().top+jqi.outerHeight()+4}
+    {top:jqi.position().top+jqi.outerHeight()+8}
   ) ; // end of [theSubmenuTable.css]
   theSubmenuTable.css({left:jqi.position().left});
   return;
