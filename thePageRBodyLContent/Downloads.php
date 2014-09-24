@@ -104,7 +104,10 @@ href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>,
 please untar it in a directory, say MYATS, of your choice. This, for
 instance, can be done by executing the following command-line:
 
-<div class="command">
+<div
+class="command"
+style="padding:10px;"
+>
 tar -zvxf ATS2-contrib-x.x.x.tgz
 </div>
 
@@ -126,10 +129,13 @@ ${PATSHOME}.
 
 <p>
 
-If you have access to the <em>git</em< command, then you can also do a
+If you have access to the <em>git</em> command, then you can also do a
 git-clone to obtain the current release of ATS2-contrib:
 
-<div class="command">
+<div
+class="command"
+style="padding:10px;"
+>
 git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS-Postiats-contrib
 </div>
 
