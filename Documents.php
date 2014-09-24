@@ -8,10 +8,13 @@
   margin-left: auto;
   margin-right: auto;
 }
-.command {
-  width: 100%;
+.command_line {
+  width:96%;
+  margin:auto;
+  padding:10px;
   color: #000000;
-  background-color: #FFFFFF;  
+  background-color: #FFFFFF;
+  border-radius:6px
 }
 #thePageLeft {
 /*
