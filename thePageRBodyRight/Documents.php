@@ -9,7 +9,7 @@
 </style>
 
 <div
-style="margin-top:8px;padding-top:10px;padding-left:6px"
+style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 ><!--div-->
 
 <h2 style="display:inline;">How should one learn programming in ATS?</h2>
