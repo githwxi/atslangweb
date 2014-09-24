@@ -1,4 +1,17 @@
 <style>
+#thePageLeft
+{
+  color: #483D8B;
+}
+
+#thePageLeft td.self
+{
+  font-weight: bold;
+}
+#thePageLeft td.other
+{
+  font-weight: normal;
+}
 
 .thePageLeft_menu
 {
