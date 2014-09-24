@@ -130,7 +130,7 @@ If you have access to the <em>git</em> command, then you can also do a
 git-clone to obtain the current release of ATS2-contrib:
 <div
 class="center command"
-style="width:96%;padding:10px;"
+style="width:96%;padding:10px;border-radiux:6px"
 >git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS-Postiats-contrib
 </div>
 </p>
