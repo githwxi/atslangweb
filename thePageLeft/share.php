@@ -12,6 +12,9 @@ thePageLeft_menu()
   thePageLeft_menuitem('Papers');
   thePageLeft_menuitem('Examples');
   thePageLeft_menuitem('Implementations');
+  thePageLeft_menuitem('IRC-channel');
+  thePageLeft_menuitem('Mailing-list');
+  thePageLeft_menuitem('Google-groups');
 //
   return;
 //
