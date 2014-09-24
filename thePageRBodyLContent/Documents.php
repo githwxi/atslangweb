@@ -4,7 +4,7 @@ class="thePageRBodyLContent"
 
 <hr></hr>
 
-<h2>Introduction to Programming in ATS</h2>
+<h2><a id="#INT2PROGINATS">Introduction to Programming in ATS</a></h2>
 
 <table>
 <tr>
@@ -18,7 +18,30 @@ programming.
 </tr>
 <tr>
 <td>
-Links: <a href="http://www.ats-lang.org/DOCUMENT/INT2PROGINATS/HTML/book1.html">html</a>
+Links:
+<a href="http://www.ats-lang.org/DOCUMENT/INT2PROGINATS/HTML/book1.html">html</a>
+</td>
+</tr>
+</table>
+
+<h2><a id="#TUT2PROGINATS">A Tutorial on Programming Features in ATS</a></h2>
+
+<table>
+<tr>
+<td>
+The primary purpose of the tutorial is to bring deep insights into a rich
+set of programming features in ATS and also demonstrate through concrete
+examples that these features can be made of effective use in the
+construction of high-quality programs. For someone familiar with both ML
+and C, it is possible to learn programming in ATS by simply studying the
+tutorial. However, a coherent and systematic view of ATS is diffcult to be
+gained from the tutorial alone.
+</td>
+</tr>
+<tr>
+<td>
+Links:
+<a href="http://www.ats-lang.org/DOCUMENT/ATS2TUTORIAL/HTML/book1.html">html</a>
 </td>
 </tr>
 </table>
