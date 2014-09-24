@@ -103,27 +103,26 @@ After downloading a release of ATS2-contrib <a
 href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>,
 please untar it in a directory, say MYATS, of your choice. This, for
 instance, can be done by executing the following command-line:
+</p>
 
 <div
 class="center command"
 style="width;88%;padding:10px;"
 >tar -zvxf ATS2-contrib-x.x.x.tgz
 </div>
-<br></br>
 
+<p>
 where <u>ATS2-contrib-x.x.x.tgz</u> refers to the downloaded package and
 x.x.x is the version number of the package.  All the files and directories
 extracted from the tarball are now in the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u>.
 </p>
 
 <p>
-
 Please set the environment variable PATSHOMERELOC to this directory name
 and then you are ready to use ATS2-contrib.  If you want to set
 ${PATSHOMERELOC} to be the same as ${PATSHOME}, then please move the
 content of the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u> into
 ${PATSHOME}.
-
 </p>
 
 <p>
