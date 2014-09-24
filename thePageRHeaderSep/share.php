@@ -74,6 +74,19 @@ thePageRHeaderSep_submenu_for_Downloads($name)
   return;
 } /* end of [thePageRBodyLHeader_Downloads] */
 
+function
+thePageRHeaderSep_submenu_for_Documents($name)
+{
+  $page = "";
+  if(atslangweb__get_pgname()!=$name) $page = "$name.php";
+  $onmouseout = "onmouseout=\"submenu_table_mouseout()\"";
+  $onmouseover = "onmouseover=\"submenu_table_mouseover()\"";
+  echo "<table class=\"thePageRHeaderSepL_submenu\" $onmouseover $onmouseout>\n";
+  echo "<tr><td><a href=\"$page#INT2PROGINATS\">Introduction to Programming in ATS</a></td></tr>\n";
+  echo "</table>\n";
+  return;
+} /* end of [thePageRBodyLHeader_Documents] */
+
 ?>
 
 <?php /* end of [share.php] */ ?>

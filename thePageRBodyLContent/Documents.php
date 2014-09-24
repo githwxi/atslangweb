@@ -6,13 +6,22 @@ class="thePageRBodyLContent"
 
 <h2>Introduction to Programming in ATS</h2>
 
-<p>
+<table>
+<tr>
+<td>
 This book starts from the core of ATS, a statically typed call-by-value
-functional programming language, and introduces the reader to dependent
-types, linear types and the paradigm of programming with
+functional programming language, gradually introducing the reader to
+dependent types, linear types and the paradigm of programming with
 theorem-proving. It assumes no familiarity of the reader with functional
 programming.
-</p>
+</td>
+</tr>
+<tr>
+<td>
+Links: <a href="http://www.ats-lang.org/DOCUMENT/INT2PROGINATS/HTML/book1.html">html</a>
+</td>
+</tr>
+</table>
 
 </div>
 
