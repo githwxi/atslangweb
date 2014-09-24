@@ -69,7 +69,7 @@ thePageRHeaderSep_submenu_for_Downloads($name)
   echo "<table class=\"thePageRHeaderSepL_submenu\" $onmouseover $onmouseout>\n";
   echo "<tr><td><a href=\"$page#ATS_packages\">ATS packages for download</a></td></tr>\n";
   echo "<tr><td><a href=\"$page#Requirements_install\">Requirements for installation</a></td></tr>\n";
-  echo "<tr><td><a href=\"$page#Installation_precompile\">Installation with precompiled code</a></td></tr>\n";
+  echo "<tr><td><a href=\"$page#Precompiledpack_install\">Precompiled packages for installation</a></td></tr>\n";
   echo "<tr><td><a href=\"$page#Installation_sourcecomp\">Installation through source compilation</a></td></tr>\n";
   echo "<tr><td><a href=\"$page#Installation_ATS2_contrib\">Installation of ATS2-contrib</a></td></tr>\n";
   echo "</table>\n";

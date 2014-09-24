@@ -71,7 +71,7 @@ details on GMP.
 
 <hr></hr>
 
-<h2><a id="Installation_precompile">Installation with precompiled code</a></h2>
+<h2><a id="Precompiledpack_install">Precompiled packages for nstallation</a></h2>
 
 <ul>
 <li>
