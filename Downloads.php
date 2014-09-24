@@ -60,18 +60,10 @@ children: thePageRBodyLHeader, thePageRBodyLContent
 height: 100% ;
 } /* thePageRBodyLeft */
 
-#thePageRBodyRight {
-/*
-parent: thePageRBody
-children: 
-*/
-height: 100% ;
-} /* thePageRBodyRight */
-
 #thePageRBody {
 /*
 parent: thePageRight
-children: thePageRBodyLeft, thePageRBodyRight
+children: thePageRBodyLeft
 */
 } /* thePageRBody */
 
@@ -188,9 +180,6 @@ include './thePageRHeaderSep/Downloads.php';
 </div><!--thePageRHeader-->
 
 <div id="thePageRBody">
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-<tr height="100%">
-<td style="vertical-align:top;width:72%;">
 <div id="thePageRBodyLeft">
 <div id="thePageRBodyLHeader">
 <?php
@@ -204,17 +193,6 @@ include './thePageRBodyLContent/Downloads.php';
 ?>
 </div><!--thePageRBodyLContent-->
 </div><!--thePageRBodyLeft-->
-</td>
-
-<td style="vertical-align:top;width:28%;">
-<div id="thePageRBodyRight">
-<?php
-include './thePageRBodyRight/Home.php';
-?>
-</div><!--thePageRBodyRight-->
-</td>
-</tr>
-</table>
 </div><!--thePageRBody-->
 
 <div id="thePageRFooter">

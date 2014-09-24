@@ -208,9 +208,7 @@ include './thePageRBodyLContent/Documents.php';
 
 <td style="vertical-align:top;width:28%;">
 <div id="thePageRBodyRight">
-<?php
-include './thePageRBodyRight/Home.php';
-?>
+[thePageRBodyRight]
 </div><!--thePageRBodyRight-->
 </td>
 </tr>

@@ -147,7 +147,9 @@ println! ("5*5 = ", times(5,5))
 val () =
 println! ("5^2 = ", power(5,2))
 val () =
-println! ("2^5 = ", power(2,5))
+println! ("2^10 = ", power(2,10))
+val () =
+println! ("3^10 = ", power(3,10))
 //
 </TEXTAREA>
 

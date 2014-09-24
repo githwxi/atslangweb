@@ -15,11 +15,11 @@
 
 .thePageLeft_menu
 {
-  width: 80%;
+  width: 88%;
   margin: auto;
   padding: 12px;
   border-radius: 12px;
-  background-color: rgba(255,255,240,0.25);
+  background-color: rgba(255,255,240,0.375);
 }
 
 </style>
