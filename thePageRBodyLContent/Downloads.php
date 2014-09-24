@@ -69,6 +69,23 @@ Please see <a href="http://gmplib.org">http://gmplib.org</a> for more
 details on GMP.
 </p>
 
+<hr></hr>
+
+<h2><a id="Installation_precompile">Installation with precompiled code</a></h2>
+
+<ul>
+<li>
+Official Debian package:
+It is currently maintained by
+<a href="http://cs-people.bu.edu/md/">Matthew Danish</a>.
+</li>
+<li>
+Unofficial Redhat package:
+It is currently maintained by
+<a href="http://cs-people.bu.edu/md/">Matthew Danish</a>.
+</li>
+</ul>
+
 </div>
 
 <?php /* end of [Downloads.php] */ ?>
