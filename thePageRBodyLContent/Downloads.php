@@ -107,7 +107,7 @@ instance, can be done by executing the following command-line:
 
 <div
 class="center command"
-style="width;88%;padding:10px;"
+style="width:88%;padding:10px;"
 >tar -zvxf ATS2-contrib-x.x.x.tgz
 </div>
 
@@ -130,7 +130,7 @@ If you have access to the <em>git</em> command, then you can also do a
 git-clone to obtain the current release of ATS2-contrib:
 <div
 class="center command"
-style="width;88%;padding:10px;"
+style="width:88%;padding:10px;"
 >git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS-Postiats-contrib
 </div>
 </p>
