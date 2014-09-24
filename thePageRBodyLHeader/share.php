@@ -18,8 +18,8 @@ thePageRBodyLHeader_Downloads()
   echo "<li><a href=\"#ATS_packages\">ATS packages for download</a></li>\n";
   echo "<li><a href=\"#Requirements_install\">Requirements for installation</a></li>\n";
   echo "<li><a href=\"#Precompiledpack_install\">Precompiled packages for installation</a></li>\n";
-  echo "<li><a href=\"#Installation_sourcecomp\">Installation through source compilation</a></li>\n";
-  echo "<li><a href=\"#Installation_ATS2_contrib\">Installation of ATS2-contrib</a></li>\n";
+  echo "<li><a href=\"#Install_of_sourcecomp\">Installation through source compilation</a></li>\n";
+  echo "<li><a href=\"#Install_of_ATS2_contrib\">Installation of ATS2-contrib</a></li>\n";
   echo "</ul>\n";
   return;
 } /* end of [thePageRBodyLHeader_Downloads] */
