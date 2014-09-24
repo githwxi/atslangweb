@@ -190,7 +190,7 @@ include './thePageRHeaderSep/Documents.php';
 <div id="thePageRBody">
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 <tr height="100%">
-<td style="vertical-align:top;width:72%;">
+<td style="vertical-align:top;width:68%;">
 <div id="thePageRBodyLeft">
 <div id="thePageRBodyLHeader">
 <?php
@@ -206,7 +206,7 @@ include './thePageRBodyLContent/Documents.php';
 </div><!--thePageRBodyLeft-->
 </td>
 
-<td style="vertical-align:top;width:28%;">
+<td style="vertical-align:top;width:32%;">
 <div id="thePageRBodyRight">
 <?php include './thePageRBodyRight/Documents.php'; ?>
 </div><!--thePageRBodyRight-->

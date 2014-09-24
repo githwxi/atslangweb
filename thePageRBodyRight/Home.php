@@ -27,8 +27,8 @@
 </style>
 
 <div
-style="margin-top:8px;padding-top:10px;padding-left:6px"
->
+style="margin-top:8px;padding-top:8px;padding-left:6px"
+><!--div-->
 
 <h2 style="display:inline;">Yes, ATS can!</h2>
 
@@ -38,6 +38,10 @@ style="margin-top:8px;padding-top:10px;padding-left:6px"
 ATS is versatile in its support for programming syntax. For instance, the
 following tiny ATS program is written in a style of functional programming:
 </p>
+
+<div
+style="margin: auto; width: 96%;"
+><!--div-->
 
 <TEXTAREA
  ID="hello_dats" ROWS="14" COLS="38"
@@ -63,6 +67,8 @@ val () = print_newline((*void*))
  type="button" onclick="Home_hello_onclick()"
 >Try-it-yourself</button>
 
+</div>
+
 <hr></hr>
 
 <p>
@@ -70,6 +76,10 @@ ATS is both accurate and expressive in its support for (static)
 typechecking.  The following code demonstrates the ability of ATS in
 detecting out-of-bounds subscripting at compile-time:
 </p>
+
+<div
+style="margin: auto; width: 96%;"
+><!--div-->
 
 <TEXTAREA
  ID="listsub_dats" ROWS="11" COLS="38"
@@ -92,6 +102,8 @@ val x3 = xs[3] // illegal
  type="button" onclick="Home_listsub_onclick()"
 >Try-it-yourself</button>
 
+</div>
+
 <hr></hr>
 
 <p>
@@ -100,6 +112,10 @@ approach to code reuse. As an example, the following code is likely to
 remind someone of higher-order functions but it is actually every bit of a
 first-order implementation in ATS:
 </p>
+
+<div
+style="margin: auto; width: 96%;"
+><!--div-->
 
 <TEXTAREA
  ID="repeat_f0f1_dats" ROWS="16" COLS="38"
@@ -157,6 +173,8 @@ println! ("3^10 = ", power(3,10))
  ID="repeat_f0f1_button"
  type="button" onclick="Home_repeat_f0f1_onclick()"
 >Try-it-yourself</button>
+
+</div>
 
 </div>
 <?php /* end of [Home.php] */ ?>
