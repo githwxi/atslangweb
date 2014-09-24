@@ -74,16 +74,19 @@ details on GMP.
 <h2><a id="Precompiledpack_install">Precompiled packages for installation</a></h2>
 
 <ul>
+
 <li>
-Official Debian package:
+<a href="https://packages.debian.org/sid/ats2-lang">Official Debian package</a>:
 It is currently maintained by
 <a href="http://cs-people.bu.edu/md/">Matthew Danish</a>.
 </li>
+
 <li>
 Unofficial Redhat package:
 It is currently maintained by
 <a href="http://cs-people.bu.edu/md/">Matthew Danish</a>.
 </li>
+
 </ul>
 
 </div>
