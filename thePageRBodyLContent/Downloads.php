@@ -91,46 +91,97 @@ It is currently maintained by
 
 <hr></hr>
 
-<h2><a id="Install_of_ATS2_contrib">Installation of ATS2-contrib</a></h2>
+<h2>
+<a id="Install_sourcecomp">Installation through source compilation</a>
+</h2>
+
+This installation method requires access to gcc or some other C-compilers
+(such as clang), and it is also in need of the GMP library. 
+
+<ul>
+
+<li>
+<strong>Step 1</strong>:
+After downloading a release of ATS2
+<a href="http://sourceforge.net/projects/ats2-lang/download">on-line</a>,
+please untar it in a directory, say MYATS, of your choice. This, for instance,
+can be done by executing the following command-line:
+</p>
+
+<div
+class="command_line"
+>tar -zvxf ATS2-Postiats-x.x.x.tgz
+</div>
+
+<p>
+where <u>ATS2-Postiats-x.x.x.tgz</u> refers to the downloaded package and
+x.x.x is the version number of the package.  All the files and directories
+extracted from the tarball are now in the directory <u>MYATS/ATS2-Postiats-x.x.x</u>.
+</p>
+
+</li>
+
+<li>
+</li>
+
+<li>
+</li>
+
+<li>
+</li>
+
+</ul>
+
+<hr></hr>
+
+<h2>
+<a id="Install_of_ATS2_contrib">Installation of ATS2-contrib</a>
+</h2>
 
 <p>
 ATS2-contrib primarily consists of external contributions in the forms
-of library packages, tutorials, examples, all sorts of documentation, etc.
+of library packages, tutorials, examples, documentation of various sorts, etc.
 </p>
 
 <p>
-After downloading a release of ATS2-contrib <a
-href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>,
+After downloading a release of ATS2-contrib
+<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>,
 please untar it in a directory, say MYATS, of your choice. This, for
 instance, can be done by executing the following command-line:
 </p>
 
 <div
 class="command_line"
->tar -zvxf ATS2-contrib-x.x.x.tgz
+>tar -zvxf ATS2-Postiats-contrib-x.x.x.tgz
 </div>
 
 <p>
-where <u>ATS2-contrib-x.x.x.tgz</u> refers to the downloaded package and
-x.x.x is the version number of the package.  All the files and directories
-extracted from the tarball are now in the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u>.
+where <u>ATS2-Postiats-contrib-x.x.x.tgz</u> refers to the downloaded package and
+x.x.x is the version number of the package.  All the files and directories extracted
+from the tarball are now in the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u>.
 </p>
 
 <p>
-Please set the environment variable PATSHOMERELOC to this directory name
-and then you are ready to use ATS2-contrib.  If you want to set
-${PATSHOMERELOC} to be the same as ${PATSHOME}, then please move the
-content of the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u> into
-${PATSHOME}.
+
+Please set the environment variable PATSHOMERELOC to this directory name and then you
+are ready to use ATS2-contrib.  If you want to set ${PATSHOMERELOC} to be the same as
+${PATSHOME}, then please move the content of the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u>
+into ${PATSHOME}.
 </p>
 
 <p>
-If you have access to the <em>git</em> command, then you can also do a
-git-clone to obtain the current release of ATS2-contrib:
+If you have access to the <em>git</em> command, then you can also do a git-clone as follows
+to obtain the current release of ATS2-contrib:
+</p>
+
 <div
 class="command_line"
->git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS-Postiats-contrib
+>git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS2-Postiats-contrib
 </div>
+
+<p>
+This is a preferred approach as it greatly simplies the process of pulling in
+new contributions added to ATS2-contrib later.
 </p>
 
 </div>
