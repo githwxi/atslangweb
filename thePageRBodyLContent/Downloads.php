@@ -133,7 +133,7 @@ class="command_line"
 <p>
 Please enter the directory <u>MYATS/ATS2-Postiats-x.x.x</u>, and then execute
 the following command-line:
-<p>
+</p>
 <div
 class="command_line"
 >./configure && make all
@@ -189,7 +189,7 @@ class="command_line"
 >git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS2-Postiats-contrib
 </div>
 <p>
-This is a preferred approach as it can greatly simply the process of pulling in new contributions
+This is a preferred approach as it can greatly simplify the process of pulling in new contributions
 added to ATS2-contrib later.
 </p>
 
