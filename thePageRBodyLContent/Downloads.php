@@ -140,7 +140,12 @@ class="command_line"
 </div>
 <p>
 You can expect that two executables <u>patscc</u> and <u>patsopt</u> be generated
-for compiling ATS programs. If you encounter errors, please try the following command-line:
+for compiling ATS programs. After setting PATSHOME to <u>MYATS/ATS2-Positiats-x.x.x</u>
+and adding ${PATSHOME}/bin to PATH, you are ready to use <u>patscc</u> and <u>patsopt</u>.
+</p>
+
+<p>
+If you encounter errors, please try the following command-line:
 </p>
 <div
 class="command_line"
