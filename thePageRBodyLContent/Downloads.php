@@ -104,7 +104,7 @@ This installation method requires access to gcc or some other C-compiler
 <strong>Step 1</strong>:
 </p>
 <p>
-If you have access to the <em>git</em> command, then you can also do a
+If you have access to the <em>git</em> command, then you can do a
 git-clone as follows to obtain the current release of ATS2:
 </p>
 <div
@@ -166,9 +166,17 @@ of library packages, tutorials, examples, documentation of various sorts, etc.
 </p>
 
 <p>
-After downloading a release of ATS2-contrib
-<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>,
-please untar it in a directory, say MYATS, of your choice by issuing the following
+If you have access to the <em>git</em> command, then you can do a git-clone as follows
+to obtain the current release of ATS2-contrib:
+</p>
+<div
+class="command_line"
+>git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS2-Postiats-contrib
+</div>
+
+You can also download a release of ATS2-contrib
+<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>
+and then untar it in a directory, say MYATS, of your choice by issuing the following
 command-line:
 </p>
 
@@ -184,26 +192,10 @@ from the tarball are now in the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</
 </p>
 
 <p>
-
 Please set the environment variable PATSHOMERELOC to this directory name and then you
 are ready to use ATS2-contrib.  If you want to set ${PATSHOMERELOC} to be the same as
 ${PATSHOME}, then please move the content of the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u>
 into ${PATSHOME}.
-</p>
-
-<p>
-If you have access to the <em>git</em> command, then you can also do a git-clone as follows
-to obtain the current release of ATS2-contrib:
-</p>
-
-<div
-class="command_line"
->git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS2-Postiats-contrib
-</div>
-
-<p>
-This is a preferred approach as it greatly simplies the process of pulling in
-new contributions added to ATS2-contrib later.
 </p>
 
 </div>
