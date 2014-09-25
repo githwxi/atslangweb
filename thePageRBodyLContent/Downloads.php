@@ -95,42 +95,25 @@ It is currently maintained by
 <a id="Install_sourcecomp">Installation through source compilation</a>
 </h2>
 
-This installation method requires access to gcc or some other C-compilers
+This installation method requires access to gcc or another C-compiler
 (such as clang), and it is also in need of the GMP library. 
 
-<ul>
-
-<li>
+<p>
 <strong>Step 1</strong>:
 After downloading a release of ATS2
 <a href="http://sourceforge.net/projects/ats2-lang/download">on-line</a>,
 please untar it in a directory, say MYATS, of your choice. This, for instance,
 can be done by executing the following command-line:
 </p>
-
 <div
 class="command_line"
 >tar -zvxf ATS2-Postiats-x.x.x.tgz
 </div>
-
 <p>
 where <u>ATS2-Postiats-x.x.x.tgz</u> refers to the downloaded package and
 x.x.x is the version number of the package.  All the files and directories
 extracted from the tarball are now in the directory <u>MYATS/ATS2-Postiats-x.x.x</u>.
 </p>
-
-</li>
-
-<li>
-</li>
-
-<li>
-</li>
-
-<li>
-</li>
-
-</ul>
 
 <hr></hr>
 
