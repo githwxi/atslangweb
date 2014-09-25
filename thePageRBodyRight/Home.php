@@ -17,13 +17,6 @@
   color: #8B0000;
   background-color: #FFFAF0;
 }
-#thePageRBodyRight
-{
-  font-size: 75%;
-  background: #d1d360;
-  border-top-left-radius:12px;
-  border-bottom-left-radius:12px;
-}
 </style>
 
 <div

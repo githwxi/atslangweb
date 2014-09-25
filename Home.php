@@ -146,6 +146,13 @@ body {
   background-color: #1e5799;
   background-image: linear-gradient(to right, #1e5799, #7db9e8);
 }
+#thePageRBodyRight
+{
+  font-size: 80%;
+  background: #d1d360;
+  border-top-left-radius:12px;
+  border-bottom-left-radius:12px;
+}
 .thePageRBodyLContent
 {
   margin-left: 8px;
