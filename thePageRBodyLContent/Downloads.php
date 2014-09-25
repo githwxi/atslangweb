@@ -140,8 +140,8 @@ class="command_line"
 </div>
 <p>
 You can expect that two executables <u>patscc</u> and <u>patsopt</u> be generated
-for compiling ATS programs. After setting PATSHOME to <u>MYATS/ATS2-Positiats-x.x.x</u>
-and adding ${PATSHOME}/bin to PATH, you are ready to use <u>patscc</u> and <u>patsopt</u>.
+After setting PATSHOME to <u>MYATS/ATS2-Positiats-x.x.x</u> and adding ${PATSHOME}/bin
+to PATH, you are ready to use <u>patscc</u> and <u>patsopt</u> for compiling ATS programs. 
 </p>
 
 <p>
