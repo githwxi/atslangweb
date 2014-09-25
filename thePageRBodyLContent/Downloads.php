@@ -13,7 +13,7 @@ Software Foundation. The current implementation of ATS is given the name
 ATS/Postiats or simply Postiats. Sometimes, this implementation is also
 referred to as ATS2 for it is the successor of the previous ATS programming
 language, which may be referred to as ATS1. The latest released
-ATS/Postiats packages are available at the following links: 
+ATS/Postiats (that is, ATS2) packages are available at the following links: 
 </p>
 
 <ul>
@@ -104,7 +104,7 @@ This installation method requires access to gcc or some other C-compiler
 <strong>Step 1</strong>:
 </p>
 <p>
-You can download a release
+You can download a released package of ATS2 available
 <a href="http://sourceforge.net/projects/ats2-lang/download">on-line</a>
 and then untar it in a directory, say MYATS, of your choice by issuing the following
 command-line:
@@ -115,12 +115,12 @@ class="command_line"
 </div>
 <p>
 where <u>ATS2-Postiats-x.x.x.tgz</u> refers to the downloaded package and
-x.x.x is the version number of the package.  All the files and directories
+x.x.x is the version number of the package.  All the directories and files
 extracted from the tarball are now in the directory <u>MYATS/ATS2-Postiats-x.x.x</u>.
 </p>
 <p>
 If you have access to the <em>git</em> command, then you can also do a git-clone
-as follows to obtain the current release of ATS2:
+as follows to obtain the current released package of ATS2:
 </p>
 <div
 class="command_line"
@@ -204,7 +204,7 @@ of library packages, tutorials, examples, documentation of various sorts, etc.
 </p>
 
 <p>
-You can download a release of ATS2-contrib
+You can download a released package of ATS2-contrib available
 <a href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>
 and then untar it in a directory, say MYATS, of your choice by issuing the following
 command-line:
@@ -215,7 +215,7 @@ class="command_line"
 </div>
 <p>
 where <u>ATS2-Postiats-contrib-x.x.x.tgz</u> refers to the downloaded package and
-x.x.x is the version number of the package.  All the files and directories extracted
+x.x.x is the version number of the package.  All the directories and files extracted
 from the tarball are now in the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u>.
 </p>
 <p>
