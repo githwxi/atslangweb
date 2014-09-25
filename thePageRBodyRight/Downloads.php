@@ -17,11 +17,10 @@ style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 <hr></hr>
 
 <p>
-ATS/Postiats (ATS2) is implemented in ATS/Anairiats (ATS1).
-The lastest released version of ATS1 is
+ATS/Postiats (ATS2) is implemented in ATS/Anairiats (ATS1),
+and ATS1 is implemented in itself. The lastest released version of ATS1 is
 <a href="http://sourceforge.net/projects/ats-lang/files/latest/download?source=files">ATS1-0.2.11</a>,
-which needs to be available for compiling ATS2.
-ATS1 can be self-bootstrapped as it is capable of compiling itself.
+which needs to be installed in order to build ATS2.
 A simple shell script for installing ATS1 under Linux can be found
 <a href="https://github.com/githwxi/ATS-Postiats/blob/master/travis-ci/setup.sh">on-line</a>.
 It is clear based on the script that installing ATS1 is essentially the same as installing ATS2.
@@ -33,7 +32,7 @@ It is clear based on the script that installing ATS1 is essentially the same as 
 Note that only C code generated from compiling ATS1 source is included in a
 released package of ATS2. Such a package can then be readily compiled into
 object code by a C compiler such as gcc and clang. In general, it is largely
-straightforward to port ATS2 to a platform running a Unix-like OS.
+straightforward to port ATS2 to a platform if the platform runs a Unix-like OS.
 </p>
 
 <hr></hr>
