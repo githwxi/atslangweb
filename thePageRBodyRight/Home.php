@@ -27,9 +27,7 @@ style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 
 <hr></hr>
 
-<p
-style="text-wrap:unrestricted;"
->
+<p>
 The core of ATS is a typed call-by-value functional
 programming language that is largely based on ML. For instance, the
 following tiny ATS program is written in a style of functional programming:
@@ -67,11 +65,9 @@ val () = print_newline((*void*))
 
 <hr></hr>
 
-<p
-style="text-wrap:unrestricted;"
->
+<p>
 ATS is both accurate and expressive in its support for (static)
-typechecking. The following code demonstrates the ability of ATS in
+typechecking.  The following code demonstrates the ability of ATS in
 detecting out-of-bounds subscripting at compile-time:
 </p>
 

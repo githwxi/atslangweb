@@ -148,11 +148,10 @@ body {
 }
 #thePageRBodyRight
 {
-  font-size: 85%;
+  font-size: 88%;
   background: #d1d360;
   border-top-left-radius:12px;
   border-bottom-left-radius:12px;
-  text-wrap: unrestricted;
 }
 .thePageRBodyLContent
 {
