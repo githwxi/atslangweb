@@ -31,7 +31,7 @@ It is clear based on the script that installing ATS1 is essentially the same as 
 <p>
 Note that only C code generated from compiling ATS1 source is included in a
 released package of ATS2. Such a package can then be readily compiled into
-object code by a C compiler such as gcc and clang. In general, it is largely
+object code by a C compiler (e.g., gcc and clang). In general, it is largely
 straightforward to port ATS2 to a platform if the platform runs a Unix-like OS.
 </p>
 
@@ -42,8 +42,13 @@ The name
 <a href="https://github.com/githwxi/ATS-Postiats">ATS2-github</a>
 often refers to the version of ATS2 available at github.com,
 which is primarily suited for people who are interested in developing ATS2.
-As ATS2 is implemented in ATS1, the latter needs to be installed first in order
-to compile ATS2-github.
+Assume that ATS1 is already installed. Then ATS2-github can be built as
+follows:
+<pre>
+git clone https://github.com/githwxi/ATS-Postiats.git
+cd ATS-Postiats
+make -f codegen/Makefile_atslib && make -f Makefile_devl
+</pre>
 </p>
 
 <hr></hr>
