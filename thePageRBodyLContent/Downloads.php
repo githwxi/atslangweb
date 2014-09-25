@@ -138,20 +138,13 @@ the following command-line:
 class="command_line"
 >./configure && make all
 </div>
-
 <p>
-
-You can expect that two executables <u>patscc</u> and <u>patsopt</u> be
-generated in the directory <u>MYATS/ATS2-Postiats-x.x.x/bin</u>, which are
-the commands you need for compiling ATS programs. In addition, a library
-file <u>libatslib.a</u> should be generated in the directory
-<u>MYATS/ATS2-Postiats-x.x.x/ccomp/atslib/lib/</u>, which you <em>may</em>
-need for linking.
-
+You can expect that two executables <u>patscc</u> and <u>patsopt</u> be generated
+for compiling ATS programs. If you encounter errors, please try the following command-line:
 </p>
 <div
 class="command_line"
->./configure && make GCFLAG=-D_ATS_NGC all
+>make cleanall && ./configure && make GCFLAG=-D_ATS_NGC all
 </div>
 
 <hr></hr>
