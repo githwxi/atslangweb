@@ -27,6 +27,11 @@ The current <em>unstable</em> release of ATS2 is at
 </li>
 </ul>
 
+<p>
+The previous stable releases of ATS2 are also available
+<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>
+</p>
+
 <hr></hr>
 
 <h2><a id="Requirements_install">Requirements for installation</a></h2>
