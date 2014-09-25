@@ -145,7 +145,8 @@ to PATH, you are ready to use <u>patscc</u> and <u>patsopt</u> for compiling ATS
 </p>
 
 <p>
-If you encounter errors, please try the following command-line:
+If you encounter errors during or after building <u>patscc</u> and <u>patsopt</u>,
+please re-build by issuing the following command-line:
 </p>
 <div
 class="command_line"
@@ -225,7 +226,7 @@ into ${PATSHOME}.
 </p>
 
 <p>
-If you have access to the <em>git</em> command, then you can do a git-clone as follows
+If you have access to the <em>git</em> command, then you can also do a git-clone as follows
 to obtain the current release of ATS2-contrib:
 </p>
 <div
