@@ -95,15 +95,17 @@ It is currently maintained by
 <a id="Install_source_compile">Installation through source compilation</a>
 </h2>
 
-This installation method requires access to gcc or another C-compiler
-(such as clang), and it is also in need of the GMP library. 
+<p>
+This installation method requires access to gcc or some other C-compiler
+(such as clang), and it is also in need of the GMP library.
+</p>
 
 <p>
 <strong>Step 1</strong>:
 After downloading a release of ATS2
 <a href="http://sourceforge.net/projects/ats2-lang/download">on-line</a>,
-please untar it in a directory, say MYATS, of your choice. This, for instance,
-can be done by executing the following command-line:
+please untar it in a directory, say MYATS, of your choice by issuing the following
+command-line:
 </p>
 <div
 class="command_line"
@@ -127,7 +129,7 @@ class="command_line"
 
 <p>
 <strong>Step 2</strong>:
-Assume that your current directory is #filename("MYATS/ATS2-Postiats-x.x.x").
+Assume that your current directory is <u>MYATS/ATS2-Postiats-x.x.x</u>.
 Please execute the following command-line:
 <p>
 
@@ -154,8 +156,8 @@ of library packages, tutorials, examples, documentation of various sorts, etc.
 <p>
 After downloading a release of ATS2-contrib
 <a href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>,
-please untar it in a directory, say MYATS, of your choice. This, for
-instance, can be done by executing the following command-line:
+please untar it in a directory, say MYATS, of your choice by issuing the following
+command-line:
 </p>
 
 <div
