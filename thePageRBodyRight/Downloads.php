@@ -41,8 +41,8 @@ straightforward to port ATS2 to a platform running a Unix-like OS.
 <p>
 The name
 <a href="https://github.com/githwxi/ATS-Postiats">ATS2-github</a>
-is often used to refer to the version of ATS2 available at Github, which
-is primarily suited for people who are interested in developing ATS2.
+is often used to refer to the version of ATS2 available at github.com,
+which is primarily suited for people who are interested in developing ATS2.
 As can be expected, ATS1 needs to be installed in order to compile ATS2-github.
 </p>
 
