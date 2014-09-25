@@ -148,7 +148,7 @@ body {
 }
 #thePageRBodyRight
 {
-  font-size: 80%;
+  font-size: 85%;
   background: #d1d360;
   border-top-left-radius:12px;
   border-bottom-left-radius:12px;

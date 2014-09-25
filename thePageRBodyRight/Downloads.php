@@ -35,9 +35,7 @@ which is primarily suited for people who are interested in developing ATS2.
 Assume that ATS1 has already been installed. Then ATS2-github can be built
 by issuing the following command-lines after it is git-cloned into a directory
 of the name ATS2-github:
-<pre
-style="font-size:88%;"
->
+<pre>
 cd ATS2-github
 make -f codegen/Makefile_atslib
 make -f Makefile_devl
