@@ -19,7 +19,8 @@ ATS/Postiats (that is, ATS2) packages are available at the following links:
 <ul>
 <li>
 The current <em>stable</em> release of ATS2 is at
-<a href="http://sourceforge.net/projects/ats2-lang/download">ATS2-0.1.2</a>.
+<a href="http://sourceforge.net/projects/ats2-lang/files/latest/download?source=files">ATS2-0.1.2</a>.
+
 </li>
 <li>
 The current <em>unstable</em> release of ATS2 is at
@@ -29,7 +30,7 @@ The current <em>unstable</em> release of ATS2 is at
 
 <p>
 The previous stable releases of ATS2 are also available
-<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>
+<a href="http://sourceforge.net/projects/ats2-lang/files">on-line</a>.
 </p>
 
 <hr></hr>
