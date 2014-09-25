@@ -22,10 +22,6 @@ The current <em>stable</em> release of ATS2 is at
 <a href="http://sourceforge.net/projects/ats2-lang/download">ATS2-0.1.2</a>.
 </li>
 <li>
-The current <em>stable</em> release of ATS2-contrib is at
-<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">ATS2-contrib-0.1.2</a>.
-</li>
-<li>
 The current <em>unstable</em> release of ATS2 is at
 <a href="http://www.ats-lang.org/IMPLEMENT/Positats/ATS2-0.1.3.tgz">ATS-0.1.3</a>.
 </li>
@@ -204,8 +200,15 @@ ATS2-contrib primarily consists of external contributions in the forms
 of library packages, tutorials, examples, documentation of various sorts, etc.
 </p>
 
+<ul>
+<li>
+The current <em>stable</em> release of ATS2-contrib is at
+<a href="http://sourceforge.net/projects/ats2-lang-contrib/download">ATS2-contrib-0.1.2</a>.
+</li>
+</ul>
+
 <p>
-You can download a released package of ATS2-contrib available
+You can download a package of ATS2-contrib available
 <a href="http://sourceforge.net/projects/ats2-lang-contrib/download">on-line</a>
 and then untar it in a directory, say MYATS, of your choice by issuing the following
 command-line:

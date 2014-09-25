@@ -12,7 +12,7 @@
 style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 ><!--div-->
 
-<h2 style="display:inline;">FAQ on building ATS2</h2>
+<h2 style="display:inline;">More on packages of ATS2</h2>
 
 <hr></hr>
 
