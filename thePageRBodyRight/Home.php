@@ -23,7 +23,7 @@
 style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 ><!--div-->
 
-<h3 style="display:inline;">Yes, ATS can!</h3>
+<h2 style="display:inline;">Yes, ATS can!</h2>
 
 <hr></hr>
 

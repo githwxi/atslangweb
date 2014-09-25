@@ -2,7 +2,7 @@
 style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 ><!--div-->
 
-<h3 style="display:inline;">More on ATS packages</h3>
+<h2 style="display:inline;">More on ATS packages</h2>
 
 <hr></hr>
 
@@ -33,9 +33,11 @@ The name
 often refers to the version of ATS2 available at github.com,
 which is primarily suited for people who are interested in developing ATS2.
 Assume that ATS1 has already been installed. Then ATS2-github can be built
-by issuing the following command-lines after it is git-cloned into a directory
+by simply issuing the following command-lines after it is git-cloned into a directory
 of the name ATS2-github:
-<pre>
+<pre
+style="font-size:110%;"
+>
 cd ATS2-github
 make -f codegen/Makefile_atslib
 make -f Makefile_devl
