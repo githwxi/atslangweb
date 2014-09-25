@@ -127,25 +127,31 @@ parent:
 children: thePage
 */
 } /* theBodyProp */
+
 body {
   font-family: Helvetica, Arial, sans-serif;
   background-color: #213449; /* dark blue */
 }
+
 #thePage {
-  width: 85%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
+
 #thePageRHeader {
   text-align: center;
 }
+
 #thePageRFooter {
   text-align: center;
 }
+
 #thePageLeft {
   background-color: #1e5799;
   background-image: linear-gradient(to right, #1e5799, #7db9e8);
 }
+
 #thePageRBodyRight
 {
   font-size: 88%;
@@ -153,6 +159,7 @@ body {
   border-top-left-radius:12px;
   border-bottom-left-radius:12px;
 }
+
 .thePageRBodyLContent
 {
   margin-left: 8px;
