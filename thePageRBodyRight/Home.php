@@ -35,7 +35,8 @@ style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 <hr></hr>
 
 <p>
-ATS is versatile in its support for programming syntax. For instance, the
+The core of ATS is a typed call-by-value functional
+programming language that is largely based on ML. For instance, the
 following tiny ATS program is written in a style of functional programming:
 </p>
 
