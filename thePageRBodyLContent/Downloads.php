@@ -156,7 +156,7 @@ Optionally, you may choose to install ATS.  If you do, please first execute
 the following command-line:
 </p>
 <div
-class="command"
+class="command_line"
 >./configure --prefix=DESTDIR
 </div>
 <p>
@@ -168,7 +168,7 @@ for installing ATS is <u>/usr/local</u>.
 <p>
 You can now install by executing:
 </p>
-<div class="command">make install</div>
+<div class="command_line">make install</div>
 <p>
 After installation, you need to set PATSHOME to
 <u>DESTDIR/lib/ats2-postiats-x.x.x</u>, which is the name of the directory
@@ -179,7 +179,7 @@ where ATS is installed.
 Note that you can always re-configure before executing <em>make install</em>
 if you would like to change a previously selected directory for installation:
 </p>
-<div class="command">./configure --prefix=DESTDIR2</div>
+<div class="command_line">./configure --prefix=DESTDIR2</div>
 <p>
 Also, you can perform staged installation by making use of the variable DESTDIR.
 Please see explanation
