@@ -34,7 +34,7 @@ following tiny ATS program is written in a style of functional programming:
 </p>
 
 <div
-style="margin: auto; width: 96%;"
+style="width:96%;margin:auto;"
 ><!--div-->
 
 <TEXTAREA
@@ -72,7 +72,7 @@ detecting out-of-bounds subscripting at compile-time:
 </p>
 
 <div
-style="margin: auto; width: 96%;"
+style="width:96%;margin:auto;"
 ><!--div-->
 
 <TEXTAREA
@@ -108,7 +108,7 @@ first-order implementation in ATS:
 </p>
 
 <div
-style="margin: auto; width: 96%;"
+margin=auto
 ><!--div-->
 
 <TEXTAREA
