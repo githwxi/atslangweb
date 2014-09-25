@@ -27,7 +27,15 @@ ATS1 can be bootstrapped, that is, it is capable of compiling itself.
 <p>
 Note that only C code generated from compiling ATS1 source is included in a
 released package of ATS2. Such a package can then be readily compiled into
-object code by a C compiler such as gcc and clang.
+object code by a C compiler such as gcc and clang. In general, it is fairly
+straightforward to port ATS2 to a platform running a Unix-like OS.
+</p>
+
+<hr></hr>
+
+<p>
+A simple shell script for installing ATS1 under Linux can be found
+<a href="https://github.com/githwxi/ATS-Postiats/blob/master/travis-ci/setup.sh">on-line</a>.
 </p>
 
 <hr></hr>
