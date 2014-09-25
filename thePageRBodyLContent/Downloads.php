@@ -30,7 +30,7 @@ The current <em>unstable</em> release of ATS2 is at
 
 <p>
 The previous stable releases of ATS2 are also available
-<a href="http://sourceforge.net/projects/ats2-lang/files">on-line</a>.
+<a href="http://sourceforge.net/projects/ats2-lang/files/ats2-lang/">on-line</a>.
 </p>
 
 <hr></hr>
