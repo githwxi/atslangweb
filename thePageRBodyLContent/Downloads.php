@@ -189,8 +189,47 @@ class="command_line"
 >git clone git://git.code.sf.net/p/ats2-lang-contrib/code ATS2-Postiats-contrib
 </div>
 <p>
-This is a preferred approach as it can greatly simplify the process of pulling in new contributions
+This approach is preferred as it can greatly simplify the process of pulling in new contributions
 added to ATS2-contrib later.
+</p>
+
+<p>
+<strong>Step3</strong>
+</p>
+
+<p>
+Optionally, you may choose to install ATS.  If you do, please first execute
+the following command-line:
+</p>
+<div
+class="command"
+>./configure --prefix=DESTDIR
+</div>
+<p>
+where DESTDIR refers to the directory into which ATS is to be installed.
+If the argument [--prefix=DESTDIR] is missing, then the default directory
+for installing ATS is <u>/usr/local</u>.
+</p>
+
+<p>
+You can now install by executing:
+</p>
+<div class="command">make install</div>
+<p>
+After installation, you need to set PATSHOME to
+<u>DESTDIR/lib/ats2-postiats-x.x.x</u>, which is the name of the directory
+where ATS is installed.
+</p>
+
+<p>
+Note that you can always re-configure before executing <em>make install</em>
+if you would like to change a previously selected directory for installation:
+</p>
+<div class="command">./configure --prefix=DESTDIR2</div>
+<p>
+Also, you can perform staged installation by making use of the variable DESTDIR.
+Please see explanation
+<a href="http://www.gnu.org/prep/standards/html_node/DESTDIR.html">on-line</a>.
 </p>
 
 </div>
