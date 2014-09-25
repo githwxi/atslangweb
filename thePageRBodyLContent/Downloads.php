@@ -139,9 +139,10 @@ class="command_line"
 >./configure && make all
 </div>
 <p>
-You can expect that two executables <u>patscc</u> and <u>patsopt</u> be generated
+You can expect that two executables <u>patscc</u> and <u>patsopt</u> be generated.
 After setting PATSHOME to <u>MYATS/ATS2-Positiats-x.x.x</u> and adding ${PATSHOME}/bin
-to PATH, you are ready to use <u>patscc</u> and <u>patsopt</u> for compiling ATS programs. 
+to the value of PATH, you are ready to use <u>patscc</u> and <u>patsopt</u> for compiling
+ATS programs.
 </p>
 
 <p>
