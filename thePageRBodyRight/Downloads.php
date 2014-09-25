@@ -12,7 +12,7 @@
 style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 ><!--div-->
 
-<h2 style="display:inline;">Which version of ATS should you install?</h2>
+<h2 style="display:inline;">FAQ on installing ATS2</h2>
 
 <hr></hr>
 
