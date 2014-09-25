@@ -1,7 +1,7 @@
 <style>
 #thePageRBodyRight
 {
-  font-size: 11pt;
+  font-size: 75%;
   background: #d1d360;
   border-top-left-radius:12px;
   border-bottom-left-radius:12px;

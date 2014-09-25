@@ -19,7 +19,7 @@
 }
 #thePageRBodyRight
 {
-  font-size: 11pt;
+  font-size: 75%;
   background: #d1d360;
   border-top-left-radius:12px;
   border-bottom-left-radius:12px;
@@ -30,7 +30,7 @@
 style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 ><!--div-->
 
-<h2 style="display:inline;">Yes, ATS can!</h2>
+<h3 style="display:inline;">Yes, ATS can!</h3>
 
 <hr></hr>
 
@@ -45,7 +45,7 @@ style="margin: auto; width: 96%;"
 ><!--div-->
 
 <TEXTAREA
- ID="hello_dats" ROWS="14" COLS="38"
+ ID="hello_dats" ROWS="14" COLS="36"
 >
 //
 // Yes, you can edit
@@ -83,7 +83,7 @@ style="margin: auto; width: 96%;"
 ><!--div-->
 
 <TEXTAREA
- ID="listsub_dats" ROWS="11" COLS="38"
+ ID="listsub_dats" ROWS="11" COLS="36"
 >
 //
 // Yes, you can edit
@@ -119,7 +119,7 @@ style="margin: auto; width: 96%;"
 ><!--div-->
 
 <TEXTAREA
- ID="repeat_f0f1_dats" ROWS="16" COLS="38"
+ ID="repeat_f0f1_dats" ROWS="16" COLS="36"
 >
 //
 // Yes, you can edit

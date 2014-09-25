@@ -1,7 +1,7 @@
 <style>
 #thePageRBodyRight
 {
-  font-size: 11pt;
+  font-size: 75%;
   background: #d1d360;
   border-top-left-radius:12px;
   border-bottom-left-radius:12px;
@@ -12,7 +12,7 @@
 style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
 ><!--div-->
 
-<h2 style="display:inline;">More on ATS packages</h2>
+<h3 style="display:inline;">More on ATS packages</h3>
 
 <hr></hr>
 
