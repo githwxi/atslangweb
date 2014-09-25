@@ -102,9 +102,19 @@ This installation method requires access to gcc or some other C-compiler
 
 <p>
 <strong>Step 1</strong>:
-After downloading a release of ATS2
-<a href="http://sourceforge.net/projects/ats2-lang/download">on-line</a>,
-please untar it in a directory, say MYATS, of your choice by issuing the following
+</p>
+<p>
+If you have access to the <em>git</em> command, then you can also do a
+git-clone as follows to obtain the current release of ATS2:
+</p>
+<div
+class="command_line"
+>git clone git://git.code.sf.net/p/ats2-lang/code ATS2-Postiats
+</div>
+<p>
+You can also download a release
+<a href="http://sourceforge.net/projects/ats2-lang/download">on-line</a>
+and then untar it in a directory, say MYATS, of your choice by issuing the following
 command-line:
 </p>
 <div
@@ -118,25 +128,27 @@ extracted from the tarball are now in the directory <u>MYATS/ATS2-Postiats-x.x.x
 </p>
 
 <p>
-If you have access to the <em>git</em> command, then you can also do a
-git-clone as follows to obtain the current release of ATS2:
-</p>
-
-<div
-class="command_line"
->git clone git://git.code.sf.net/p/ats2-lang/code ATS2-Postiats
-</div>
-
-<p>
 <strong>Step 2</strong>:
-Assume that your current directory is <u>MYATS/ATS2-Postiats-x.x.x</u>.
-Please execute the following command-line:
+</p>
 <p>
-
+Please enter the directory <u>MYATS/ATS2-Postiats-x.x.x</u>, and then execute
+the following command-line:
+<p>
 <div
 class="command_line"
 >./configure && make all
 </div>
+
+<p>
+
+You can expect that two executables <u>patscc</u> and <u>patsopt</u> be
+generated in the directory <u>MYATS/ATS2-Postiats-x.x.x/bin</u>, which are
+the commands you need for compiling ATS programs. In addition, a library
+file <u>libatslib.a</u> should be generated in the directory
+<u>MYATS/ATS2-Postiats-x.x.x/ccomp/atslib/lib/</u>, which you <em>may</em>
+need for linking.
+
+</p>
 <div
 class="command_line"
 >./configure && make GCFLAG=-D_ATS_NGC all
