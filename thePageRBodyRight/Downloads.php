@@ -43,13 +43,13 @@ The name
 often refers to the version of ATS2 available at github.com,
 which is primarily suited for people who are interested in developing ATS2.
 Assume that ATS1 is already installed. Then ATS2-github can be built as
-follows:
+follows after it is git-cloned into a directory of the name ATS2-github:
 <pre
-style="font-size:75%;"
+style="font-size:90%;"
 >
-git clone https://github.com/githwxi/ATS-Postiats.git
-cd ATS-Postiats
-make -f codegen/Makefile_atslib && make -f Makefile_devl
+cd ATS2-github
+make -f codegen/Makefile_atslib
+make -f Makefile_devl
 </pre>
 </p>
 
