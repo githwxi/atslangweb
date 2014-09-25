@@ -70,7 +70,7 @@ thePageRHeaderSep_submenu_for_Downloads($name)
   echo "<tr><td><a href=\"$page#ATS_packages\">ATS packages for download</a></td></tr>\n";
   echo "<tr><td><a href=\"$page#Requirements_install\">Requirements for installation</a></td></tr>\n";
   echo "<tr><td><a href=\"$page#Precompiledpack_install\">Precompiled packages for installation</a></td></tr>\n";
-  echo "<tr><td><a href=\"$page#Install_of_sourcecomp\">Installation through source compilation</a></td></tr>\n";
+  echo "<tr><td><a href=\"$page#Install_source_compile\">Installation through source compilation</a></td></tr>\n";
   echo "<tr><td><a href=\"$page#Install_of_ATS2_contrib\">Installation of ATS2-contrib</a></td></tr>\n";
   echo "</table>\n";
   return;

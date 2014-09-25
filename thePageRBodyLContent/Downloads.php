@@ -92,7 +92,7 @@ It is currently maintained by
 <hr></hr>
 
 <h2>
-<a id="Install_sourcecomp">Installation through source compilation</a>
+<a id="Install_source_compile">Installation through source compilation</a>
 </h2>
 
 This installation method requires access to gcc or another C-compiler
