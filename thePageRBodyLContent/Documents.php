@@ -22,8 +22,8 @@ Links:
 <a href="http://www.ats-lang.org/DOCUMENT/INT2PROGINATS/HTML/book1.html">html</a>
 </td>
 </tr>
+<tr height="12px"><td></td></tr>
 </table>
-<br></br>
 
 <hr></hr>
 
@@ -47,8 +47,8 @@ Links:
 <a href="http://www.ats-lang.org/DOCUMENT/ATS2TUTORIAL/HTML/book1.html">html</a>
 </td>
 </tr>
+<tr height="12px"><td></td></tr>
 </table>
-<br></br>
 
 <hr></hr>
 
