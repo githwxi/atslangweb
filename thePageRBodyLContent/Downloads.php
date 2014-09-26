@@ -230,9 +230,10 @@ from the tarball are now in the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</
 </p>
 <p>
 Please set the environment variable PATSHOMERELOC to the name of this
-directory and then you are ready to use ATS2-contrib.  If you want to set ${PATSHOMERELOC}
-to be the same as ${PATSHOME}, then please move the content of the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u>
-into ${PATSHOME}.
+directory and then you are ready to use ATS2-contrib.  If you like, you can
+set PATSHOMERELOC to be the same as ${PATSHOME} after moving the content of
+the directory <u>MYATS/ATS2-Postiats-contrib-x.x.x</u> into the directory of
+the name ${PATSHOME}.
 </p>
 
 <p>
