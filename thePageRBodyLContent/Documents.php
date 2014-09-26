@@ -4,9 +4,10 @@ class="thePageRBodyLContent"
 
 <hr></hr>
 
-<h2><a id="#INT2PROGINATS">Introduction to Programming in ATS</a></h2>
-
 <table>
+<tr><td>
+<h2><a id="#INT2PROGINATS">Introduction to Programming in ATS</a></h2>
+</td></tr>
 <tr>
 <td>
 This book starts from the core of ATS, a statically typed call-by-value
