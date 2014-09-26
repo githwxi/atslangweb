@@ -7,19 +7,20 @@ class="thePageRBodyLContent"
 <h2><a id="ATS_packages">ATS packages for download</a></h2>
 
 <p>
-ATS is Open Source and Free Software, and it is freely available under the
-GNU GENERAL PUBLIC LICENSE version 3 (GPLv3) as is published by the Free
-Software Foundation. The current implementation of ATS is given the name
-ATS/Postiats or simply Postiats. Sometimes, this implementation is also
-referred to as ATS2 for it is the successor of the previous ATS programming
-language, which may be referred to as ATS1. The latest released
-ATS/Postiats (that is, ATS2) packages are available at the following links: 
+ATS is Open Source and Free Software, and it is freely available under
+the GNU GENERAL PUBLIC LICENSE version 3 (GPLv3) as is published by the
+Free Software Foundation. The current implementation of ATS is given the
+name ATS/Postiats or simply Postiats. Usually, this implementation is
+referred to as ATS2 for it is the successor of a previous implementation of
+the name ATS/Anairiats, which is often referred to as ATS1.  The latest
+released packages of ATS/Postiats (that is, ATS2) are available at the
+following links:
 </p>
 
 <ul>
 <li>
 The current <em>stable</em> release of ATS2 is at
-<a href="http://sourceforge.net/projects/ats2-lang/files/latest/download?source=files">ATS2-0.1.3</a>.
+<a href="http://sourceforge.net/projects/ats2-lang/download">ATS2-0.1.3</a>.
 
 </li>
 <li>
