@@ -21,8 +21,8 @@ It is clear based on the script that installing ATS1 is essentially the same as 
 <p>
 Note that only C code generated from compiling ATS1 source is included in a
 released package of ATS2. Such a package can then be readily compiled into
-object code by a C compiler (e.g., gcc and clang). In general, it is largely
-straightforward to port ATS2 to a platform if the platform happens to run a
+object code by a C compiler (e.g., gcc and clang). In general, it often requires
+little effort to port ATS2 to a platform if the platform happens to run a
 Unix-like OS.
 </p>
 
