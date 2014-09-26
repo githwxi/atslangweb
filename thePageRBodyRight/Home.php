@@ -111,9 +111,13 @@ first-order implementation in ATS:
 width=96% margin=auto
 ><!--div-->
 
+<table>
+<tr>
+<td width></td>
+<td width>
 <textarea
-id="repeat_f0f1_dats"
->
+ id="repeat_f0f1_dats" rows="16" cols="36"
+><!--textarea-->
 //
 // Yes, you can edit
 //
@@ -161,7 +165,11 @@ println! ("2^10 = ", power(2,10))
 val () =
 println! ("3^10 = ", power(3,10))
 //
-</TEXTAREA>
+</textarea>
+</td>
+<td width="5%"></td>
+</tr>
+</table>
 
 <button
  ID="repeat_f0f1_button"
