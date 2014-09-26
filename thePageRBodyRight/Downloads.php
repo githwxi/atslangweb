@@ -21,8 +21,8 @@ It is clear based on the script that installing ATS1 is essentially the same as 
 <p>
 Note that the C code generated from compiling ATS1 source is included in a
 released package of ATS2. When ATS2 is being built, the include C code is
-first compiled by a C compiler (such a gcc and clang) into <u>patsopt</u>
-for ATS2 for compiling ATS2 code subsequently.
+first compiled by a C compiler (e.g., gcc, clang, etc.) into <u>patsopt</u>
+for for compiling ATS2 code subsequently.
 In general, it often requires very little effort to port ATS2 to a platform
 if the platform happens to run a Unix-like OS.
 </p>
