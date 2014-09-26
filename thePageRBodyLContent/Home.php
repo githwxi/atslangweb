@@ -31,24 +31,23 @@ style="list-style-position:outside;"
 style="margin-top:10px;margin-bottom:10px;"
 >
 <strong>Functional programming</strong>.
-The core of ATS is a functional language based on eager
-(aka. call-by-value) evaluation, which can also accommodate lazy
-(aka. call-by-need) evaluation. The availability of linear types in ATS
-often makes functional programs written in it run not only with
-surprisingly high efficiency (when compared to C) but also with
-surprisingly small (memory) footprint (when compared to C as well).
+The core of ATS is a call-by-value functional language inspired by ML.
+The availability of linear types in ATS often makes functional programs
+written in it run not only with surprisingly high efficiency (when compared
+to C) but also with surprisingly small (memory) footprint (when compared to
+C as well).
 </li>
 
 <li
 style="margin-top:10px;margin-bottom:10px;"
 >
 <strong>Imperative programming</strong>.
-The novel and unique approach to imperative programming in ATS is firmly
-rooted in the paradigm of <em>programming with theorem-proving</em>. The
-type system of ATS allows many features considered dangerous in other
-languages (such as explicit pointer arithmetic and explicit memory
-allocation/deallocation) to be safely supported in ATS, making ATS well-suited
-for implementing high-quality low-level systems.
+The novel approach to imperative programming in ATS is firmly rooted in the
+paradigm of <em>programming with theorem-proving</em>. The type system of
+ATS allows many features considered dangerous in other languages (such as
+explicit pointer arithmetic and explicit memory allocation/deallocation) to
+be safely supported in ATS, making ATS well-suited for implementing
+high-quality low-level systems.
 </li>
 
 <li
