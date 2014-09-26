@@ -113,7 +113,7 @@ width=96% margin=auto
 
 <table>
 <tr>
-<td width="10%"></td>
+<td></td>
 <td width>
 <textarea
  id="repeat_f0f1_dats" rows="16" cols="36"
@@ -171,7 +171,7 @@ println! ("3^10 = ", power(3,10))
  type="button" onclick="Home_repeat_f0f1_onclick()"
 >Try-it-yourself</button>
 </td>
-<td width="10%"></td>
+<td></td>
 </tr>
 </table>
 
