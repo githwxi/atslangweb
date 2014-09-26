@@ -39,7 +39,7 @@ width=98% margin=auto
 
 <table>
 <tr>
-<td width="100%"></td>
+<td width="10%"></td>
 <td width>
 <textarea
  id="hello_dats" rows="14" cols="36"
@@ -65,7 +65,7 @@ val () = print_newline((*void*))
  type="button" onclick="Home_hello_onclick()"
 >Try-it-yourself</button>
 </td>
-<td width="100%"></td>
+<td width="10%"></td>
 </tr>
 </table>
 
@@ -107,7 +107,7 @@ val x3 = xs[3] // illegal
  type="button" onclick="Home_listsub_onclick()"
 >Try-it-yourself</button>
 </td>
-<td width="100%"></td>
+<td width="10%"></td>
 </tr>
 </table>
 
@@ -128,7 +128,7 @@ width=98% margin=auto
 
 <table>
 <tr>
-<td width="100%"></td>
+<td width="10%"></td>
 <td width>
 <textarea
  id="repeat_f0f1_dats" rows="16" cols="36"
@@ -186,7 +186,7 @@ println! ("3^10 = ", power(3,10))
  type="button" onclick="Home_repeat_f0f1_onclick()"
 >Try-it-yourself</button>
 </td>
-<td width="100%"></td>
+<td width="10%"></td>
 </tr>
 </table>
 
