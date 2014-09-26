@@ -24,8 +24,8 @@ Note that the C code generated from compiling the ATS1 source of ATS2 is
 included in a released package of ATS2. When the package is used to build
 ATS2, the included C code is first compiled by a C compiler (such as gcc
 and clang) into <u>patsopt</u> for compiling ATS2 code subsequently.  In
-general, there is little effort required to port ATS2 to a platform if the
-platform happens to run a Unix-like OS.
+general, there should be very little effort required to port ATS2 to a platform
+if the platform happens to run a Unix-like OS.
 </p>
 
 <hr></hr>
