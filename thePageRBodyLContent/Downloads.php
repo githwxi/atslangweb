@@ -251,6 +251,8 @@ This approach is preferred as it can greatly simplify the process of pulling in 
 added to ATS2-contrib later.
 </p>
 
+<hr></hr>
+
 </div>
 
 <?php /* end of [Downloads.php] */ ?>

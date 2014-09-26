@@ -48,6 +48,8 @@ Links:
 </tr>
 </table>
 
+<hr></hr>
+
 </div>
 
 <?php /* end of [Documents.php] */ ?>
