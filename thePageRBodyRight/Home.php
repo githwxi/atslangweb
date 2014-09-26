@@ -108,11 +108,11 @@ first-order implementation in ATS:
 </p>
 
 <div
-margin=auto
+width=96% margin=auto
 ><!--div-->
 
-<TEXTAREA
- ID="repeat_f0f1_dats" ROWS="16" COLS="36"
+<textarea
+id="repeat_f0f1_dats"
 >
 //
 // Yes, you can edit
