@@ -165,7 +165,8 @@ class="command_line"
 
 <p>
 Optionally, you may choose to install ATS.
-If you do, please first execute the following command-line:
+The default directory for installing ATS is <u>/usr/local</u>.
+If you want to change it, please first execute the following command-line:
 </p>
 <div
 class="command_line"
@@ -173,12 +174,10 @@ class="command_line"
 </div>
 <p>
 where DESTDIR refers to the directory into which ATS is to be installed.
-If you skip this one, then then default directory for installing ATS is
-<u>/usr/local</u>.
 </p>
 
 <p>
-You can now install by executing:
+You can now install ATS by executing:
 </p>
 <div class="command_line">make install</div>
 <p>
