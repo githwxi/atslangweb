@@ -32,7 +32,7 @@ Unix-like OS.
 The name
 <a href="https://github.com/githwxi/ATS-Postiats">ATS2-github</a>
 often refers to the version of ATS2 available at github.com,
-which is primarily suited for people interested in developing ATS2.
+which is primarily suited for use in developing ATS2.
 Assume that ATS1 has been installed. Then ATS2-github can be built
 by issuing the following 3 command-lines after it is git-cloned into a directory
 of the name ATS2-github:
