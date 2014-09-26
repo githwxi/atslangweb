@@ -1,5 +1,5 @@
 <div
-style="margin-top:8px;padding-top:8px;padding-left:8px;padding-right:4px"
+style="margin-top:8px;padding:8px;"
 ><!--div-->
 
 <h2 style="display:inline;">More on ATS packages</h2>
@@ -22,7 +22,8 @@ It is clear based on the script that installing ATS1 is essentially the same as 
 Note that only C code generated from compiling ATS1 source is included in a
 released package of ATS2. Such a package can then be readily compiled into
 object code by a C compiler (e.g., gcc and clang). In general, it is largely
-straightforward to port ATS2 to a platform if the platform runs a Unix-like OS.
+straightforward to port ATS2 to a platform if the platform happens to run a
+Unix-like OS.
 </p>
 
 <hr></hr>
