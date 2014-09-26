@@ -118,7 +118,7 @@ class="command_line"
 <p>
 where <u>ATS2-Postiats-x.x.x.tgz</u> refers to the downloaded package and
 x.x.x is the version number of the package.  All the directories and files
-extracted from the tarball are now in the directory <u>MYATS/ATS2-Postiats-x.x.x</u>.
+extracted from the tarball are stored in the directory <u>MYATS/ATS2-Postiats-x.x.x</u>.
 </p>
 <p>
 If you have access to the <em>git</em> command, then you can also do a git-clone
