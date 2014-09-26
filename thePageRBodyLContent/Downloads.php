@@ -13,8 +13,7 @@ Free Software Foundation. The current implementation of ATS is given the
 name ATS/Postiats or simply Postiats. Usually, this implementation is
 referred to as ATS2 for it is the successor of a previous implementation of
 the name ATS/Anairiats, which is often referred to as ATS1.  The latest
-released packages of ATS/Postiats (that is, ATS2) are available at the
-following links:
+released packages of ATS2 are available at the following links:
 </p>
 
 <ul>
