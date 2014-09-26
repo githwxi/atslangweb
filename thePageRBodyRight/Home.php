@@ -113,11 +113,11 @@ width=96% margin=auto
 
 <table>
 <tr>
-<td width></td>
+<td width="10%"></td>
 <td width>
 <textarea
  id="repeat_f0f1_dats" rows="16" cols="36"
-><!--textarea-->
+>
 //
 // Yes, you can edit
 //
@@ -167,7 +167,7 @@ println! ("3^10 = ", power(3,10))
 //
 </textarea>
 </td>
-<td width="5%"></td>
+<td width="10%"></td>
 </tr>
 </table>
 
