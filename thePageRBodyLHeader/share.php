@@ -34,6 +34,22 @@ thePageRBodyLHeader_Documents()
   return;
 } /* end of [thePageRBodyLHeader_Documents] */
 
+function
+thePageRBodyLHeader_Papers()
+{
+  echo "<ul name=\"Papers\">\n";
+  echo "</ul>\n";
+  return;
+} /* end of [thePageRBodyLHeader_Papers] */
+
+function
+thePageRBodyLHeader_Examples()
+{
+  echo "<ul name=\"Examples\">\n";
+  echo "</ul>\n";
+  return;
+} /* end of [thePageRBodyLHeader_Examples] */
+
 ?>
 
 <?php /* end of [share.php] */ ?>
