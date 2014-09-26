@@ -34,11 +34,15 @@ following tiny ATS program is written in a style of functional programming:
 </p>
 
 <div
-style="width:96%;margin:auto;"
+width=98% margin=auto
 ><!--div-->
 
-<TEXTAREA
- ID="hello_dats" ROWS="14" COLS="36"
+<table>
+<tr>
+<td width="100%"></td>
+<td width>
+<textarea
+ id="hello_dats" rows="14" cols="36"
 >
 //
 // Yes, you can edit
@@ -60,6 +64,10 @@ val () = print_newline((*void*))
  ID="hello_button"
  type="button" onclick="Home_hello_onclick()"
 >Try-it-yourself</button>
+</td>
+<td width="100%"></td>
+</tr>
+</table>
 
 </div>
 
@@ -72,11 +80,15 @@ detecting out-of-bounds subscripting at compile-time:
 </p>
 
 <div
-style="width:96%;margin:auto;"
+width=98% margin=auto
 ><!--div-->
 
-<TEXTAREA
- ID="listsub_dats" ROWS="11" COLS="36"
+<table>
+<tr>
+<td width="100%"></td>
+<td width>
+<textarea
+ id="listsub_dats" rows="11" cols="36"
 >
 //
 // Yes, you can edit
@@ -89,12 +101,15 @@ val x1 = xs[1] // legal
 val x2 = xs[2] // legal
 val x3 = xs[3] // illegal
 //
-</TEXTAREA>
-
+</textarea>
 <button
  ID="listsub_button"
  type="button" onclick="Home_listsub_onclick()"
 >Try-it-yourself</button>
+</td>
+<td width="100%"></td>
+</tr>
+</table>
 
 </div>
 
@@ -108,12 +123,12 @@ first-order implementation in ATS:
 </p>
 
 <div
-width=96% margin=auto
+width=98% margin=auto
 ><!--div-->
 
 <table>
 <tr>
-<td></td>
+<td width="100%"></td>
 <td width>
 <textarea
  id="repeat_f0f1_dats" rows="16" cols="36"
@@ -171,7 +186,7 @@ println! ("3^10 = ", power(3,10))
  type="button" onclick="Home_repeat_f0f1_onclick()"
 >Try-it-yourself</button>
 </td>
-<td></td>
+<td width="100%"></td>
 </tr>
 </table>
 
