@@ -12,7 +12,8 @@ This book starts from the core of ATS, a statically typed call-by-value
 functional programming language, gradually introducing the reader to
 dependent types, linear types and the paradigm of programming with
 theorem-proving. It assumes no familiarity of the reader with functional
-programming.
+programming but it does expect the reader to have already acquired some
+basic programming skills.
 </td>
 </tr>
 <tr>
