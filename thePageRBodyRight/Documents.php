@@ -1,5 +1,5 @@
 <div
-style="margin-top:8px;padding-top:8px;padding-left:4px;padding-right:4px"
+style="margin-top:8px;padding-top:8px;padding-left:8px;padding-right:4px"
 ><!--div-->
 
 <h2 style="display:inline;">Suggestions on learning programming in ATS</h2>
