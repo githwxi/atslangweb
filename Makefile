@@ -16,12 +16,14 @@ RMF=rm -f
 all:: Home
 all:: Downloads
 all:: Documents
+all:: Papers
 
 ######
 #
 Home:: ; $(CPF) $(SOURCE)/Home.php .
 Downloads:: ; $(CPF) $(SOURCE)/Downloads.php .
 Documents:: ; $(CPF) $(SOURCE)/Documents.php .
+Papers:: ; $(CPF) $(SOURCE)/Papers.php .
 #
 ######
 
@@ -47,6 +49,8 @@ $(CPF) $(SOURCE)/thePageLeft/Downloads.php ./thePageLeft/.
 thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/Documents.php ./thePageLeft/.
 thePageLeft:: ; \
+$(CPF) $(SOURCE)/thePageLeft/Papers.php ./thePageLeft/.
+thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/share.php ./thePageLeft/.
 thePageLeft:: ; \
 $(CPF) $(SOURCE)/thePageLeft/share2.php ./thePageLeft/.
@@ -61,6 +65,8 @@ $(CPF) $(SOURCE)/thePageRHeaderSep/Downloads.php ./thePageRHeaderSep/.
 thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/Documents.php ./thePageRHeaderSep/.
 thePageRHeaderSep:: ; \
+$(CPF) $(SOURCE)/thePageRHeaderSep/Papers.php ./thePageRHeaderSep/.
+thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/share.php ./thePageRHeaderSep/.
 thePageRHeaderSep:: ; \
 $(CPF) $(SOURCE)/thePageRHeaderSep/share2.php ./thePageRHeaderSep/.
@@ -72,6 +78,8 @@ $(CPF) $(SOURCE)/thePageRBodyLHeader/Downloads.php ./thePageRBodyLHeader/.
 thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/Documents.php ./thePageRBodyLHeader/.
 thePageRBodyLHeader:: ; \
+$(CPF) $(SOURCE)/thePageRBodyLHeader/Papers.php ./thePageRBodyLHeader/.
+thePageRBodyLHeader:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLHeader/share.php ./thePageRBodyLHeader/.
 #
 thePageRBodyLContent:: ; \
@@ -80,6 +88,8 @@ thePageRBodyLContent:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLContent/Downloads.php ./thePageRBodyLContent/.
 thePageRBodyLContent:: ; \
 $(CPF) $(SOURCE)/thePageRBodyLContent/Documents.php ./thePageRBodyLContent/.
+thePageRBodyLContent:: ; \
+$(CPF) $(SOURCE)/thePageRBodyLContent/Papers.php ./thePageRBodyLContent/.
 #
 thePageRBodyRight:: ; \
 $(CPF) $(SOURCE)/thePageRBodyRight/Home.php ./thePageRBodyRight/.
@@ -87,6 +97,8 @@ thePageRBodyRight:: ; \
 $(CPF) $(SOURCE)/thePageRBodyRight/Downloads.php ./thePageRBodyRight/.
 thePageRBodyRight:: ; \
 $(CPF) $(SOURCE)/thePageRBodyRight/Documents.php ./thePageRBodyRight/.
+thePageRBodyRight:: ; \
+$(CPF) $(SOURCE)/thePageRBodyRight/Papers.php ./thePageRBodyRight/.
 #
 ######
 
