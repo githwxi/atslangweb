@@ -98,8 +98,11 @@ It is currently maintained by
 </h2>
 
 <p>
-This installation method requires access to gcc or some other C-compiler
-(such as clang), and it is also in need of the GMP library.
+This installation method
+requires access to gcc or some other C-compiler
+(such as clang) and is also in need of the GMP library.
+It takes 3 simple steps to complete with the third one being
+optional.
 </p>
 
 <p>
