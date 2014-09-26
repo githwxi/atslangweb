@@ -7,13 +7,14 @@ style="margin-top:8px;padding:8px;"
 <hr></hr>
 
 <p>
-ATS2 (ATS/Postiats) is implemented in ATS1 (ATS/Anairiats),
-and ATS1 is implemented in itself. The lastest released version of ATS1 is
+ATS2 (ATS/Postiats) is implemented in ATS1 (ATS/Anairiats), and ATS1 is
+implemented in itself. The lastest released version of ATS1 is
 <a href="http://sourceforge.net/projects/ats-lang/files/latest/download?source=files">ATS1-0.2.11</a>,
-which is required to be installed in order to build ATS2.
-A simple shell script for installing ATS1 under Linux can be found
-<a href="https://github.com/githwxi/ATS-Postiats/blob/master/travis-ci/setup.sh">on-line</a>.
-It is clear based on the script that installing ATS1 is essentially the same as installing ATS2.
+which needs to be installed first in order to build ATS2 from its source
+(written in ATS1). Essentially, the process of installing ATS1 is the same
+as installing ATS2. For more information, please check out a simple shell script
+<a href="https://github.com/githwxi/ATS-Postiats/blob/master/travis-ci/setup.sh">on-line</a>
+for installing ATS1 under Linux.
 </p>
 
 <hr></hr>
