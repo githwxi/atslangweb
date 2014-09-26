@@ -75,11 +75,12 @@ programming.
 <p>
 In addition, ATS contains a subsystem ATS/LF that supports a form of
 (interactive) theorem-proving, where proofs are constructed as total
-functions.  With this component, ATS advocates a
+functions.  With this subsystem, ATS is able to advocate a
 <em>programmer-centric</em> approach to program verification that combines
 programming with theorem-proving in a syntactically intertwined
-manner. Furthermore, this component can serve as a logical framework for
-encoding deduction systems and their (meta-)properties.
+manner. Furthermore, ATS/LF can also serve as a logical framework (LF)
+for encoding various formal systems (such as logic systems and type systems)
+together with proofs of their (meta-)properties.
 </p>
 
 <hr></hr>

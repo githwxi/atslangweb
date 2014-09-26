@@ -193,7 +193,7 @@ if you would like to change a previously selected directory for installation:
 <div class="command_line">./configure --prefix=DESTDIR2</div>
 <p>
 Also, you can perform staged installation by making use of the variable DESTDIR.
-Please see explanation
+Please find explanation
 <a href="http://www.gnu.org/prep/standards/html_node/DESTDIR.html">on-line</a>.
 </p>
 
