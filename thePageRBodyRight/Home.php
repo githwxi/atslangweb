@@ -166,15 +166,14 @@ val () =
 println! ("3^10 = ", power(3,10))
 //
 </textarea>
-</td>
-<td width="10%"></td>
-</tr>
-</table>
-
 <button
  ID="repeat_f0f1_button"
  type="button" onclick="Home_repeat_f0f1_onclick()"
 >Try-it-yourself</button>
+</td>
+<td width="10%"></td>
+</tr>
+</table>
 
 </div>
 
