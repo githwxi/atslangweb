@@ -85,7 +85,7 @@ width=98% margin=auto
 
 <table>
 <tr>
-<td width="100%"></td>
+<td width="10%"></td>
 <td width>
 <textarea
  id="listsub_dats" rows="11" cols="36"
