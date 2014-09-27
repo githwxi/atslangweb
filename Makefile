@@ -13,6 +13,10 @@ RMF=rm -f
 
 ######
 
+all:: ; make -C ${SOURCE}
+
+######
+
 all:: Home
 all:: Downloads
 all:: Documents
