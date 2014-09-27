@@ -515,6 +515,7 @@ style="margin-left:8px;"
 
 <ul name="Examples">
 <li><a href="#Hello_world">Hello, world!</a></li>
+<li><a href="#Copying_files">Copying files</a></li>
 <li><a href="#Fibonacci_numbers">Computing Fibonacci numbers</a></li>
 </ul>
 
@@ -565,6 +566,35 @@ Here is a button for trying this example on-line:
 >Try-it-yourself</button>
 </p>
 -->
+
+<hr></hr>
+
+<h2><a id="Copying_files">Copying files</a></h2>
+
+<p>
+Given an input channel and an output channel, the following function fcopy
+writes to the latter the characters read from the former:
+</p>
+
+<pre class="patsyntax">
+<span class="dynexp"><span class="keyword">fun</span>
+fcopy <span class="keyword">(</span>
+  inp<span class="keyword">:</span> <span class="staexp">FILEref</span><span class="keyword">,</span> out<span class="keyword">:</span> <span class="staexp">FILEref</span>
+<span class="keyword">)</span> <span class="keyword">:</span> <span class="staexp">void</span> <span class="keyword">=</span> <span class="keyword">let</span>
+  <span class="dynexp"><span class="keyword">val</span> c <span class="keyword">=</span> fileref_getc <span class="keyword">(</span>inp<span class="keyword">)</span></span>
+<span class="keyword">in</span>
+  <span class="keyword">if</span> c &gt;= <span class="dynexp">0</span> <span class="keyword">then</span> <span class="keyword">let</span>
+    <span class="dynexp"><span class="keyword">val</span> <span class="keyword">(</span><span class="keyword">)</span> <span class="keyword">=</span> fileref_putc <span class="keyword">(</span>out<span class="keyword">,</span> c<span class="keyword">)</span></span> <span class="keyword">in</span> fcopy <span class="keyword">(</span>inp<span class="keyword">,</span> out<span class="keyword">)</span>
+  <span class="keyword">end</span> <span class="comment">// end of [if]</span>
+<span class="keyword">end</span></span> <span class="comment">(* end of [fcopy] *)</span></pre>
+<!--php-->
+
+<p>
+Note that loops in imperative languages such as C and Java are often
+implemented as tail-recursive functions in ATS, which are then compiled
+back into loops in C. For instance, fcopy as is implemented above is such
+a tail-recursive function.
+</p>
 
 <hr></hr>
 
