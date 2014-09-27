@@ -557,7 +557,7 @@ into some C code and then invokes a C compiler (gcc in this case) to
 translate the generated C code into some binary object code.  </p>
 
 <p>
-Here is a link for trying this example on-line: <button>Try-it-yourself</button>
+Here is a button for trying this example on-line: <button>Try-it-yourself</button>
 </p>
 
 <hr></hr>
@@ -577,7 +577,10 @@ as is supported in ATS.
 A function fib can be specified as follows for computing Fibonacci numbers:
 </p>
 
-<pre>
+<pre
+class="patsyntax"
+style="color:#000000;"
+>
 fib(0)   = 0
 fib(1)   = 1
 fib(n+2) = fib(n) + fib(n+1) for n >= 0
@@ -602,7 +605,10 @@ time-complexity. An implementation of fib in C is given as follows that is
 of linear time-complexity:
 </p>
 
-<pre>
+<pre
+class="patsyntax"
+style="color:#000000;"
+>
 int
 fibc (int n) {
   int tmp, f0 = 0, f1 = 1 ;
@@ -653,9 +659,40 @@ types corresponding to the three equations in the definition of fib:
 </p>
 
 <pre class="patsyntax">
-<span class="dynexp"><span class="keyword">fun</span> FIB0 <span class="keyword">:</span> <span class="keyword">(</span><span class="keyword">)</span> <span class="staexp"><span class="keyword">-&gt;</span></span> <span class="staexp">FIB</span> <span class="keyword">(</span><span class="staexp">0</span><span class="keyword">,</span> <span class="staexp">0</span><span class="keyword">)</span></span>
-<span class="dynexp"><span class="keyword">fun</span> FIB1 <span class="keyword">:</span> <span class="keyword">(</span><span class="keyword">)</span> <span class="staexp"><span class="keyword">-&gt;</span></span> <span class="staexp">FIB</span> <span class="keyword">(</span><span class="staexp">1</span><span class="keyword">,</span> <span class="staexp">1</span><span class="keyword">)</span></span>
-<span class="dynexp"><span class="keyword">fun</span> FIB2 <span class="keyword">:</span> <span class="staexp"><span class="keyword">{</span>n<span class="keyword">:</span>nat<span class="keyword">}</span></span><span class="staexp"><span class="keyword">{</span>r0<span class="keyword">,</span>r1<span class="keyword">:</span>int<span class="keyword">}</span></span> <span class="keyword">(</span><span class="staexp">FIB</span> <span class="keyword">(</span><span class="staexp">n</span><span class="keyword">,</span> <span class="staexp">r0</span><span class="keyword">)</span><span class="keyword">,</span> <span class="staexp">FIB</span> <span class="keyword">(</span><span class="staexp">n</span><span class="keyword">,</span> <span class="staexp">r1</span><span class="keyword">)</span><span class="keyword">)</span> <span class="staexp"><span class="keyword">-&gt;</span></span> <span class="staexp">FIB</span> <span class="keyword">(</span><span class="staexp">n</span><span class="staexp">+</span><span class="staexp">2</span><span class="keyword">,</span> <span class="staexp">r0</span><span class="staexp">+</span><span class="staexp">r1</span><span class="keyword">)</span></span></pre>
+<span class="dynexp">FIB0 <span
+class="keyword">:</span> <span class="keyword">(</span><span
+class="keyword">)</span> <span class="staexp"><span
+class="keyword">-&gt;</span></span> <span class="staexp">FIB</span> <span
+class="keyword">(</span><span class="staexp">0</span><span
+class="keyword">,</span> <span class="staexp">0</span><span
+class="keyword">)</span></span>
+<span class="dynexp">FIB1 <span
+class="keyword">:</span> <span class="keyword">(</span><span
+class="keyword">)</span> <span class="staexp"><span
+class="keyword">-&gt;</span></span> <span class="staexp">FIB</span> <span
+class="keyword">(</span><span class="staexp">1</span><span
+class="keyword">,</span> <span class="staexp">1</span><span
+class="keyword">)</span></span>
+<span class="dynexp">FIB2 <span
+class="keyword">:</span> <span class="staexp"><span
+class="keyword">{</span>n<span class="keyword">:</span>nat<span
+class="keyword">}</span></span><span class="staexp"><span
+class="keyword">{</span>r0<span class="keyword">,</span>r1<span
+class="keyword">:</span>int<span class="keyword">}</span></span> <span
+class="keyword">(</span><span class="staexp">FIB</span> <span
+class="keyword">(</span><span class="staexp">n</span><span
+class="keyword">,</span> <span class="staexp">r0</span><span
+class="keyword">)</span><span class="keyword">,</span> <span
+class="staexp">FIB</span> <span class="keyword">(</span><span
+class="staexp">n</span><span class="keyword">,</span> <span
+class="staexp">r1</span><span class="keyword">)</span><span
+class="keyword">)</span> <span class="staexp"><span
+class="keyword">-&gt;</span></span> <span class="staexp">FIB</span> <span
+class="keyword">(</span><span class="staexp">n</span><span
+class="staexp">+</span><span class="staexp">2</span><span
+class="keyword">,</span> <span class="staexp">r0</span><span
+class="staexp">+</span><span class="staexp">r1</span><span
+class="keyword">)</span></span></pre>
 <!--php-->
 
 <p>
@@ -716,7 +753,7 @@ typechecking. In particular, there is no proof construction at run-time.
 </p>
 
 <p>
-Here is a link for trying this example on-line: <button>Try-it-yourself</button>
+Here is a button for trying this example on-line: <button>Try-it-yourself</button>
 </p>
 
 <hr></hr>
