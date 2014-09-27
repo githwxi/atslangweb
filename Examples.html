@@ -538,7 +538,7 @@ Following is a tiny program in ATS for printing out the string "Hello,
 world!" plus a newline: </p>
 
 <pre class="patsyntax">
-<span class="dynexp"><span class="keyword">implement</span> main0 <span class="keyword">(</span><span class="keyword">)</span> <span class="keyword">=</span> print <span class="keyword">(</span><span class="dynstr">"Hello, world!\n"</span><span class="keyword">)</span></span></pre>
+<span class="dynexp"><span class="keyword">implement</span> main0 <span class="keyword">(</span><span class="keyword">)</span> <span class="keyword">=</span> print<span class="keyword">(</span><span class="dynstr">"Hello, world!\n"</span><span class="keyword">)</span></span></pre>
 <!--php-->
 
 <p>
@@ -556,9 +556,15 @@ If executed, <u>hello</u> does what is mentioned above. The command
 into some C code and then invokes a C compiler (gcc in this case) to
 translate the generated C code into some binary object code.  </p>
 
+<!--
 <p>
-Here is a button for trying this example on-line: <button>Try-it-yourself</button>
+Here is a button for trying this example on-line:
+<button
+ ID="hello_button"
+ type="button" onclick="Examples_hello_open_onclick()"
+>Try-it-yourself</button>
 </p>
+-->
 
 <hr></hr>
 
@@ -728,7 +734,7 @@ fibats<span class="staexp"><span class="keyword">{</span>n<span class="keyword">
 <!--php-->
 
 <p>
-Note that fibats is assigned the following type:
+Note that fibats is given the following declaration:
 </p>
 
 <pre class="patsyntax">
@@ -752,9 +758,15 @@ Lastly, it should be emphasized that proofs are completely erased after
 typechecking. In particular, there is no proof construction at run-time.
 </p>
 
+<!--
 <p>
-Here is a button for trying this example on-line: <button>Try-it-yourself</button>
+Here is a button for trying this example on-line:
+<button
+ ID="hello_button"
+ type="button" onclick="Examples_fibats_open_onclick()"
+>Try-it-yourself</button>
 </p>
+-->
 
 <hr></hr>
 
@@ -769,6 +781,10 @@ Here is a button for trying this example on-line: <button>Try-it-yourself</butto
 <div
 style="margin-top:8px;padding:8px;"
 ><!--div-->
+
+<h2 style="display:inline;">Try examples on-line</h2>
+
+<hr></hr>
 
 <h2 style="display:inline;">More examples in ATS</h2>
 
