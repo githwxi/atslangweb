@@ -581,7 +581,8 @@ writes to the latter the characters read from the former:
 <pre class="patsyntax">
 <span class="dynexp"><span class="keyword">fun</span>
 fcopy <span class="keyword">(</span>
-  inp<span class="keyword">:</span> <span class="staexp">FILEref</span><span class="keyword">,</span> out<span class="keyword">:</span> <span class="staexp">FILEref</span>
+  inp<span class="keyword">:</span> <span class="staexp">FILEref</span>
+<span class="keyword">,</span> out<span class="keyword">:</span> <span class="staexp">FILEref</span>
 <span class="keyword">)</span> <span class="keyword">:</span> <span class="staexp">void</span> <span class="keyword">=</span> <span class="keyword">let</span>
   <span class="dynexp"><span class="keyword">val</span> c <span class="keyword">=</span> fileref_getc <span class="keyword">(</span>inp<span class="keyword">)</span></span>
 <span class="keyword">in</span>
