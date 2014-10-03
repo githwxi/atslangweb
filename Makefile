@@ -24,6 +24,7 @@ all:: Libraries
 all:: Community
 all:: Papers
 all:: Examples
+all:: Patsoptaas
 
 ######
 #
@@ -34,6 +35,7 @@ Libraries:: ; $(CPF) $(SOURCE)/Libraries.html .
 Community:: ; $(CPF) $(SOURCE)/Community.html .
 Papers:: ; $(CPF) $(SOURCE)/Papers.html .
 Examples:: ; $(CPF) $(SOURCE)/Examples.html .
+Patsoptaas:: ; $(CPF) $(SOURCE)/Patsoptaas.html .
 #
 ######
 
