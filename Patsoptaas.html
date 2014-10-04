@@ -17,7 +17,6 @@ parent: thePage2
 children: 
 */
 height: 100%;
-background-color: #25c453;
 } /* thePage2Left */
 
 #thePage2RTop {
@@ -25,7 +24,6 @@ background-color: #25c453;
 parent: thePage2Right
 children: 
 */
-background-color: #622a34;
 } /* thePage2RTop */
 
 #thePage2RBody {
@@ -34,7 +32,6 @@ parent: thePage2Right
 children: 
 */
 height: 100%;
-background-color: #52f119;
 } /* thePage2RBody */
 
 #thePage2RFoot {
@@ -42,7 +39,6 @@ background-color: #52f119;
 parent: thePage2Right
 children: 
 */
-background-color: #976801;
 } /* thePage2RFoot */
 
 #thePage2Right {
@@ -51,7 +47,6 @@ parent: thePage2
 children: thePage2RTop, thePage2RBody, thePage2RFoot
 */
 height: 100%;
-background-color: #657450;
 } /* thePage2Right */
 
 #thePage2 {
@@ -60,7 +55,6 @@ parent: theBodyProp
 children: thePage2Left, thePage2Right
 */
 height: 100%;
-background-color: #0849fb;
 } /* thePage2 */
 
 #theBodyProp {
@@ -70,6 +64,16 @@ children: thePage2
 */
 height: 100%;
 } /* theBodyProp */
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #213449; /* dark blue */
+}
+
+#thePage2Left {
+  background-color: #1e5799;
+  background-image: linear-gradient(to right, #1e5799, #7db9e8);
+}
 </style>
 <link
  rel="icon" type="image/gif"
@@ -90,41 +94,26 @@ height: 100%;
 <td style="vertical-align:top;width:15%;">
 <div id="thePage2Left">
 <style>
-#thePageLeft
+#thePage2Left
 {
-  color: #483D8B;
-}
-#thePageLeft td.self
-{
-  font-weight: bold;
-}
-#thePageLeft td.other
-{
-  font-weight: normal;
-}
-.thePageLeft_menu
-{
-  width: 88%;
-  margin: auto;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: rgba(255,255,240,0.375);
+  color: #FFFFF0;
 }
 </style>
 
 <table
- width="100%"
+ width=100%
 >
 <tr>
-<td height="156px" align="center">
+<td
+ height="156px"
+ align="center">
 <img src="./MYDATA/theLogo.png" alt="ATSlogo" style="height:72%"></img>
 </td>
 </tr>
 <tr>
-<td>
-<table
- class="thePageLeft_menu"
->
+<td
+ align="center">
+<table>
 <tr><td>Editor</td></tr>
 <tr><td>Stderr</td></tr>
 <tr><td>Patsopt</td></tr>
@@ -135,6 +124,7 @@ height: 100%;
 </tr>
 </table>
 
+<!--php-->
 </div><!--thePage2Left-->
 </td>
 
@@ -247,6 +237,7 @@ style="margin-top:6px;margin-bottom:6px;"
 </tr>
 </table>
 
+<!--php-->
 </div><!--thePage2RTop-->
 </td>
 </tr>
@@ -255,9 +246,10 @@ style="margin-top:6px;margin-bottom:6px;"
 <td>
 <div id="thePage2RBody">
 <div>
-Patsopt-as-a-Service
+PATSOPTAAS: Patsopt-as-a-Service
 </div>
 
+<!--php-->
 </div><!--thePage2RBody-->
 </td>
 </tr>
