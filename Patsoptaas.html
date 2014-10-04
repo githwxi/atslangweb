@@ -85,6 +85,18 @@ body {
 <script
  src="http://cdn.jsdelivr.net/ace/1.1.6/min/ace.js">
 </script>
+<script
+ src="./CLIENT/mycode/libatscc2js_all.js">
+</script>
+<script
+ src="./CLIENT/mycode/libatscc2js_print_store.js">
+</script>
+<script
+ src="./CLIENT/mycode/atslangweb_utils_dats.js">
+</script>
+<script
+ src="./CLIENT/mycode/patsoptaas_utils_dats.js">
+</script>
 </head>
 <body>
 <div id="theBodyProp">
@@ -167,16 +179,6 @@ body {
 </style>
 
 <script>
-function
-Patsoptaas_patsopt_onclick()
-{
-  alert("Patsoptaas_patsopt_onclick()");
-}
-function
-Patsoptaas_patsopt2js_onclick()
-{
-  alert("Patsoptaas_patsopt2js_onclick()");
-}
 </script>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -208,13 +210,13 @@ Compile
 <li>
 <button
  ID="patsopt_button"
- type="button" onclick="Patsoptaas_patsopt_onclick()"
+ type="button" onclick="Patsoptaas_Compile_patsopt_onclick()"
 >Patsopt</button>
 </li>
 <li>
 <button
  ID="patsopt2js_button"
- type="button" onclick="Patsoptaas_patsopt2js_onclick()"
+ type="button" onclick="Patsoptaas_Compile_patsopt2js_onclick()"
 >Patsopt2js</button>
 </li>
 </ul>
