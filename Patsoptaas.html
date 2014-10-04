@@ -17,7 +17,7 @@ parent: thePage2
 children: 
 */
 height: 100%;
-background-color: #31e6f8;
+background-color: #53ccfd;
 } /* thePage2Left */
 
 #thePage2RTop {
@@ -25,7 +25,7 @@ background-color: #31e6f8;
 parent: thePage2Right
 children: 
 */
-background-color: #6a124a;
+background-color: #2a1e16;
 } /* thePage2RTop */
 
 #thePage2RBody {
@@ -34,7 +34,7 @@ parent: thePage2Right
 children: 
 */
 height: 100%;
-background-color: #807256;
+background-color: #b5a9aa;
 } /* thePage2RBody */
 
 #thePage2RFoot {
@@ -42,7 +42,7 @@ background-color: #807256;
 parent: thePage2Right
 children: 
 */
-background-color: #9b498d;
+background-color: #7a7d93;
 } /* thePage2RFoot */
 
 #thePage2Right {
@@ -51,7 +51,7 @@ parent: thePage2
 children: thePage2RTop, thePage2RBody, thePage2RFoot
 */
 height: 100%;
-background-color: #b19356;
+background-color: #1fbd80;
 } /* thePage2Right */
 
 #thePage2 {
@@ -60,7 +60,7 @@ parent: theBodyProp
 children: thePage2Left, thePage2Right
 */
 height: 100%;
-background-color: #ea491d;
+background-color: #8e318c;
 } /* thePage2 */
 
 #theBodyProp {
@@ -79,7 +79,7 @@ height: 100%;
  src="./SCRIPT/jquery-2.1.1.min.js">
 </script>
 <script
- src="//cdn.jsdelivr.net/ace/1.1.6/min/ace.js">
+ src="http://cdn.jsdelivr.net/ace/1.1.6/min/ace.js">
 </script>
 </head>
 <body>
@@ -125,7 +125,11 @@ height: 100%;
 <table
  class="thePageLeft_menu"
 >
-
+<tr><td>Editor</td></tr>
+<tr><td>Stderr</td></tr>
+<tr><td>Patsopt</td></tr>
+<tr><td>Patsopt2js</td></tr>
+<tr><td>Evaluation</td></tr>
 </table>
 </td>
 </tr>
@@ -140,7 +144,109 @@ height: 100%;
 <tr height="6%">
 <td>
 <div id="thePage2RTop">
-[thePage2RTop]
+<style>
+#thePage2RTop
+{
+  color: #FFFFF0;
+}
+
+#thePage2RTopL
+{
+  text-align: left;
+  padding-left: 6px;
+}
+
+#thePage2RTopL ul
+{
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+#thePage2RTopL > ul > li
+{
+  float: left;
+/*
+  display: inline;
+  border-width: 1px;
+  border-color: #ffffff;
+  border-right-style: double;
+  padding-left: 2px;
+  padding-right: 6px;
+*/
+}
+</style>
+
+<script>
+function
+Patsopt_patsopt_onclick()
+{
+  alert("Patsopt_patsopt_onclick()");
+}
+function
+Patsopt_patsopt2js_onclick()
+{
+  alert("Patsopt_patsopt2js_onclick()");
+}
+</script>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+
+<td width="75%">
+<div
+id="thePage2RTopL"
+>
+
+<ul>
+
+<li>
+File
+<ul>
+<li>New File</li>
+<li>Load File</li>
+<li>Load Example</li>
+<li>Patsopt-source</li>
+<li>Patsopt-output</li>
+<li>Patsopt2js-output</li>
+<li>Save As...</li>
+</ul>
+</li>
+
+<li>
+Compile
+<ul>
+<li>
+<button
+ ID="patsopt_button"
+ type="button" onclick="Patsopt_patsopt_onclick()"
+>Patsopt</button>
+</li>
+<li>
+<button
+ ID="patsopt2js_button"
+ type="button" onclick="Patsopt_patsopt2js_onclick()"
+>Patsopt2js</button>
+</li>
+</ul>
+</li>
+
+<li>Evaluate</li>
+</ul>
+
+</div>
+</td>
+
+<td width="25%">
+<div
+id="thePage2RTopR"
+style="margin-top:6px;margin-bottom:6px;"
+>
+</div>
+</td>
+
+</tr>
+</table>
+
 </div><!--thePage2RTop-->
 </td>
 </tr>
