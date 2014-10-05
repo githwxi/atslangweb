@@ -368,7 +368,7 @@ Patsoptaas_submenu_mouseover
   jqi2.css({top:jqi.position().top-8});
   jqi2.css
   (
-    {left:jqi.position().left+jqi.outerWidth(true)-16}
+    {left:jqi.position().left+jqi.outerWidth(true)+10}
   ) ; // end of [jqi2.css]
 //
   return;
@@ -424,17 +424,37 @@ Patsoptaas_Evaluate_JS_onclick2()
  onmouseout="Patsoptaas_topmenu_mouseout()"
  onmouseover="Patsoptaas_topmenu_mouseover(this)"
 >File</li>
+
 <table
  class="thePage2RTopL_submenu"
  onmouseout="Patsoptaas_submenu_table_mouseout()"
  onmouseover="Patsoptaas_submenu_table_mouseover(0)"
 >
-<tr><td>New File</td></tr>
-<tr><td>Load File</td></tr>
+<tr><td>
+<li
+ onmouseout="Patsoptaas_submenu_mouseout()"
+ onmouseover="Patsoptaas_submenu_mouseover(this,1)"
+>New File</li>
+<table
+ class="thePage2RTopL_submenu"
+ onmouseout="Patsoptaas_submenu_table_mouseout()"
+ onmouseover="Patsoptaas_submenu_table_mouseover(1)"
+>
+<tr><td>Blank</td></tr>
+<tr><td>Template-1</td></tr>
+<tr><td>Template-2</td></tr>
+</table>
+</td></tr>
 
 <tr><td>
 <li
- name="File_Load_Example"
+ onmouseout="Patsoptaas_submenu_mouseout()"
+ onmouseover="Patsoptaas_submenu_mouseover(this,1)"
+>Load File</li>
+</td></tr>
+
+<tr><td>
+<li
  onmouseout="Patsoptaas_submenu_mouseout()"
  onmouseover="Patsoptaas_submenu_mouseover(this,1)"
 >Load Example</li>
@@ -443,15 +463,41 @@ Patsoptaas_Evaluate_JS_onclick2()
  onmouseout="Patsoptaas_submenu_table_mouseout()"
  onmouseover="Patsoptaas_submenu_table_mouseover(1)"
 >
-<tr><td>fact.dats</td></tr>
-<tr><td>fibats.dats</td></tr>
+<tr><td>Factorial</td></tr>
+<tr><td>Fibonacci</td></tr>
+<tr><td>Ackermann</td></tr>
 </table>
 </td></tr>
 
-<tr><td>Patsopt-source</td></tr>
-<tr><td>Patsopt-output</td></tr>
-<tr><td>Patsopt2js-output</td></tr>
-<tr><td>Save As...</td></tr>
+<tr><td>
+<li
+ onmouseout="Patsoptaas_submenu_mouseout()"
+ onmouseover="Patsoptaas_submenu_mouseover(this,1)"
+>Patsopt-source</li>
+</td></tr>
+
+<tr><td>
+<li
+ onmouseout="Patsoptaas_submenu_mouseout()"
+ onmouseover="Patsoptaas_submenu_mouseover(this,1)"
+>Patsopt-output</li>
+</td></tr>
+
+<tr><td>
+<li
+ onmouseout="Patsoptaas_submenu_mouseout()"
+ onmouseover="Patsoptaas_submenu_mouseover(this,1)"
+>Patsopt2js-output</li>
+</td></tr>
+
+<tr><td>
+<li
+ onmouseout="Patsoptaas_submenu_mouseout()"
+ onmouseover="Patsoptaas_submenu_mouseover(this,1)"
+>Save As...
+</li>
+</td></tr>
+
 </table><!--File-->
 
 <li
