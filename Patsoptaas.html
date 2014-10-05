@@ -366,6 +366,11 @@ Patsoptaas_Compile_patsopt2js_onclick2()
 {
   Patsoptaas_topmenu_mouseout2(50); Patsoptaas_Compile_patsopt2js_onclick();
 }
+function
+Patsoptaas_Evaluate_JS2_onclick2()
+{
+  Patsoptaas_topmenu_mouseout2(50); Patsoptaas_Evaluate_JS_onclick();
+}
 //
 </script>
 
@@ -395,7 +400,7 @@ Patsoptaas_Compile_patsopt2js_onclick2()
 <tr><td>Patsopt-output</td></tr>
 <tr><td>Patsopt2js-output</td></tr>
 <tr><td>Save As...</td></tr>
-</table>
+</table><!--File-->
 
 <li
  name="Compile"
@@ -409,17 +414,15 @@ Patsoptaas_Compile_patsopt2js_onclick2()
 >
 <tr><td>
 <button
- ID="patsopt_button"
  type="button" onclick="Patsoptaas_Compile_patsopt_onclick2()"
 >Patsopt</button>
 </td></tr>
 <tr><td>
 <button
- ID="patsopt2js_button"
  type="button" onclick="Patsoptaas_Compile_patsopt2js_onclick2()"
 >Patsopt2js</button>
 </td></tr>
-</table>
+</table><!--Compile-->
 
 <li
  name="Evaluate"
@@ -433,10 +436,11 @@ Patsoptaas_Compile_patsopt2js_onclick2()
 >
 <tr><td>
 <button
- ID="patsopt_button" type="button" onclick="Patsoptaas_Evaluate_JS_onclick()"
+ type="button" onclick="Patsoptaas_Evaluate_JS2_onclick()"
 >EvalJS</button>
 </td></tr>
-</table>
+</table><!--Evaluate-->
+
 </ul>
 </div>
 
