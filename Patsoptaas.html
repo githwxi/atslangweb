@@ -284,7 +284,7 @@ var theTopmenuTimeout = 0;
 function
 theTopmenuTables_hide()
 {
-  theTopmenuTables_hide2(0);
+  theTopmenuTables_hide2(0); return;
 }
 function
 theTopmenuTables_hide2(i0)
@@ -310,15 +310,20 @@ theTopmenuTimeout_clear()
   if(theTopmenuTimeout)
   {
     clearTimeout(theTopmenuTimeout); theTopmenuTimeout = 0;
-  } // end of [if]
+  }
 }
 //
 function
 Patsoptaas_topmenu_mouseout()
 {
+  Patsoptaas_topmenu_mouseout2(500); return
+}
+function
+Patsoptaas_topmenu_mouseout2(msec)
+{
   theTopmenuTimeout =
   setTimeout (
-    function(){theTopmenuTimeout=0;theTopmenuTables_hide();}, 500
+    function(){theTopmenuTimeout=0;theTopmenuTables_hide();}, msec
   ) ; // end of [setTimeout]
 }
 //
@@ -354,12 +359,12 @@ Patsoptaas_submenu_table_mouseover(i0)
 function
 Patsoptaas_Compile_patsopt_onclick2()
 {
-  theTopmenuTables_hide(); Patsoptaas_Compile_patsopt_onclick();
+  Patsoptaas_topmenu_mouseout2(250); Patsoptaas_Compile_patsopt_onclick();
 }
 function
 Patsoptaas_Compile_patsopt2js_onclick2()
 {
-  theTopmenuTables_hide(); Patsoptaas_Compile_patsopt2js_onclick();
+  Patsoptaas_topmenu_mouseout2(250); Patsoptaas_Compile_patsopt2js_onclick();
 }
 //
 </script>
