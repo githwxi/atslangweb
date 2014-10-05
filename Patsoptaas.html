@@ -269,20 +269,32 @@ Patsoptaas_Patsopt2js_eval_onclick()
 </style>
 
 <script>
+//
+var theSubmenuTable = 0;
+//
+function
+Patsoptaas_topmenu_mouseout(name)
+{
+  alert("Patsoptaas_topmenu_mouseout: name = " + name);
+  return;
+}
+//
 function
 Patsoptaas_topmenu_mouseover(name)
 {
   var jqi;
+  alert("Patsoptaas_topmenu_mouseover: name = " + name);
   jqi =
   $('#thePage2RTopL>ul>li[name="'+name+'"]');
   theSubmenuTable = jqi.next('table');
   theSubmenuTable.css({display:'table'});
   theSubmenuTable.css (
-    {top:jqi.position().top+jqi.outerHeight(true)+8}
+    {top:jqi.position().top+jqi.outerHeight(true)+2}
   ) ; // end of [theSubmenuTable.css]
   theSubmenuTable.css({left:jqi.position().left});
   return;
 }
+//
 </script>
 
 <table
