@@ -117,20 +117,20 @@ body {
 <script>
 //
 function
-Patsoptaas_Patsopt_tcats_onclick()
+Patsoptaas_Patsopt_tcats_flag()
 {
-  Patsoptaas_thePatsoptFlag_tcats = 1 - Patsoptaas_thePatsoptFlag_tcats;
+  return document.getElementById("Patsopt-tcats-flag").checked;
 }
 function
-Patsoptaas_Patsopt_gline_onclick()
+Patsoptaas_Patsopt_gline_flag()
 {
-  Patsoptaas_thePatsoptFlag_gline = 1 - Patsoptaas_thePatsoptFlag_gline;
+  return document.getElementById("Patsopt-gline-flag").checked;
 }
 //
 function
-Patsoptaas_Patsopt2js_eval_onclick()
+Patsoptaas_Patsopt2js_eval_flag()
 {
-  Patsoptaas_thePatsopt2jsFlag_eval = 1 - Patsoptaas_thePatsopt2jsFlag_eval;
+  return document.getElementById("Patsopt2js-eval-flag").checked;
 }
 //
 </script>
@@ -141,7 +141,8 @@ Patsoptaas_Patsopt2js_eval_onclick()
 <tr>
 <td
  height="156px"
- align="center">
+ align="center"
+>
 <img src="./MYDATA/theLogo.png" alt="ATSlogo" style="height:72%"></img>
 </td>
 </tr>
@@ -161,9 +162,7 @@ Patsoptaas_Patsopt2js_eval_onclick()
 <td>
 <input
  type="checkbox"
- id="Compile-stderr"
- onclick="Patsoptaas_Compile_stderr_onclick()"
- checked
+ id="Compile-stderr-flag" checked
 ></input>
 </td>
 </tr>
@@ -175,8 +174,7 @@ Patsoptaas_Patsopt2js_eval_onclick()
 <td>
 <input
  type="checkbox"
- id="Patsopt_tcats"
- onclick="Patsoptaas_Patsopt_tcats_onclick()"
+ id="Patsopt-tcats-flag"
 ></input>
 </td>
 </tr>
@@ -187,8 +185,7 @@ Patsoptaas_Patsopt2js_eval_onclick()
 <td>
 <input
  type="checkbox"
- id="Patsopt_gline"
- onclick="Patsoptaas_Patsopt_gline_onclick()"
+ id="Patsopt-gline-flag"
 ></input>
 </td>
 </tr>
@@ -200,9 +197,7 @@ Patsoptaas_Patsopt2js_eval_onclick()
 <td>
 <input
  type="checkbox"
- id="Patsopt2js_eval"
- onclick="Patsoptaas_Patsopt2js_eval_onclick()"
- checked
+ id="Patsopt2js-eval-flag" checked
 ></input>
 </td>
 </tr>
