@@ -270,6 +270,16 @@ staload "{$LIBATSCC2JS}/SATS/print.sats"</br>
 #define ATS_DYNLOADNAME "my_dynload"<br>
 //<br>
 /* ****** ****** */<br>
+//<br>
+%{$<br>
+//<br>
+ats2jspre_the_print_store_clear();<br>
+my_dynload();<br>
+alert(ats2jspre_the_print_store_join());<br>
+//<br>
+%} // end of [%{$]<br>
+//<br>
+/* ****** ****** */<br>
 <br>
 extern<br>
 fun fact : int -> int<br>
@@ -281,15 +291,7 @@ val N = 10<br>
 val () = println! ("fact(", N, ") = ", fact(N))<br>
 <br>
 /* ****** ****** */<br>
-//<br>
-%{$<br>
-//<br>
-ats2jspre_the_print_store_clear();<br>
-my_dynload();<br>
-alert(ats2jspre_the_print_store_join());<br>
-//<br>
-%} // end of [%{$]<br>
-//<br>
+<br>
 /* end of [fact.dats] */<br>
 </div>
 
