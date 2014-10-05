@@ -261,8 +261,12 @@ Patsoptaas_Patsopt2js_eval_onclick()
   z-index: 8;
   display: none;
   position: absolute;
-  border-radius: 12px;
-  background-color: rgba(143,2,34,0.825)
+  border-radius: 6px;
+  background-color: rgba(143,2,34,0.625);
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 #thePage2RTopR
@@ -290,7 +294,7 @@ Patsoptaas_topmenu_mouseover(name)
   theSubmenuTable = jqi.next('table');
   theSubmenuTable.css({display:'table'});
   theSubmenuTable.css (
-    {top:jqi.position().top+jqi.outerHeight(true)+2}
+    {top:jqi.position().top+jqi.outerHeight(true)}
   ) ; // end of [theSubmenuTable.css]
   theSubmenuTable.css({left:jqi.position().left});
   return;
