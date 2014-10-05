@@ -76,11 +76,6 @@ body {
   background-color: #1e5799;
   background-image: linear-gradient(to right, #1e5799, #7db9e8);
 }
-
-#thePage2RBody
-{
-  z-index: -1;
-}
 </style>
 <link
  rel="icon" type="image/gif"
@@ -263,6 +258,7 @@ Patsoptaas_Patsopt2js_eval_onclick()
 
 .thePage2RTopL_submenu
 {
+  z-index: 1;
   display: none;
   position: absolute;
   border-radius: 12px;
@@ -282,7 +278,6 @@ var theSubmenuTable = 0;
 function
 Patsoptaas_topmenu_mouseout(name)
 {
-  alert("Patsoptaas_topmenu_mouseout: name = " + name);
   return;
 }
 //
@@ -290,12 +285,9 @@ function
 Patsoptaas_topmenu_mouseover(name)
 {
   var jqi;
-  alert("Patsoptaas_topmenu_mouseover: name = " + name);
   jqi =
   $('#thePage2RTopL>ul>li[name="'+name+'"]');
-  alert("Patsoptaas_topmenu_mouseover: jqi = " + jqi);
   theSubmenuTable = jqi.next('table');
-  alert("Patsoptaas_topmenu_mouseover: theSubmenuTable = " + theSubmenuTable);
   theSubmenuTable.css({display:'table'});
   theSubmenuTable.css (
     {top:jqi.position().top+jqi.outerHeight(true)+2}
