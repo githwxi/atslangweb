@@ -351,6 +351,17 @@ Patsoptaas_submenu_table_mouseover(i0)
   theTopmenuTimeout_clear(); theTopmenuTables_hide2(i0+1);
 }
 //
+function
+Patsoptaas_Compile_patsopt_onclick2()
+{
+  theTopmenuTables_hide(); Patsoptaas_Compile_patsopt_onclick();
+}
+function
+Patsoptaas_Compile_patsopt2js_onclick2()
+{
+  theTopmenuTables_hide(); Patsoptaas_Compile_patsopt2js_onclick();
+}
+//
 </script>
 
 <table
@@ -394,13 +405,13 @@ Patsoptaas_submenu_table_mouseover(i0)
 <tr><td>
 <button
  ID="patsopt_button"
- type="button" onclick="Patsoptaas_Compile_patsopt_onclick()"
+ type="button" onclick="Patsoptaas_Compile_patsopt_onclick2()"
 >Patsopt</button>
 </td></tr>
 <tr><td>
 <button
  ID="patsopt2js_button"
- type="button" onclick="Patsoptaas_Compile_patsopt2js_onclick()"
+ type="button" onclick="Patsoptaas_Compile_patsopt2js_onclick2()"
 >Patsopt2js</button>
 </td></tr>
 </table>
