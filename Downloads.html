@@ -388,21 +388,24 @@ theTopmenuTimeout_clear()
 function
 topmenu_mouseout()
 {
+  topmenu_mouseout2(500); return;
+}
+function
+topmenu_mouseout2(msec)
+{
+//
+  if(theTopmenuTimeout) clearTimeout(theTopmenuTimeout); 
   theTopmenuTimeout =
-  setTimeout (
-    function(){theTopmenuTimeout=0;theTopmenuTable_hide();}, 500
-  ) ; // end of [setTimeout]
-  return;
+  setTimeout (function(){theTopmenuTimeout=0;theTopmenuTable_hide();}, msec);
+//
 }
 //
 function
-topmenu_mouseover(name)
+topmenu_mouseover(x0)
 {
-  var jqi;
+  var jqi = jQuery(x0);
   theTopmenuTable_hide();
   theTopmenuTimeout_clear();
-  jqi =
-  $('#thePageRHeaderSepL>ul>li[name="'+name+'"]');
   theTopmenuTable = jqi.next('table');
   theTopmenuTable.css({display:'table'});
   theTopmenuTable.css (
@@ -427,13 +430,13 @@ submenu_table_mouseover() { theTopmenuTimeout_clear(); }
  id="thePageRHeaderSepL"
 >
 <ul>
-<li name="Home" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Home')"><a href="Home.html">Home</a></li>
+<li name="Home" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)"><a href="Home.html">Home</a></li>
 <table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
 <tr><td><a href="Home.html#What_is_ATS">What is ATS?<a></td></tr>
 <tr><td><a href="Home.html#What_is_ATS_good_for">What is ATS good for?<a></td></tr>
 <tr><td><a href="Home.html#Acknowledgments">Acknowledgments</a></td></tr>
 </table>
-<li name="Downloads" class="self" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Downloads')">Downloads</li>
+<li name="Downloads" class="self" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)">Downloads</li>
 <table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
 <tr><td><a href="#ATS_packages">ATS packages for download</a></td></tr>
 <tr><td><a href="#Requirements_install">Requirements for installation</a></td></tr>
@@ -442,13 +445,13 @@ submenu_table_mouseover() { theTopmenuTimeout_clear(); }
 <tr><td><a href="#Install_of_ATS2_contrib">Installation of ATS2-contrib</a></td></tr>
 <tr><td><a href="#Install_of_ATS2_include">Installation of ATS2-include</a></td></tr>
 </table>
-<li name="Documents" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Documents')"><a href="Documents.html">Documents</a></li>
+<li name="Documents" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)"><a href="Documents.html">Documents</a></li>
 <table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
 <tr><td><a href="Documents.html#INT2PROGINATS">Introduction to Programming in ATS</a></td></tr>
 <tr><td><a href="Documents.html#TUT2PROGINATS">A Tutorial on Programming Features in ATS</a></td></tr>
 </table>
-<li name="Libraries" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Libraries')"><a href="Libraries.html">Libraries</a></li>
-<li name="Community" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Community')"><a href="Community.html">Community</a></li>
+<li name="Libraries" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)"><a href="Libraries.html">Libraries</a></li>
+<li name="Community" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)"><a href="Community.html">Community</a></li>
 </ul>
 </div>
 </td>
