@@ -24,6 +24,7 @@ height: 100%;
 parent: thePage2Right
 children: 
 */
+background-color: rgb(143,2,34);
 } /* thePage2RTop */
 
 #thePage2RBody {
@@ -34,17 +35,17 @@ children:
 height: 100%;
 } /* thePage2RBody */
 
-#thePage2RFoot {
+#thePage2RFooter {
 /*
 parent: thePage2Right
 children: 
 */
-} /* thePage2RFoot */
+} /* thePage2RFooter */
 
 #thePage2Right {
 /*
 parent: thePage2
-children: thePage2RTop, thePage2RBody, thePage2RFoot
+children: thePage2RTop, thePage2RBody, thePage2RFooter
 */
 height: 100%;
 } /* thePage2Right */
@@ -70,9 +71,15 @@ body {
   background-color: #213449; /* dark blue */
 }
 
-#thePage2Left {
+#thePage2Left
+{
   background-color: #1e5799;
   background-image: linear-gradient(to right, #1e5799, #7db9e8);
+}
+
+#thePage2RBody
+{
+  z-index: -1;
 }
 </style>
 <link
@@ -427,9 +434,9 @@ val () = println! ("fact(", N, ") = ", fact(N))<br>
 
 <tr height="6%">
 <td>
-<div id="thePage2RFoot">
-[thePage2RFoot]
-</div><!--thePage2RFoot-->
+<div id="thePage2RFooter">
+[thePage2RFooter]
+</div><!--thePage2RFooter-->
 </td>
 </tr>
 </table>
