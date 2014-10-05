@@ -112,6 +112,27 @@ body {
 }
 </style>
 
+<script>
+//
+function
+Patsoptaas_Patsopt_tcats_onclick()
+{
+  Patsoptaas_thePatsoptFlag_tcats = 1 - Patsoptaas_thePatsoptFlag_tcats;
+}
+function
+Patsoptaas_Patsopt_gline_onclick()
+{
+  Patsoptaas_thePatsoptFlag_gline = 1 - Patsoptaas_thePatsoptFlag_gline;
+}
+//
+function
+Patsoptaas_Patsopt2js_eval_onclick()
+{
+  Patsoptaas_thePatsopt2jsFlag_eval = 1 - Patsoptaas_thePatsopt2jsFlag_eval;
+}
+//
+</script>
+
 <table
  width=100%
 >
@@ -127,10 +148,60 @@ body {
  align="center">
 <table>
 <tr><td>Editor</td></tr>
-<tr><td>Stderr</td></tr>
-<tr><td>Patsopt</td></tr>
-<tr><td>Patsopt2js</td></tr>
-<tr><td>Evaluation</td></tr>
+
+<tr>
+<td>
+<label>Compile-stderr</label>
+</td>
+<td>
+<input
+ type="checkbox"
+ id="Compile-stderr"
+ onclick="Patsoptaas_Compile_stderr_onclick()"
+ checked
+></input>
+</td>
+</tr>
+
+<tr>
+<td>
+<label>Patsopt-tcats</label>
+</td>
+<td>
+<input
+ type="checkbox"
+ id="Patsopt_tcats"
+ onclick="Patsoptaas_Patsopt_tcats_onclick()"
+></input>
+</td>
+</tr>
+<tr>
+<td>
+<label>Patsopt-gline</label>
+</td>
+<td>
+<input
+ type="checkbox"
+ id="Patsopt_gline"
+ onclick="Patsoptaas_Patsopt_gline_onclick()"
+></input>
+</td>
+</tr>
+
+<tr>
+<td>
+<label>Patsopt2js-eval</label>
+</td>
+<td>
+<input
+ type="checkbox"
+ id="Patsopt2js_eval"
+ onclick="Patsoptaas_Patsopt2js_eval_onclick()"
+ checked
+></input>
+</td>
+</tr>
+
 </table>
 </td>
 </tr>
@@ -150,12 +221,13 @@ body {
 #thePage2RTop
 {
   color: #FFFFF0;
+  background-color: rgb(143,2,34);
 }
 
 #thePage2RTopL
 {
   text-align: left;
-  padding-left: 6px;
+  padding-left: 2px;
 }
 
 #thePage2RTopL ul
@@ -164,84 +236,102 @@ body {
   padding: 0px;
   list-style-type: none;
 }
-#thePage2RTopL > ul > li
+#thePage2RTopL ul > li
 {
   float: left;
 /*
   display: inline;
+*/
   border-width: 1px;
   border-color: #ffffff;
   border-right-style: double;
-  padding-left: 2px;
-  padding-right: 6px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.thePage2RTopL_submenu
+{
+/*
+  display: none;
 */
+  display: table;
+/*
+  position: absolute;
+*/
+  border-radius: 12px;
+  background-color: rgba(143,2,34,0.825)
+}
+
+#thePage2RTopR
+{
+  background-color: #FFFFF0;
 }
 </style>
 
-<script>
-</script>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table
+ width="100%"
+ cellspacing="0" cellpadding="0">
 <tr>
-
 <td width="75%">
 <div
 id="thePage2RTopL"
->
-
+><!--div-->
 <ul>
-
 <li>
 File
-<ul>
-<li>New File</li>
-<li>Load File</li>
-<li>Load Example</li>
-<li>Patsopt-source</li>
-<li>Patsopt-output</li>
-<li>Patsopt2js-output</li>
-<li>Save As...</li>
-</ul>
 </li>
+<table
+ class="thePage2RTopL_submenu"
+>
+<tr><td>New File</td></tr>
+<tr><td>Load File</td></tr>
+<tr><td>Load Example</td></tr>
+<tr><td>Patsopt-source</td></tr>
+<tr><td>Patsopt-output</td></tr>
+<tr><td>Patsopt2js-output</td></tr>
+<tr><td>Save As...</td></tr>
+</table>
 
 <li>
 Compile
-<ul>
-<li>
+</li>
+<table
+ class="thePage2RTopL_submenu"
+>
+<tr><td>
 <button
  ID="patsopt_button"
  type="button" onclick="Patsoptaas_Compile_patsopt_onclick()"
 >Patsopt</button>
-</li>
-<li>
+</td></tr>
+<tr><td>
 <button
  ID="patsopt2js_button"
  type="button" onclick="Patsoptaas_Compile_patsopt2js_onclick()"
 >Patsopt2js</button>
-</li>
-</ul>
-</li>
+</td></tr>
+</table>
 
 <li>
 Evaluate
-<ul>
-<li>
+</li>
+<table
+ class="thePage2RTopL_submenu"
+>
+<tr><td>
 <button
  ID="patsopt_button" type="button" onclick="Patsoptaas_Evaluate_JS_onclick()"
 >EvalJS</button>
-</li>
+</td></tr>
+</table>
 </ul>
-</li>
-
 </div>
-</td>
 
-<td width="25%">
-<div
-id="thePage2RTopR"
-style="margin-top:6px;margin-bottom:6px;"
->
-</div>
+<td
+ width="25%"
+ style="background-color:#FFFFF0">
 </td>
 
 </tr>
