@@ -147,7 +147,10 @@ Patsoptaas_Patsopt2js_eval_onclick()
 <td
  align="center">
 <table>
+
 <tr><td>Editor</td></tr>
+
+<tr><td>Examples</td></tr>
 
 <tr>
 <td>
@@ -253,13 +256,8 @@ Patsoptaas_Patsopt2js_eval_onclick()
 
 .thePage2RTopL_submenu
 {
-/*
   display: none;
-*/
-  display: table;
-/*
   position: absolute;
-*/
   border-radius: 12px;
   background-color: rgba(143,2,34,0.825)
 }
@@ -270,18 +268,37 @@ Patsoptaas_Patsopt2js_eval_onclick()
 }
 </style>
 
+<script>
+function
+Patsoptaas_topmenu_mouseover(name)
+{
+  var jqi;
+  jqi =
+  $('#thePage2RTopL>ul>li[name="'+name+'"]');
+  theSubmenuTable = jqi.next('table');
+  theSubmenuTable.css({display:'table'});
+  theSubmenuTable.css (
+    {top:jqi.position().top+jqi.outerHeight(true)+8}
+  ) ; // end of [theSubmenuTable.css]
+  theSubmenuTable.css({left:jqi.position().left});
+  return;
+}
+</script>
+
 <table
  width="100%"
  cellspacing="0" cellpadding="0">
 <tr>
 <td width="75%">
 <div
-id="thePage2RTopL"
-><!--div-->
+ id="thePage2RTopL"
+>
 <ul>
-<li>
-File
-</li>
+<li
+ name="File"
+ onmouseout="Patsoptaas_topmenu_mouseout('File')"
+ onmouseover="Patsoptaas_topmenu_mouseover('File')"
+>File</li>
 <table
  class="thePage2RTopL_submenu"
 >
@@ -294,9 +311,11 @@ File
 <tr><td>Save As...</td></tr>
 </table>
 
-<li>
-Compile
-</li>
+<li
+ name="Compile"
+ onmouseout="Patsoptaas_topmenu_mouseout('Compile')"
+ onmouseover="Patsoptaas_topmenu_mouseover('Compile')"
+>Compile</li>
 <table
  class="thePage2RTopL_submenu"
 >
@@ -314,9 +333,11 @@ Compile
 </td></tr>
 </table>
 
-<li>
-Evaluate
-</li>
+<li
+ name="Evaluate"
+ onmouseout="Patsoptaas_topmenu_mouseout('Evaluate')"
+ onmouseover="Patsoptaas_topmenu_mouseover('Evaluate')"
+>Evaluate</li>
 <table
  class="thePage2RTopL_submenu"
 >
