@@ -364,57 +364,58 @@ body {
 <script>
 //
 var
-theSubmenuTable = 0;
-theSubmenuTimeout = 0;
+theTopmenuTable = 0;
+var
+theTopmenuTimeout = 0;
 //
 function
-theSubmenuTable_hide()
+theTopmenuTable_hide()
 {
-  if(theSubmenuTable)
+  if(theTopmenuTable)
   {
-    theSubmenuTable.css({display:'none'});
+    theTopmenuTable.css({display:'none'});
   }
 }
 function
-theSubmenuTimeout_clear()
+theTopmenuTimeout_clear()
 {
-  if(theSubmenuTimeout)
+  if(theTopmenuTimeout)
   {
-    clearTimeout(theSubmenuTimeout); theSubmenuTimeout = 0;
+    clearTimeout(theTopmenuTimeout); theTopmenuTimeout = 0;
   }
 }
 //
 function
-submenu_mouseout()
+topmenu_mouseout()
 {
-  theSubmenuTimeout =
+  theTopmenuTimeout =
   setTimeout (
-    function(){theSubmenuTimeout=0;theSubmenuTable_hide();}, 500
+    function(){theTopmenuTimeout=0;theTopmenuTable_hide();}, 500
   ) ; // end of [setTimeout]
   return;
 }
 //
 function
-submenu_mouseover(name)
+topmenu_mouseover(name)
 {
   var jqi;
-  theSubmenuTable_hide();
-  theSubmenuTimeout_clear();
+  theTopmenuTable_hide();
+  theTopmenuTimeout_clear();
   jqi =
   $('#thePageRHeaderSepL>ul>li[name="'+name+'"]');
-  theSubmenuTable = jqi.next('table');
-  theSubmenuTable.css({display:'table'});
-  theSubmenuTable.css (
+  theTopmenuTable = jqi.next('table');
+  theTopmenuTable.css({display:'table'});
+  theTopmenuTable.css (
     {top:jqi.position().top+jqi.outerHeight(true)+10}
-  ) ; // end of [theSubmenuTable.css]
-  theSubmenuTable.css({left:jqi.position().left});
+  ) ; // end of [theTopmenuTable.css]
+  theTopmenuTable.css({left:jqi.position().left});
   return;
 }
 //
 function
-submenu_table_mouseout() { submenu_mouseout(); }
+submenu_table_mouseout() { topmenu_mouseout(); }
 function
-submenu_table_mouseover() { theSubmenuTimeout_clear(); }
+submenu_table_mouseover() { theTopmenuTimeout_clear(); }
 //
 </script>
 
@@ -426,13 +427,13 @@ submenu_table_mouseover() { theSubmenuTimeout_clear(); }
  id="thePageRHeaderSepL"
 >
 <ul>
-<li name="Home" class="other" onmouseout="submenu_mouseout()" onmouseover="submenu_mouseover('Home')"><a href="Home.html">Home</a></li>
+<li name="Home" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Home')"><a href="Home.html">Home</a></li>
 <table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
 <tr><td><a href="Home.html#What_is_ATS">What is ATS?<a></td></tr>
 <tr><td><a href="Home.html#What_is_ATS_good_for">What is ATS good for?<a></td></tr>
 <tr><td><a href="Home.html#Acknowledgments">Acknowledgments</a></td></tr>
 </table>
-<li name="Downloads" class="self" onmouseout="submenu_mouseout()" onmouseover="submenu_mouseover('Downloads')">Downloads</li>
+<li name="Downloads" class="self" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Downloads')">Downloads</li>
 <table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
 <tr><td><a href="#ATS_packages">ATS packages for download</a></td></tr>
 <tr><td><a href="#Requirements_install">Requirements for installation</a></td></tr>
@@ -441,13 +442,13 @@ submenu_table_mouseover() { theSubmenuTimeout_clear(); }
 <tr><td><a href="#Install_of_ATS2_contrib">Installation of ATS2-contrib</a></td></tr>
 <tr><td><a href="#Install_of_ATS2_include">Installation of ATS2-include</a></td></tr>
 </table>
-<li name="Documents" class="other" onmouseout="submenu_mouseout()" onmouseover="submenu_mouseover('Documents')"><a href="Documents.html">Documents</a></li>
+<li name="Documents" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Documents')"><a href="Documents.html">Documents</a></li>
 <table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
 <tr><td><a href="Documents.html#INT2PROGINATS">Introduction to Programming in ATS</a></td></tr>
 <tr><td><a href="Documents.html#TUT2PROGINATS">A Tutorial on Programming Features in ATS</a></td></tr>
 </table>
-<li name="Libraries" class="other" onmouseout="submenu_mouseout()" onmouseover="submenu_mouseover('Libraries')"><a href="Libraries.html">Libraries</a></li>
-<li name="Community" class="other" onmouseout="submenu_mouseout()" onmouseover="submenu_mouseover('Community')"><a href="Community.html">Community</a></li>
+<li name="Libraries" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Libraries')"><a href="Libraries.html">Libraries</a></li>
+<li name="Community" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover('Community')"><a href="Community.html">Community</a></li>
 </ul>
 </div>
 </td>

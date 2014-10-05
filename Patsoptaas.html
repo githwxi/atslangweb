@@ -272,27 +272,83 @@ Patsoptaas_Patsopt2js_eval_flag()
 
 <script>
 //
-var theSubmenuTable = 0;
+// HX-2014-10:
+// 8 levels should be more than enough!
+//
+var
+theTopmenuTables =
+  [0,0,0,0,0,0,0,0];
+//
+var theTopmenuTimeout = 0;
 //
 function
-Patsoptaas_topmenu_mouseout(name)
+theTopmenuTables_hide()
 {
-  return;
+  theTopmenuTables_hide2(0);
+}
+function
+theTopmenuTables_hide2(i0)
+{
+  var i = i0;
+  var n = theTopmenuTables.length;
+  while (i < n)
+  {
+    var x = theTopmenuTables[i];
+    if(x===0)
+    {
+      break;
+    } else {
+      x.css({display:'none'});
+      theTopmenuTables[i] = 0; i = i + 1;
+    } // end of [if]
+  } // end of [while]
+}
+//
+function
+theTopmenuTimeout_clear()
+{
+  if(theTopmenuTimeout)
+  {
+    clearTimeout(theTopmenuTimeout); theTopmenuTimeout = 0;
+  } // end of [if]
+}
+//
+function
+Patsoptaas_topmenu_mouseout()
+{
+  theTopmenuTimeout =
+  setTimeout (
+    function(){theTopmenuTimeout=0;theTopmenuTables_hide();}, 500
+  ) ; // end of [setTimeout]
 }
 //
 function
 Patsoptaas_topmenu_mouseover(name)
 {
-  var jqi;
+  var jqi, jqi2;
+  theTopmenuTables_hide2(0);
+  theTopmenuTimeout_clear(); 
   jqi =
   $('#thePage2RTopL>ul>li[name="'+name+'"]');
-  theSubmenuTable = jqi.next('table');
-  theSubmenuTable.css({display:'table'});
-  theSubmenuTable.css (
+  jqi2 = jqi.next('table');
+  theTopmenuTables[0] = jqi2;
+  jqi2.css({display:'table'});
+  jqi2.css (
     {top:jqi.position().top+jqi.outerHeight(true)}
-  ) ; // end of [theSubmenuTable.css]
-  theSubmenuTable.css({left:jqi.position().left});
+  ) ; // end of [theTopmenuTable.css]
+  jqi2.css({left:jqi.position().left});
   return;
+}
+//
+function
+Patsoptaas_submenu_table_mouseout()
+{
+  Patsoptaas_topmenu_mouseout(); return;
+}
+function
+Patsoptaas_submenu_table_mouseover(i0)
+{
+  theTopmenuTimeout_clear(); theTopmenuTables_hide2(i0+1);
 }
 //
 </script>
@@ -308,11 +364,13 @@ Patsoptaas_topmenu_mouseover(name)
 <ul>
 <li
  name="File"
- onmouseout="Patsoptaas_topmenu_mouseout('File')"
+ onmouseout="Patsoptaas_topmenu_mouseout()"
  onmouseover="Patsoptaas_topmenu_mouseover('File')"
 >File</li>
 <table
  class="thePage2RTopL_submenu"
+ onmouseout="Patsoptaas_submenu_table_mouseout()"
+ onmouseover="Patsoptaas_submenu_table_mouseover(0)"
 >
 <tr><td>New File</td></tr>
 <tr><td>Load File</td></tr>
@@ -325,11 +383,13 @@ Patsoptaas_topmenu_mouseover(name)
 
 <li
  name="Compile"
- onmouseout="Patsoptaas_topmenu_mouseout('Compile')"
+ onmouseout="Patsoptaas_topmenu_mouseout()"
  onmouseover="Patsoptaas_topmenu_mouseover('Compile')"
 >Compile</li>
 <table
  class="thePage2RTopL_submenu"
+ onmouseout="Patsoptaas_submenu_table_mouseout()"
+ onmouseover="Patsoptaas_submenu_table_mouseover(0)"
 >
 <tr><td>
 <button
@@ -347,11 +407,13 @@ Patsoptaas_topmenu_mouseover(name)
 
 <li
  name="Evaluate"
- onmouseout="Patsoptaas_topmenu_mouseout('Evaluate')"
+ onmouseout="Patsoptaas_topmenu_mouseout()"
  onmouseover="Patsoptaas_topmenu_mouseover('Evaluate')"
 >Evaluate</li>
 <table
  class="thePage2RTopL_submenu"
+ onmouseout="Patsoptaas_submenu_table_mouseout()"
+ onmouseover="Patsoptaas_submenu_table_mouseover(0)"
 >
 <tr><td>
 <button
