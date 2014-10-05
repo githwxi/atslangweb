@@ -286,7 +286,9 @@ Patsoptaas_topmenu_mouseover(name)
   alert("Patsoptaas_topmenu_mouseover: name = " + name);
   jqi =
   $('#thePage2RTopL>ul>li[name="'+name+'"]');
+  alert("Patsoptaas_topmenu_mouseover: jqi = " + jqi);
   theSubmenuTable = jqi.next('table');
+  alert("Patsoptaas_topmenu_mouseover: theSubmenuTable = " + theSubmenuTable);
   theSubmenuTable.css({display:'table'});
   theSubmenuTable.css (
     {top:jqi.position().top+jqi.outerHeight(true)+2}
