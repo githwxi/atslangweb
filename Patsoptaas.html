@@ -404,7 +404,13 @@ Patsoptaas_submenu_table_mouseover(i0)
 function
 Patsoptaas_Compile_patsopt_onclick2()
 {
-  theTopmenuTables_hide2(0); Patsoptaas_Compile_patsopt_onclick();
+  theTopmenuTables_hide2(0);
+  if(Patsoptaas_Patsopt_tcats_flag())
+  {
+    Patsoptaas_Compile_patsopttc_onclick();
+  } else {
+    Patsoptaas_Compile_patsoptcc_onclick();
+  } // end of [if]
 }
 function
 Patsoptaas_Compile_patsopt2js_onclick2()
