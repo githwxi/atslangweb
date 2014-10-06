@@ -410,6 +410,7 @@ function
 Patsoptaas_Compile_patsopt_onclick2()
 {
   theTopmenuTables_hide2(0);
+  Patsoptaas_thePatsopt_stderr_set("Waiting...");
   if(Patsoptaas_Patsopt_tcats_flag())
   {
     Patsoptaas_Compile_patsopttc_onclick();
@@ -420,7 +421,9 @@ Patsoptaas_Compile_patsopt_onclick2()
 function
 Patsoptaas_Compile_patsopt2js_onclick2()
 {
-  theTopmenuTables_hide2(0); Patsoptaas_Compile_patsopt2js_onclick();
+  theTopmenuTables_hide2(0);
+  Patsoptaas_thePatsopt_stderr_set("Waiting...");
+  Patsoptaas_Compile_patsopt2js_onclick();
 }
 function
 Patsoptaas_Evaluate_JS_onclick2()
