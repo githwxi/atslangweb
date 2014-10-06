@@ -24,6 +24,7 @@ height: 100%;
 parent: thePage2Right
 children: 
 */
+height: 100%;
 background-color: rgb(143,2,34);
 } /* thePage2RTop */
 
@@ -227,7 +228,6 @@ Patsoptaas_Patsopt2js_eval_flag()
 #thePage2RTop
 {
   color: #FFFFF0;
-  background-color: rgb(143,2,34);
 }
 
 #thePage2RTopL
@@ -432,7 +432,7 @@ Patsoptaas_Evaluate_JS_onclick2()
 </script>
 
 <table
- width="100%"
+ width="100%" height="100%"
  cellspacing="0" cellpadding="0">
 <tr>
 <td width="75%">
@@ -579,6 +579,27 @@ Patsoptaas_Evaluate_JS_onclick2()
 <tr height="88%">
 <td>
 <div id="thePage2RBody">
+<style>
+#thePage2Body1
+{
+  margin: 0px;
+  padding: 0px;
+  background-color: #FFFFFF;
+}
+#thePage2Body2
+{
+  margin: 0px;
+  padding: 0px;
+  background-color: #FFFFFF;
+}
+</style>
+
+<table
+ width="100%" height="100%">
+<tr height="75%">
+<td
+ id="thePage2Body1">
+
 <div>
 #include<br>
 "share/atspre_define.hats"<br>
@@ -619,6 +640,15 @@ val () = println! ("fact(", N, ") = ", fact(N))<br>
 /* end of [fact.dats] */<br>
 </div>
 
+</td>
+</tr>
+
+<tr height="25%">
+<td id="thePage2Body2">thePage2Body2</td>
+</tr>
+
+</table>
+
 <!--php-->
 </div><!--thePage2RBody-->
 </td>
@@ -643,7 +673,7 @@ val () = println! ("fact(", N, ") = ", fact(N))<br>
 (
 function()
 {
-  var id = 'thePage2RBody';
+  var id = 'thePage2RBody1';
   var editor = ace.edit(id);
   editor.setFontSize('16px');
   editor.setTheme('ace/theme/monokai');
