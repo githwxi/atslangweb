@@ -548,12 +548,18 @@ Patsoptaas_submenu_table_mouseover(i0)
 <script>
 //
 function
-Patsoptaas_File_newfile_black_onclick2
-  ()
+Patsoptaas_File_newfile
+  (code)
 {
-  theTopmenuTables_hide2(0);
-  Patsoptaas_thePatsopt_editor_set("");
+  Patsoptaas_thePatsopt_source_set("");
+  Patsoptaas_thePatsopt_output_set("");
+  Patsoptaas_thePatsopt2js_output_set("");
+  Patsoptaas_thePatsopt_editor_set(code);
 }
+//
+function
+Patsoptaas_File_newfile_blank_onclick
+  () { Patsoptaas_File_newfile_load(""); }
 //
 </script>
 
@@ -630,19 +636,19 @@ Patsoptaas_Evaluate_JS_onclick2()
 <tr><td>
 <button
  type="button"
- onclick="Patsoptaas_File_newfile_blank_onclick2()"
+ onclick="Patsoptaas_File_newfile_blank_onclick()"
 >Blank</button>
 </td></tr>
 <tr><td>
 <button
  type="button"
- onclick="Patsoptaas_File_newfile_template1_onclick2()"
+ onclick="Patsoptaas_File_newfile_template1_onclick()"
 >Template-1</button>
 </td></tr>
 <tr><td>
 <button
  type="button"
- onclick="Patsoptaas_File_newfile_template2_onclick2()"
+ onclick="Patsoptaas_File_newfile_template2_onclick()"
 >Template-2</button>
 </td></tr>
 </table>
