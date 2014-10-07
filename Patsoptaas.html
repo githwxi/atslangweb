@@ -169,8 +169,8 @@ if(Patsoptaas_Compile_stderr_flag())
 <script>
 //
 function
-Patsoptaas_File_examples_hello_load
-  (/*void*/)
+Patsoptaas_File_examples_load
+  (code)
 {
   var
   select =
@@ -179,7 +179,7 @@ Patsoptaas_File_examples_hello_load
   Patsoptaas_thePatsopt_source_set("");
   Patsoptaas_thePatsopt_output_set("");
   Patsoptaas_thePatsopt2js_output_set("");
-  Patsoptaas_thePatsopt_editor_set(Patsoptaas_File_examples_hello);
+  Patsoptaas_thePatsopt_editor_set(code);
 }
 //
 function
@@ -194,9 +194,11 @@ File_examples_onchange(x0)
   {
     case 1: break;
     case 2:
-    Patsoptaas_File_examples_hello_load(); break;
-    case 3: break;
-    case 4: break;
+    Patsoptaas_File_examples_load(Patsoptaas_File_examples_hello); break;
+    case 3:
+    Patsoptaas_File_examples_load(Patsoptaas_File_examples_factrec); break;
+    case 4:
+    Patsoptaas_File_examples_load(Patsoptaas_File_examples_factiter); break;
     default: break;
   }
 //
