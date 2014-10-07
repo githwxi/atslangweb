@@ -240,6 +240,22 @@ File_special_select_onchange(x0)
 //
 }
 //
+function
+Patsoptaas_thePatsopt_source_get2()
+{
+  if(File_special_select_index===0) thePatsopt_editor_get(); else thePatsopt_source_get();
+}
+function
+Patsoptaas_thePatsopt_output_set2(str)
+{
+  if(File_special_select_index===1) thePatsopt_editor_set(str); else thePatsopt_output_get(str);
+}
+function
+Patsoptaas_thePatsopt2js_output_set2(str)
+{
+  if(File_special_select_index===2) thePatsopt_editor_set(str); else thePatsopt2js_output_get(str);
+}
+//
 </script>
 
 <!-- ****** ****** -->
