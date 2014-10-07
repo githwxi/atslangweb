@@ -189,6 +189,7 @@ if(Patsoptaas_Compile_stderr_flag())
 <input
  type="checkbox"
  id="Patsopt-tcats-flag"
+ checked
 ></input>
 </td>
 </tr>
@@ -214,7 +215,8 @@ if(Patsoptaas_Compile_stderr_flag())
 <td>
 <input
  type="checkbox"
- id="Patsopt2js-eval-flag" checked
+ id="Patsopt2js-eval-flag"
+ checked
 ></input>
 </td>
 </tr>
@@ -226,8 +228,9 @@ if(Patsoptaas_Compile_stderr_flag())
 <td>
 <input
  type="checkbox"
- id="Compile-stderr-flag" checked
+ id="Compile-stderr-flag"
  onclick="Patsoptaas_Compile_stderr_flag_onclick()"
+ checked
 ></input>
 </td>
 </tr>
@@ -739,6 +742,16 @@ var editor =
 editor.setFontSize('16px');
 editor.setTheme('ace/theme/monokai');
 editor.getSession().setValue(Patsoptaas_getWelcomeMessage());
+//
+}
+)(/*void*/);
+(
+function()
+{
+//
+document.getElementById('Patsopt-tcats-flag').checked = true;
+document.getElementById('Patsopt2js-eval-flag').checked = true;
+document.getElementById('Compile-stderr-flag').checked = true;
 //
 }
 )(/*void*/);
