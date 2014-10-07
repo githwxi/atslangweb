@@ -138,6 +138,27 @@ Patsoptaas_Compile_stderr_flag()
 //
 </script>
 
+<!-- ****** ****** -->
+
+<script>
+//
+function
+Patsoptaas_Compile_stderr_flag_onclick()
+{
+//
+if(!Patsoptaas_Compile_stderr_flag())
+{
+  $('#thePage2RBody2').css({display:'none'});
+} else {
+  $('#thePage2RBody2').css({display:'block'});
+} // end of [if]
+//
+} // end of [Patsoptaas_Compile_stderr_onclick()]
+//
+</script>
+
+<!-- ****** ****** -->
+
 <table
  width=100%
 >
@@ -204,6 +225,7 @@ Patsoptaas_Compile_stderr_flag()
 <input
  type="checkbox"
  id="Compile-stderr-flag" checked
+ onclick="Patsoptaas_Compile_stderr_flag_onclick()"
 ></input>
 </td>
 </tr>
@@ -541,7 +563,7 @@ Patsoptaas_Evaluate_JS_onclick2()
  onmouseover="Patsoptaas_submenu_mouseover(this,1)"
 >Load Special File</li>
 <table
- width="default"
+ width="initial"
  class="thePage2RTopL_submenu"
  onmouseout="Patsoptaas_submenu_table_mouseout()"
  onmouseover="Patsoptaas_submenu_table_mouseover(1)"
