@@ -163,6 +163,39 @@ if(Patsoptaas_Compile_stderr_flag())
 
 <!-- ****** ****** -->
 
+<script>
+//
+var
+File_special_named_index = 0;
+function
+File_special_named_onchange(x0)
+{
+//
+  var i = File_special_named_index;
+  File_special_named_index = x0.selectedIndex;
+//
+  if(i===0)
+  {
+    Patsoptaas_thePatsopt_source_set(Patsoptaas_thePatsopt_editor_get());
+  } // end of [if]
+//
+  switch(File_special_named_index)
+  {
+    case 0:
+    Patsoptaas_thePatsopt_editor_set(Patsoptaas_thePatsopt_source_get()); break;
+    case 1:
+    Patsoptaas_thePatsopt_editor_set(Patsoptaas_thePatsopt_output_get()); break;
+    case 2:
+    Patsoptaas_thePatsopt_editor_set(Patsoptaas_thePatsopt2js_output_get()); break;
+    default: break;
+  } // end of [switch]
+//
+}
+//
+</script>
+
+<!-- ****** ****** -->
+
 <table
  width=100%
 >
@@ -240,7 +273,9 @@ if(Patsoptaas_Compile_stderr_flag())
 <tr>
 <td
  colspan="2">
-<select>
+<select
+ onchange="File_special_named_onchange(this)"
+><!--select-->
 <option value="Patsopt-source">Patsopt-source</option>
 <option value="Patsopt-output">Patsopt-output</option>
 <option value="Patsopt2js-output">Patsopt2js-output</option>
@@ -572,41 +607,6 @@ Patsoptaas_Evaluate_JS_onclick2()
 <tr><td>Factorial</td></tr>
 <tr><td>Fibonacci</td></tr>
 <tr><td>Ackermann</td></tr>
-</table>
-</td></tr>
-
-<tr><td>
-<li
- onmouseout="Patsoptaas_submenu_mouseout()"
- onmouseover="Patsoptaas_submenu_mouseover(this,1)"
->Load Special File</li>
-<table
- width="initial"
- class="thePage2RTopL_submenu"
- onmouseout="Patsoptaas_submenu_table_mouseout()"
- onmouseover="Patsoptaas_submenu_table_mouseover(1)"
->
-<tr><td>
-<button
- type="button"
- onclick="Patsoptaas_File_patsopt_source_onclick2()"
->Patsopt-source</button>
-</td></tr>
-
-<tr><td>
-<button
- type="button"
- onclick="Patsoptaas_File_patsopt_output_onclick2()"
->Patsopt-output</button>
-</td></tr>
-
-<tr><td>
-<button
- type="button"
- onclick="Patsoptaas_File_patsopt2js_output_onclick2()"
->Patsopt2js-output</button>
-</td></tr>
-
 </table>
 </td></tr>
 
