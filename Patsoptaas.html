@@ -250,14 +250,36 @@ Patsoptaas_thePatsopt_source_get2()
     return Patsoptaas_thePatsopt_source_get();
   }
 }
+//
+function
+Patsoptaas_thePatsopt_output_get2()
+{
+  if(File_special_select_index===1)
+  {
+    return Patsoptaas_thePatsopt_editor_get();
+  } else {
+    return Patsoptaas_thePatsopt_output_get();
+  }
+}
 function
 Patsoptaas_thePatsopt_output_set2(str)
 {
   if(File_special_select_index===1)
   {
-    Patsoptaas_thePatsopt_editor_set(str);
+    Patsoptaas_thePatsopt_editor_set(str); return;
   } else {
-    Patsoptaas_thePatsopt_output_set(str);
+    Patsoptaas_thePatsopt_output_set(str); return;
+  }
+}
+//
+function
+Patsoptaas_thePatsopt2js_output_get2()
+{
+  if(File_special_select_index===2)
+  {
+    return Patsoptaas_thePatsopt2js_editor_get();
+  } else {
+    return Patsoptaas_thePatsopt2js_output_get();
   }
 }
 function
@@ -265,9 +287,9 @@ Patsoptaas_thePatsopt2js_output_set2(str)
 {
   if(File_special_select_index===2)
   {
-    Patsoptaas_thePatsopt_editor_set(str);
+    Patsoptaas_thePatsopt_editor_set(str); return;
   } else {
-    Patsoptaas_thePatsopt2js_output_set(str);
+    Patsoptaas_thePatsopt2js_output_set(str); return;
   }
 }
 //
