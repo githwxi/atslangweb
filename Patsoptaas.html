@@ -117,42 +117,10 @@ body {
 <script>
 //
 function
-Patsopt_tcats_flag()
-{
-  return document.getElementById("Patsopt-tcats-flag").checked;
-}
-//
-/*
-function
-Patsopt_gline_flag()
-{
-  return document.getElementById("Patsopt-gline-flag").checked;
-}
-*/
-//
-function
-Patsopt2js_eval_flag()
-{
-  return document.getElementById("Patsopt2js-eval-flag").checked;
-}
-//
-function
-Compile_stderr_flag()
-{
-  return document.getElementById("Compile-stderr-flag").checked;
-}
-//
-</script>
-
-<!-- ****** ****** -->
-
-<script>
-//
-function
 Compile_stderr_flag_onclick()
 {
 //
-if(Compile_stderr_flag())
+if(Patsoptaas_Compile_stderr_flag())
 {
   $('#thePage2RBody1_tr').css({height:'80%'});
   $('#thePage2RBody2_prop').css({display:'block'});
