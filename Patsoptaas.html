@@ -93,6 +93,9 @@ body {
 <script
  src="./CLIENT/mycode/patsoptaas_utils_dats.js">
 </script>
+<script
+ src="./CLIENT/mycode/patsoptaas_examples_dats.js">
+</script>
 </head>
 <body>
 <div id="theBodyProp">
@@ -165,21 +168,63 @@ if(Patsoptaas_Compile_stderr_flag())
 
 <script>
 //
-var
-File_special_named_index = 0;
 function
-File_special_named_onchange(x0)
+Patsoptaas_File_examples_hello_load
+  (/*void*/)
+{
+  var
+  select =
+  document.getElementById('File_special_select');
+  select.selectedIndex = 0;
+  Patsoptaas_thePatsopt_source_set("");
+  Patsoptaas_thePatsopt_output_set("");
+  Patsoptaas_thePatsopt2js_output_set("");
+  Patsoptaas_thePatsopt_editor_set(Patsoptaas_File_examples_hello);
+}
+//
+function
+File_examples_onchange(x0)
 {
 //
-  var i = File_special_named_index;
-  File_special_named_index = x0.selectedIndex;
+  var i;
+//
+  i = x0.selectedIndex; x0.selectedIndex = 0;
+//
+  switch(i)
+  {
+    case 1:
+    case 2:
+    Patsoptaas_File_examples_hello_load(); break;
+    case 3:
+    case 4:
+    default: break;
+  }
+//
+  alert("File_examples_onchange: i = " + i);
+//
+} // end of [File_examples_onchange]
+//
+</script>
+
+<!-- ****** ****** -->
+
+<script>
+//
+var
+File_special_select_index = 0;
+function
+File_special_select_onchange(x0)
+{
+//
+  var i = File_special_select_index;
+  File_special_select_index = x0.selectedIndex;
 //
   if(i===0)
   {
     Patsoptaas_thePatsopt_source_set(Patsoptaas_thePatsopt_editor_get());
   } // end of [if]
 //
-  switch(File_special_named_index)
+  switch(File_special_select_index)
   {
     case 0:
     Patsoptaas_thePatsopt_editor_set(Patsoptaas_thePatsopt_source_get()); break;
@@ -214,7 +259,21 @@ File_special_named_onchange(x0)
 
 <tr><td>Editor</td></tr>
 
-<tr><td>Examples</td></tr>
+<tr>
+<td
+ colspan="2">
+<select
+ id="File_examples_select"
+ onchange="File_examples_onchange(this)"
+><!--select-->
+<option>Examples</option>
+<option>Randomly</option>
+<option>Hello, world</option>
+<option>Factorial(rec)</option>
+<option>Factorial(iter)</option>
+</select> 
+</td>
+</tr>
 
 <tr>
 <td>
@@ -274,7 +333,8 @@ File_special_named_onchange(x0)
 <td
  colspan="2">
 <select
- onchange="File_special_named_onchange(this)"
+ id="File_special_select"
+ onchange="File_special_select_onchange(this)"
 ><!--select-->
 <option value="Patsopt-source">Patsopt-source</option>
 <option value="Patsopt-output">Patsopt-output</option>
