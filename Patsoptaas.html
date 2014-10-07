@@ -150,9 +150,11 @@ if(Patsoptaas_Compile_stderr_flag())
 {
   $('#thePage2RBody1_tr').css({height:'80%'});
   $('#thePage2RBody2_prop').css({display:'block'});
+  ace.edit('thePage2RBody1_prop').resize(true);
 } else {
   $('#thePage2RBody1_tr').css({height:'100%'});
   $('#thePage2RBody2_prop').css( {display:'none'} );
+  ace.edit('thePage2RBody1_prop').resize(true);
 } // end of [if]
 //
 } // end of [Patsoptaas_Compile_stderr_flag_onclick()]
