@@ -613,6 +613,10 @@ function
 Patsoptaas_File_newfile_load
   (code)
 {
+  var
+  select =
+  document.getElementById('File_special_select');
+  select.selectedIndex = 0;
   Patsoptaas_thePatsopt_source_set("");
   Patsoptaas_thePatsopt_output_set("");
   Patsoptaas_thePatsopt2js_output_set("");
