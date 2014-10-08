@@ -303,7 +303,66 @@ Patsoptaas_thePatsopt2js_output_set2(str)
  align="center">
 <table>
 
-<tr><td>Editor</td></tr>
+<tr>
+<td
+ colspan="2">
+<table
+ id="File_editor_table"
+><!--table-->
+<tr>
+<th
+ align="left">Editor</th>
+</tr>
+<tr>
+<td>
+
+<table
+ id="File_editor_table_body"
+><!--table-->
+<tr>
+<td>
+Key-binding
+</td>
+</tr>
+
+<tr>
+<td>
+Code-folding
+</td>
+</tr>
+
+<tr>
+<td>
+Read-only
+</td>
+<td>
+<input
+ type="checkbox"
+ id="Editor-read-only"
+></input>
+</td>
+</tr>
+
+<tr>
+<td>
+Show-gutter
+</td>
+<td>
+<input
+ type="checkbox"
+ id="Editor-show-gutter"
+ checked
+></input>
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
 
 <tr>
 <td
@@ -877,7 +936,7 @@ var editor =
 //
 editor.setFontSize('16px');
 editor.setTheme('ace/theme/monokai');
-editor.setKeyboardHandler("ace/keyboard/emacs");
+editor.setKeyboardHandler('ace/keyboard/emacs');
 editor.getSession().setValue(Patsoptaas_getWelcomeMessage());
 //
 }
