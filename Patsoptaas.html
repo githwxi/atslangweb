@@ -284,6 +284,26 @@ Patsoptaas_thePatsopt2js_output_set2(str)
 
 <!-- ****** ****** -->
 
+<script>
+//
+function
+File_editor_table_header_onclick()
+{
+  var jqt;
+  jqt =
+  $('#File_editor_table_body');
+  if(jqt.css('display')!=='none')
+  {
+    jqt.css('display', 'none');
+  } else {
+    jqt.css('display', 'table');
+  }
+}
+//
+</script>
+
+<!-- ****** ****** -->
+
 <table
  width=100%
 >
@@ -307,20 +327,23 @@ Patsoptaas_thePatsopt2js_output_set2(str)
 <td
  colspan="2">
 <table
+ width=100%
  id="File_editor_table"
 ><!--table-->
 <tr>
 <th
  align="left">
-<li
+<button
+ type="button"
  onclick="File_editor_table_header_onclick()"
->Editor</li>
+>Editor</button>
 </th>
 </tr>
 
 <tr>
 <td>
 <table
+ width=100%
  id="File_editor_table_body"
 ><!--table-->
 
