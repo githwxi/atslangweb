@@ -305,8 +305,8 @@ File_editor_table_header_onclick()
 <!-- ****** ****** -->
 
 <table
- width=100%
->
+ width="100%"
+><!--table-->
 <tr>
 <td
  height="156px"
@@ -321,13 +321,16 @@ File_editor_table_header_onclick()
 <tr>
 <td
  align="center">
-<table>
 
+<table>
 <tr>
 <td
  colspan="2">
 <table
- width=100%
+ width="100%"
+ border="0px"
+ cellspacing="0"
+ cellpadding="0"
  id="File_editor_table"
 ><!--table-->
 <tr>
@@ -343,7 +346,7 @@ File_editor_table_header_onclick()
 <tr>
 <td>
 <table
- width=100%
+ width="100%"
  id="File_editor_table_body"
 ><!--table-->
 
@@ -410,6 +413,20 @@ Show-gutter
 </tr>
 
 <tr>
+<td
+ colspan="2">
+<select
+ id="File_special_select"
+ onchange="File_special_select_onchange(this)"
+><!--select-->
+<option value="Patsopt-source">Patsopt-source</option>
+<option value="Patsopt-output">Patsopt-output</option>
+<option value="Patsopt2js-output">Patsopt2js-output</option>
+</select> 
+</td>
+</tr>
+
+<tr>
 <td>
 <label>Patsopt-tcats</label>
 </td>
@@ -460,20 +477,6 @@ Show-gutter
  onclick="Compile_stderr_flag_onclick()"
  checked
 ></input>
-</td>
-</tr>
-
-<tr>
-<td
- colspan="2">
-<select
- id="File_special_select"
- onchange="File_special_select_onchange(this)"
-><!--select-->
-<option value="Patsopt-source">Patsopt-source</option>
-<option value="Patsopt-output">Patsopt-output</option>
-<option value="Patsopt2js-output">Patsopt2js-output</option>
-</select> 
 </td>
 </tr>
 
