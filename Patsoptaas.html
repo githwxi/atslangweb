@@ -396,11 +396,13 @@ Editor_show_gutter_onclick
 </td>
 </tr>
 
+<!--
 <tr>
 <td>
 Code-folding
 </td>
 </tr>
+-->
 
 <tr>
 <td>
@@ -1007,6 +1009,9 @@ editor.getSession().setValue(Patsoptaas_getWelcomeMessage());
 (
 function()
 {
+//
+document.getElementById('Editor-read-only').checked = false;
+document.getElementById('Editor-show-gutter').checked = true;
 //
 document.getElementById('Patsopt-tcats-flag').checked = true;
 document.getElementById('Patsopt2js-eval-flag').checked = true;
