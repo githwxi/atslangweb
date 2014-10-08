@@ -154,11 +154,11 @@ function
 File_examples_onchange(x0)
 {
 //
-  var i;
+  var i0;
 //
-  i = x0.selectedIndex; x0.selectedIndex = 0;
+  i0 = x0.selectedIndex; x0.selectedIndex = 0;
 //
-  switch(i)
+  switch(i0)
   {
     case 1: break;
     case 2:
@@ -194,10 +194,10 @@ function
 File_special_select_onchange(x0)
 {
 //
-  var i = theFile_special_select_index;
+  var i0 = theFile_special_select_index;
   theFile_special_select_index = x0.selectedIndex;
 //
-  switch(i)
+  switch(i0)
   {
     case 0:
     Patsoptaas_thePatsopt_source_set(Patsoptaas_thePatsopt_editor_get()); break;
@@ -306,12 +306,10 @@ File_key_binding_select_onchange
 {
 //
   var
-  index = x0.selectedIndex;
-  var
   editor =
   ace.edit('thePage2RBody1_prop');
 //
-  switch(index)
+  switch(x0.selectedIndex)
   {
     case 0:
     editor.setKeyboardHandler(null); break
@@ -380,7 +378,7 @@ File_key_binding_select_onchange
  colspan="2">
 <select
  id="File_key_binding_select"
- onchange="File_key_binding_select_onchange(this)"
+ onchange="File_key_binding_select_onchange(this.selectedIndex)"
 ><!--select-->
 <option>KB-ace</option>
 <option>KB-vim</option>
@@ -986,10 +984,13 @@ editor =
 ace.edit('thePage2RBody1_prop');
 //
 editor.setFontSize('16px');
-editor.setTheme('ace/theme/monokai');
-editor.getSession().setValue(Patsoptaas_getWelcomeMessage());
 //
-File_key_binding_select_onchange($('#File_key_binding_select'));
+editor.setTheme('ace/theme/monokai');
+//
+File_key_binding_select_onchange
+  (document.getElementById('File_key_binding_select'));
+//
+editor.getSession().setValue(Patsoptaas_getWelcomeMessage());
 //
 }
 )(/*void*/);
