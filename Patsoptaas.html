@@ -301,7 +301,8 @@ File_editor_table_header_onclick()
 }
 //
 function
-File_key_binding_select_onchange(x0)
+File_key_binding_select_onchange
+  (x0)
 {
 //
   var
@@ -383,7 +384,7 @@ File_key_binding_select_onchange(x0)
 ><!--select-->
 <option>KB-ace</option>
 <option>KB-vim</option>
-<option selected>KB-emacs</option>
+<option>KB-emacs</option>
 </select> 
 </td>
 </tr>
@@ -980,12 +981,12 @@ Evaluate_JS_onclick()
 function()
 {
 //
-var editor =
-  ace.edit('thePage2RBody1_prop');
+var
+editor =
+ace.edit('thePage2RBody1_prop');
 //
 editor.setFontSize('16px');
 editor.setTheme('ace/theme/monokai');
-editor.setKeyboardHandler('ace/keyboard/emacs');
 editor.getSession().setValue(Patsoptaas_getWelcomeMessage());
 //
 }
