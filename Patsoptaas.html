@@ -287,11 +287,11 @@ Patsoptaas_thePatsopt2js_output_set2(str)
 <script>
 //
 function
-File_editor_table_header_onclick()
+Editor_table_head_onclick()
 {
   var jqt;
   jqt =
-  $('#File_editor_table_body');
+  $('#Editor_table_body');
   if(jqt.css('display')!=='none')
   {
     jqt.css('display', 'none');
@@ -301,7 +301,7 @@ File_editor_table_header_onclick()
 }
 //
 function
-File_key_binding_select_onchange
+Editor_KB_select_onchange
   (x0)
 {
 //
@@ -320,7 +320,17 @@ File_key_binding_select_onchange
     default: break;
   }
 //
-} // end of [File_key_binding_select_onchange]
+} // end of [Editor_KB_select_onchange]
+//
+function
+Editor_show_gutter_onclick
+  (x0)
+{
+  var
+  editor =
+  ace.edit('thePage2RBody1_prop');
+  editor.renderer.setShowGutter(x0.checked);
+} // end of [Editor_show_gutter_onclick]
 //
 </script>
 
@@ -353,7 +363,6 @@ File_key_binding_select_onchange
  border="0px"
  cellspacing="0"
  cellpadding="0"
- id="File_editor_table"
 ><!--table-->
 <tr>
 <th
@@ -361,7 +370,7 @@ File_key_binding_select_onchange
 <button
  type="button"
  style="padding-left:3px"
- onclick="File_editor_table_header_onclick()"
+ onclick="Editor_table_head_onclick()"
 >Editor</button>
 </th>
 </tr>
@@ -370,15 +379,15 @@ File_key_binding_select_onchange
 <td>
 <table
  width="100%"
- id="File_editor_table_body"
+ id="Editor_table_body"
 ><!--table-->
 
 <tr>
 <td
  colspan="2">
 <select
- id="File_key_binding_select"
- onchange="File_key_binding_select_onchange(this)"
+ id="Editor_KB_select"
+ onchange="Editor_KB_select_onchange(this)"
 ><!--select-->
 <option>KB-ace</option>
 <option>KB-vim</option>
@@ -413,6 +422,7 @@ Show-gutter
 <input
  type="checkbox"
  id="Editor-show-gutter"
+ onclick="Editor_show_gutter_onclick(this)"
  checked
 ></input>
 </td>
