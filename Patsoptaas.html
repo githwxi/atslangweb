@@ -323,6 +323,16 @@ Editor_KB_select_onchange
 } // end of [Editor_KB_select_onchange]
 //
 function
+Editor_read_only_onclick
+  (x0)
+{
+  var
+  editor =
+  ace.edit('thePage2RBody1_prop');
+  editor.renderer.setReadOnly(x0.checked);
+} // end of [Editor_read_only_onclick]
+//
+function
 Editor_show_gutter_onclick
   (x0)
 {
@@ -412,6 +422,7 @@ Read-only
 <input
  type="checkbox"
  id="Editor-read-only"
+ onclick="Editor_read_only_onclick(this)"
 ></input>
 </td>
 </tr>
