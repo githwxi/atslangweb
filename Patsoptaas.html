@@ -103,6 +103,59 @@ body {
 <body>
 <div id="theBodyProp">
 <div id="thePage2">
+<script>
+/*
+alert("window.innerWidth = " + window.innerWidth);
+alert("window.innerHeight = " + window.innerHeight);
+alert("document.body.offsetWidth = " + document.body.offsetWidth);
+alert("document.body.offsetHeight = " + document.body.offsetHeight);
+*/
+</script>
+
+<script>
+//
+function
+Editor_initize_flag_get()
+{
+  return document.getElementIdBy('Editor_initize_flag').value;
+} // end of [Editor_initize_flag_get]
+function
+Editor_initize_flag_set()
+{
+  document.getElementIdBy('Editor_initize_flag').value = 1; return;
+} // end of [Editor_initize_flag_set]
+//
+</script>
+
+<script>
+//
+function
+Patsoptaas_thePage2_initize()
+{
+//
+alert("Editor_initize_flag_get()="+Editor_initize_flag_get());
+//
+if(Editor_initize_flag_get()==0)
+{
+  Editor_initize_flag_set();
+  editor = ace.edit('thePage2RBody1_prop');
+  editor.setFontSize('16px');
+  editor.setTheme('ace/theme/monokai');
+  Editor_KB_select_onchange(document.getElementById('Editor_KB_select'));
+  editor.getSession().setValue(Patsoptaas_getWelcomeMessage());
+}
+//
+document.getElementById('Patsopt-tcats-flag').checked = true;
+document.getElementById('Patsopt2js-eval-flag').checked = true;
+document.getElementById('Compile-stderr-flag').checked = true;
+//
+} // end of [Patsoptaas_thePage2_initize]
+//
+</script>
+
+<input id="Editor_initize_flag" type="hidden" value="0"></input>
+
+<!--php-->
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 <tr height="100%">
 <td style="vertical-align:top;width:15%;">
