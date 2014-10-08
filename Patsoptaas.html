@@ -300,6 +300,29 @@ File_editor_table_header_onclick()
   }
 }
 //
+function
+File_key_binding_select_onchange(x0)
+{
+//
+  var
+  index = x0.selectedIndex;
+  var
+  editor =
+  ace.edit('thePage2RBody1_prop');
+//
+  switch(index)
+  {
+    case 0:
+    editor.setKeyboardHandler(null); break
+    case 1:
+    editor.setKeyboardHandler('ace/keyboard/vim'); break;
+    case 2:
+    editor.setKeyboardHandler('ace/keyboard/emacs'); break;
+    default: break;
+  }
+//
+} // end of [File_key_binding_select_onchange]
+//
 </script>
 
 <!-- ****** ****** -->
@@ -338,7 +361,7 @@ File_editor_table_header_onclick()
  align="left">
 <button
  type="button"
- style="padding-left:2px"
+ style="padding-left:3px"
  onclick="File_editor_table_header_onclick()"
 >Editor</button>
 </th>
@@ -352,21 +375,15 @@ File_editor_table_header_onclick()
 ><!--table-->
 
 <tr>
-<td>
-Key-binding
-</td>
-</tr>
-<tr>
 <td
- style="position:absolute"
->
+ colspan="2">
 <select
  id="File_key_binding_select"
  onchange="File_key_binding_select_onchange(this)"
 ><!--select-->
-<option>ace</option>
-<option>vim</option>
-<option>emacs</option>
+<option>KB-ace</option>
+<option>KB-vim</option>
+<option selected>KB-emacs</option>
 </select> 
 </td>
 </tr>
