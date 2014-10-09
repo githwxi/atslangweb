@@ -862,10 +862,16 @@ files = x0.files;
 freader = new FileReader();
 freader.onloadend = function(evt)
 {
-  if(evt.target.readyState==FileReader.DONE)
-  {
-    Patsoptaas_thePatsopt_source_set2(evt.target.result);
-  } ;
+//
+if(evt.target.readyState==FileReader.DONE)
+{
+  File_special_select_reset();
+  Patsoptaas_thePatsopt_source_set("");
+  Patsoptaas_thePatsopt_output_set("");
+  Patsoptaas_thePatsopt2js_output_set("");
+  Patsoptaas_thePatsopt_editor_set(evt.target.result);
+} ;
+//
 }
 //
 if (files.length > 0)
