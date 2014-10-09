@@ -232,11 +232,15 @@ function
 Patsoptaas_Compile_patsoptcc_reply
   (reply)
 {
+  alert("Patsoptaas_Compile_patsoptcc_reply:0");
+  var comparr = JSON.parse(reply);
+  alert("Patsoptaas_Compile_patsoptcc_reply:1");
+/*
   var reply2 = reply.replace('%', '%25');
   var comparr =
     JSON.parse(decodeURIComponent(reply2));
   // COMMENT_line
-
+*/
   var msg0 = "Patsoptaas: [patsopt-ccats] passed!"
   var msg1 = "Patsoptaas: [patsopt-ccats] failed!"
   if(comparr[0]===0)
