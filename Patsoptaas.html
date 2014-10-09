@@ -901,11 +901,16 @@ var
 doWork_after = function()
 {
 //
+  var mycode;
   File_special_select_reset();
   Patsoptaas_thePatsopt_source_set("");
   Patsoptaas_thePatsopt_output_set("");
   Patsoptaas_thePatsopt2js_output_set("");
-  Patsoptaas_thePatsopt_editor_set($("#File_loadurl_input_content").html());
+  mycode = $("#File_loadurl_input_content").html();
+  mycode = mycode.replace('&lt;', '>');
+  mycode = mycode.replace('&gt;', '>');
+  mycode = mycode.replace('&amp;', '&');
+  Patsoptaas_thePatsopt_editor_set(mycode);
 //
 }
 //
