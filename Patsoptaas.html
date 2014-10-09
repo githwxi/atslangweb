@@ -907,7 +907,7 @@ doWork_after = function()
   Patsoptaas_thePatsopt_output_set("");
   Patsoptaas_thePatsopt2js_output_set("");
   mycode = $("#File_loadurl_input_content").html();
-  mycode = mycode.replace('&lt;', '>');
+  mycode = mycode.replace('&lt;', '<');
   mycode = mycode.replace('&gt;', '>');
   mycode = mycode.replace('&amp;', '&');
   Patsoptaas_thePatsopt_editor_set(mycode);
