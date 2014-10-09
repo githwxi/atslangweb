@@ -898,7 +898,7 @@ File_loadurl_input_doWork(url)
 {
 //
 var
-doWork_after = function()
+doWork_after = function(mycode)
 {
 //
   var mycode;
@@ -906,8 +906,6 @@ doWork_after = function()
   Patsoptaas_thePatsopt_source_set("");
   Patsoptaas_thePatsopt_output_set("");
   Patsoptaas_thePatsopt2js_output_set("");
-  mycode =
-  $('#File_loadurl_input_content').text();
   Patsoptaas_thePatsopt_editor_set(mycode);
 //
 }
