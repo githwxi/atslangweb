@@ -907,14 +907,15 @@ doWork_after = function()
   Patsoptaas_thePatsopt_output_set("");
   Patsoptaas_thePatsopt2js_output_set("");
   mycode =
-  document.getElementById
-    ('File_loadurl_input_content').innerHTML;
-  mycode = mycode.replace('<', '&lt;');
-  mycode = mycode.replace('>', '&gt;');
-  mycode = mycode.replace('&', '&amp;');
-  document.getElementById
-    ("File_loadurl_input_content").innerHTML = mycode;
-  Patsoptaas_thePatsopt_editor_set($('File_loadurl_input_content').text());
+  $('File_loadurl_input_content').html();
+  alert(mycode);
+  mycode = mycode.replace('&lt;', '<');
+  alert(mycode);
+  mycode = mycode.replace('&gt;', '>');
+  alert(mycode);
+  mycode = mycode.replace('&amp;', '&');
+  alert(mycode);
+  Patsoptaas_thePatsopt_editor_set(mycode);
 //
 }
 //
