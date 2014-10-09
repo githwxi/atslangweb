@@ -823,6 +823,12 @@ File_newfile_template2_onclick
 <script>
 //
 function
+File_loadfile_onclick(x0)
+{
+  jQuery(x0).next('input').trigger('click');
+}
+//
+function
 File_loadfile_mouseout(x0)
 {
   Patsoptaas_submenu_mouseout(x0);
@@ -962,12 +968,14 @@ Evaluate_JS_onclick()
 </td></tr>
 
 <tr><td>
-<li
+<button
+ onclick="File_loadfile_onclick(this)"
  onmouseout="File_loadfile_mouseout(this)"
  onmouseover="File_loadfile_mouseover(this)"
->Load File</li>
+>Load File</button>
 <input
- type="file"></input>
+ type="file"
+ style="display:none"></input>
 </td></tr>
 
 <tr><td>
