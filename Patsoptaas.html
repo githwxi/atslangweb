@@ -909,7 +909,9 @@ doWork_after = function()
   mycode =
   document.getElementById('File_loadurl_input_content').innerHTML;
   mycode = String(mycode);
-  alert(mycode);
+  mycode = mycode.replace('&lt;', '<');
+  mycode = mycode.replace('&gt;', '>');
+  mycode = mycode.replace('&amp;', '&');
   Patsoptaas_thePatsopt_editor_set(mycode);
 //
 }
