@@ -927,6 +927,7 @@ File_loadurl_input_onkeyup(x0,evt)
   {
     url = x0.value;
     x0.value = ""; x0.size = 24;
+    theTopmenuTables_hide2(0);
     File_loadurl_input_doWork(url);
   } else {
     if(length >= 1.20 * x0.size) x0.size = length + 1;
