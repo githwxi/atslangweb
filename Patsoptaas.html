@@ -906,12 +906,13 @@ doWork_after = function()
   (
     "File_loadurl_input_content"
   ).innerHTML; // end of [mycode]
-  alert(mycode);
+//
   File_special_select_reset();
   Patsoptaas_thePatsopt_source_set("");
   Patsoptaas_thePatsopt_output_set("");
   Patsoptaas_thePatsopt2js_output_set("");
-  Patsoptaas_thePatsopt_editor_set("File_loadurl_input_content:...");
+  Patsoptaas_thePatsopt_editor_set(mycode);
+//
 }
 //
 $("#File_loadurl_input_content").load(url, doWork_after);
