@@ -855,6 +855,9 @@ File_loadfile_input_onchange(x0)
 {
 //
 var
+files = x0.files;
+//
+var
 freader = new FileReader();
 freader.onloadend = function(evt)
 {
@@ -864,10 +867,11 @@ freader.onloadend = function(evt)
   } ;
 }
 //
-if (x0.length > 0)
+if (files.length > 0)
 {
-  reader.readAsText(x0[0]);
+  freader.readAsText(files[0]);
 } else {
+alert("File_loadfile_input_onchange:2");
   Patsoptaas_thePatsopt_source_set2
   (
     "ERROR(File_loadfile): no file is choosen!!!"
