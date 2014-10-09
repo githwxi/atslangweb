@@ -896,8 +896,17 @@ alert("File_loadfile_input_onchange:2");
 function
 File_loadurl_input_doWork(url)
 {
-  alert("URL = " + url);
+//
+var
+doWork_after = function()
+{
+  alert($("#File_loadurl_input_content").innerHTML);
 }
+//
+$("#File_loadurl_input_content").load(url, doWork_after);
+//
+} // end of [File_loadurl_input_doWork]
+//
 function
 File_loadurl_input_onkeyup(x0,evt)
 {
@@ -909,7 +918,7 @@ File_loadurl_input_onkeyup(x0,evt)
     x0.value = ""; x0.size = 24;
     File_loadurl_input_doWork(url);
   } else {
-    if(length >= x0.size) x0.size = length + 1;
+    if(length >= 1.20 * x0.size) x0.size = length + 1;
   } // end of [if]
 }
 //
@@ -1070,6 +1079,8 @@ Evaluate_JS_onclick()
  type="text" size="24" maxlength="1024"
  onkeyup="File_loadurl_input_onkeyup(this,event)"
 ></input>
+<div
+ id="File_loadurl_input_content" style="display:none"></div>
 </td></tr>
 </table>
 </td></tr>
