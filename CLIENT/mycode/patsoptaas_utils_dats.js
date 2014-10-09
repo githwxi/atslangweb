@@ -184,6 +184,7 @@ Patsoptaas_Compile_patsoptcc_reply
   var reply2, reply3;
   alert("Patsoptaas_Compile_patsoptcc_reply:0");
   alert("reply = " + reply);
+  reply = reply.replace('%', '\001');
   reply2 = decodeURIComponent(reply);
   alert("reply2 = " + reply2);
   reply3 = JSON.parse(reply2);
