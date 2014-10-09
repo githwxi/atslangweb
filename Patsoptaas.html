@@ -908,11 +908,13 @@ doWork_after = function()
   Patsoptaas_thePatsopt2js_output_set("");
   mycode =
   document.getElementById
-    ("File_loadurl_input_content").innerHTML;
+    ('File_loadurl_input_content').innerHTML;
   mycode = mycode.replace('<', '&lt;');
   mycode = mycode.replace('>', '&gt;');
   mycode = mycode.replace('&', '&amp;');
-  Patsoptaas_thePatsopt_editor_set($('<p/>').text(mycode));
+  document.getElementById
+    ("File_loadurl_input_content").innerHTML = mycode;
+  Patsoptaas_thePatsopt_editor_set($('File_loadurl_input_content').text(mycode));
 //
 }
 //
