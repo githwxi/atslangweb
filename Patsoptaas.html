@@ -894,6 +894,32 @@ alert("File_loadfile_input_onchange:2");
 <script>
 //
 function
+File_loadurl_input_doWork(url)
+{
+  alert("URL = " + url);
+}
+function
+File_loadurl_input_onkeyup(x0,evt)
+{
+  var url, length;
+  length = x0.value.length;
+  if(evt.keyCode == 13)
+  {
+    url = x0.value;
+    x0.value = ""; x0.size = 24;
+    File_loadurl_input_doWork(url);
+  } else {
+    if(length >= x0.size) x0.size = length + 1;
+  } // end of [if]
+}
+//
+</script>
+
+<!-- ****** ****** -->
+
+<script>
+//
+function
 File_saveAs_onclick(x0)
 {
 //
@@ -966,6 +992,7 @@ Evaluate_JS_onclick()
 <table
  width="100%" height="100%"
  cellspacing="0" cellpadding="0">
+
 <tr>
 <td width="75%">
 <div
@@ -977,7 +1004,6 @@ Evaluate_JS_onclick()
  onmouseout="Patsoptaas_topmenu_mouseout()"
  onmouseover="Patsoptaas_topmenu_mouseover(this)"
 >File</li>
-
 <table
  class="thePage2RTopL_submenu"
  onmouseout="Patsoptaas_submenu_table_mouseout()"
@@ -1026,6 +1052,26 @@ Evaluate_JS_onclick()
  style="display:none"
  onchange="File_loadfile_input_onchange(this)"
 ></input>
+</td></tr>
+
+<tr><td>
+<li
+ onmouseout="Patsoptaas_submenu_mouseout()"
+ onmouseover="Patsoptaas_submenu_mouseover(this,1)"
+>Load URL</li>
+<table
+ width="120px"
+ class="thePage2RTopL_submenu"
+ onmouseout="Patsoptaas_submenu_table_mouseout()"
+ onmouseover="Patsoptaas_submenu_table_mouseover(1)"
+>
+<tr><td>
+<input
+ type="text" size="24" maxlength="1024"
+ onkeyup="File_loadurl_input_onkeyup(this,event)"
+></input>
+</td></tr>
+</table>
 </td></tr>
 
 <tr><td>
