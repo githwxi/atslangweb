@@ -900,7 +900,17 @@ File_loadurl_input_doWork(url)
 var
 doWork_after = function()
 {
-  alert(document.getElementById("File_loadurl_input_content").innerHTML);
+  var
+  mycode=
+  document.getElementById
+  (
+    "File_loadurl_input_content"
+  ).innerHTML ;
+  File_special_select_reset();
+  Patsoptaas_thePatsopt_source_set("");
+  Patsoptaas_thePatsopt_output_set("");
+  Patsoptaas_thePatsopt2js_output_set("");
+  Patsoptaas_thePatsopt_editor_set(mycode);
 }
 //
 $("#File_loadurl_input_content").load(url, doWork_after);
