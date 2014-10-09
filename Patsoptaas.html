@@ -854,10 +854,11 @@ function
 File_loadfile_input_onchange(x0)
 {
 //
-var
-files = x0.files;
+var files, freader
 //
-var
+theTopmenuTables_hide2(0);
+//
+files = x0.files;
 freader = new FileReader();
 freader.onloadend = function(evt)
 {
@@ -878,7 +879,7 @@ alert("File_loadfile_input_onchange:2");
   ) ; // end of [Patsoptaas_thePatsopt_source_set2]
 } // end of [if]
 //
-}
+} // end of [File_loadfile_input_onchange]
 //
 </script>
 
@@ -890,29 +891,30 @@ function
 File_saveAs_onclick(x0)
 {
 //
-  var i, code, blob, fname;
+var i, code, blob, fname;
 //
-  i = File_special_select_get();
-  switch(i)
-  {
-    case 0:
-    fname = "Patsoptaas_source.dats"; break;
-    case 1:
-    fname = "Patsoptaas_output_dats.c"; break;
-    case 2:
-    fname = "Patsoptaas_output_dats.js"; break;
-    default:
-    fname = "Patsoptaas_compile_stderr.log"; break; 
-  }
+theTopmenuTables_hide2(0);
 //
-  code =
-  Patsoptaas_thePatsopt_editor_get();
-  blob =
-  new Blob([code], {type: 'text/plain'});
+i = File_special_select_get();
+switch(i)
+{
+  case 0:
+  fname = "Patsoptaas_source.dats"; break;
+  case 1:
+  fname = "Patsoptaas_output_dats.c"; break;
+  case 2:
+  fname = "Patsoptaas_output_dats.js"; break;
+  default:
+  fname = "Patsoptaas_compile_stderr.log"; break; 
+}
 //
-  saveAs(blob, fname);
+code =
+Patsoptaas_thePatsopt_editor_get();
+blob =
+new Blob([code], {type: 'text/plain'});
 //
-  return;
+saveAs(blob, fname);
+//
 } // end of [File_saveAs_onclick]
 </script>
 
