@@ -203,6 +203,8 @@ Patsoptaas_Compile_patsopttc_reply
   (reply)
 {
 //
+  alert("Patsoptaas_Compile_patsopttc_reply:"); alert(reply);
+//
   var
   reply2 =
   reply.replace('%', '\001');
