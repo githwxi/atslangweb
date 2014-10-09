@@ -907,16 +907,12 @@ doWork_after = function()
   Patsoptaas_thePatsopt_output_set("");
   Patsoptaas_thePatsopt2js_output_set("");
   mycode =
-  document.getElementById('File_loadurl_input_content').innerHTML;
-  mycode = String(mycode);
-  mycode = mycode.replace('&lt;', '<');
-  mycode = mycode.replace('&gt;', '>');
-  mycode = mycode.replace('&amp;', '&');
+  $('#File_loadurl_input_content').val();
   Patsoptaas_thePatsopt_editor_set(mycode);
 //
 }
 //
-$("#File_loadurl_input_content").load(url, doWork_after);
+$('#File_loadurl_input_content').load(url, doWork_after);
 //
 } // end of [File_loadurl_input_doWork]
 //
@@ -1093,8 +1089,8 @@ Evaluate_JS_onclick()
  type="text" size="24" maxlength="1024"
  onkeyup="File_loadurl_input_onkeyup(this,event)"
 ></input>
-<div
- id="File_loadurl_input_content" style="display:none"></div>
+<input
+ id="File_loadurl_input_content" type="hidden"></input>
 </td></tr>
 </table>
 </td></tr>
