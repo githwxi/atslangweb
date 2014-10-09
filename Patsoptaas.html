@@ -286,6 +286,16 @@ Patsoptaas_thePatsopt_source_get2()
     return Patsoptaas_thePatsopt_source_get();
   }
 }
+function
+Patsoptaas_thePatsopt_source_set2(str)
+{
+  if(theFile_special_select_index===1)
+  {
+    Patsoptaas_thePatsopt_editor_set(str); return;
+  } else {
+    Patsoptaas_thePatsopt_source_set(str); return;
+  }
+}
 //
 function
 Patsoptaas_thePatsopt_output_get2()
@@ -840,6 +850,32 @@ File_loadfile_mouseover(x0)
   Patsoptaas_submenu_mouseover(x0,1);
 } // end of [File_loadfile_mouseover]
 //
+function
+File_loadfile_input_onchange(x0)
+{
+//
+var
+freader = new FileReader();
+freader.onloadend = function(evt)
+{
+  if(evt.target.readyState==FileReader.DONE)
+  {
+    Patsoptaas_thePatsopt_source_set2(evt.target.result);
+  } ;
+}
+//
+if (x0.length > 0)
+{
+  reader.readAsText(x0[0]);
+} else {
+  Patsoptaas_thePatsopt_source_set2
+  (
+    "ERROR(File_loadfile): no file is choosen!!!"
+  ) ; // end of [Patsoptaas_thePatsopt_source_set2]
+} // end of [if]
+//
+}
+//
 </script>
 
 <!-- ****** ****** -->
@@ -975,7 +1011,9 @@ Evaluate_JS_onclick()
 >Load File</button>
 <input
  type="file"
- style="display:none"></input>
+ style="display:none"
+ onchange="File_loadfile_input_onchange(this)"
+></input>
 </td></tr>
 
 <tr><td>
