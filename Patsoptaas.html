@@ -900,7 +900,7 @@ File_loadurl_input_doWork(url)
 var
 doWork_after = function()
 {
-  alert($("#File_loadurl_input_content"));
+  alert(document.getElementById("File_loadurl_input_content").innerHTML);
 }
 //
 $("#File_loadurl_input_content").load(url, doWork_after);
