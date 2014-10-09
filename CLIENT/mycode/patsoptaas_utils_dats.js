@@ -202,11 +202,21 @@ function
 Patsoptaas_Compile_patsopttc_reply
   (reply)
 {
-  var reply2 = reply.replace('%', '%25');
-  var comparr =
-    JSON.parse(decodeURIComponent(reply2));
-  // COMMENT_line
-
+//
+  var
+  reply2 =
+  reply.replace('%', '\001');
+//
+  var
+  reply3 =
+  decodeURIComponent(reply2);
+//
+  var
+  reply4 =
+  reply3.replace('\001', '%');
+//
+  var comparr = JSON.parse(reply4);
+//
   var msg0 = "Patsoptaas: [patsopt-tcats] passed!"
   var msg1 = "Patsoptaas: [patsopt-tcats] failed!"
   if(comparr[0]===0)
