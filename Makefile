@@ -24,7 +24,6 @@ all:: Libraries
 all:: Community
 all:: Papers
 all:: Examples
-all:: Patsoptaas
 
 ######
 #
@@ -35,17 +34,21 @@ Libraries:: ; $(CPF) $(SOURCE)/Libraries.html .
 Community:: ; $(CPF) $(SOURCE)/Community.html .
 Papers:: ; $(CPF) $(SOURCE)/Papers.html .
 Examples:: ; $(CPF) $(SOURCE)/Examples.html .
-Patsoptaas:: ; $(CPF) $(SOURCE)/Patsoptaas.html .
 #
 ######
 
 all:: CLIENT_mycode
 all:: SERVER_mycode
+all:: SERVER_mycode_mydata
 
 ######
 
-CLIENT_mycode:: ; $(CPF) $(SOURCE)/CLIENT/mycode/*.js ./CLIENT/mycode/.
-SERVER_mycode:: ; $(CPF) $(SOURCE)/SERVER/mycode/*.php ./SERVER/mycode/.
+CLIENT_mycode:: ; \
+$(CPF) $(SOURCE)/CLIENT/mycode/*.js ./CLIENT/mycode/.
+SERVER_mycode:: ; \
+$(CPF) $(SOURCE)/SERVER/mycode/*.php ./SERVER/mycode/.
+SERVER_mycode_mydata:: ; \
+$(CPF) $(SOURCE)/SERVER/mycode/mydata/* ./SERVER/mycode/mydata/.
 
 ######
 
