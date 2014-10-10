@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-
-<?php
-$fname = $_REQUEST['fname'];
-?><!--php-->
-
 <html>
 <head>
 <meta charset="utf-8">
@@ -111,14 +106,9 @@ body {
 <body>
 <div id="theBodyProp">
 <div id="thePage2">
-<script>
-/*
-alert("window.innerWidth = " + window.innerWidth);
-alert("window.innerHeight = " + window.innerHeight);
-alert("document.body.offsetWidth = " + document.body.offsetWidth);
-alert("document.body.offsetHeight = " + document.body.offsetHeight);
-*/
-</script>
+
+<?php $mycode_url = $_REQUEST["mycode_url"]; ?>
+<!--php-->
 
 <!-- ****** ****** -->
 
@@ -1237,12 +1227,11 @@ Evaluate_JS_onclick()
 <script>
 $(document).ready(Patsoptaas_thePage2_initize);
 </script>
+
 <?php
-if(!is_null($fname))
-{
   echo "<script>\n";
-  echo "\$(document).ready(function(){File_loadurl_input_doWork('".$fname."');});\n";
+  echo "\$(document).ready(function(){File_loadurl_input_doWork('".$mycode_url."');});\n";
   echo "</script>\n";
-}
 ?><!--php-->
+
 </html>
