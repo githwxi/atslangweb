@@ -107,7 +107,8 @@ body {
 <div id="theBodyProp">
 <div id="thePage2">
 
-<?php $mycode = $_REQUEST["mycode"]; ?><?php $mycode_url = $_REQUEST["mycode_url"]; ?>
+<?php $mycode = $_REQUEST["mycode"]; ?>
+<?php $mycode_url = $_REQUEST["mycode_url"]; ?>
 <!--php-->
 
 <!-- ****** ****** -->
