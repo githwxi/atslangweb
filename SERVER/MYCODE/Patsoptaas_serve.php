@@ -152,6 +152,8 @@ Patsoptaas_thePage2_initize2
   (fname)
 {
 //
+alert("Patsoptaas_thePage2_initize2: fname = " + fname);
+//
 if(fname==='hello')
 {
 //
