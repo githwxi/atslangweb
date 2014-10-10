@@ -52,9 +52,9 @@ all:: SERVER_MYCODE
 ######
 
 CLIENT_MYCODE:: ; \
-$(CPF) $(SOURCE)/CLIENT/mycode/*.js ./CLIENT/MYCODE/.
+$(CPF) $(SOURCE)/CLIENT/MYCODE/*.js ./CLIENT/MYCODE/.
 SERVER_MYCODE:: ; \
-$(CPF) $(SOURCE)/SERVER/mycode/*.php ./SERVER/MYCODE/.
+$(CPF) $(SOURCE)/SERVER/MYCODE/*.php ./SERVER/MYCODE/.
 
 ######
 
