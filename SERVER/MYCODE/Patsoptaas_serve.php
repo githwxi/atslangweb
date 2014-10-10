@@ -1237,9 +1237,10 @@ Evaluate_JS_onclick()
 </body>
 <script>
 $(document).ready(Patsoptaas_thePage2_initize);
-<?php>
-echo
-"\$(document).ready(function(){File_loadurl_input_doWork('".$fname."');})";
-?><!--php-->
 </script>
+<?php
+echo "<script>\n";
+echo "\$(document).ready(function(){File_loadurl_input_doWork('".$fname."');});\n";
+echo "</script>\n";
+?><!--php-->
 </html>
