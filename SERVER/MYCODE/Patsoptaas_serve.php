@@ -143,6 +143,30 @@ document.getElementById('File_special_select').selectedIndex = 0;
 //
 </script>
 
+<!-- ****** ****** -->
+
+<script>
+//
+function
+Patsoptaas_thePage2_initize2
+  (fname)
+{
+//
+if(fname==='hello')
+{
+//
+File_examples_load
+  (Patsoptaas_File_examples_hello);
+//
+return;
+}
+//
+File_loadurl_input_doWork(fname);
+//
+} // end of [Patsoptaas_thePage2_initize2]
+//
+</script>
+
 <!--php-->
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 <tr height="100%">
