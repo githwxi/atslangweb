@@ -107,7 +107,7 @@ body {
 <div id="theBodyProp">
 <div id="thePage2">
 
-<?php $mycode_url = $_REQUEST["mycode_url"]; ?>
+<?php $mycode = $_REQUEST["mycode"]; ?><?php $mycode_url = $_REQUEST["mycode_url"]; ?>
 <!--php-->
 
 <!-- ****** ****** -->
@@ -149,10 +149,8 @@ document.getElementById('File_special_select').selectedIndex = 0;
 //
 function
 Patsoptaas_thePage2_initize2
-  (fname)
+  (fname, fname_url)
 {
-//
-alert("Patsoptaas_thePage2_initize2: fname = " + fname);
 //
 if(fname==='hello')
 {
@@ -163,7 +161,7 @@ File_examples_load
 return;
 }
 //
-File_loadurl_input_doWork(fname);
+File_loadurl_input_doWork(fname_url);
 //
 } // end of [Patsoptaas_thePage2_initize2]
 //
@@ -1256,7 +1254,7 @@ $(document).ready(Patsoptaas_thePage2_initize);
 
 <?php
   echo "<script>\n";
-  echo "\$(document).ready(function(){Patsoptaas_thePage2_initize2('".$mycode_url."');});\n";
+  echo "\$(document).ready(function(){Patsoptaas_thePage2_initize2('".$mycode."','".$mycode_url."');});\n";
   echo "</script>\n";
 ?><!--php-->
 
