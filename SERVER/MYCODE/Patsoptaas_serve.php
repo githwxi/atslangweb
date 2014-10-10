@@ -1254,7 +1254,7 @@ $(document).ready(Patsoptaas_thePage2_initize);
 
 <?php
   echo "<script>\n";
-  echo "\$(document).ready(function(){File_loadurl_input_doWork('".$mycode_url."');});\n";
+  echo "\$(document).ready(function(){Patsoptaas_thePage2_initize2('".$mycode_url."');});\n";
   echo "</script>\n";
 ?><!--php-->
 
