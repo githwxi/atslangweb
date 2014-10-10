@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 
 <?php
-$fname =
-'http://www.ats-lang.org/ats2-lang/doc/EXAMPLE/INTRO/hello.dats';
+$fname = $_REQUEST['fname'];
 ?><!--php-->
 
 <html>
@@ -1239,8 +1238,11 @@ Evaluate_JS_onclick()
 $(document).ready(Patsoptaas_thePage2_initize);
 </script>
 <?php
-echo "<script>\n";
-echo "\$(document).ready(function(){File_loadurl_input_doWork('".$fname."');});\n";
-echo "</script>\n";
+if(!is_null($fname))
+{
+  echo "<script>\n";
+  echo "\$(document).ready(function(){File_loadurl_input_doWork('".$fname."');});\n";
+  echo "</script>\n";
+}
 ?><!--php-->
 </html>
