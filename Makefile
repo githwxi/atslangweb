@@ -37,18 +37,24 @@ Examples:: ; $(CPF) $(SOURCE)/Examples.html .
 #
 ######
 
-all:: CLIENT_mycode
-all:: SERVER_mycode
-all:: SERVER_mycode_mydata
+all:: MYDATA
 
 ######
 
-CLIENT_mycode:: ; \
-$(CPF) $(SOURCE)/CLIENT/mycode/*.js ./CLIENT/mycode/.
-SERVER_mycode:: ; \
-$(CPF) $(SOURCE)/SERVER/mycode/*.php ./SERVER/mycode/.
-SERVER_mycode_mydata:: ; \
-$(CPF) $(SOURCE)/SERVER/mycode/mydata/* ./SERVER/mycode/mydata/.
+MYDATA:: ; \
+$(CPF) $(SOURCE)/MYDATA/Patsoptaas.html ./MYDATA/.
+
+######
+
+all:: CLIENT_MYCODE
+all:: SERVER_MYCODE
+
+######
+
+CLIENT_MYCODE:: ; \
+$(CPF) $(SOURCE)/CLIENT/mycode/*.js ./CLIENT/MYCODE/.
+SERVER_MYCODE:: ; \
+$(CPF) $(SOURCE)/SERVER/mycode/*.php ./SERVER/MYCODE/.
 
 ######
 
