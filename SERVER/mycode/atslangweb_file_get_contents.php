@@ -1,7 +1,9 @@
 <?php
 
 $fname = $_REQUEST["fname"];
+/*
 $fname = "http://www.ats-lang.org";
+*/
 $contents = file_get_contents($fname);
 if($contents)
 {
