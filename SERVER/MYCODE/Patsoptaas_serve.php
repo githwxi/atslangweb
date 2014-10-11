@@ -557,6 +557,7 @@ Code-folding
 <option>Factorial(rec)</option>
 <option>Factorial(iter)</option>
 <option>Factorial(verify)</option>
+<option>List-append</option>
 </select> 
 </td>
 </tr>
