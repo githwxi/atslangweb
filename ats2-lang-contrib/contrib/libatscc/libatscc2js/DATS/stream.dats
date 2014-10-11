@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into JavaScript
+** that translates into Javascript
 *)
 
 (* ****** ****** *)
@@ -15,7 +15,7 @@
 #define
 ATS_EXTERN_PREFIX "ats2jspre_"
 #define
-ATS_STATIC_PREFIX "_ats2jspre_intrange_"
+ATS_STATIC_PREFIX "_ats2jspre_stream_"
 //
 (* ****** ****** *)
 //
@@ -25,21 +25,23 @@ ATS_STATIC_PREFIX "_ats2jspre_intrange_"
 (* ****** ****** *)
 //
 staload
-  "./../basics_js.sats"
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
 //
 staload
-  "./../SATS/integer.sats"
+"./../SATS/integer.sats"
 //
-staload "./../SATS/list.sats"
-//
-(* ****** ****** *)
-//
-staload "./../SATS/intrange.sats"
-//
-(* ****** ****** *)
-//
-#include "{$LIBATSCC}/DATS/intrange.dats"
+staload "./../SATS/print.sats"
 //
 (* ****** ****** *)
 
-(* end of [intrange.dats] *)
+staload "./../SATS/stream.sats"
+
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/stream.dats"
+//
+(* ****** ****** *)
+
+(* end of [stream.dats] *)
