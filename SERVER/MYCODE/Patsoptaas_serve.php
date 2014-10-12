@@ -242,6 +242,8 @@ File_examples_onchange(x0)
     File_examples_load(Patsoptaas_File_examples_factverify); break;
     case 6:
     File_examples_load(Patsoptaas_File_examples_list_append); break;
+    case 7:
+    File_examples_load(Patsoptaas_File_examples_list_reverse); break;
     default: break;
   }
 //
@@ -558,6 +560,7 @@ Code-folding
 <option>Factorial(iter)</option>
 <option>Factorial(verify)</option>
 <option>List-append</option>
+<option>List-reverse</option>
 </select> 
 </td>
 </tr>
