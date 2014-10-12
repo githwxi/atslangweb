@@ -29,6 +29,8 @@ staload "./../SATS/print.sats"
 implement
 print_val<int> = print_int
 implement
+print_val<bool> = print_bool
+implement
 print_val<double> = print_double
 implement
 print_val<string> = print_string
