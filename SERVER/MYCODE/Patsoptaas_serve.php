@@ -246,7 +246,7 @@ File_examples_onchange(x0)
     File_examples_load(Patsoptaas_File_examples_list_reverse); break;
     case 8:
     File_examples_load(Patsoptaas_File_examples_list_sort_insert); break;
-    case 8:
+    case 9:
     File_examples_load(Patsoptaas_File_examples_list_sort_quick); break;
     default: break;
   }
