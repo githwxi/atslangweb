@@ -740,7 +740,7 @@ Code-folding
 
 .thePage2RTopL_submenu
 {
-  z-index: 8;
+  z-index: 9;
   display: none;
   position: absolute;
   border-radius: 6px;
