@@ -1330,7 +1330,7 @@ Evaluate_JS_onclick()
  id="thePage2RBody3_canvas"
  style="display:none">
 <canvas
- id="MyCanvas"
+ id="Patsoptaas-Evaluate-Canvas"
  oncontextmenu="event.preventDefault()">
 It seems that &lt;canvas&gt; is not supported by the browser!
 </canvas>
