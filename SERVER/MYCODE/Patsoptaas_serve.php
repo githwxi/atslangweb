@@ -1286,7 +1286,7 @@ Evaluate_JS_onclick()
 }
 #thePage2RBody3_canvas
 {
-  width: 100%;
+  z-index: 16;
   position: absolute;
   font-size: 12px;
   background: #FFFFF0;
