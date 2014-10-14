@@ -1318,6 +1318,12 @@ Evaluate_JS_onclick()
 <div
  id="thePage2RBody3_canvas"
  style="display:none">
+<canvas
+ id="MyCanvas"
+ width="100%" height="100%"
+ oncontextmenu="event.preventDefault()">
+It seems that &lt;canvas&gt; is not supported by the browser!
+</canvas>
 </div>
 
 </table>
