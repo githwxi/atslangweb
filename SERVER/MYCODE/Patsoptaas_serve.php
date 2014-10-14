@@ -236,14 +236,18 @@ div = $('#thePage2RBody3_canvas');
 //
 if(Patsoptaas_Evaluate_canvas_flag())
 {
+//
   table =
   $('#thePage2RBody_table')
   w = table.outerWidth();
   h = table.outerHeight();
   div.css({display:'block'});
   div.outerWidth(w); div.outerHeight(h);
-  canvas = $('#MyCanvas');
+//
+  canvas =
+  document.getElementById('MyCanvas');
   canvas.width = w; canvas.height = h;
+//
 } else {
   div.css({display: 'none' });
 } // end of [if]
