@@ -1320,7 +1320,8 @@ Evaluate_JS_onclick()
  style="display:none">
 <canvas
  id="MyCanvas"
- width="100%" height="100%"
+ width="600px" height="600px"
+ background="black"
  oncontextmenu="event.preventDefault()">
 It seems that &lt;canvas&gt; is not supported by the browser!
 </canvas>
