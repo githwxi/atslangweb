@@ -242,8 +242,10 @@ if(Patsoptaas_Evaluate_canvas_flag())
   h = table.outerHeight();
   div.css({display:'block'});
   div.outerWidth(w); div.outerHeight(h);
+/*
   canvas = $('#MyCanvas');
   canvas.outerWidth(600); canvas.outerHeight(400);
+*/
 } else {
   div.css({display: 'none' });
 } // end of [if]
@@ -1326,7 +1328,7 @@ Evaluate_JS_onclick()
  style="display:none">
 <canvas
  id="MyCanvas"
- background="black"
+ width="600px" height="400px"
  oncontextmenu="event.preventDefault()">
 It seems that &lt;canvas&gt; is not supported by the browser!
 </canvas>
