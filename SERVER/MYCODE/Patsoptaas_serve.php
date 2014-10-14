@@ -197,6 +197,8 @@ File_loadurl_input_doWork(fname_url);
 }
 </style>
 
+<!-- ****** ****** -->
+
 <script>
 //
 function
@@ -215,6 +217,31 @@ if(Patsoptaas_Compile_stderr_flag())
 } // end of [if]
 //
 } // end of [Compile_stderr_flag_onclick()]
+//
+</script>
+
+<!-- ****** ****** -->
+
+<script>
+//
+function
+Evaluate_canvas_flag_onclick()
+{
+//
+var
+canvas=
+$('#thePage2RBody3_canvas');
+//
+if(Patsoptaas_Evaluate_canvas_flag())
+{
+  canvas.css({display:'block'});
+  canvas.outerWidth($('#thePage2RBody_table').outerWidth());
+  canvas.outerHeight($('#thePage2RBody_table').outerHeight());
+} else {
+  canvas.css({display: 'none' });
+} // end of [if]
+//
+} // end of [Evaluate_canvas_flag_onclick()]
 //
 </script>
 
@@ -623,6 +650,19 @@ Code-folding
  id="Compile-stderr-flag"
  onclick="Compile_stderr_flag_onclick()"
  checked
+></input>
+</td>
+</tr>
+
+<tr>
+<td>
+<label style="padding-left:2px">Evaluate-canvas</label>
+</td>
+<td>
+<input
+ type="checkbox"
+ id="Evaluate-canvas-flag"
+ onclick="Evaluate_canvas_flag_onclick()"
 ></input>
 </td>
 </tr>
@@ -1244,9 +1284,17 @@ Evaluate_JS_onclick()
   font-size: 12px;
   background: #FFFFF0;
 }
+#thePage2RBody3_canvas
+{
+  width: 100%;
+  position: absolute;
+  font-size: 12px;
+  background: #FFFFF0;
+}
 </style>
 
 <table
+ id="thePage2RBody_table"
  width="100%" height="100%">
 
 <tr
@@ -1266,6 +1314,11 @@ Evaluate_JS_onclick()
  id="thePage2RBody2_prop"></textarea>
 </td>
 </tr>
+
+<div
+ id="thePage2RBody3_canvas"
+ style="display:none">
+</div>
 
 </table>
 
