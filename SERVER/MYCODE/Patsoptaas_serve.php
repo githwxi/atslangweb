@@ -230,16 +230,17 @@ Evaluate_canvas_flag_onclick()
 {
 //
 var
-w, h, div, canvas;
+w, h, div, table, canvas;
 //
 div = $('#thePage2RBody3_canvas');
 //
 if(Patsoptaas_Evaluate_canvas_flag())
 {
-  w =
-  $('#thePage2RBody_table').outerWidth();
-  h =
-  $('#thePage2RBody_table').outerHeight();
+  table =
+  $('#thePage2RBody_table')
+  w = table.outerWidth();
+  h = table.outerHeight();
+  alert("w = " + w); alert("h = " + h);
   div.css({display:'block'});
   div.outerWidth(w); div.outerHeight(h);
   canvas = $('#MyCanvas');
