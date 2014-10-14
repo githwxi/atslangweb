@@ -240,11 +240,10 @@ if(Patsoptaas_Evaluate_canvas_flag())
   $('#thePage2RBody_table')
   w = table.outerWidth();
   h = table.outerHeight();
-  alert("w = " + w); alert("h = " + h);
   div.css({display:'block'});
   div.outerWidth(w); div.outerHeight(h);
   canvas = $('#MyCanvas');
-  canvas.outerWidth(w); canvas.outerHeight(h);
+  canvas.outerWidth(600); canvas.outerHeight(400);
 } else {
   div.css({display: 'none' });
 } // end of [if]
