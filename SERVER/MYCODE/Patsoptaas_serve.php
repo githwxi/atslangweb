@@ -245,7 +245,7 @@ if(Patsoptaas_Evaluate_canvas_flag())
   div.css({display:'block'});
 //
   canvas =
-  document.getElementById('Patsoptaas-Evaluate-Canvas');
+  document.getElementById('Patsoptaas-Evaluate-canvas');
   if (canvas.width != w) canvas.width = w;
   if (canvas.height != h) canvas.height = h;
 //
@@ -1330,7 +1330,7 @@ Evaluate_JS_onclick()
  id="thePage2RBody3_canvas"
  style="display:none">
 <canvas
- id="Patsoptaas-Evaluate-Canvas"
+ id="Patsoptaas-Evaluate-canvas"
  oncontextmenu="event.preventDefault()">
 It seems that &lt;canvas&gt; is not supported by the browser!
 </canvas>
