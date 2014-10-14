@@ -227,16 +227,22 @@ Evaluate_canvas_flag_onclick()
 {
 //
 var
-canvas=
-$('#thePage2RBody3_canvas');
+w, h, div, canvas;
+//
+div = $('#thePage2RBody3_canvas');
 //
 if(Patsoptaas_Evaluate_canvas_flag())
 {
-  canvas.css({display:'block'});
-  canvas.outerWidth($('#thePage2RBody_table').outerWidth());
-  canvas.outerHeight($('#thePage2RBody_table').outerHeight());
+  w =
+  $('#thePage2RBody_table').outerWidth();
+  h =
+  $('#thePage2RBody_table').outerHeight();
+  div.css({display:'block'});
+  div.outerWidth(w); div.outerHeight(h);
+  canvas = $('#MyCanvas');
+  canvas.outerWidth(w); canvas.outerHeight(h);
 } else {
-  canvas.css({display: 'none' });
+  div.css({display: 'none' });
 } // end of [if]
 //
 } // end of [Evaluate_canvas_flag_onclick()]
@@ -1317,7 +1323,6 @@ Evaluate_JS_onclick()
  style="display:none">
 <canvas
  id="MyCanvas"
- width="600px" height="600px"
  background="black"
  oncontextmenu="event.preventDefault()">
 It seems that &lt;canvas&gt; is not supported by the browser!
