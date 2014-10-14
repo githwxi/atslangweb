@@ -239,10 +239,10 @@ if(Patsoptaas_Evaluate_canvas_flag())
 //
   table =
   $('#thePage2RBody_table')
-  w = table.outerWidth();
-  h = table.outerHeight();
+  w = table.outerWidth(true);
+  h = table.outerHeight(true);
+//
   div.css({display:'block'});
-  div.outerWidth(w); div.outerHeight(h);
 //
   canvas =
   document.getElementById('MyCanvas');
