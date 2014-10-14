@@ -1103,7 +1103,7 @@ Evaluate_JS_onclick()
 <td width="75%">
 <div
  id="thePage2RTopL"
->
+ style="z-index:10">
 <ul>
 <li
  name="File"
@@ -1286,7 +1286,7 @@ Evaluate_JS_onclick()
 }
 #thePage2RBody3_canvas
 {
-  z-index: 16;
+  z-index: 9;
   position: absolute;
   font-size: 12px;
   background: #FFFFF0;
