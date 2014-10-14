@@ -166,6 +166,15 @@ File_examples_load
 return;
 }
 //
+if(fname==='fibats')
+{
+//
+File_examples_load
+  (Patsoptaas_File_examples_fibats_verify);
+//
+return;
+}
+//
 File_loadurl_input_doWork(fname_url);
 //
 } // end of [Patsoptaas_thePage2_initize2]
