@@ -1325,6 +1325,7 @@ Evaluate_JS_onclick()
  oncontextmenu="event.preventDefault()">
 It seems that &lt;canvas&gt; is not supported by the browser!
 </canvas>
+
 </div>
 
 </table>
