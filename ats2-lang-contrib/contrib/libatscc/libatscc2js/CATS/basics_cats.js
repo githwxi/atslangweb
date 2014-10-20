@@ -47,11 +47,46 @@ function
 ATSCKpat_con1 (con, tag) { return (con[0] === tag); }
 
 /* ****** ****** */
+//
+function
+ATSINScaseof_fail(errmsg)
+{
+  new Error("ATSINScaseof_fail:"+errmsg);
+  return;
+}
+//
+function
+ATSINSdeadcode_fail()
+  { new Error("ATSINSdeadcode_fail"); return; }
+//
+/* ****** ****** */
 
 /*
 fun
 ATSPMVlazyval_make (thunk) { return [0, thunk]; }
 */
+
+/* ****** ****** */
+
+function
+ATSPMVlazyval_eval(lazyval)
+{
+//
+  var
+  flag, thunk;
+//
+  flag = lazyval[0];
+//
+  if(flag===0)
+  {
+    lazyval[0] = 1;
+    thunk = lazyval[1];
+    lazyval[1] = thunk[0](thunk);
+  } else {
+    lazyval[0] = flag + 1;
+  } // end of [if]
+//
+} // end of [ATSPMVlazyval_eval]
 
 /* ****** ****** */
 
