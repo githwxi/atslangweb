@@ -96,6 +96,21 @@ ats2jspre_alert(msg) { alert(msg); return; }
 /* ****** ****** */
 
 function
+ats2jspre_confirm(msg) { confirm(msg); return; }
+
+/* ****** ****** */
+//
+function
+ats2jspre_prompt_none
+  (msg) { prompt(msg); return; }
+//
+function
+ats2jspre_prompt_some
+  (msg, default) { prompt(msg, default); return; }
+//
+/* ****** ****** */
+
+function
 ats2jspre_typeof(obj) { return typeof(obj); }
 
 /* ****** ****** */
