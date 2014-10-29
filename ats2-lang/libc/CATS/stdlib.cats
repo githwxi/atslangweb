@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdlib.atxt
-** Time of generation: Fri Feb 28 17:55:42 2014
+** Time of generation: Mon Oct 27 19:32:47 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_STDLIB_CATS
-#define ATSLIB_LIBC_STDLIB_CATS
+#ifndef ATSLIB_LIBC_CATS_STDLIB
+#define ATSLIB_LIBC_CATS_STDLIB
 
 /* ****** ****** */
 
@@ -165,7 +165,7 @@ atslib_bsearch(key, base, nmemb, size, compar) \
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_STDLIB_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_STDLIB
 
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/string.atxt
-** Time of generation: Sat May 24 19:04:08 2014
+** Time of generation: Mon Oct 27 19:32:48 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_STRING_CATS
-#define ATSLIB_LIBC_STRING_CATS
+#ifndef ATSLIB_LIBC_CATS_STRING
+#define ATSLIB_LIBC_CATS_STRING
 
 /* ****** ****** */
 
@@ -140,7 +140,7 @@ atslib_strdup_gc
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_STRING_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_STRING
 
 /* ****** ****** */
 

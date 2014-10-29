@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/dlfcn.atxt
-** Time of generation: Fri Feb 28 17:55:39 2014
+** Time of generation: Mon Oct 27 19:32:44 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_DLFCN_CATS
-#define ATSLIB_LIBC_DLFCN_CATS
+#ifndef ATSLIB_LIBC_CATS_DLFCN
+#define ATSLIB_LIBC_CATS_DLFCN
 
 /* ****** ****** */
 
@@ -70,7 +70,7 @@
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_DLFCN_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_DLFCN
 
 /* ****** ****** */
 

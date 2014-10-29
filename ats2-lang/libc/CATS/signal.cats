@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/signal.atxt
-** Time of generation: Thu Apr 10 00:26:17 2014
+** Time of generation: Mon Oct 27 19:32:47 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_SIGNAL_CATS
-#define ATSLIB_LIBC_SIGNAL_CATS
+#ifndef ATSLIB_LIBC_CATS_SIGNAL
+#define ATSLIB_LIBC_CATS_SIGNAL
 
 /* ****** ****** */
 
@@ -117,7 +117,7 @@ char* strsignal (int signum) ; // declared in <string.h>
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_SIGNAL_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_SIGNAL
 
 /* ****** ****** */
 

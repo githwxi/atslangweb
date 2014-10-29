@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdio.atxt
-** Time of generation: Thu Jun  5 12:01:00 2014
+** Time of generation: Mon Oct 27 19:32:47 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_STDIO_CATS
-#define ATSLIB_LIBC_STDIO_CATS
+#ifndef ATSLIB_LIBC_CATS_STDIO
+#define ATSLIB_LIBC_CATS_STDIO
 
 /* ****** ****** */
 
@@ -219,7 +219,7 @@ atslib_ferror(p) ferror(((FILE*)p))
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_STDIO_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_STDIO
 
 /* ****** ****** */
 

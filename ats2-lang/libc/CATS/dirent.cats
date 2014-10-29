@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/dirent.atxt
-** Time of generation: Fri Feb 28 17:55:39 2014
+** Time of generation: Mon Oct 27 19:32:44 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_DIRENT_CATS
-#define ATSLIB_LIBC_DIRENT_CATS
+#ifndef ATSLIB_LIBC_CATS_DIRENT
+#define ATSLIB_LIBC_CATS_DIRENT
 
 /* ****** ****** */
 
@@ -115,7 +115,7 @@ atslib_scandir(dirp, namelst, filter, compar) \
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_DIRENT_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_DIRENT
 
 /* ****** ****** */
 

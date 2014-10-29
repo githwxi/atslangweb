@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/unistd.atxt
-** Time of generation: Tue Apr 29 22:49:17 2014
+** Time of generation: Mon Oct 27 19:32:49 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_UNISTD_CATS
-#define ATSLIB_LIBC_UNISTD_CATS
+#ifndef ATSLIB_LIBC_CATS_UNISTD
+#define ATSLIB_LIBC_CATS_UNISTD
 
 /* ****** ****** */
 
@@ -184,7 +184,7 @@ do { \
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_UNISTD_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_UNISTD
 
 /* ****** ****** */
 

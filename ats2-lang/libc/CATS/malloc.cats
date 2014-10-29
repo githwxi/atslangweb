@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/malloc.atxt
-** Time of generation: Fri Feb 28 17:55:42 2014
+** Time of generation: Mon Oct 27 19:32:46 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_MALLOC_CATS
-#define ATSLIB_LIBC_MALLOC_CATS
+#ifndef ATSLIB_LIBC_CATS_MALLOC
+#define ATSLIB_LIBC_CATS_MALLOC
 
 /* ****** ****** */
 
@@ -61,7 +61,7 @@
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_MALLOC_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_MALLOC
 
 /* ****** ****** */
 

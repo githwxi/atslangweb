@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/alloca.atxt
-** Time of generation: Tue May 27 13:06:43 2014
+** Time of generation: Tue Oct 28 16:39:52 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_ALLOCA_CATS
-#define ATSLIB_LIBC_ALLOCA_CATS
+#ifndef ATSLIB_LIBC_CATS_ALLOCA
+#define ATSLIB_LIBC_CATS_ALLOCA
 
 /* ****** ****** */
 
@@ -62,7 +62,7 @@
 //
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_ALLOCA_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_ALLOCA
 
 /* ****** ****** */
 

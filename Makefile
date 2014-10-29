@@ -24,6 +24,7 @@ all:: Libraries
 all:: Community
 all:: Papers
 all:: Examples
+all:: Resources
 all:: Implements
 
 ######
@@ -35,6 +36,7 @@ Libraries:: ; $(CPF) $(SOURCE)/Libraries.html .
 Community:: ; $(CPF) $(SOURCE)/Community.html .
 Papers:: ; $(CPF) $(SOURCE)/Papers.html .
 Examples:: ; $(CPF) $(SOURCE)/Examples.html .
+Resources:: ; $(CPF) $(SOURCE)/Resources.html .
 Implements:: ; $(CPF) $(SOURCE)/Implements.html .
 #
 ######
