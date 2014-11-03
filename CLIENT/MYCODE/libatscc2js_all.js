@@ -61,13 +61,13 @@ ATSINSdeadcode_fail()
 //
 /* ****** ****** */
 
-function
+fun
 ATSPMVempty() { return; }
 
 /* ****** ****** */
 
 /*
-function
+fun
 ATSPMVlazyval_make (thunk) { return [0, thunk]; }
 */
 
