@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/filebas.atxt
-** Time of generation: Sun Jun  1 09:55:08 2014
+** Time of generation: Tue Oct 28 01:40:35 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_FILEBAS_CATS
-#define ATSLIB_PRELUDE_FILEBAS_CATS
+#ifndef ATSLIB_PRELUDE_CATS_FILEBAS
+#define ATSLIB_PRELUDE_CATS_FILEBAS
 
 /* ****** ****** */
 
@@ -335,7 +335,7 @@ atspre_fileref_get_line_string_main2
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_FILEBAS_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_FILEBAS
 
 /* ****** ****** */
 

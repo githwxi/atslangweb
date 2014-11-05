@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_ptr.atxt
-** Time of generation: Fri Feb 28 17:55:33 2014
+** Time of generation: Tue Oct 28 01:40:31 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_INTEGER_PTR_CATS
-#define ATSLIB_PRELUDE_INTEGER_PTR_CATS
+#ifndef ATSLIB_PRELUDE_CATS_INTEGER_PTR
+#define ATSLIB_PRELUDE_CATS_INTEGER_PTR
 
 /* ****** ****** */
 
@@ -338,7 +338,7 @@ atspre_fprint_uintptr
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_INTEGER_PTR_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER_PTR
 
 /* ****** ****** */
 

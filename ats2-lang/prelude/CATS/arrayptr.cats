@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/arrayptr.atxt
-** Time of generation: Fri Feb 28 17:55:37 2014
+** Time of generation: Tue Oct 28 01:40:36 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_ARRAYPTR_CATS
-#define ATSLIB_PRELUDE_ARRAYPTR_CATS
+#ifndef ATSLIB_PRELUDE_CATS_ARRAYPTR
+#define ATSLIB_PRELUDE_CATS_ARRAYPTR
 
 /* ****** ****** */
 
@@ -75,7 +75,7 @@ atspre_arrayptr_make_arrpsz
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_ARRAYPTR_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_ARRAYPTR
 
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Thu Jun 12 12:37:42 2014
+** Time of generation: Tue Oct 28 01:40:32 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CHAR_CATS
-#define ATSLIB_PRELUDE_CHAR_CATS
+#ifndef ATSLIB_PRELUDE_CATS_CHAR
+#define ATSLIB_PRELUDE_CATS_CHAR
 
 /* ****** ****** */
 
@@ -527,7 +527,7 @@ atspre_int2xxdigit
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CHAR_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_CHAR
 
 /* ****** ****** */
 

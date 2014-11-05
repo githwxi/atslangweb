@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/matrixptr.atxt
-** Time of generation: Fri Feb 28 17:55:38 2014
+** Time of generation: Tue Oct 28 01:40:37 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_MATRIXPTR_CATS
-#define ATSLIB_PRELUDE_MATRIXPTR_CATS
+#ifndef ATSLIB_PRELUDE_CATS_MATRIXPTR
+#define ATSLIB_PRELUDE_CATS_MATRIXPTR
 
 /* ****** ****** */
 
@@ -56,7 +56,7 @@ atspre_matrixptr_free
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_MATRIXPTR_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_MATRIXPTR
 
 /* ****** ****** */
 

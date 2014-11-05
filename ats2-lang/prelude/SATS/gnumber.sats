@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gnumber.atxt
-** Time of generation: Fri Sep  5 00:10:35 2014
+** Time of generation: Fri Oct 31 17:46:17 2014
 *)
 
 (* ****** ****** *)
@@ -84,6 +84,7 @@ fun{a:t0p} gnumber_double (x: double):<> a
 //
 (* ****** ****** *)
 
+fun{a:t0p} gabs_val (x: a):<> a
 fun{a:t0p} gneg_val (x: a):<> a
 fun{a:t0p} gsucc_val (x: a):<> a
 fun{a:t0p} gpred_val (x: a):<> a

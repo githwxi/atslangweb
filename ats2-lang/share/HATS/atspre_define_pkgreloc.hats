@@ -134,6 +134,10 @@ LIBATSCC2JS_targetloc
 LIBATSCC2PHP_targetloc
 "$PATSHOMERELOC/contrib/libatscc/libatscc2php"
 //
+#define
+LIBATSCC2CIL_targetloc
+"$PATSHOMERELOC/contrib/libatscc/libatscc2cil"
+//
 (* ****** ****** *)
 //
 // HX-2014-05-12:
@@ -148,6 +152,13 @@ LIBATSHWXI_targetloc "$PATSHOMERELOC/contrib/libats-/hwxi"
 LIBATS_HWXI_sourceloc "$ATSLANGWEBLIB/contrib/libats-/hwxi"
 #define
 LIBATS_HWXI_targetloc "$PATSHOMERELOC/contrib/libats-/hwxi"
+//
+(* ****** ****** *)
+//
+// For applying ATS to Linux kernel programming
+//
+#define LINUX_sourceloc "$ATSLANGWEBLIB/contrib/linux"
+#define LINUX_targetloc "$PATSHOMERELOC/contrib/linux"
 //
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrix.atxt
-** Time of generation: Fri Sep  5 00:10:40 2014
+** Time of generation: Wed Oct 29 13:10:53 2014
 *)
 
 (* ****** ****** *)
@@ -105,8 +105,6 @@ stadef matcol_v = matcol_view
 //
 (* ****** ****** *)
 
-symintr matrix_getref_at
-
 fun{a:vt0p}
 matrix_getref_at_int
   {m,n:int}
@@ -123,6 +121,7 @@ matrix_getref_at_size
 , i: sizeLt (m), n: size_t n, j: sizeLt (n)
 ) :<> cPtr1 (a) // endfun
 
+symintr matrix_getref_at
 overload matrix_getref_at with matrix_getref_at_int
 overload matrix_getref_at with matrix_getref_at_size
 

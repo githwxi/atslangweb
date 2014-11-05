@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/basics.atxt
-** Time of generation: Fri Feb 28 17:55:31 2014
+** Time of generation: Tue Oct 28 01:40:29 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_BASICS_CATS
-#define ATSLIB_PRELUDE_BASICS_CATS
+#ifndef ATSLIB_PRELUDE_CATS_BASICS
+#define ATSLIB_PRELUDE_CATS_BASICS
 
 /* ****** ****** */
 
@@ -93,16 +93,6 @@ atspre_cloptr_free
 ) {
   ATS_MFREE (pclo) ; return ;
 } /* [atspre_cloptr_free] */
-
-/* ****** ****** */
-
-ATSinline()
-atstype_cloptr
-atspre_lazy2cloref
-  (atstype_ptr lazyval)
-{
-  return (*(ATStylazy(void*)*)lazyval).lazy.thunk ;
-} /* end of [atspre_lazy2cloref] */
 
 /* ****** ****** */
 
@@ -218,7 +208,7 @@ atspre_fprint_newline
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_BASICS_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_BASICS
 
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/string.atxt
-** Time of generation: Fri Feb 28 17:55:36 2014
+** Time of generation: Tue Oct 28 01:40:33 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_STRING_CATS
-#define ATSLIB_PRELUDE_STRING_CATS
+#ifndef ATSLIB_PRELUDE_CATS_STRING
+#define ATSLIB_PRELUDE_CATS_STRING
 
 /* ****** ****** */
 //
@@ -241,7 +241,7 @@ atspre_string_make_vsnprintf
 //
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_STRING_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_STRING
 
 /* ****** ****** */
 

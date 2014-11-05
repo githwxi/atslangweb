@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/matrix.atxt
-** Time of generation: Fri Feb 28 17:55:38 2014
+** Time of generation: Tue Oct 28 01:40:37 2014
 */
 
 /* ****** ****** */
@@ -43,12 +43,12 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_MATRIX_CATS
-#define ATSLIB_PRELUDE_MATRIX_CATS
+#ifndef ATSLIB_PRELUDE_CATS_MATRIX
+#define ATSLIB_PRELUDE_CATS_MATRIX
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_MATRIX_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_MATRIX
 
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/strptr.atxt
-** Time of generation: Fri Feb 28 17:55:36 2014
+** Time of generation: Tue Oct 28 01:40:34 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_STRPTR_CATS
-#define ATSLIB_PRELUDE_STRPTR_CATS
+#ifndef ATSLIB_PRELUDE_CATS_STRPTR
+#define ATSLIB_PRELUDE_CATS_STRPTR
 
 /* ****** ****** */
 //
@@ -116,7 +116,7 @@ atspre_fprint_strptr
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_STRPTR_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_STRPTR
 
 /* ****** ****** */
 

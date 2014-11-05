@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/memory.atxt
-** Time of generation: Fri Sep  5 00:10:31 2014
+** Time of generation: Fri Sep 26 22:20:45 2014
 *)
 
 (* ****** ****** *)
@@ -90,6 +90,8 @@ mfree_gc
   pfat: b0ytes n @ l
 , pfgc: mfree_gc_v (l) | ptr l
 ) :<!wrt> void = "mac#%"
+
+(* ****** ****** *)
 
 fun
 malloc_gc

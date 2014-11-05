@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Tue May 13 13:41:35 2014
+** Time of generation: Tue Oct 28 01:40:30 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_POINTER_CATS
-#define ATSLIB_PRELUDE_POINTER_CATS
+#ifndef ATSLIB_PRELUDE_CATS_POINTER
+#define ATSLIB_PRELUDE_CATS_POINTER
 
 /* ****** ****** */
 
@@ -261,7 +261,7 @@ atspre_fprint_ptr (
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_POINTER_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_POINTER
 
 /* ****** ****** */
 

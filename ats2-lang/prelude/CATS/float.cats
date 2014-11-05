@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/float.atxt
-** Time of generation: Fri Feb 28 17:55:34 2014
+** Time of generation: Tue Oct 28 01:40:33 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_FLOAT_CATS
-#define ATSLIB_PRELUDE_FLOAT_CATS
+#ifndef ATSLIB_PRELUDE_CATS_FLOAT
+#define ATSLIB_PRELUDE_CATS_FLOAT
 
 /* ****** ****** */
 
@@ -635,7 +635,7 @@ atspre_div_ldouble_int
 //
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_FLOAT_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_FLOAT
 
 /* ****** ****** */
 

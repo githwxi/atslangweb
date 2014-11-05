@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Fri Feb 28 17:55:33 2014
+** Time of generation: Tue Oct 28 01:40:32 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_INTEGER_FIXED_CATS
-#define ATSLIB_PRELUDE_INTEGER_FIXED_CATS
+#ifndef ATSLIB_PRELUDE_CATS_INTEGER_FIXED
+#define ATSLIB_PRELUDE_CATS_INTEGER_FIXED
 
 /* ****** ****** */
 
@@ -1253,7 +1253,7 @@ atspre_fprint_uint64
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_INTEGER_FIXED_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER_FIXED
 
 /* ****** ****** */
 

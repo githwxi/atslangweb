@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/list.atxt
-** Time of generation: Fri Feb 28 17:55:37 2014
+** Time of generation: Tue Oct 28 01:40:35 2014
 */
 
 /* ****** ****** */
@@ -43,12 +43,12 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_LIST_CATS
-#define ATSLIB_PRELUDE_LIST_CATS
+#ifndef ATSLIB_PRELUDE_CATS_LIST
+#define ATSLIB_PRELUDE_CATS_LIST
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_LIST_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_LIST
 
 /* ****** ****** */
 

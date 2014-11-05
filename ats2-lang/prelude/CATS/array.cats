@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/array.atxt
-** Time of generation: Fri Feb 28 17:55:37 2014
+** Time of generation: Tue Oct 28 01:40:36 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_ARRAY_CATS
-#define ATSLIB_PRELUDE_ARRAY_CATS
+#ifndef ATSLIB_PRELUDE_CATS_ARRAY
+#define ATSLIB_PRELUDE_CATS_ARRAY
 
 /* ****** ****** */
 //
@@ -108,7 +108,7 @@ atspre_array_foreach_funenv_tsz
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_ARRAY_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_ARRAY
 
 /* ****** ****** */
 

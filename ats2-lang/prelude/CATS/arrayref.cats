@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Feb 28 17:55:38 2014
+** Time of generation: Tue Oct 28 01:40:36 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_ARRAYREF_CATS
-#define ATSLIB_PRELUDE_ARRAYREF_CATS
+#ifndef ATSLIB_PRELUDE_CATS_ARRAYREF
+#define ATSLIB_PRELUDE_CATS_ARRAYREF
 
 /* ****** ****** */
 
@@ -56,7 +56,7 @@ atspre_arrayref_make_arrpsz
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_ARRAYREF_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_ARRAYREF
 
 /* ****** ****** */
 

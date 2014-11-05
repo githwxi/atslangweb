@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Tue Jun 24 15:59:57 2014
+** Time of generation: Wed Oct 22 14:11:22 2014
 *)
 
 (* ****** ****** *)
@@ -738,45 +738,52 @@ end // end of [list_vt_filter]
 
 implement
 {a}(*tmp*)
-list_vt_filterlin$clear (x) = gclear_ref (x)
-implement
-{a}(*tmp*)
 list_vt_filterlin (xs) = let
 //
 prval () = lemma_list_vt_param (xs)
 //
 fun loop
-  {n:nat} .<n>. (
+  {n:nat} .<n>.
+(
   xs: &list_vt (a, n) >> listLte_vt (a, n)
 ) :<!wrt> void = let
 in
-  case+ xs of
-  | @list_vt_cons (x, xs1) => let
-      val test = list_vt_filterlin$pred<a> (x)
+//
+case+ xs of
+| @list_vt_cons
+    (x, xs1) => let
+    val test =
+      list_vt_filterlin$pred<a> (x)
+  in
+    if test then let
+      val () = loop (xs1)
     in
-      if test then let
-        val () = loop (xs1)
-      in
-        fold@ (xs)
-      end else let
-        val xs1 = xs1
-        val () =
-          list_vt_freelin$clear<a> (x)
-        val () = free@{a}{0}(xs)
-        val () = xs := xs1
-      in
-        loop (xs)
-      end // end of [if]
-    end // end of [list_vt_cons]
-  | @list_vt_nil () => fold@ (xs)
+      fold@ (xs)
+    end else let
+      val xs1 = xs1
+      val () =
+        list_vt_filterlin$clear<a> (x)
+      val () = free@{a}{0}(xs)
+      val () = xs := xs1
+    in
+      loop (xs)
+    end // end of [if]
+  end // end of [list_vt_cons]
+| @list_vt_nil () => fold@ (xs)
+//
 end // end of [loop]
 //
 var xs = xs
-val () = loop (xs)
 //
 in
-  xs
+  loop (xs); xs
 end // end of [list_vt_filterlin]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+list_vt_filterlin$clear (x) = gclear_ref (x)
 
 (* ****** ****** *)
 

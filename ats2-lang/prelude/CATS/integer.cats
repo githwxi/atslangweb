@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer.atxt
-** Time of generation: Wed Jul 23 13:46:27 2014
+** Time of generation: Tue Oct 28 01:40:31 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_INTEGER_CATS
-#define ATSLIB_PRELUDE_INTEGER_CATS
+#ifndef ATSLIB_PRELUDE_CATS_INTEGER
+#define ATSLIB_PRELUDE_CATS_INTEGER
 
 /* ****** ****** */
 //
@@ -1940,7 +1940,7 @@ atspre_fprint_size
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_INTEGER_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER
 
 /* ****** ****** */
 

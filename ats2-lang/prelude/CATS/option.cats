@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/option.atxt
-** Time of generation: Fri Feb 28 17:55:37 2014
+** Time of generation: Tue Oct 28 01:40:35 2014
 */
 
 /* ****** ****** */
@@ -43,12 +43,12 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_OPTION_CATS
-#define ATSLIB_PRELUDE_OPTION_CATS
+#ifndef ATSLIB_PRELUDE_CATS_OPTION
+#define ATSLIB_PRELUDE_CATS_OPTION
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_OPTION_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_OPTION
 
 /* ****** ****** */
 
