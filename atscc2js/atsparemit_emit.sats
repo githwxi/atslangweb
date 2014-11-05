@@ -72,7 +72,6 @@ fun emit_time_stamp (FILEref): void
   
 (* ****** ****** *)
 //
-fun emit_extval : emit_type (tokenlst)
 fun emit_extcode : emit_type (tokenlst)
 fun emit_tokenlst : emit_type (tokenlst)
 //
@@ -93,6 +92,11 @@ fun emit_PMVf0loat : emit_type (f0loat)
 fun emit_CSTSPmyloc : emit_type (s0tring)
 //
 (* ****** ****** *)
+
+fun emit_PMVempty : emit_type (int)
+fun emit_PMVextval : emit_type (tokenlst)
+
+(* ****** ****** *)
 //
 fun emit_PMVfunlab : emit_type (label)
 fun emit_PMVcfunlab
@@ -112,6 +116,7 @@ emit_ATSCKpat_con1
 
 fun emit_i0de : emit_type (i0de)
 fun emit_label : emit_type (label)
+fun emit_label_mark : emit_type (label)
 
 (* ****** ****** *)
 

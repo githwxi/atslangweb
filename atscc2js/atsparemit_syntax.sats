@@ -58,18 +58,6 @@ fun d0exp_appexp (d0e_fun: d0exp, d0e_arg: d0exp): d0exp
 (* ****** ****** *)
 //
 fun
-ATSempty_make
-  (tok_kwd: token, tok_end: token): d0exp
-//
-(* ****** ****** *)
-//
-fun
-ATSextval_make
-  (tok_kwd: token, toks: tokenlst, tok_end: token): d0exp
-//
-(* ****** ****** *)
-//
-fun
 ATSPMVint_make
 (
   tok_kwd: token, tok: i0nt, tok_end: token
@@ -117,6 +105,16 @@ ATSPMVf0loat_make
 (
   tok_kwd: token, tok: f0loat, tok_end: token
 ) : d0exp // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+ATSPMVempty_make
+  (tok_kwd: token, tok_end: token): d0exp
+//
+fun
+ATSPMVextval_make
+  (tok_kwd: token, toks: tokenlst, tok_end: token): d0exp
 //
 (* ****** ****** *)
 //
@@ -289,6 +287,7 @@ f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
 //
 (* ****** ****** *)
 //
+fun tmpvar_is_sta (tmp: symbol): bool
 fun tmpvar_is_arg (tmp: symbol): bool
 fun tmpvar_is_apy (tmp: symbol): bool
 fun tmpvar_is_env (tmp: symbol): bool
