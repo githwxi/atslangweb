@@ -193,6 +193,7 @@ body {
 <div id="theBodyProp">
 <div id="thePage">
 <style type="text/css">
+  .patsyntax {overflow:scroll;}
   .patsyntax {color:#808080;background-color:#E0E0E0;}
   .patsyntax span.keyword {color:#000000;font-weight:bold;}
   .patsyntax span.comment {color:#787878;font-style:italic;}
@@ -701,7 +702,9 @@ needs to be encoded into ATS, which is fulfilled by the declaration of the
 following dataprop:
 </p>
 
-<pre class="patsyntax">
+<pre
+class="patsyntax"
+>
 <span class="prfexp"><span class="keyword">dataprop</span> FIB <span class="staexp"><span class="keyword">(</span>int<span class="keyword">,</span> int<span class="keyword">)</span></span> <span class="keyword">=</span>
   <span class="keyword">|</span> FIB0 <span class="keyword">(</span><span class="staexp">0</span><span class="keyword">,</span> <span class="staexp">0</span><span class="keyword">)</span> <span class="keyword">|</span> FIB1 <span class="keyword">(</span><span class="staexp">1</span><span class="keyword">,</span> <span class="staexp">1</span><span class="keyword">)</span>
   <span class="keyword">|</span> <span class="staexp"><span class="keyword">{</span>n<span class="keyword">:</span>nat<span class="keyword">}</span></span> <span class="staexp"><span class="keyword">{</span>r0<span class="keyword">,</span>r1<span class="keyword">:</span>int<span class="keyword">}</span></span> FIB2 <span class="keyword">(</span>n+2<span class="keyword">,</span> r0+r1<span class="keyword">)</span> <span class="keyword">of</span> <span class="keyword">(</span><span class="staexp">FIB</span> <span class="keyword">(</span><span class="staexp">n</span><span class="keyword">,</span> <span class="staexp">r0</span><span class="keyword">)</span><span class="keyword">,</span> <span class="staexp">FIB</span> <span class="keyword">(</span><span class="staexp">n</span><span class="staexp">+</span><span class="staexp">1</span><span class="keyword">,</span> <span class="staexp"><span class="staexp"><span class="staexp"><span class="staexp"><span class="staexp"><span class="staexp"><span class="staexp">r1</span></span></span></span></span></span></span><span class="keyword">)</span><span class="keyword">)</span></span>
@@ -765,7 +768,9 @@ A fully verified implementaion of the fib function in ATS can now be given
 as follows:
 </p>
 
-<pre class="patsyntax">
+<pre
+class="patsyntax"
+>
 <span class="dynexp"><span class="keyword">fun</span>
 fibats<span class="staexp"><span class="keyword">{</span>n<span class="keyword">:</span>nat<span class="keyword">}</span></span>
   <span class="keyword">(</span>n<span class="keyword">:</span> <span class="staexp">int</span> <span class="keyword">(</span><span class="staexp">n</span><span class="keyword">)</span><span class="keyword">)</span>
