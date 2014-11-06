@@ -193,7 +193,6 @@ body {
 <div id="theBodyProp">
 <div id="thePage">
 <style type="text/css">
-  .patsyntax {overflow:scroll;}
   .patsyntax {color:#808080;background-color:#E0E0E0;}
   .patsyntax span.keyword {color:#000000;font-weight:bold;}
   .patsyntax span.comment {color:#787878;font-style:italic;}
@@ -768,6 +767,9 @@ A fully verified implementaion of the fib function in ATS can now be given
 as follows:
 </p>
 
+<div
+ overflow="scroll"
+>
 <pre
 class="patsyntax"
 >
@@ -790,14 +792,19 @@ fibats<span class="staexp"><span class="keyword">{</span>n<span class="keyword">
   loop <span class="staexp"><span class="keyword">{</span>0<span class="keyword">}</span></span> <span class="keyword">(</span><span class="prfexp">FIB0 <span class="keyword">(</span><span class="keyword">)</span></span><span class="keyword">,</span> <span class="prfexp">FIB1 <span class="keyword">(</span><span class="keyword">)</span></span> <span class="keyword">|</span> n<span class="keyword">,</span> <span class="dynexp">0</span><span class="keyword">,</span> <span class="dynexp">1</span><span class="keyword">)</span>
 <span class="keyword">end</span></span> <span class="comment">// end of [fibats]</span></pre>
 <!--php-->
+</div>
 
 <p>
 Note that fibats is given the following declaration:
 </p>
 
+<div
+ overflow="scroll"
+>
 <pre class="patsyntax">
 <span class="dynexp"><span class="keyword">fun</span> fibats <span class="keyword">:</span> <span class="staexp"><span class="keyword">{</span>n<span class="keyword">:</span>nat<span class="keyword">}</span></span> <span class="staexp">int</span><span class="keyword">(</span><span class="staexp">n</span><span class="keyword">)</span> <span class="staexp"><span class="keyword">-&gt;</span></span> <span class="staexp"><span class="keyword">[</span>r<span class="keyword">:</span>int<span class="keyword">]</span></span> <span class="keyword">(</span><span class="staexp">FIB</span><span class="keyword">(</span><span class="staexp">n</span><span class="keyword">,</span><span class="staexp">r</span><span class="keyword">)</span> <span class="keyword">|</span> <span class="staexp">int</span><span class="keyword">(</span><span class="staexp">r</span><span class="keyword">)</span><span class="keyword">)</span></span></pre>
 <!--php-->
+</div>
 
 <p>
 where [...] is the concrete syntax in ATS for existential quantification
