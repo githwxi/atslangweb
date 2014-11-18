@@ -1,15 +1,15 @@
 (*
 ** For writing ATS code
-** that translates into JavaScript
+** that translates into Perl
 *)
 
 (* ****** ****** *)
 //
-// HX-2014-08:
+// HX-2014-11:
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2jspre_"
+ATS_EXTERN_PREFIX "ats2plpre_"
 //
 (* ****** ****** *)
 //
@@ -18,7 +18,7 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 //
 (* ****** ****** *)
 
-staload "./../basics_js.sats"
+staload "./../basics_pl.sats"
 
 (* ****** ****** *)
 //
@@ -28,14 +28,14 @@ staload "./../basics_js.sats"
 //
 fun{a:t0p}
 fprint_list
-  (JSfile, List(INV(a))): void = "mac#%"
+  (PLfilr, List(INV(a))): void = "mac#%"
 //
 fun{}
-fprint_list$sep (out: JSfile): void = "mac#%"
+fprint_list$sep (out: PLfilr): void = "mac#%"
 //
 fun{a:t0p}
 fprint_list_sep
-  (JSfile, List(INV(a)), sep: string): void = "mac#%"
+  (PLfilr, List(INV(a)), sep: string): void = "mac#%"
 //
 overload fprint with fprint_list of 100
 //

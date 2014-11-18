@@ -3,7 +3,7 @@
 /*
 ******
 *
-* HX-2014-08:
+* HX-2014-11:
 * for PHP code
 * translated from ATS
 *
@@ -12,12 +12,12 @@
 
 /*
 ******
-* beg of [string_cats.php]
+* beg of [bool_cats.php]
 ******
 */
 
 /* ****** ****** */
 
-/* end of [string_cats.php] */
+/* end of [bool_cats.php] */
 
 ?>

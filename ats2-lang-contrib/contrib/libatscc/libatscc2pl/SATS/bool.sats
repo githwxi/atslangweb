@@ -1,16 +1,16 @@
 (*
 ** For writing ATS code
-** that translates into Python
+** that translates into Perl
 *)
 
 (* ****** ****** *)
 //
-// HX-2014-08:
+// HX-2014-11-16:
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2pypre_"
+ATS_EXTERN_PREFIX "ats2plpre_"
 //
 (* ****** ****** *)
 
-(* end of [char.sats] *)
+(* end of [bool.sats] *)

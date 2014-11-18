@@ -1,28 +1,28 @@
 (*
 ** For writing ATS code
-** that translates into Python
+** that translates into Perl
 *)
 
 (* ****** ****** *)
 //
-// HX-2014-08:
+// HX-2014-11-16:
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2pypre_"
+ATS_EXTERN_PREFIX "ats2plpre_"
 //
+(* ****** ****** *)
+
+staload "./../basics_pl.sats"
+
 (* ****** ****** *)
 //
 fun
 abs_int0 : int -> int = "mac#%"
-//
 overload abs with abs_int0 of 100
-//
-(* ****** ****** *)
 //
 fun
 neg_int0 : int -> int = "mac#%"
-//
 overload ~ with neg_int0 of 100
 overload neg with neg_int0 of 100
 //
@@ -44,7 +44,7 @@ overload pred with pred_int1 of 110
 //
 (* ****** ****** *)
 //
-fun add_int0_int0 : (int, int) -> int = "mac#%"
+fun add_int0_int0: (int, int) -> int = "mac#%"
 fun sub_int0_int0 : (int, int) -> int = "mac#%"
 fun mul_int0_int0 : (int, int) -> int = "mac#%"
 fun div_int0_int0 : (int, int) -> int = "mac#%"
@@ -72,13 +72,13 @@ overload / with div_int1_int1 of 120
 //
 (* ****** ****** *)
 //
-fun lt_int0_int0 : (int, int) -> bool = "mac#%"
-fun lte_int0_int0 : (int, int) -> bool = "mac#%"
-fun gt_int0_int0 : (int, int) -> bool = "mac#%"
-fun gte_int0_int0 : (int, int) -> bool = "mac#%"
+fun lt_int0_int0: (int, int) -> bool = "mac#%"
+fun lte_int0_int0: (int, int) -> bool = "mac#%"
+fun gt_int0_int0: (int, int) -> bool = "mac#%"
+fun gte_int0_int0: (int, int) -> bool = "mac#%"
 //
-fun eq_int0_int0 : (int, int) -> bool = "mac#%"
-fun neq_int0_int0 : (int, int) -> bool = "mac#%"
+fun eq_int0_int0: (int, int) -> bool = "mac#%"
+fun neq_int0_int0: (int, int) -> bool = "mac#%"
 //
 fun lt_int1_int1
   : {i,j:int} (int(i), int(j)) -> bool(i < j) = "mac#%"
