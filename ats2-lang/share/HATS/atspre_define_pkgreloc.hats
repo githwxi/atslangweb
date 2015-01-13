@@ -50,6 +50,11 @@ ZLOG_targetloc "$PATSHOMERELOC/contrib/zlog"
 (* ****** ****** *)
 //
 #define
+ZEROMQ_targetloc "$PATSHOMERELOC/contrib/zeromq"
+//
+(* ****** ****** *)
+//
+#define
 JSONC_sourceloc "$ATSLANGWEBLIB/contrib/json-c"
 #define
 JSONC_targetloc "$PATSHOMERELOC/contrib/json-c"
@@ -78,16 +83,16 @@ LIBCURL_targetloc "$PATSHOMERELOC/contrib/libcurl"
 (* ****** ****** *)
 //
 #define
-GLIB_sourceloc "$ATSLANGWEBLIB/contrib/glib"
+GTK_sourceloc "$ATSLANGWEBLIB/contrib/GTK"
 #define
-GLIB_targetloc "$PATSHOMERELOC/contrib/glib"
+GTK_targetloc "$PATSHOMERELOC/contrib/GTK"
 //
 (* ****** ****** *)
 //
 #define
-GTK_sourceloc "$ATSLANGWEBLIB/contrib/GTK"
+GLIB_sourceloc "$ATSLANGWEBLIB/contrib/glib"
 #define
-GTK_targetloc "$PATSHOMERELOC/contrib/GTK"
+GLIB_targetloc "$PATSHOMERELOC/contrib/glib"
 //
 (* ****** ****** *)
 //
@@ -99,12 +104,12 @@ CAIRO_targetloc "$PATSHOMERELOC/contrib/cairo"
 (* ****** ****** *)
 //
 #define
-SDL2_targetloc "$PATSHOMERELOC/contrib/SDL2"
+JNI_targetloc "$PATSHOMERELOC/contrib/JNI"
 //
 (* ****** ****** *)
 //
 #define
-JNI_targetloc "$PATSHOMERELOC/contrib/JNI"
+SDL2_targetloc "$PATSHOMERELOC/contrib/SDL2"
 //
 (* ****** ****** *)
 //
@@ -123,16 +128,20 @@ LIBATSCC_targetloc
 "$PATSHOMERELOC/contrib/libatscc"
 //
 #define
-LIBATSCC2PY_targetloc
-"$PATSHOMERELOC/contrib/libatscc/libatscc2py"
-//
-#define
 LIBATSCC2JS_targetloc
 "$PATSHOMERELOC/contrib/libatscc/libatscc2js"
 //
 #define
 LIBATSCC2PHP_targetloc
 "$PATSHOMERELOC/contrib/libatscc/libatscc2php"
+//
+#define
+LIBATSCC2PL_targetloc
+"$PATSHOMERELOC/contrib/libatscc/libatscc2pl"
+//
+#define
+LIBATSCC2PY_targetloc
+"$PATSHOMERELOC/contrib/libatscc/libatscc2py"
 //
 #define
 LIBATSCC2CIL_targetloc
@@ -152,6 +161,16 @@ LIBATSHWXI_targetloc "$PATSHOMERELOC/contrib/libats-/hwxi"
 LIBATS_HWXI_sourceloc "$ATSLANGWEBLIB/contrib/libats-/hwxi"
 #define
 LIBATS_HWXI_targetloc "$PATSHOMERELOC/contrib/libats-/hwxi"
+//
+(* ****** ****** *)
+//
+// For applying ATS to AVR programming
+//
+#define AVR_sourceloc "$ATSLANGWEBLIB/contrib/AVR"
+#define AVR_targetloc "$PATSHOMERELOC/contrib/AVR"
+//
+#define ARDUINO_sourceloc "$ATSLANGWEBLIB/contrib/arduino"
+#define ARDUINO_targetloc "$PATSHOMERELOC/contrib/arduino"
 //
 (* ****** ****** *)
 //
