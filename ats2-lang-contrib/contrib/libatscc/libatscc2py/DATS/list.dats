@@ -19,31 +19,27 @@ ATS_STATIC_PREFIX "_ats2pypre_list_"
 //
 (* ****** ****** *)
 //
-staload UN =
-"prelude/SATS/unsafe.sats"
-//
-(* ****** ****** *)
-//
-#include "./../staloadall.hats"
-//
-(* ****** ****** *)
-
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-%} // end of [%{^]
-
-(* ****** ****** *)
-//
 #include
 "share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+staload "./../SATS/integer.sats"
 //
 (* ****** ****** *)
 //
 staload "./../SATS/print.sats"
 staload "./../SATS/filebas.sats"
 //
+(* ****** ****** *)
+
+staload "./../SATS/list.sats"
+
 (* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"
@@ -58,6 +54,14 @@ implement
 print_list_sep
   (xs, sep) = fprint_list_sep<a> (stdout, xs, sep)
 //
+(* ****** ****** *)
+
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+%} // end of [%{^]
+
 (* ****** ****** *)
 
 (* end of [list.dats] *)
