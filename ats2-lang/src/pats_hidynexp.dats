@@ -253,29 +253,28 @@ hipat_rec (
 // end of [hipat_rec]
 
 implement
-hipat_rec2 (
-  loc, hse, knd, lhips, hse_rec
+hipat_rec2
+(
+  loc0, hse0, knd, lhips, hse_rec
 ) = let
 //
 val isflt =
-(
-  if knd = 0 then true else false
-) : bool // end of [val]
+  (if knd = 0 then true else false): bool
 //
 in
 //
-if isflt then
-(
+if
+isflt
+then (
 case lhips of
 | list_cons
     (lx, list_nil ()) =>
     let val+LABHIPAT (l, x) = lx in x end
   // end of [list_cons]
 | _ (*notsing*) =>
-    hipat_rec (loc, hse, knd, lhips, hse_rec)
-) else (
-  hipat_rec (loc, hse, knd, lhips, hse_rec)
-) (* end of [if] *)
+    hipat_rec (loc0, hse0, knd, lhips, hse_rec)
+) (* end of [then] *)
+else hipat_rec (loc0, hse0, knd, lhips, hse_rec)
 //
 end // end of [hipat_rec2]
 
@@ -547,11 +546,44 @@ hidexp_lst
   hidexp_make_node (loc, hse, HDElst (lin, hse_elt, hdes))
 // end of [hidexp_lst]
 
+(* ****** ****** *)
+
 implement
 hidexp_rec
   (loc, hse, knd, lhdes, hse_rec) =
   hidexp_make_node (loc, hse, HDErec (knd, lhdes, hse_rec))
 // end of [hidexp_rec]
+
+implement
+hidexp_rec2
+(
+  loc0, hse0, knd, lhdes, hse_rec
+) = let
+//
+val isflt =
+  (if knd = 0 then true else false): bool
+//
+in
+//
+if
+isflt
+then (
+case+ lhdes of
+| list_cons
+  (
+    lhde, list_nil()
+  ) => let
+    val+LABHIDEXP (l, hde) = lhde in hde
+  end // end of [list_cons]
+| _ (*non-sing*) =>
+    hidexp_rec (loc0, hse0, knd, lhdes, hse_rec)
+  // end of [non-sing]
+) (* end of [then] *)
+else hidexp_rec (loc0, hse0, knd, lhdes, hse_rec)
+//
+end (* end of [hidexp_rec2] *)
+
+(* ****** ****** *)
 
 implement
 hidexp_seq
@@ -657,6 +689,20 @@ hidexp_raise
   hidexp_make_node (loc, hse, HDEraise (hde_exn))
 // end of [hidexp_raise]
 
+(* ****** ****** *)
+//
+implement
+hidexp_vcopyenv
+  (loc, hse, d2v) =
+  hidexp_make_node (loc, hse, HDEvar (d2v))
+//
+(* ****** ****** *)
+//
+implement
+hidexp_tempenver
+  (loc, hse, d2vs) =
+  hidexp_make_node (loc, hse, HDEtempenver (d2vs))
+//
 (* ****** ****** *)
 
 implement
@@ -842,10 +888,12 @@ hivardec_make
 (* ****** ****** *)
 
 implement
-hiimpdec_make (
-  loc, d2c, imparg, tmparg, def
+hiimpdec_make
+(
+  loc, knd, d2c, imparg, tmparg, def
 ) = '{
   hiimpdec_loc= loc
+, hiimpdec_knd= knd
 , hiimpdec_cst= d2c
 , hiimpdec_imparg= imparg
 , hiimpdec_tmparg= tmparg

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Sep 26 22:20:48 2014
+** Time of generation: Sun Feb 22 16:35:43 2015
 *)
 
 (* ****** ****** *)
@@ -50,12 +50,26 @@ sortdef t0p = t@ype and vt0p = viewt@ype
 
 (* ****** ****** *)
 //
-castfn cast {to:t0p}{from:t0p} (x: INV(from)):<> to
+praxi
+prop_assert{b:bool}((*void*)): [b] void
+//
+praxi
+eqint_assert{i1,i2:int}((*void*)): EQINT(i1,i2)
+praxi
+eqaddr_assert{l1,l2:addr}((*void*)): EQADDR(l1,l2)
+praxi
+eqbool_assert{b1,b2:bool}((*void*)): EQBOOL(b1,b2)
 //
 (* ****** ****** *)
 //
 castfn
-castvwtp0 {to:vt0p}{from:vt0p} (x: INV(from)):<> to
+cast{to:t0p}{from:t0p} (x: INV(from)):<> to
+//
+(* ****** ****** *)
+//
+castfn
+castvwtp0
+  {to:vt0p}{from:vt0p} (x: INV(from)):<> to
 //
 // HX:
 // [castvwtp1] is mostly used in a situation
@@ -65,7 +79,8 @@ castvwtp0 {to:vt0p}{from:vt0p} (x: INV(from)):<> to
 // temporarily.
 //
 castfn
-castvwtp1{to:vt0p}{from:vt0p} (x: !INV(from)>>from):<> to
+castvwtp1
+  {to:vt0p}{from:vt0p} (x: !INV(from)>>from):<> to
 //
 (* ****** ****** *)
 //
@@ -167,10 +182,24 @@ fun{a:vt0p} ptr0_intch (p1: ptr, p2: ptr):<!wrt> void
 fun{a:vt0p} ptr1_intch (p1: Ptr1, p2: Ptr1):<!wrt> void
 //
 (* ****** ****** *)
-
-fun{a:vt0p} ptr0_get_at (p: ptr, i: int):<> a
-fun{a:vt0p} ptr0_set_at (p: ptr, i: int, x: a):<!wrt> void
-
+//
+fun{a:vt0p}
+ptr0_get_at_int (p: ptr, i: int):<> a
+fun{a:vt0p}
+ptr0_set_at_int (p: ptr, i: int, x: a):<!wrt> void
+fun{a:vt0p}
+ptr0_get_at_size (p: ptr, i: size_t):<> a
+fun{a:vt0p}
+ptr0_set_at_size (p: ptr, i: size_t, x: a):<!wrt> void
+//
+symintr ptr0_get_at
+symintr ptr0_set_at
+//
+overload ptr0_get_at with ptr0_get_at_int
+overload ptr0_get_at with ptr0_get_at_size
+overload ptr0_set_at with ptr0_set_at_int
+overload ptr0_set_at with ptr0_set_at_size
+//
 (* ****** ****** *)
 //
 // HX-2012-06:

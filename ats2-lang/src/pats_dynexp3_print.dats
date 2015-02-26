@@ -384,7 +384,7 @@ case+ d3e0.d3exp_node of
 | D3Etup (
     knd, npf, d3es
   ) =>  {
-    val () = prstr "D3Eseq("
+    val () = prstr "D3Etup("
     val () = fprint_int (out, knd)
     val () = prstr "; "
     val () = fprint_int (out, npf)
@@ -525,6 +525,13 @@ case+ d3e0.d3exp_node of
     val () = fprint_int (out, knd)
     val () = prstr ", "
     val () = fprint_d2var (out, d2v)
+    val () = prstr ")"
+  }
+//
+| D3Etempenver(d2vs) =>
+  {
+    val () = prstr "D3Etempenver("
+    val () = fprint_d2varlst (out, d2vs)
     val () = prstr ")"
   }
 //

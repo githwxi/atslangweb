@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/sys/CATS/CODEGEN/stat.atxt
-** Time of generation: Tue Apr 29 22:18:59 2014
+** Time of generation: Fri Dec 19 13:34:39 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_SYS_STAT_CATS
-#define ATSLIB_LIBC_SYS_STAT_CATS
+#ifndef ATSLIB_LIBC_SYS_CATS_STAT
+#define ATSLIB_LIBC_SYS_CATS_STAT
 
 /* ****** ****** */
 
@@ -81,7 +81,7 @@ atslib_stat_struct ;
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_SYS_STAT_CATS
+#endif // ifndef ATSLIB_LIBC_SYS_CATS_STAT
 
 /* ****** ****** */
 

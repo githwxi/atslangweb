@@ -1,11 +1,12 @@
 #
 # The main Makefile
-# for ATS/Postiats C-bootstrapping
+# for C-bootstrapping ATS2
 #
 ######
 #
+CC=gcc
 GCC=gcc
-CCOMP=$(GCC)
+CCOMP=$(CC)
 #
 # GCFLAG=-D_ATS_NGC
 # GCFLAG=-D_ATS_GCATS
@@ -16,8 +17,12 @@ CCOMP=$(GCC)
 #
 ######
 #
-C3NSTRINTKND=intknd
+# This is fixed:
+#
 C3NSTRINTKND=gmpknd
+#
+# [gmpknd] for CBOOT
+# [intknd] for CBOOTmin
 #
 ######
 #
@@ -152,7 +157,6 @@ SOURCES := \
   pats_stacst2.dats \
   pats_staexp2_print.dats \
   pats_staexp2_pprint.dats \
-  pats_staexp2_jsonize.dats \
   pats_staexp2_sort.dats \
   pats_staexp2_scst.dats \
   pats_staexp2_svar.dats \
@@ -177,11 +181,13 @@ SOURCES := \
   pats_dyncst2.sats \
   pats_dyncst2.dats \
   pats_dynexp2_print.dats \
-  pats_dynexp2_jsonize.dats \
   pats_dynexp2_dcst.dats \
   pats_dynexp2_dvar.dats \
   pats_dynexp2_dmac.dats \
   pats_dynexp2_util.dats \
+  pats_dynexp2_mapgen.dats \
+  pats_synent2_jsonize.sats \
+  pats_synent2_jsonize.dats \
   pats_trans2.sats \
   pats_namespace.sats \
   pats_namespace.dats \
@@ -241,9 +247,10 @@ SOURCES := \
   pats_lintprgm_solve.dats \
   pats_constraint3.sats \
   pats_constraint3.dats \
-  pats_constraint3_init.dats \
   pats_constraint3_print.dats \
+  pats_constraint3_mapgen.dats \
   pats_constraint3_jsonize.dats \
+  pats_constraint3_init.dats \
   pats_constraint3_simplify.dats \
   pats_constraint3_icnstr.dats \
   pats_constraint3_solve.dats \
@@ -419,11 +426,12 @@ gcats.o: \
 gcats1_hats: ; \
   $(GCC) -E -P -o gcats1.hats -x c ./ccomp/runtime/GCATS/gcats1_master.hats
 #
-gcats1_all_cats.o: \
-  gcats1_all_cats.c ; $(CCOMP) -O2 -I. -I./ccomp/runtime -c -o $@ $<
+gcats1_all_cats.o: ; \
+  $(CCOMP) -O2 -I. -I./ccomp/runtime -c -o $@ -x c ./ccomp/runtime/gcats1_all.cats
 #
 ######
 
+CPF=cp -f
 RMF=rm -f
 
 ######

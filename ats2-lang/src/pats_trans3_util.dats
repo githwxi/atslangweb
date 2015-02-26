@@ -86,23 +86,52 @@ staload "./pats_trans3_env.sats"
 
 (* ****** ****** *)
 
-implement
+local
+
+fun
 fshowtype_d3exp
-  (d3e) = let
+(
+  knd: int, d3e: d3exp
+) : void = let
+//
+val out = stdout_ref
 //
 val loc = d3e.d3exp_loc
 val s2e = d3exp_get_type (d3e)
 //
-val out = stdout_ref
-val () = print "**SHOWTYPE**("
-val () = $LOC.print_location (loc)
-val () = print "): "
+val () =
+(
+if
+knd > 0
+then fprint (out, "**SHOWTYPE[UP]**")
+else fprint (out, "**SHOWTYPE[DN]**")
+) (* end of [val] *)
+//
+val () = fprint (out, "(")
+val () =
+  $LOC.fprint_location (out, loc)
+val () = fprint (out, ")")
+//
+val () = fprint (out, ": ")
 val () = fpprint_s2exp (out, s2e)
-val () = print_newline ()
+//
+val () = fprint (out, ": ")
+val () = fprint_s2rt (out, s2e.s2exp_srt)
+//
+val () = fprint_newline (out)
 //
 in
   // nothing
 end // end of [fshowtype_d3exp]
+
+in (* in-of-local *)
+
+implement
+fshowtype_d3exp_up (d3e) = fshowtype_d3exp (1, d3e)
+implement
+fshowtype_d3exp_dn (d3e) = fshowtype_d3exp (~1, d3e)
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -325,7 +354,8 @@ d23explst_free (xs) = case+ xs of
 
 local
 
-fun aux .<>. (
+fun
+aux .<>. (
   d3e1: d3exp, s2f2: s2hnf
 ) : d3exp = let
   val loc = d3e1.d3exp_loc
@@ -340,7 +370,8 @@ fun aux .<>. (
   ) // end of [val]
 *)
   val err = $SOL.s2hnf_tyleq_solve (loc, s2f1, s2f2)
-  val () = if (err != 0) then let
+  val () =
+  if (err != 0) then let
     val () = prerr_error3_loc (loc)
     val () = filprerr_ifdebug "d3exp_trdn"
     val () = prerr ": the dynamic expression cannot be assigned the type ["
@@ -350,7 +381,7 @@ fun aux .<>. (
     val () = prerr_the_staerrlst ()
   in
     the_trans3errlst_add (T3E_d3exp_trdn (d3e1, s2e2))
-  end // end of [val]
+  end // end of [if] // end of [val]
   val () = d3exp_set_type (d3e1, s2e2)
 in
   d3e1

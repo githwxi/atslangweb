@@ -36,9 +36,10 @@
 // An abstract thread interface
 //
 (* ****** ****** *)
-
-#define ATS_PACKNAME "ATSLIB.libats.athread"
-
+//
+#define
+ATS_PACKNAME "ATSLIB.libats.athread"
+//
 (* ****** ****** *)
 
 absview locked_v (l:addr)
@@ -56,6 +57,8 @@ typedef spin1 = [l:addr | l > null] spin_type(l)
 absvtype
 spin_vtype (l:addr) = ptr(l)
 vtypedef spin_vt (l:addr) = spin_vtype(l)
+vtypedef spin0_vt = [l:agez] spin_vtype(l)
+vtypedef spin1_vt = [l:addr | l > null] spin_vtype(l)
 
 (* ****** ****** *)
 //

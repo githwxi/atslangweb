@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri Sep 26 22:21:02 2014
+** Time of generation: Thu Feb 19 14:02:54 2015
 *)
 
 (* ****** ****** *)
@@ -1198,19 +1198,6 @@ end // end of [list_map_fun]
 
 implement
 {x}{y}(*tmp*)
-list_map_cloref
-  (xs, f) = let
-//
-implement
-{x2}{y2}
-list_map$fopr (x2) = $UN.castvwtp0{y2}(f($UN.cast{x}(x2)))
-//
-in
-  list_map<x><y> (xs)
-end // end of [list_map_cloref]
-
-implement
-{x}{y}(*tmp*)
 list_map_clo
   (xs, f) = let
 //
@@ -1223,6 +1210,19 @@ list_map$fopr (x2) = $UN.castvwtp0{y2}(f($UN.cast{x}(x2)))
 in
   list_map<x><y> (xs)
 end // end of [list_map_clo]
+
+implement
+{x}{y}(*tmp*)
+list_map_cloref
+  (xs, f) = let
+//
+implement
+{x2}{y2}
+list_map$fopr (x2) = $UN.castvwtp0{y2}(f($UN.cast{x}(x2)))
+//
+in
+  list_map<x><y> (xs)
+end // end of [list_map_cloref]
 
 (* ****** ****** *)
 
@@ -1497,19 +1497,6 @@ end // end of [list_tabulate_fun]
 
 implement
 {a}(*tmp*)
-list_tabulate_cloref (n, f) = let
-//
-val f = $UN.cast{int -<cloref1> a}(f)
-//
-implement(a2)
-list_tabulate$fopr<a2> (n) = $UN.castvwtp0{a2}(f(n))
-//
-in
-  list_tabulate<a> (n)
-end // end of [list_tabulate_cloref]
-
-implement
-{a}(*tmp*)
 list_tabulate_clo (n, f) = let
 //
 val f = $UN.cast{int -<cloref1> a}(addr@f)
@@ -1520,6 +1507,19 @@ list_tabulate$fopr<a2> (n) = $UN.castvwtp0{a2}(f(n))
 in
   list_tabulate<a> (n)
 end // end of [list_tabulate_clo]
+
+implement
+{a}(*tmp*)
+list_tabulate_cloref (n, f) = let
+//
+val f = $UN.cast{int -<cloref1> a}(f)
+//
+implement(a2)
+list_tabulate$fopr<a2> (n) = $UN.castvwtp0{a2}(f(n))
+//
+in
+  list_tabulate<a> (n)
+end // end of [list_tabulate_cloref]
 
 (* ****** ****** *)
 

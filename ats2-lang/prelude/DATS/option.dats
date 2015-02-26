@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/option.atxt
-** Time of generation: Fri Sep 26 22:21:03 2014
+** Time of generation: Wed Jan 21 11:59:07 2015
 *)
 
 (* ****** ****** *)
@@ -69,6 +69,26 @@ option_unsome_exn
   case+ opt of
   | Some x => x | None _ => $raise NotSomeExn()
 ) // end of [option_unsome_exn]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+option_equal
+  (opt1, opt2) =
+(
+//
+case+ opt1 of
+| None () =>
+  (
+    case+ opt1 of None () => true | Some _ => false
+  )
+| Some x1 =>
+  (
+    case+ opt2 of None () => false | Some x2 => option_equal$eqfn(x1, x2)
+  )
+//
+) (* end of [option_equal] *)
 
 (* ****** ****** *)
 

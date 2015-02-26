@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array_prf.atxt
-** Time of generation: Fri Sep 26 22:20:50 2014
+** Time of generation: Sun Jan 11 02:59:07 2015
 *)
 
 (* ****** ****** *)
@@ -41,7 +41,7 @@
 
 (* ****** ****** *)
 
-sortdef vt0p = viewt@ype
+sortdef t0p = t@ype and vt0p = viewt@ype
 
 (* ****** ****** *)
 
@@ -49,7 +49,7 @@ prfun
 array_v_split
   {a:vt0p}
   {l:addr}
-  {n:int} {i:nat | i <= n}
+  {n:int}{i:nat | i <= n}
 (
   pfarr: array_v (INV(a), l, n)
 ) :<prf> @(
@@ -60,9 +60,9 @@ prfun
 array_v_split_at
   {a:vt0p}
   {l:addr}
-  {n:int} {i:nat | i <= n}
+  {n:int}{i:nat | i <= n}
 (
-  pfarr: array_v (INV(a), l, n) | i: size_t i
+  pfarr: array_v (INV(a), l, n) | i: size_t (i)
 ) :<prf> @(
   array_v (a, l, i), array_v (a, l+i*sizeof(a), n-i)
 ) // end of [array_v_split_at]
@@ -78,25 +78,20 @@ array_v_unsplit
 ) :<prf> array_v (a, l, n1+n2) // end of [array_v_unsplit]
 
 (* ****** ****** *)
-
+//
 prfun
 array_v_extend :
   {a:vt0p}
-  {l:addr}
-  {n:int} (
-  array_v (INV(a), l, n), a @ l+n*sizeof(a)
-) -<prf> array_v (a, l, n+1) // end of [array_v_extend]
-
+  {l:addr}{n:int}
+  (array_v (INV(a), l, n), a @ l+n*sizeof(a)) -<prf> array_v (a, l, n+1)
+//
 prfun
 array_v_unextend :
   {a:vt0p}
   {l:addr}
-  {n:int | n > 0} (
-  array_v (INV(a), l, n)
-) -<prf> (
-  array_v (a, l, n-1), a @ l+(n-1)*sizeof(a)
-) // end of [array_v_unextend]
-
+  {n:int | n > 0}
+  (array_v (INV(a), l, n)) -<prf> (array_v (a, l, n-1), a @ l+(n-1)*sizeof(a))
+//
 (* ****** ****** *)
 
 prfun
@@ -104,21 +99,24 @@ array_v_takeout
   {a:vt0p}
   {l:addr}
   {n:int }
-  {i:nat | i < n} (
+  {i:nat | i < n}
+(
   pfarr: array_v (INV(a), l, n)
 ) :<prf> vtakeout (
   array_v (a, l, n), a @ (l+i*sizeof(a))
-) // end of [array_v_takeout]
+) (* end of [array_v_takeout] *)
 
 (* ****** ****** *)
 
 praxi
-array_v_group {a:vt0p}{l:addr}{m,n:int}
+array_v_group
+  {a:vt0p}{l:addr}{m,n:int}
   (pf: array_v (INV(a), l, m*n)): array_v (@[a][n], l, m)
 // end of [array_v_group]
 
 praxi
-array_v_ungroup {a:vt0p}{l:addr}{m,n:int}
+array_v_ungroup
+  {a:vt0p}{l:addr}{m,n:int}
   (pf: array_v (@[INV(a)][n], l, m)): array_v (INV(a), l, m*n)
 // end of [array_v_ungroup]
 

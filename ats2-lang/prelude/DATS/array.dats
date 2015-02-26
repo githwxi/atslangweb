@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Fri Sep 26 22:21:03 2014
+** Time of generation: Tue Jan 13 00:14:09 2015
 *)
 
 (* ****** ****** *)
@@ -88,6 +88,39 @@ implement{a}{tk}
 array_exch_at_guint (A, i, x) = let
   val p = ptr0_add_guint<a> (addr@(A), i) in $UN.ptr0_exch<a> (p, x)
 end // end of [array_exch_at_guint]
+
+(* ****** ****** *)
+
+implement{a}
+array_subreverse
+  (A, i, j) = let
+//
+fun
+loop
+(
+  p1: ptr, p2: ptr
+) : void =
+(
+if
+p1 < p2
+then let
+  val x = $UN.ptr0_get<a> (p1)
+  val () =
+  $UN.ptr0_set<a> (p1, $UN.ptr0_get<a> (p2))
+  val () = $UN.ptr0_set<a> (p2, x)
+in
+  loop (ptr0_succ<a> (p1), ptr0_pred<a> (p2))
+end // end of [then]
+else () // end of [else]
+) (* end of [loop] *)
+//
+val pA = addr@A
+val pi = ptr_add<a> (pA, i)
+val pj = ptr_add<a> (pA, j)
+//
+in
+  $effmask_all(loop (pi, ptr0_pred<a> (pj)))
+end // end of [array_subreverse]
 
 (* ****** ****** *)
 
@@ -229,6 +262,7 @@ fprint_array_size
   (out, A, asz) = let
 //
 typedef tenv = int
+//
 implement
 array_foreach$fwork<a><tenv>
   (x, env) = let
@@ -1079,6 +1113,11 @@ end // end of [loop]
 in
   loop (view@ (A) | addr@ (A), asz)
 end // end of [array_permute]
+
+(* ****** ****** *)
+
+#include "./SHARE/array_bsearch.dats"
+#include "./SHARE/array_quicksort.dats"
 
 (* ****** ****** *)
 

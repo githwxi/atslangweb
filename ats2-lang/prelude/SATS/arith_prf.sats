@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arith_prf.atxt
-** Time of generation: Fri Sep 26 22:20:42 2014
+** Time of generation: Tue Feb 10 21:19:53 2015
 *)
 
 (* ****** ****** *)
@@ -171,21 +171,29 @@ mul_is_associative
 //
 // HX-2010-12-30: 
 //
-absprop DIVMOD (
+absprop
+DIVMOD (
   x:int, y: int, q: int, r: int // x = q * y + r
 ) // end of [DIVMOD]
 
-propdef DIV (x:int, y:int, q:int) = [r:int] DIVMOD (x, y, q, r)
-propdef MOD (x:int, y:int, r:int) = [q:int] DIVMOD (x, y, q, r)
+propdef
+DIV (x:int, y:int, q:int) = [r:int] DIVMOD (x, y, q, r)
+propdef
+MOD (x:int, y:int, r:int) = [q:int] DIVMOD (x, y, q, r)
 
 (* ****** ****** *)
 
 praxi
-div_istot {x,y:int | x >= 0; y > 0} (): DIV (x, y, x/y)
+div_istot
+  {x,y:int | x >= 0; y > 0} (): DIV (x, y, x/y)
 
 praxi
 divmod_istot
-  {x,y:int | x >= 0; y > 0} (): [q,r:nat | r < y] DIVMOD (x, y, q, r)
+  {x,y:int |
+   x >= 0; y > 0}
+  ((*void*)): [q,r:nat | r < y] DIVMOD (x, y, q, r)
+
+(* ****** ****** *)
 
 praxi
 divmod_isfun
@@ -195,26 +203,31 @@ divmod_isfun
 , pf2: DIVMOD (x, y, q2, r2)
 ) : [q1==q2;r1==r2] void // end of [divmod_isfun]
 
+(* ****** ****** *)
+
 praxi
 divmod_elim
   {x,y:int | x >= 0; y > 0}
   {q,r:int}
 (
   pf: DIVMOD (x, y, q, r)
-) : [qy:int | 0 <= r; r < y; x==qy+r] MUL (q, y, qy)
+) : [qy:nat | 0 <= r; r < y; x==qy+r] MUL (q, y, qy)
 
 praxi
 divmod_mul_elim
   {x,y:int | x >= 0; y > 0}
   {q,r:int}
-  (pf: DIVMOD (x, y, q, r)): [0 <= r; r < y; x==q*y+r] void
+  (pf: DIVMOD (x, y, q, r))
+: [0 <= q; 0 <= r; r < y; q==ndiv_int_int(x, y); x==q*y+r] void
 // end of [divmod_mul_elim]
 
 (* ****** ****** *)
 //
-dataprop EXP2 (int, int) =
-  | {n:nat}{p:nat} EXP2ind (n+1, 2*p) of EXP2 (n, p)
+dataprop
+EXP2 (int, int) =
   | EXP2bas (0, 1)
+  | {n:nat}{p:nat}
+    EXP2ind (n+1, 2*p) of EXP2 (n, p)
 // end of [EXP2]
 //
 prfun lemma_exp2_param :

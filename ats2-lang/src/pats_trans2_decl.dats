@@ -348,7 +348,7 @@ fun aux .<>.
   , None () // def
   ) (* end of [s2cst_make] *)
 //
-  val () = s2cst_set_tag (s2c, i)
+  val () = s2cst_set_dstag (s2c, i)
 //
   val () = the_s2expenv_add_scst (s2c)
 //
@@ -665,6 +665,8 @@ end // end of [t1kindef_tr]
 
 (* ****** ****** *)
 
+local
+
 fun
 s1expdef_tr_arg
 (
@@ -712,8 +714,11 @@ in
   s2e_def  
 end // end of [s1expdef_tr_def]
 
+in (* in-of-local *)
+
 fun
-s1expdef_tr (
+s1expdef_tr
+(
   res: s2rtopt, d: s1expdef
 ) : s2cst = let
 //
@@ -775,7 +780,7 @@ s2cst_make (
 //
 end // end of [s1expdef_tr]
 
-fn s1expdeflst_tr
+fun s1expdeflst_tr
   (knd: int, ds: s1expdeflst): void = let
 //
 val res =
@@ -817,9 +822,15 @@ in
   // nothing
 end // end of [s1expdeflst_tr]
 
+end // end of [local]
+
 (* ****** ****** *)
 
-fun s1aspdec_tr_arg (
+local
+
+fun
+s1aspdec_tr_arg
+(
   d: s1aspdec, xs: s1marglst, s2t_fun: &s2rt
 ) : List_vt (s2varlst) = let
 //
@@ -854,27 +865,34 @@ case+ xs of
 //
 end // end of [s1aspdec_tr_arg]
 
-fun s1aspdec_tr_res (
+fun
+s1aspdec_tr_res
+(
   d: s1aspdec, s2t_res: s2rt
 ) : s2rt = let
 //
 fn auxerr (
   d: s1aspdec, s2t1: s2rt, s2t2: s2rt
 ) : void = {
+//
   val () = prerr_error2_loc (d.s1aspdec_loc)
   val () = filprerr_ifdebug ("s1aspdec_tr_res")
-  val () = prerr ": the static assumption is given the sort ["
+//
+  val () =
+  prerr ": the static assumption is given the sort ["
   val () = prerr_s2rt (s2t1)
   val () = prerr "] but it is expected to be of the sort ["
   val () = prerr_s2rt (s2t2)
   val () = prerr "]."
   val () = prerr_newline ()
+//
   val () = the_trans2errlst_add (T2E_s1aspdec_tr_res (d, s2t1, s2t2))
 } // end of [auxerr]
 //
 in // in of [let]
 //
-case+ d.s1aspdec_res of
+case+
+d.s1aspdec_res of
 | Some s1t => let
     val s2t = s1rt_tr (s1t)
     val test = s2rt_ltmat1 (s2t, s2t_res)
@@ -883,12 +901,14 @@ case+ d.s1aspdec_res of
       val () = auxerr (d, s2t, s2t_res) in s2t
     end (* end of [if] *)
   end // end of [Some]
-| None () => s2t_res
+| None ((*void*)) => s2t_res
 //
 end // end of [s1aspdec_tr_res]
 
 viewtypedef
 s2aspdecopt_vt = Option_vt (s2aspdec)
+
+in (* in-of-local *)
 
 fn s1aspdec_tr
   (d1c: s1aspdec): s2aspdecopt_vt = let
@@ -974,6 +994,8 @@ case+ ans of
       val () = auxerr3 (d1c, q, id) in None_vt ()
     end // end of [None_vt]
 end // end of [s1aspdec_tr]
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -1838,9 +1860,10 @@ prv1ardeclst_tr
 (*
 //
 // HX:
-// this one is implemented in [pats_trans2_impdec.dats]
+// it is implemented in [pats_trans2_impdec.dats]:
 //
 extern fun i1mpdec_tr (d1c: d1ecl): Option_vt (i2mpdec)
+//
 *)
 
 (* ****** ****** *)
@@ -2021,15 +2044,15 @@ fun auxcheck_impdec
 ) : void = let
   val d2c = impdec.i2mpdec_cst
   val okay = (
-    if knd > 0 then d2cst_is_prf (d2c) else d2cst_is_nonprf (d2c)
+    if knd < 0 then d2cst_is_prf (d2c) else d2cst_is_nonprf (d2c)
   ) : bool // end of [val]
   val () = if ~okay then let
     val () = prerr_error2_loc (d1c0.d1ecl_loc)
     val () = filprerr_ifdebug "d1ecl_tr: auxcheck_impdec" // for debugging
-    val () = if knd > 0 then
+    val () = if knd < 0 then
       prerr ": the implemented dynamic constant is required to be proof."
-    val () = if knd = 0 then
-      prerr ": the implemented dynamic constant is required to be nonproof."
+    val () = if knd >= 0 then
+      prerr ": the implemented dynamic constant is required to be non-proof."
     val () = prerr_newline ()
   in
     the_trans2errlst_add (T2E_d1ecl_tr_impdec (d1c0))
@@ -2107,30 +2130,32 @@ case+ d1c0.d1ecl_node of
   end // end of [D1Cstacons]
 (*
 | D1Cstavars (d1s) => let
-    val s2vs = s1tavarlst_tr (d1s) in d2ecl_stavars (loc0, s2vs)
+    val s2vs =
+      s1tavarlst_tr (d1s) in d2ecl_stavars (loc0, s2vs)
   end // end of [D1Cstavars]
 *)
 //
 | D1Ctkindef (d) => let
     val () = t1kindef_tr (d) in d2ecl_none (loc0)
   end // end of [D1Ckindef]
+//
 | D1Csexpdefs (knd, ds) => let
     val () = s1expdeflst_tr (knd, ds) in d2ecl_none (loc0)
   end // end of [D1Csexpdefs]
+//
 | D1Csaspdec (d1c) => let
-    val d2copt = s1aspdec_tr (d1c)
+    val opt = s1aspdec_tr (d1c)
   in
-    case+ d2copt of
-    | ~Some_vt d2c => d2ecl_saspdec (loc0, d2c)
-    | ~None_vt () =>
+    case+ opt of
+    | ~Some_vt d2c =>
+        d2ecl_saspdec (loc0, d2c)
+      // end of [Some_vt]
+    | ~None_vt ((*void*)) =>
         d2ecl_none (loc0) // HX: error already reported
+      // end of [None_vt]
     // end of [case]
   end // end of [D1Csaspdec]
 //
-| D1Cexndecs (d1cs) =>
-  (
-    d2ecl_exndecs (loc0, e1xndeclst_tr (d1cs))
-  ) (* end of [D1Cexndecs] *)
 | D1Cdatdecs
   (
     knd, d1cs_dat, d1cs_def
@@ -2139,6 +2164,11 @@ case+ d1c0.d1ecl_node of
   in
     d2ecl_datdecs (loc0, knd, s2cs)
   end // end of [D1Cdatdecs]
+//
+| D1Cexndecs (d1cs) =>
+  (
+    d2ecl_exndecs (loc0, e1xndeclst_tr (d1cs))
+  ) (* end of [D1Cexndecs] *)
 //
 | D1Cclassdec (id, sup) => let
     val () = c1lassdec_tr (id, sup) in d2ecl_none (loc0)
@@ -2207,7 +2237,7 @@ case+ d1c0.d1ecl_node of
 //
 // HX: the error is already reported
 //
-    | ~None_vt () => d2ecl_none (loc0)
+    | ~None_vt ((*void*)) => d2ecl_none (loc0)
   end // end of [D1Cimpdec]
 //
 | D1Cfundecs

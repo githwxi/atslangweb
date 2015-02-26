@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Fri Sep 26 22:20:46 2014
+** Time of generation: Sun Jan 11 02:59:01 2015
 *)
 
 (* ****** ****** *)
@@ -266,8 +266,9 @@ strnptr_get_at_guint
   (s: !strnptr (n), i: g1uint (tk, i)):<> charNZ
 //
 symintr strnptr_get_at
-overload strnptr_get_at with strnptr_get_at_gint
-overload strnptr_get_at with strnptr_get_at_guint
+overload strnptr_get_at with strnptr_get_at_size of 1
+overload strnptr_get_at with strnptr_get_at_gint of 0
+overload strnptr_get_at with strnptr_get_at_guint of 0
 //
 (* ****** ****** *)
 //
@@ -285,8 +286,9 @@ strnptr_set_at_guint
   (s: !strnptr (n), i: g1uint (tk, i), c: charNZ):<!wrt> void
 //
 symintr strnptr_set_at
-overload strnptr_set_at with strnptr_set_at_gint
-overload strnptr_set_at with strnptr_set_at_guint
+overload strnptr_set_at with strnptr_set_at_size of 1
+overload strnptr_set_at with strnptr_set_at_gint of 0
+overload strnptr_set_at with strnptr_set_at_guint of 0
 //
 (* ****** ****** *)
 
@@ -353,13 +355,19 @@ strnptr_rforeach_env
 //
 // overloading for certain symbols
 //
-overload [] with strnptr_get_at_size
-overload [] with strnptr_get_at_gint of 0
-overload [] with strnptr_get_at_guint of 0
+overload
+[] with strnptr_get_at_size of 1
+overload
+[] with strnptr_get_at_gint of 0
+overload
+[] with strnptr_get_at_guint of 0
 //
-overload [] with strnptr_set_at_size
-overload [] with strnptr_set_at_gint of 0
-overload [] with strnptr_set_at_guint of 0
+overload
+[] with strnptr_set_at_size of 1
+overload
+[] with strnptr_set_at_gint of 0
+overload
+[] with strnptr_set_at_guint of 0
 //
 overload iseqz with strptr_is_null
 overload iseqz with strnptr_is_null

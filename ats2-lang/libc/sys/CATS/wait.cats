@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/sys/CATS/CODEGEN/wait.atxt
-** Time of generation: Fri Jan 17 21:02:34 2014
+** Time of generation: Fri Dec 19 13:34:40 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_SYS_WAIT_CATS
-#define ATSLIB_LIBC_SYS_WAIT_CATS
+#ifndef ATSLIB_LIBC_SYS_CATS_WAIT
+#define ATSLIB_LIBC_SYS_CATS_WAIT
 
 /* ****** ****** */
 //
@@ -56,7 +56,7 @@
 //
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_SYS_WAIT_CATS
+#endif // ifndef ATSLIB_LIBC_SYS_CATS_WAIT
 
 /* ****** ****** */
 

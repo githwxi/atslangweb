@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer_ptr.atxt
-** Time of generation: Fri Sep 26 22:20:43 2014
+** Time of generation: Sun Jan 11 03:07:48 2015
 *)
 
 (* ****** ****** *)
@@ -59,18 +59,22 @@ stadef uintptrknd = uintptr_kind
 //
 (* ****** ****** *)
 //
-fun g0int2int_int_intptr (x: int):<> intptr = "mac#%"
-fun g1int2int_int_intptr {i:int} (x: int i):<> intptr(i) = "mac#%"
+fun g0int2int_int_intptr(int):<> intptr = "mac#%"
+fun g1int2int_int_intptr{i:int}(int(i)):<> intptr(i) = "mac#%"
+fun g0int2int_lint_intptr(lint):<> intptr = "mac#%"
+fun g1int2int_lint_intptr{i:int}(lint(i)):<> intptr(i) = "mac#%"
 //
 (* ****** ****** *)
 //
-fun g0int2uint_int_uintptr (x: int):<> uintptr = "mac#%"
-fun g1int2uint_int_uintptr {i:nat} (x: int i):<> uintptr(i) = "mac#%"
+fun g0int2uint_int_uintptr(int):<> uintptr = "mac#%"
+fun g1int2uint_int_uintptr{i:nat}(int(i)):<> uintptr(i) = "mac#%"
 //
 (* ****** ****** *)
 //
-fun g0uint2uint_uint_uintptr (x: uint):<> uintptr = "mac#%"
-fun g1uint2uint_uint_uintptr {u:int} (x: uint u):<> uintptr(u) = "mac#%"
+fun g0uint2uint_uint_uintptr(uint):<> uintptr = "mac#%"
+fun g1uint2uint_uint_uintptr{u:int}(uint(u)):<> uintptr(u) = "mac#%"
+fun g0uint2uint_ulint_uintptr(ulint):<> uintptr = "mac#%"
+fun g1uint2uint_ulint_uintptr{u:int}(ulint(u)):<> uintptr(u) = "mac#%"
 //
 (* ****** ****** *)
 //

@@ -119,10 +119,11 @@ s2cst_struct = @{
 //
 , s2cst_sVarset= s2Varset // for occurrence checks
 //
-, s2cst_stamp= stamp // unique stamp
+, s2cst_dstag= int // dstag >= 0 if associated a datasort
 //
-, s2cst_tag= int // tag >= 0 if associated with a datasort
-} // end of [s2cst_struct]
+, s2cst_stamp= stamp // stamp for unicity
+//
+} (* end of [s2cst_struct] *)
 
 (* ****** ****** *)
 
@@ -172,9 +173,9 @@ val () = p->s2cst_argsrtss := argsrtss
 val () = p->s2cst_dconlst := None ()
 val () = p->s2cst_sup := s2cstlst_encode (list_nil)
 val () = p->s2cst_supcls := list_nil ()
-val () = p->s2cst_sVarset := s2Varset_make_nil ()
-val () = p->s2cst_stamp := stamp
-val () = p->s2cst_tag := (~1)
+val () = p->s2cst_sVarset := s2Varset_nil ()
+val () = p->s2cst_dstag := (~1) // datasort
+val () = p->s2cst_stamp := stamp // unicity
 //
 in // in of [let]
 //
@@ -290,18 +291,18 @@ s2cst_get_sVarset (s2c) = let
   val (vbox pf | p) = ref_get_view_ptr (s2c) in p->s2cst_sVarset
 end // end of [s2cst_get_sVarset]
 implement
-s2cst_set_sVarset (s2c, xs) = let
-  val (vbox pf | p) = ref_get_view_ptr (s2c) in p->s2cst_sVarset := xs
+s2cst_set_sVarset (s2c, s2Vs) = let
+  val (vbox pf | p) = ref_get_view_ptr (s2c) in p->s2cst_sVarset := s2Vs
 end // end of [s2cst_set_sVarset]
 
 implement
-s2cst_get_tag (s2c) = $effmask_ref let
-  val (vbox pf | p) = ref_get_view_ptr (s2c) in p->s2cst_tag
-end // end of [s2cst_get_tag]
+s2cst_get_dstag (s2c) = let
+  val (vbox pf | p) = ref_get_view_ptr (s2c) in p->s2cst_dstag
+end // end of [s2cst_get_dstag]
 implement
-s2cst_set_tag (s2c, tag) = let
-  val (vbox pf | p) = ref_get_view_ptr (s2c) in p->s2cst_tag := tag
-end // end of [s2cst_set_tag]
+s2cst_set_dstag (s2c, tag) = let
+  val (vbox pf | p) = ref_get_view_ptr (s2c) in p->s2cst_dstag := tag
+end (* end of [s2cst_set_dstag] *)
 
 implement
 s2cst_get_stamp (s2c) = let
@@ -437,6 +438,16 @@ s2cst_is_binarian (s2c) = let
 end // end of [s2cst_is_binarian]
 
 (* ****** ****** *)
+//
+implement
+s2cst_is_linear (s2c) =
+  s2rt_is_lin_fun(s2cst_get_srt(s2c))
+//
+implement
+s2cst_is_nonlinear (s2c) = 
+  if s2cst_is_linear(s2c) then false else true
+//
+(* ****** ****** *)
 
 implement
 s2cst_subeq
@@ -561,33 +572,66 @@ prerr_s2cstlst (xs) = fprint_s2cstlst (stderr_ref, xs)
 (* ****** ****** *)
 
 local
-
+//
 staload
-LS = "libats/SATS/linset_listord.sats"
-staload _ = "libats/DATS/linset_listord.dats"
-
-val cmp = lam (
-  s2c1: s2cst, s2c2: s2cst
+FS = "libats/SATS/funset_avltree.sats"
+staload
+LS = "libats/SATS/linset_avltree.sats"
+staload
+_(*FS*) = "libats/DATS/funset_avltree.dats"
+staload
+_(*LS*) = "libats/DATS/linset_avltree.dats"
+//
+val
+cmp =
+lam (
+  s2v1: s2cst, s2v2: s2cst
 ) : int =<cloref>
-  compare_s2cst_s2cst (s2c1, s2c2)
+  compare_s2cst_s2cst (s2v1, s2v2)
 // end of [val]
-
+//
+assume s2cstset_type = $FS.set (s2cst)
 assume s2cstset_vtype = $LS.set (s2cst)
-
-in // in of [local]
-
-implement
-s2cstset_vt_nil () = $LS.linset_make_nil ()
+//
+in (* in-of-local *)
 
 implement
-s2cstset_vt_free (xs) = $LS.linset_free (xs)
+s2cstset_nil
+  ((*void*)) = $FS.funset_make_nil ()
+//
+implement
+s2cstset_ismem
+  (xs, x) = $FS.funset_is_member (xs, x, cmp)
+//
+implement
+s2cstset_add
+  (xs, x) = xs where {
+  var xs = xs
+  val _(*rplced*) = $FS.funset_insert (xs, x, cmp)
+} (* end of [s2cstset_add] *)
+//
+implement
+s2cstset_listize (xs) = $FS.funset_listize (xs)
 
+(* ****** ****** *)
+
+implement
+s2cstset_vt_nil
+  ((*void*)) = $LS.linset_make_nil ()
+//
+implement
+s2cstset_vt_ismem
+  (xs, x) = $LS.linset_is_member (xs, x, cmp)
+//
 implement
 s2cstset_vt_add
   (xs, x) = xs where {
   var xs = xs
-  val _(*replaced*) = $LS.linset_insert (xs, x, cmp)
-} // end of [s2cstset_vt_add]
+  val _(*rplced*) = $LS.linset_insert (xs, x, cmp)
+} (* end of [s2cstset_vt_add] *)
+//
+implement
+s2cstset_vt_listize_free (xs) = $LS.linset_listize_free (xs)
 
 end // end of [local]
 

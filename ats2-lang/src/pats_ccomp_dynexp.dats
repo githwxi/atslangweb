@@ -138,13 +138,13 @@ in
 //
 case+ 0 of
 | _ when
-    lvl1 < lvl0 => let (* environval *)
+    lvl1 < lvl0 => let (* environvar *)
 (*
     val () = println! ("d2var_ccomp_some: pmv = ", pmv)
 *)
   in
     case+
-      pmv.primval_node of
+    pmv.primval_node of
     | PMVfunlab (fl) => let
         val () = ccompenv_add_flabsetenv (env, fl) in pmv
       end // end of [PMVfunlab]
@@ -154,14 +154,14 @@ case+ 0 of
     | PMVd2vfunlab (d2v, fl) => let
         val () = ccompenv_add_flabsetenv (env, fl) in pmv
       end // end of [PMVd2vfunlab]
-    | _ => let
+    | _ (*non-funlab*) => let
         val () = ccompenv_add_dvarsetenv_var (env, d2v)
       in
         if lvl1 > 0 then primval_env (loc0, hse0, d2v) else pmv(*toplevel*)
       end (* end of [_] *)
-  end // end of [environval]
+  end // end of [environvar]
 //
-| _ => pmv (* [d2v] is at current-level *)
+| _ (*lvl1 >= lvl0*) => pmv (* [d2v] is at current-level *)
 //
 end // end of [d2var_ccomp_some]
 
@@ -380,6 +380,16 @@ case+ hde0.hidexp_node of
 //
 | HDEraise (hde_exn) => auxret (env, res, hde0)
 //
+(*
+| HDEvcopyenv (d2v) => HX: HDEvar (d2v)
+*)
+//
+| HDEtempenver (d2vs) => let
+    val () = ccompenv_add_tempenver(env, d2vs)
+  in
+    primval_empty (loc0, hse0)
+  end // end of [HDEtempenver]
+//
 | HDElam _ => hidexp_ccomp_lam (env, res, hde0)
 | HDEfix _ => hidexp_ccomp_fix (env, res, hde0)
 //
@@ -392,8 +402,20 @@ case+ hde0.hidexp_node of
 //
 | HDEtrywith _ => auxret (env, res, hde0)
 //
+| HDEsif _(*error*) => let
+    val () =
+    prerr_errccomp_loc(loc0)
+    val () =
+    prerrln!
+      (": [sif] is not supported after proof-erasure.")
+    // end of [val]
+  in
+    primval_err (loc0, hse0)
+  end (* end of [HDEsif] *)
+//
 | _(*unspported*) => let
-    val () = prerr_interror_loc(loc0)
+    val () =
+    prerr_interror_loc(loc0)
     val () = prerrln! (": hidexp_ccomp: hde0 = ", hde0)
   in
     exitloc (1)
@@ -547,17 +569,19 @@ end // end of [labhidexplst_ccomp]
 
 local
 
-fun auxval (
+fun
+auxval
+(
   env: !ccompenv
 , res: !instrseq
 , tmpret: tmpvar
-, hde0: hidexp
+, hde0_val: hidexp
 ) : void = let
-  val loc0 = hde0.hidexp_loc
-  val pmv = hidexp_ccomp (env, res, hde0)
-  val ins = instr_move_val (loc0, tmpret, pmv)
+  val loc0 = hde0_val.hidexp_loc
+  val pmv0 = hidexp_ccomp (env, res, hde0_val)
+  val ins0 = instr_move_val (loc0, tmpret, pmv0)
 in
-  instrseq_add (res, ins)
+  instrseq_add (res, ins0)
 end // end of [auxval]
 
 in (* in of [local] *)
@@ -668,10 +692,13 @@ case+ hde0.hidexp_node of
 | HDExchng_var _ => auxval (env, res, tmpret, hde0)
 | HDExchng_ptr _ => auxval (env, res, tmpret, hde0)
 //
-| HDEarrpsz _ => hidexp_ccomp_ret_arrpsz (env, res, tmpret, hde0)
-| HDEarrinit _ => hidexp_ccomp_ret_arrinit (env, res, tmpret, hde0)
+| HDEarrpsz _ =>
+    hidexp_ccomp_ret_arrpsz (env, res, tmpret, hde0)
+| HDEarrinit _ =>
+    hidexp_ccomp_ret_arrinit (env, res, tmpret, hde0)
 //
-| HDEraise (hde_exn) => hidexp_ccomp_ret_raise (env, res, tmpret, hde0)
+| HDEraise (hde_exn) =>
+    hidexp_ccomp_ret_raise (env, res, tmpret, hde0)
 //
 | HDElam (knd, _, _) =>
   (
@@ -694,6 +721,8 @@ case+ hde0.hidexp_node of
 | HDEloopexn _ => auxval (env, res, tmpret, hde0)
 //
 | HDEtrywith _ => hidexp_ccomp_ret_trywith (env, res, tmpret, hde0)
+//
+| HDEsif _(*error*) => auxval (env, res, tmpret, hde0)
 //
 | _ => let
     val () = println! ("hidexp_ccomp_ret: loc0 = ", loc0)
@@ -1177,7 +1206,7 @@ hidexp_ccomp_ret_app
 //
 val loc0 = hde0.hidexp_loc
 val hse0 = hde0.hidexp_type
-val-HDEapp (hde_fun, hse_fun, hdes_arg) = hde0.hidexp_node
+val-HDEapp(hde_fun, hse_fun, hdes_arg) = hde0.hidexp_node
 //
 val pmv_fun = hidexp_ccomp (env, res, hde_fun)
 val pmvs_arg = hidexplst_ccomp (env, res, hdes_arg)
@@ -1186,7 +1215,10 @@ var added: int = 0
 val isret = tmpvar_isret (tmpret)
 //
 (*
-val () = println! ("hidexp_ccomp_ret_app: pmv_fun = ", pmv_fun)
+val () =
+println! ("hidexp_ccomp_ret_app: loc0 = ", loc0)
+val () =
+println! ("hidexp_ccomp_ret_app: pmv_fun = ", pmv_fun)
 *)
 //
 val () =
@@ -1267,7 +1299,13 @@ pmv_fun.primval_node of
   end // end of [PMVtmpltcst]
 //
 | _ (*non-tail-recursive*) => () // HX: [INSfcall] is to be added
-) // end of [if]
+) (* end of [if] *)
+//
+(*
+val () =
+println!
+  ("hidexp_ccomp_ret_app: added = ", added)
+*)
 //
 val () =
 if added > 0 then tmpvar_inc_tailcal (tmpret)
@@ -1698,9 +1736,10 @@ hidexp_ccomp_funlab_arg_body
 ) = let
 (*
 val () =
+println!
 (
-  println! ("hidexp_ccomp_funlab_arg_body: flab = ", flab)
-) // end of [val]
+"hidexp_ccomp_funlab_arg_body: flab = ", flab
+) (* end of [val] *)
 *)
 //
 val res = instrseq_make_nil ()
@@ -1731,9 +1770,10 @@ val flset =
 val fls0 = funlabset_vt_listize_free (flset)
 val fls0 = ccompenv_addlst_flabsetenv_ifmap (env, flvl0, vbmap, fls0)
 //
-var d2eset =
+val d2es =
   ccompenv_getdec_dvarsetenv (env)
-val d2es = d2envset_vt_listize_free (d2eset)
+//
+val d2es = d2envset_vt_listize_free (d2es)
 //
 val () = the_d2varlev_dec (pfinc | (*none*))
 //
@@ -1753,7 +1793,8 @@ end // end of [hidexp_ccomp_funlab_arg_body]
 (* ****** ****** *)
 
 extern
-fun hidexp_ccomp_lam_flab
+fun
+hidexp_ccomp_lam_flab
 (
   env: !ccompenv, res: !instrseq, hde0: hidexp, flab: funlab
 ) : void // end of [hidexp_ccomp_lam_flab]

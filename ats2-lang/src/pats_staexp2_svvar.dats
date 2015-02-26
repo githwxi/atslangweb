@@ -239,16 +239,18 @@ implement
 s2Varlst_add_sVarlst
   (s2Vs, s2V2) = let
 in
-  case+ s2Vs of
-  | list_cons
-      (s2V, s2Vs) => let
-      val () =
-        s2Var_add_sVarlst (s2V, s2V2)
-      // end of [val]
-    in
-      s2Varlst_add_sVarlst (s2Vs, s2V2)
-    end // end of [list_cons]
-  | list_nil () => ()
+//
+case+ s2Vs of
+| list_nil () => ()
+| list_cons
+    (s2V, s2Vs) => let
+    val () =
+      s2Var_add_sVarlst (s2V, s2V2)
+    // end of [val]
+  in
+    s2Varlst_add_sVarlst (s2Vs, s2V2)
+  end // end of [list_cons]
+//
 end // end of [s2Varlst_add_sVarlst]
 
 (* ****** ****** *)
@@ -263,9 +265,10 @@ s2VarBound_type = '{
 in (* in of [local] *)
 
 implement
-s2VarBound_make (loc, s2f) = '{
+s2VarBound_make
+  (loc, s2f) = '{
   s2VarBound_loc= loc, s2VarBound_val= s2f
-} // end of [s2VarBound_make]
+} (* end of [s2VarBound_make] *)
 
 implement s2VarBound_get_loc (x) = x.s2VarBound_loc
 implement s2VarBound_get_val (x) = x.s2VarBound_val
@@ -273,39 +276,30 @@ implement s2VarBound_get_val (x) = x.s2VarBound_val
 end // end of [local]
 
 (* ****** ****** *)
-
+//
 implement
-lt_s2Var_s2Var
-  (x1, x2) = (compare (x1, x2) < 0)
-// end of [lt_s2Var_s2Var]
-
+lt_s2Var_s2Var(x1, x2) = (compare (x1, x2) < 0)
 implement
-lte_s2Var_s2Var
-  (x1, x2) = (compare (x1, x2) <= 0)
-// end of [lte_s2Var_s2Var]
-
+lte_s2Var_s2Var(x1, x2) = (compare (x1, x2) <= 0)
+//
 implement
-eq_s2Var_s2Var
-  (x1, x2) = (compare (x1, x2) = 0)
-// end of [eq_s2Var_s2Var]
-
+eq_s2Var_s2Var(x1, x2) = (compare (x1, x2) = 0)
 implement
-neq_s2Var_s2Var
-  (x1, x2) = (compare (x1, x2) != 0)
-// end of [neq_s2Var_s2Var]
-
+neq_s2Var_s2Var(x1, x2) = (compare (x1, x2) != 0)
+//
 implement
 compare_s2Var_s2Var (x1, x2) = let
 (*
-  val () = $effmask_all (
-    print "compare_s2var_s2var: x1 = "; print_s2var x1; print_newline ();
-    print "compare_s2var_s2var: x2 = "; print_s2var x2; print_newline ();
-  ) // end of [val]
+val () =
+$effmask_all (
+  println! ("compare_s2var_s2var: x1 = ", x1);
+  println! ("compare_s2var_s2var: x2 = ", x2);
+) (* end of [val] *)
 *)
 in
   compare (s2Var_get_stamp (x1), s2Var_get_stamp (x2))
 end // end of [compare_s2Var_s2Var]
-
+//
 (* ****** ****** *)
 
 implement
@@ -333,48 +327,63 @@ local
 typedef ats_ptr_type s2Var ;
 %} // end of [%{^]
 //
-staload SET =
+staload FS =
 "libats/SATS/funset_avltree.sats"
 staload _(*anon*) =
 "libats/DATS/funset_avltree.dats"
 //
-assume s2Varset_type = $SET.set (s2Var)
+staload LS =
+"libats/SATS/linset_avltree.sats"
+staload _(*anon*) =
+"libats/DATS/linset_avltree.dats"
 //
 abstype s2Var1 = $extype "s2Var"
-typedef s2Var1set = $SET.set (s2Var1)
+typedef s2Var1set = $FS.set (s2Var1)
+vtypedef s2Var1set_vt = $LS.set (s2Var1)
+//
+assume s2Varset_type = $FS.set (s2Var)
+assume s2Varset_vtype = $LS.set (s2Var)
 //
 extern castfn of_s2Var (x: s2Var):<> s2Var1
 extern castfn to_s2Var (x: s2Var1):<> s2Var
-extern castfn of_s2Varset (x: s2Varset):<> s2Var1set
-extern castfn to_s2Varset (x: s2Var1set):<> s2Varset
+extern castfn of_s2Varset (xs: s2Varset):<> s2Var1set
+extern castfn to_s2Varset (xs: s2Var1set):<> s2Varset
+extern castfn of_s2Varset_vt (xs: s2Varset_vt):<> s2Var1set_vt
+extern castfn to_s2Varset_vt (xs: s2Var1set_vt):<> s2Varset_vt
 //
-val cmp = $extval ($SET.cmp(s2Var1), "0")
-
+typedef
+cmp(elt:t@ype) =
+  (elt, elt) -<cloref> int
+//
+val cmp = $extval (cmp(s2Var1), "0")
+//
 implement
-$SET.compare_elt_elt<s2Var1> (x1, x2, cmp) =
+$FS.compare_elt_elt<s2Var1> (x1, x2, cmp) =
   compare_s2Var_s2Var (to_s2Var(x1), to_s2Var(x2))
-// end of [implement]
-
+implement
+$LS.compare_elt_elt<s2Var1> (x1, x2, cmp) =
+  compare_s2Var_s2Var (to_s2Var(x1), to_s2Var(x2))
+//
 in (* in of [local] *)
 
 implement
-s2Varset_make_nil () = $SET.funset_make_nil ()
+s2Varset_nil () = $FS.funset_make_nil ()
 
 implement
 s2Varset_add
   (xs, x) = xs where {
   val x = of_s2Var (x)
   var xs = of_s2Varset (xs)
-  val _(*replaced*) = $SET.funset_insert<s2Var1> (xs, x, cmp)
+  val _(*replaced*) = $FS.funset_insert<s2Var1> (xs, x, cmp)
   val xs = to_s2Varset (xs)
 } // end of [s2Varset_add]
 
 implement
-s2Varset_is_member
+s2Varset_ismem
   (xs, x) = found where {
   val x = of_s2Var (x)
-  var xs = of_s2Varset (xs)
-  val found = $SET.funset_is_member<s2Var1> (xs, x, cmp)
+  val xs = of_s2Varset (xs)
+  val found = $FS.funset_is_member<s2Var1> (xs, x, cmp)
 } // end of [s2Varset_is_member]
 
 implement
@@ -382,24 +391,66 @@ s2Varset_listize (xs) = let
   val xs = of_s2Varset (xs)
   viewtypedef res = List_vt (s2Var)
 in
-  $UN.castvwtp_trans{res}($SET.funset_listize<s2Var1> (xs))
+  $UN.castvwtp_trans{res}($FS.funset_listize<s2Var1> (xs))
 end // end of [s2Varset_listize]
+
+(* ****** ****** *)
+
+implement
+s2Varset_vt_nil () = $LS.linset_make_nil ()
+
+implement
+s2Varset_vt_add
+  (xs, x) = xs where {
+  val x = of_s2Var (x)
+  var xs = of_s2Varset_vt (xs)
+  val _(*replaced*) = $LS.linset_insert<s2Var1> (xs, x, cmp)
+  val xs = to_s2Varset_vt (xs)
+} // end of [s2Varset_vt_add]
+
+implement
+s2Varset_vt_ismem
+  (xs, x) = found where {
+  val x = of_s2Var (x)
+  val xs =
+    $UN.castvwtp1{s2Var1set_vt}(xs)
+  val found = $LS.linset_is_member<s2Var1> (xs, x, cmp)
+  prval () = $UN.castvwtp0{void}(xs)
+} // end of [s2Varset_vt_ismem]
+
+implement
+s2Varset_vt_free(xs) =
+  $LS.linset_free<s2Var1> (of_s2Varset_vt (xs))
+
+implement
+s2Varset_vt_listize_free
+  (xs) = let
+  val xs = of_s2Varset_vt (xs)
+  viewtypedef res = List_vt (s2Var)
+in
+  $UN.castvwtp_trans{res}($LS.linset_listize_free<s2Var1> (xs))
+end // end of [s2Varset_vt_listize_free]
 
 end // end of [local]
 
 (* ****** ****** *)
 
 implement
-fprint_s2Varlst
-  (out, xs) = $UT.fprintlst (out, xs, ", ", fprint_s2Var)
-// end of [fprint_s2Varlst]
-
-implement
 print_s2Varlst (xs) = fprint_s2Varlst (stdout_ref, xs)
 implement
 prerr_s2Varlst (xs) = fprint_s2Varlst (stderr_ref, xs)
 
+implement
+fprint_s2Varlst
+  (out, xs) = $UT.fprintlst (out, xs, ", ", fprint_s2Var)
+// end of [fprint_s2Varlst]
+
 (* ****** ****** *)
+
+implement
+print_s2Varset (xs) = fprint_s2Varset (stdout_ref, xs)
+implement
+prerr_s2Varset (xs) = fprint_s2Varset (stderr_ref, xs)
 
 implement
 fprint_s2Varset
@@ -410,11 +461,6 @@ fprint_s2Varset
   val () = fprint_string (out, "]")
   val () = list_vt_free (xs)
 } // end of [fprint_s2Varset]
-
-implement
-print_s2Varset (xs) = fprint_s2Varset (stdout_ref, xs)
-implement
-prerr_s2Varset (xs) = fprint_s2Varset (stderr_ref, xs)
 
 (* ****** ****** *)
 

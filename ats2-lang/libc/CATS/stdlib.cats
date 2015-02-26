@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdlib.atxt
-** Time of generation: Mon Oct 27 19:32:47 2014
+** Time of generation: Sun Jan 11 02:59:45 2015
 */
 
 /* ****** ****** */
@@ -49,6 +49,10 @@
 /* ****** ****** */
 
 #include <stdlib.h>
+
+/* ****** ****** */
+
+#include "share/H/pats_atslib.h"
 
 /* ****** ****** */
 

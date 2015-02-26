@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Fri Sep 26 22:20:43 2014
+** Time of generation: Sun Feb 22 13:19:45 2015
 *)
 
 (* ****** ****** *)
@@ -496,7 +496,7 @@ typedef
 g1int_ndiv_type
   (tk:tk) =
   {i,j:int | i >= 0; j > 0}
-  (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, ndiv_int_int (i, j))
+  (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, ndiv_int_int(i,j))
 //
 fun{tk:tk}
 g1int_ndiv : g1int_ndiv_type(tk)
@@ -532,23 +532,38 @@ typedef
 g1int_nmod_type
   (tk:tk) =
   {i,j:int | i >= 0; j > 0}
-  (g1int (tk, i), g1int (tk, j)) -<fun0> [r:nat | r < j] g1int (tk, r)
+  (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, nmod_int_int(i, j))
 // end of [g1int_nmod_type]
 
 fun{tk:tk}
 g1int_nmod : g1int_nmod_type(tk)
+
+(* ****** ****** *)
 
 fun{tk:tk}
 g1int_nmod2
   {i,j:int | i >= 0; j > 0}
 (
   x: g1int (tk, i), y: g1int (tk, j)
-) :<> [q,r:int | 0 <= r; r < j] (DIVMOD (i, j, q, r) | g1int (tk, r))
+) :<> [q,r:nat | r < j]
+(
+  DIVMOD (i, j, q, r) | g1int (tk, r)
+) (* end of [g1int_nmod2] *)
 
+(* ****** ****** *)
+//
 fun{tk:tk}
 nmod_g1int_int1
-  {i,j:int | i >= 0; j > 0} (x: g1int (tk, i), y: int (j)):<> natLt (j)
-
+  {i,j:int | i >= 0; j > 0}
+  (x: g1int (tk, i), y: int (j)):<> int(i%j)
+//
+fun{tk:tk}
+nmod2_g1int_int1
+  {i,j:int | i >= 0; j > 0}
+(
+  x: g1int (tk, i), y: int (j)
+) :<> [q,r:nat | r < j] (DIVMOD (i, j, q, r) | int (r))
+//
 (* ****** ****** *)
 
 overload nmod with g1int_nmod of 20

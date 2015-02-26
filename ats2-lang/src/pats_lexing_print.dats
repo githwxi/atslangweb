@@ -180,6 +180,8 @@ fprint_token
 //
   | T_DLRVCOPYENV (x) => fprintf (out, "DLRVCOPYENV(%i)", @(x))
 //
+  | T_DLRTEMPENVER () => fprintf (out, "DLRTEMPENVER()", @())
+//
   | T_SRPASSERT () => fprintf (out, "SRPASSERT()", @())
   | T_SRPDEFINE () => fprintf (out, "SRPDEFINE()", @())
   | T_SRPELIF () => fprintf (out, "SRPELIF()", @())

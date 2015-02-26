@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/sys/CATS/CODEGEN/time.atxt
-** Time of generation: Fri Jan 17 21:02:33 2014
+** Time of generation: Fri Dec 19 13:34:40 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_SYS_TIME_CATS
-#define ATSLIB_LIBC_SYS_TIME_CATS
+#ifndef ATSLIB_LIBC_SYS_CATS_TIME
+#define ATSLIB_LIBC_SYS_CATS_TIME
 
 /* ****** ****** */
 
@@ -80,7 +80,7 @@ typedef struct itimerval ats_itimerval_type ;
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_SYS_TIME_CATS
+#endif // ifndef ATSLIB_LIBC_SYS_CATS_TIME
 
 /* ****** ****** */
 

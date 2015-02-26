@@ -203,10 +203,6 @@ overload fprint with fprint_s3itmlstlst
 //
 (* ****** ****** *)
 
-fun jsonize_c3nstr (c3t: c3nstr): jsonval
-
-(* ****** ****** *)
-
 fun s2exp_Var_make_srt (loc: loc_t, s2t: s2rt): s2exp
 fun s2exp_Var_make_var (loc: loc_t, s2v: s2var): s2exp
 
@@ -612,11 +608,11 @@ fun pfobj_search_atview (s2l0: s2exp): pfobjopt
 //
 (* ****** ****** *)
 
-fun trans3_env_initialize (): void
+fun the_trans3_env_initialize (): void
 
 (* ****** ****** *)
 
-fun trans3_finget_constraint (): c3nstr
+fun the_trans3_finget_constraint (): c3nstr
 
 (* ****** ****** *)
 

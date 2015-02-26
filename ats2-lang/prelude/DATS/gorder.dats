@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gorder.atxt
-** Time of generation: Fri Sep 26 22:20:58 2014
+** Time of generation: Tue Jan 13 00:14:07 2015
 *)
 
 (* ****** ****** *)
@@ -105,12 +105,21 @@ gmin_val (x, y) = if glte_val (x, y) then x else y
 
 (* ****** ****** *)
 
-#include "prelude/DATS/gorder_int.dats"
-#include "prelude/DATS/gorder_uint.dats"
-#include "prelude/DATS/gorder_bool.dats"
-#include "prelude/DATS/gorder_char.dats"
-#include "prelude/DATS/gorder_float.dats"
-#include "prelude/DATS/gorder_string.dats"
+#include "./SHARE/gorder_int.dats"
+#include "./SHARE/gorder_uint.dats"
+
+(* ****** ****** *)
+
+#include "./SHARE/gorder_bool.dats"
+#include "./SHARE/gorder_char.dats"
+
+(* ****** ****** *)
+
+#include "./SHARE/gorder_float.dats"
+
+(* ****** ****** *)
+
+#include "./SHARE/gorder_string.dats"
 
 (* ****** ****** *)
 

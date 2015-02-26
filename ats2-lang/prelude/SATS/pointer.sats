@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Fri Sep 26 22:20:42 2014
+** Time of generation: Sun Jan 11 02:58:59 2015
 *)
 
 (* ****** ****** *)
@@ -44,17 +44,24 @@
 sortdef tk = tkind
 
 (* ****** ****** *)
-
-sortdef t0p = t@ype and vt0p = viewt@ype
-
+//
+sortdef
+t0p = t@ype and vt0p = viewt@ype
+//
 (* ****** ****** *)
 
 stadef ptrknd = ptr_kind
 
 (* ****** ****** *)
+
+absprop is_word_aligned_p (l:addr)
+
+(* ****** ****** *)
 //
-castfn g0ofg1_ptr (p: Ptr):<> ptr
-castfn g1ofg0_ptr (p: ptr):<> Ptr0
+castfn
+g0ofg1_ptr (p: Ptr):<> ptr
+castfn
+g1ofg0_ptr (p: ptr):<> Ptr0
 //
 overload g0ofg1 with g0ofg1_ptr
 overload g1ofg0 with g1ofg0_ptr
@@ -62,12 +69,14 @@ overload g1ofg0 with g1ofg0_ptr
 (* ****** ****** *)
 //
 prfun
-lemma_ptr_param {l:addr} (p: ptr l): [l >= null] void
+lemma_ptr_param
+  {l:addr} (p: ptr l): [l >= null] void
 //
 (* ****** ****** *)
 
-prfun ptr_get_index
-  {l1:addr} (p: ptr l1): [l2:addr] EQADDR (l1, l2)
+prfun
+ptr_get_index
+  {l1:addr} (p: ptr l1): [l2:addr] EQADDR(l1, l2)
 // end of [ptr_get_index]
 
 (* ****** ****** *)
@@ -409,9 +418,6 @@ fun cptr_is_null
 fun cptr_isnot_null
   {a:vt0p}{l:addr} (p: cptr (a, l)):<> bool (l > null) = "mac#%"
 //
-overload iseqz with cptr_is_null
-overload isneqz with cptr_isnot_null
-//
 (* ****** ****** *)
 
 typedef voidptr (l:addr) = cptr (void, l)
@@ -472,7 +478,7 @@ castfn ptrlin2ptr{l:addr} (p: ptrlin l):<> ptr (l)
 // HX-2014-05-16:
 // A hack to stop buggy compilation
 //
-fun ptr_volatile (p: ptr): void
+fun ptr_as_volatile (p: ptr): void
 //
 (* ****** ****** *)
 //

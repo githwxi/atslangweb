@@ -156,14 +156,18 @@ parerr_node =
   | PE_guad0ecl
   | PE_staloadarg
 //
-  | PE_filename of ()
+  | PE_fname_unclosed of ()
 //
   | PE_DISCARD of ()
+(*
+  | PE_FILENONE of string
+*)
 // end of [parerr_node]
 
 typedef
 parerr = '{
-  parerr_loc= location, parerr_node= parerr_node
+  parerr_loc= location
+, parerr_node= parerr_node
 } // end of [parerr]
 
 fun parerr_make (
@@ -200,12 +204,12 @@ tokbuf_set_ntok_null{a:type}(buf: &tokbuf, n0: uint): (a)
 
 typedef
 parser (a:type) =
-  (&tokbuf, int(*bt*), &int(*err*)) -> a
+  (&tokbuf(*>> _*), int(*bt*), &int(*err*)) -> a
 // end of [parser]
 
 typedef
 parser_tok (a:type) =
-  (&tokbuf, int(*bt*), &int(*err*), token) -> a
+  (&tokbuf(*>> _*), int(*bt*), &int(*err*), token) -> a
 // end of [parser_tok]
 
 (* ****** ****** *)
@@ -404,47 +408,56 @@ pstar_COMMA_fun
 // HX: fun1_sep: fun sep_fun
 // HX: fun0_sep: /*empty*/ | fun1_sep
 *)
-fun pstar_fun0_sep
+fun
+pstar_fun0_sep
   {a:type} (
   buf: &tokbuf, bt: int, f: parser (a), sep: (&tokbuf) -> bool
 ) : List_vt (a) // end of [pstar_fun0_sep]
 
-fun pstar_fun0_BAR
+fun
+pstar_fun0_BAR
   {a:type} (
   buf: &tokbuf, bt: int, f: parser (a)
 ) : List_vt (a) // end of [pstar_fun0_BAR]
 
-fun pstar_fun0_COMMA
+fun
+pstar_fun0_COMMA
   {a:type} (
   buf: &tokbuf, bt: int, f: parser (a)
 ) : List_vt (a) // end of [pstar_fun0_COMMA]
 
-fun pstar_fun0_SEMICOLON
+fun
+pstar_fun0_SEMICOLON
   {a:type} (
   buf: &tokbuf, bt: int, f: parser (a)
 ) : List_vt (a) // end of [pstar_fun0_SEMICOLON]
 
-fun pstar_fun0_BARSEMI
+fun
+pstar_fun0_BARSEMI
   {a:type} (
   buf: &tokbuf, bt: int, f: parser (a)
 ) : List_vt (a) // end of [pstar_fun0_BARSEMI]
 
 (* ****** ****** *)
 
-fun pstar_fun1_sep
+fun
+pstar_fun1_sep
   {a:type} (
   buf: &tokbuf
-, bt: int, err: &int, f: parser (a), sep: (&tokbuf) -> bool
+, bt: int, err: &int
+, f: parser (a), sep: (&tokbuf) -> bool
 ) : List_vt (a) // end of [pstar_fun1_sep]
 
-fun pstar_fun1_AND
+fun
+pstar_fun1_AND
   {a:type} (
   buf: &tokbuf, bt: int, err: &int, f: parser (a)
 ) : List_vt (a) // end of [pstar_fun1_AND]
 
 (* ****** ****** *)
 
-fun pstar1_fun
+fun
+pstar1_fun
   {a:type} (
   buf: &tokbuf, bt: int, err: &int, f: parser (a)
 ) : List_vt (a) // end of [pplus_fun]

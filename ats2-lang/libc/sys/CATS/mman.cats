@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/sys/CATS/CODEGEN/mman.atxt
-** Time of generation: Fri Jan 17 21:02:32 2014
+** Time of generation: Fri Dec 19 13:34:39 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_SYS_MMAN_CATS
-#define ATSLIB_LIBC_SYS_MMAN_CATS
+#ifndef ATSLIB_LIBC_SYS_CATS_MMAN
+#define ATSLIB_LIBC_SYS_CATS_MMAN
 
 /* ****** ****** */
 //
@@ -60,7 +60,7 @@
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_SYS_MMAN_CATS
+#endif // ifndef ATSLIB_LIBC_SYS_CATS_MMAN
 
 /* ****** ****** */
 

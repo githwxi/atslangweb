@@ -1,6 +1,152 @@
+0.1.9
+
+This is the 18th release of ATS2, the successor of the ATS
+programming language. The compiler for ATS2 is given the name
+ATS/Positats, ATS2/Postiats or simply Postiats.
+
+The official website for ATS is:
+
+http://www.ats-lang.org
+
+ATS-Postiats is hosted at github:
+
+https://github.com/githwxi/ATS-Postiats
+
+Major releases of ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang/
+
+Major releases of external packages for ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang-contrib/
+
+Here is a list of major additions and changes since the last release:
+
+1. Circumventing a Clang-3.5-O2 related bug that caused the generated
+   patsopt to crash immediately. For more, please visit:
+   https://groups.google.com/forum/#!topic/ats-lang-users/FSgjjkUURs4
+2. Fixing a bug in pats_tyerase:s2zexp_tyer:
+   https://groups.google.com/forum/#!topic/ats-lang-users/SGpN2D991tA
+   https://github.com/githwxi/ATS-Postiats/blob/master/doc/BUGS/bug-2015-01-25.dats
+3. Improving pats_trans2_p1at:p1at_tr_arg. See:
+   ATS-Postiats-test/contrib/test-hwxi/test03.dats
+4. Improving the formatting of INT2PROGINATS and ATS2TUTORIAL
+5. Having $showtype to also print out the sort information
+6. Adding API for sdstring (simple dynamic strings) in ATS2-contrib
+7. Adding $UN.prop_assert for asserting any proposition one needs
+8. Adding flags -h/--help for patscc to print out usage information
+9. Handling D2Coverload during the jsonization of level-2 syntax
+10. Reporting a compilation error if HDEsif is encountered
+
+######
+
+0.1.8
+
+This is the 17th release of ATS2, the successor of the ATS
+programming language. The compiler for ATS2 is given the name
+ATS/Positats, ATS2/Postiats or simply Postiats.
+
+From this version on, the compiler (patsopt) built based on
+the released package of ATS2 no longer runs GC when it compiles
+ATS source code. Please use ATS2-github if you want to customize
+various settings of patsopt (including GC and constraint-solving).
+
+######
+
+0.1.7
+
+This is the 16th release of ATS2, the successor of the ATS
+programming language. The compiler for ATS2 is given the name
+ATS/Positats, ATS2/Postiats or simply Postiats.
+
+The official website for ATS is:
+
+http://www.ats-lang.org
+
+ATS-Postiats is hosted at github:
+
+https://github.com/githwxi/ATS-Postiats
+
+Major releases of ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang/
+
+Major releases of external packages for ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang-contrib/
+
+Here is a list of major additions and changes since the last release:
+
+1. Improving some error-handling code.
+2. Fixing bug-2015-01-07.
+   One can use $tempenver to explicitly declare that a dynamic
+   variable should be added to the environment of each template instance
+   within the scope of $tempenver-declaration.
+   A running example using this feature is available at
+   https://github.com/githwxi/ATS-Postiats/blob/master/doc/BUGS/bug-2015-01-07.dats
+3. Adding ATS2TUTORIAL/CHAP_RECURSION
+4. Adding ATS2TUTORIAL/CHAP_DATATYPES
+5. Fixing bug-2015-01-10:
+   [pfobj_search_atview] is now stopped by either [lam] or [llam]
+6. Fixing various issues with multi-file compliation via patsopt
+7. Adding INT2PROGINATS/CHAP_ABSVTYPE/LockingAndUnlocking
+8. Bootstrapping via the newly released package ATS1-0.2.12
+9. Adding INT2PROGINATS/CHAP_ABSVTYPE/LinearChannelsForIPC
+
+######
+
+0.1.6
+
+This is the 15th release of ATS2, the successor of the ATS
+programming language. The compiler for ATS2 is given the name
+ATS/Positats, ATS2/Postiats or simply Postiats.
+
+The official website for ATS is:
+
+http://www.ats-lang.org
+
+ATS-Postiats is hosted at github:
+
+https://github.com/githwxi/ATS-Postiats
+
+Major releases of ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang/
+
+Major releases of external packages for ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang-contrib/
+
+Here is a list of major additions and changes since the last release:
+
+1. Reorganizing ATSLIB/prelude
+2. Improving ATS2-contrib/zeromq
+3. Adding src/Makefile_CBOOTmin for minimally C-bootstrapping ATS2:
+   There is no GCATS by default
+   There is no dependency on libgmp
+4. Code for level-2 jsonization is moved into
+   pats_synent2_jsonize.sats
+   pats_synent2_jsonize.dats
+5. Adding various functions for traversing level-2 syntax See:
+   pats_staexp2_appenv.hats
+   pats_dynexp2_appenv.hats
+   pats_constraint3_appenv.hats
+6. Using a more compact format for representing exported constraints
+7. Using a more compact format for representing JSONized level-2 syntax
+8. Overhauling the build process for ATS1
+9. Supporting NGC-bootstrapping (via ats-lang-anairiats-0.2.11-fin)
+10. Automated testing (via Travis-CI) is substantially extended.
+11. Building ATS2 on MACOSX (via ATS1-ngc) is formally documented
+12. Adding support for bit vectors: libats/bitvec
+13. Fixing bug-2015-01-03 (see doc/BUGS), which caused an error in
+    compiling certain singular flat records.
+14: Generally improving some error-handling code.
+
+######
+
 0.1.5
 
-This is the 13th release of ATS2, the successor of the ATS
+This is the 14th release of ATS2, the successor of the ATS
 programming language. The compiler for ATS2 is given the name
 ATS/Positats, ATS2/Postiats or simply Postiats.
 
@@ -24,13 +170,25 @@ Here is a list of major additions and changes since the last release:
 
 1. Supporting %(...) in macro definitions
    #define N 10
-   #define N2 N + 1 // it is the same as: #define N1 11
-   #define N2 N * N1 // it is the same as: #define N2 110
+   #define N2 %(N + 1) // it is the same as: #define N1 11
+   #define N2 %(N * N1) // it is the same as: #define N2 110
 2. Issuing an error message if the size of a stack-allocated array
    cannot be determined at compile-time.
 3. Fixing bug-2014-10-29 (see doc/BUGS), which caused an error in
    compiling embedded function templates.
 4. Improving ats2langweb/Implements.html
+5. Fixing bug-2014-11-14 (see doc/BUGS), which caused an error in
+   compiling mutually tail-recursive functions
+6. Fixing bug-2014-11-14-2 (see doc/BUGS), which caused an error in
+   compiling inner functions defined inside mutually tail-recursive
+   functions
+7. Improving the implementation of ATSLIB/prelude/list_vt_mergesort
+8. Supporting compilation from ATS to Perl: atscc2pl
+9. Issuing the special comment #LINCONSTATUS==i to show the kind of
+   an allocated constructor:
+   i=0 => linear data constructor
+   i=1 => nonlinear data constructor
+   i=2 => nonlinear tuple constructor
 
 ######
 
@@ -38,7 +196,7 @@ Here is a list of major additions and changes since the last release:
 
 <pre>
 
-This is the 12th release of ATS2, the successor of the ATS
+This is the 13th release of ATS2, the successor of the ATS
 programming language. The compiler for ATS2 is given the name
 ATS/Positats, ATS2/Postiats or simply Postiats.
 

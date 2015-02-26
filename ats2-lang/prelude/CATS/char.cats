@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Tue Oct 28 01:40:32 2014
+** Time of generation: Sat Feb 14 12:41:26 2015
 */
 
 /* ****** ****** */
@@ -52,7 +52,8 @@
 
 /* ****** ****** */
 
-#if(0)
+#ifdef __CYGWIN__
+//
 #ifndef isascii
 extern int isascii (int c) ; // _XOPEN_SOURCE
 #endif // end of [isascii]
@@ -64,79 +65,90 @@ extern int isblank (int c) ; // _XOPEN_SOURCE >= 600
 #ifndef toascii
 extern int toascii (int c) ; // _XOPEN_SOURCE
 #endif // end of [toascii]
-#endif // end of [ #if(0) ]
+//
+#endif // end of [#ifdef(__CYGWIN__)]
 
 /* ****** ****** */
 
 #ifndef fprintf
 extern
-int fprintf (FILE *stream, const char *format, ...) ;
+int
+fprintf(FILE *stream, const char *format, ...) ;
 #endif // end of [ifndef]
 
 /* ****** ****** */
-
+//
 ATSinline()
 atstype_char
-atspre_int2char (atstype_int i) { return ((atstype_char)i) ; }
-#define atspre_int2char0 atspre_int2char
-
+atspre_int2char
+  (atstype_int i) { return ((atstype_char)i) ; }
 ATSinline()
 atstype_schar
-atspre_int2schar (atstype_int i) { return ((atstype_schar)i) ; }
-#define atspre_int2schar0 atspre_int2schar
-
+atspre_int2schar
+  (atstype_int i) { return ((atstype_schar)i) ; }
 ATSinline()
 atstype_uchar
-atspre_int2uchar (atstype_int i) { return ((atstype_uchar)i) ; }
+atspre_int2uchar
+  (atstype_int i) { return ((atstype_uchar)i) ; }
+//
+#define atspre_int2char0 atspre_int2char
+#define atspre_int2schar0 atspre_int2schar
 #define atspre_int2uchar0 atspre_int2uchar
-
+//
 /* ****** ****** */
-
+//
 ATSinline()
 atstype_int
-atspre_char2int (atstype_char c) { return ((atstype_int)c) ; }
+atspre_char2int
+  (atstype_char c) { return ((atstype_int)c) ; }
+ATSinline()
+atstype_int
+atspre_schar2int
+  (atstype_schar c) { return ((atstype_int)c) ; }
+ATSinline()
+atstype_int
+atspre_uchar2int
+  (atstype_uchar c) { return ((atstype_int)c) ; }
+//
 #define atspre_char2int0 atspre_char2int
-
-ATSinline()
-atstype_int
-atspre_schar2int (atstype_schar c) { return ((atstype_int)c) ; }
 #define atspre_schar2int0 atspre_schar2int
-
-ATSinline()
-atstype_int
-atspre_uchar2int (atstype_uchar c) { return ((atstype_int)c) ; }
 #define atspre_uchar2int0 atspre_uchar2int
-
+//
 /* ****** ****** */
-
+//
 ATSinline()
 atstype_uint
-atspre_char2uint (atstype_char c) { return ((atstype_uint)c) ; }
+atspre_char2uint
+  (atstype_char c) { return ((atstype_uint)c) ; }
+ATSinline()
+atstype_uint
+atspre_schar2uint
+  (atstype_schar c) { return ((atstype_uint)c) ; }
+ATSinline()
+atstype_uint
+atspre_uchar2uint
+  (atstype_uchar c) { return ((atstype_uint)c) ; }
+//
 #define atspre_char2uint0 atspre_char2uint
-
-ATSinline()
-atstype_uint
-atspre_schar2uint (atstype_schar c) { return ((atstype_uint)c) ; }
 #define atspre_schar2uint0 atspre_schar2uint
-
-ATSinline()
-atstype_uint
-atspre_uchar2uint (atstype_uchar c) { return ((atstype_uint)c) ; }
 #define atspre_uchar2uint0 atspre_uchar2uint
-
+//
 /* ****** ****** */
-
+//
 ATSinline()
 atstype_int
 atspre_char2u2int
-  (atstype_char c) { return ((atstype_int)((atstype_uchar)c)) ; }
-#define atspre_char2u2int0 atspre_char2u2int
+  (atstype_char c)
+  { return ((atstype_int)((atstype_uchar)c)) ; }
 ATSinline()
 atstype_uint
 atspre_char2u2uint
-  (atstype_char c) { return ((atstype_uint)((atstype_uchar)c)) ; }
+  (atstype_char c)
+  { return ((atstype_uint)((atstype_uchar)c)) ; }
+//
+#define atspre_char2u2int0 atspre_char2u2int
 #define atspre_char2u2uint0 atspre_char2u2uint
-
+//
 /* ****** ****** */
 
 ATSinline()
@@ -160,32 +172,38 @@ atspre_char_isneqz
 #define atspre_char1_isneqz(c) atspre_char_isneqz(c) 
 
 /* ****** ****** */
-
+//
 ATSinline()
 atstype_char
 atspre_add_char_int
-  (atstype_char c1, atstype_int i2) { return (c1 + i2) ; }
-// end of [atspre_add_char_int]
+(
+  atstype_char c1, atstype_int i2
+) { return (c1 + i2) ; }
+//
 #define atspre_add_char0_int0 atspre_add_char_int
-
+//
 /* ****** ****** */
-
+//
 ATSinline()
 atstype_char
 atspre_sub_char_int
-  (atstype_char c1, atstype_int i2) { return (c1 - i2) ; }
-// end of [atspre_sub_char_int]
+(
+  atstype_char c1, atstype_int i2
+) { return (c1 - i2) ; }
+//
 #define atspre_sub_char0_int0 atspre_sub_char_int
-
+//
 /* ****** ****** */
-
+//
 ATSinline()
 atstype_int
 atspre_sub_char_char
-  (atstype_char c1, atstype_char c2) { return (c1 - c2) ; }
-// end of [sub_char0_char0]
+(
+  atstype_char c1, atstype_char c2
+) { return (c1 - c2) ; }
+//
 #define atspre_sub_char0_char0 atspre_sub_char_char
-
+//
 /* ****** ****** */
 
 ATSinline()
@@ -524,6 +542,29 @@ atspre_int2xxdigit
   (atstype_int i) {
   return (i < 10) ? ('0' + i) : ('A' + (i - 10)) ;
 } // end of [atspre_int2xxdigit]
+
+/* ****** ****** */
+
+ATSinline()
+atstype_int
+atspre_byte2int (atstype_byte b) { return ((atstype_int)b) ; }
+ATSinline()
+atstype_byte
+atspre_int2byte (atstype_int i) { return ((atstype_byte)i) ; }
+
+ATSinline()
+atstype_uint
+atspre_byte2uint (atstype_byte b) { return ((atstype_uint)b) ; }
+ATSinline()
+atstype_byte
+atspre_uint2byte (atstype_uint u) { return ((atstype_byte)u) ; }
+
+/* ****** ****** */
+
+#define atspre_byte2int0 atspre_byte2int
+#define atspre_int2byte0 atspre_int2byte
+#define atspre_byte2uint0 atspre_byte2uint
+#define atspre_uint2byte0 atspre_uint2byte
 
 /* ****** ****** */
 

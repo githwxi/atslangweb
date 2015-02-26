@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Fri Sep 26 22:20:50 2014
+** Time of generation: Sun Jan 11 02:59:07 2015
 *)
 
 (* ****** ****** *)
@@ -202,6 +202,17 @@ a:vt0p}{tk:tk
 symintr array_exch_at
 overload array_exch_at with array_exch_at_gint of 0
 overload array_exch_at with array_exch_at_guint of 0
+
+(* ****** ****** *)
+
+fun{a:vt0p}
+array_subreverse
+ {n:int}
+ {i,j:int |
+  0 <= i; i <= j; j <= n}
+(
+  A: &(@[INV(a)][n]), i: size_t (i), j: size_t (j)
+) :<!wrt> void // end of [array_subreverse]
 
 (* ****** ****** *)
 

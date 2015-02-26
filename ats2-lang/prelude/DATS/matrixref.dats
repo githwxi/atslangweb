@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixref.atxt
-** Time of generation: Fri Sep 26 22:21:06 2014
+** Time of generation: Tue Jan 13 00:14:13 2015
 *)
 
 (* ****** ****** *)
@@ -150,8 +150,9 @@ end // end of [matrixref_copy]
 implement{a}
 matrixref_tabulate
   (nrow, ncol) =
+(
   matrixptr_refize (matrixptr_tabulate<a> (nrow, ncol))
-// end of [matrixref_tabulate]
+) (* end of [matrixref_tabulate] *)
 
 implement{a}
 matrixref_tabulate_cloref
@@ -164,8 +165,11 @@ matrixref_tabulate_cloref
 implement{a}
 matrixref_foreach
   (A, m, n) = let
-  var env: void = ()
-  in matrixref_foreach_env<a><void> (A, m, n, env)
+//
+var env: void = ()
+//
+in
+  matrixref_foreach_env<a><void> (A, m, n, env)
 end // end of [matrixref_foreach]
 
 implement
@@ -180,22 +184,21 @@ end // end of [matrixref_foreach_env]
 (* ****** ****** *)
 
 local
-
+//
 datatype
 mtrxszref
 (
   a:viewt@ype
 ) =
-  {m,n:int}
-  MTRXSZREF of
-  (
-    matrixref (a, m, n), size_t (m), size_t (n)
-  )
-// end of [mtrxszref]
-
-assume
-mtrxszref_vt0ype_type = mtrxszref
-
+{m,n:int}
+MTRXSZREF of
+(
+  matrixref(a, m, n)
+, size_t(m), size_t(n)
+) // end of [mtrxszref]
+//
+assume mtrxszref_vt0ype_type = mtrxszref
+//
 in (* in of [local] *)
 
 implement{}
@@ -229,6 +232,7 @@ mtrxszref_get_refsize
    (MSZ, nrow_r, ncol_r) = let
 //
 val+MTRXSZREF (M, nrow, ncol) = MSZ
+//
 prval ((*void*)) = lemma_matrixref_param (M)
 //
 in
@@ -242,9 +246,12 @@ end // end of [local]
 implement{a}
 mtrxszref_make_elt
   (nrow, ncol, x) = let
-  val nrow = g1ofg0_uint (nrow)
-  val ncol = g1ofg0_uint (ncol)
-  val M = matrixref_make_elt<a> (nrow, ncol, x)
+//
+val nrow = g1ofg0_uint (nrow)
+val ncol = g1ofg0_uint (ncol)
+val M =
+  matrixref_make_elt<a> (nrow, ncol, x)
+//
 in
   mtrxszref_make_matrixref (M, nrow, ncol)
 end // end of [mtrxszref_make_elt]
@@ -254,15 +261,23 @@ end // end of [mtrxszref_make_elt]
 implement{a}
 mtrxszref_get_at_int
   (MSZ, i, j) = let
-  val i = g1ofg0_int(i)
-  and j = g1ofg0_int(j)
+//
+val i = g1ofg0_int(i)
+and j = g1ofg0_int(j)
+//
 in
 //
-if i >= 0 then
-if j >= 0 then
-  mtrxszref_get_at_size (MSZ, i2sz(i), i2sz(j))
-else $raise MatrixSubscriptExn((* j < 0 *))
-else $raise MatrixSubscriptExn((* i < 0 *))
+if
+i >= 0
+then (
+//
+if
+j >= 0
+then (
+  mtrxszref_get_at_size(MSZ,i2sz(i),i2sz(j))
+) else $raise MatrixSubscriptExn((* j < 0 *))
+//
+) else $raise MatrixSubscriptExn((* i < 0 *))
 //
 end // end of [mtrxszref_get_at_gint]
 
@@ -272,19 +287,27 @@ mtrxszref_get_at_size
 //
 var nrow: size_t
 and ncol: size_t
-val M = $effmask_wrt
-(
+//
+val M =
+$effmask_wrt (
   mtrxszref_get_refsize (MSZ, nrow, ncol)
-)
+) (* end of [val] *)
+//
 val i = g1ofg0_uint(i)
 and j = g1ofg0_uint(j)
 //
 in
 //
-if nrow > i then (
-  if ncol > j then
-    matrixref_get_at_size (M, i, ncol, j)
-  else $raise MatrixSubscriptExn((*void*))
+if
+nrow > i
+then (
+//
+if
+ncol > j
+then (
+  matrixref_get_at_size (M, i, ncol, j)
+) else $raise MatrixSubscriptExn((*void*))
+//
 ) else $raise MatrixSubscriptExn((*void*))
 //
 end // end of [mtrxszref_get_at_size]
@@ -294,15 +317,23 @@ end // end of [mtrxszref_get_at_size]
 implement{a}
 mtrxszref_set_at_int
   (MSZ, i, j, x) = let
-  val i = g1ofg0_int(i)
-  and j = g1ofg0_int(j)
+//
+val i = g1ofg0_int(i)
+and j = g1ofg0_int(j)
+//
 in
 //
-if i >= 0 then
-if j >= 0 then
-  mtrxszref_set_at_size (MSZ, i2sz(i), i2sz(j), x)
-else $raise MatrixSubscriptExn((* j < 0 *))
-else $raise MatrixSubscriptExn((* i < 0 *))
+if
+i >= 0
+then (
+//
+if
+j >= 0
+then (
+  mtrxszref_set_at_size(MSZ,i2sz(i),i2sz(j),x)
+) else $raise MatrixSubscriptExn( (* j < 0 *) )
+//
+) else $raise MatrixSubscriptExn( (* i < 0 *) )
 //
 end // end of [mtrxszref_set_at_int]
 
@@ -312,19 +343,27 @@ mtrxszref_set_at_size
 //
 var nrow: size_t
 and ncol: size_t
+//
 val M =
 (
   mtrxszref_get_refsize (MSZ, nrow, ncol)
-)
+) (* end of [val] *)
+//
 val i = g1ofg0_uint (i)
 and j = g1ofg0_uint (j)
 //
 in
 //
-if nrow > i then (
-  if ncol > j then
-    matrixref_set_at_size (M, i, ncol, j, x)
-  else $raise MatrixSubscriptExn((*void*))
+if
+nrow > i
+then (
+//
+if
+ncol > j
+then (
+  matrixref_set_at_size(M, i, ncol, j, x)
+) else $raise MatrixSubscriptExn((*void*))
+//
 ) else $raise MatrixSubscriptExn((*void*))
 //
 end // end of [mtrxszref_set_at_size]
@@ -337,10 +376,11 @@ fprint_mtrxszref
 //
 var nrow: size_t
 and ncol: size_t
-val A = mtrxszref_get_refsize (MSZ, nrow, ncol)
+val A =
+  mtrxszref_get_refsize (MSZ, nrow, ncol)
 //
 in
-  fprint_matrixref (out, A, nrow, ncol)
+  fprint_matrixref<a> (out, A, nrow, ncol)
 end // end of [fprint_mtrxszref]
 
 implement{a}
@@ -349,10 +389,11 @@ fprint_mtrxszref_sep
 //
 var nrow: size_t
 and ncol: size_t
-val A = mtrxszref_get_refsize (MSZ, nrow, ncol)
+val A =
+  mtrxszref_get_refsize (MSZ, nrow, ncol)
 //
 in
-  fprint_matrixref_sep (out, A, nrow, ncol, sep1, sep2)
+  fprint_matrixref_sep<a> (out, A, nrow, ncol, sep1, sep2)
 end // end of [fprint_mtrxszref_sep]
 
 (* ****** ****** *)
@@ -360,11 +401,12 @@ end // end of [fprint_mtrxszref_sep]
 implement{a}
 mtrxszref_tabulate
   (nrow, ncol) = let
-  val nrow = g1ofg0_uint (nrow)
-  val ncol = g1ofg0_uint (ncol)
-  val M =
-    matrixref_tabulate<a> (nrow, ncol)
-  // end of [val]
+//
+val nrow = g1ofg0_uint (nrow)
+val ncol = g1ofg0_uint (ncol)
+val M =
+  matrixref_tabulate<a> (nrow, ncol)
+//
 in 
   mtrxszref_make_matrixref (M, nrow, ncol)
 end // end of [mtrxszref_tabulate]
@@ -373,12 +415,20 @@ end // end of [mtrxszref_tabulate]
 
 implement{a}
 mtrxszref_tabulate_cloref
-  (nrow, ncol, f) = let
-  val M =
-    matrixref_tabulate_cloref<a> (nrow, ncol, f)
-  // end of [val]
-in 
-  mtrxszref_make_matrixref (M, nrow, ncol)
+(
+  nrow, ncol, fclo
+) = let
+//
+val M =
+matrixref_tabulate_cloref<a>
+(
+  nrow, ncol, fclo
+) (* end of [val] *)
+//
+in
+//
+mtrxszref_make_matrixref (M, nrow, ncol)
+//
 end // end of [mtrxszref_tabulate_cloref]
 
 (* ****** ****** *)

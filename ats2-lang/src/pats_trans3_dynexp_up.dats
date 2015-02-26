@@ -138,6 +138,11 @@ fun d2exp_trup_vcopyenv (d2e0: d2exp): d3exp
 (* ****** ****** *)
 
 extern
+fun d2exp_trup_tempenver (d2e0: d2exp): d3exp
+
+(* ****** ****** *)
+
+extern
 fun
 d2exp_trup_arg_body
 (
@@ -455,10 +460,12 @@ case+ d2e0.d2exp_node of
     (d2e) => d3e where
   {
     val d3e = d2exp_trup (d2e)
-    val () = fshowtype_d3exp (d3e)
+    val () = fshowtype_d3exp_up (d3e)
   } (* end of [D2Eshowtype] *)
 //
 | D2Evcopyenv _ => d2exp_trup_vcopyenv (d2e0)
+//
+| D2Etempenver _ => d2exp_trup_tempenver (d2e0)
 //
 | D2Elam_dyn _ => d2exp_trup_lam_dyn (d2e0)
 | D2Elaminit_dyn _ => d2exp_trup_laminit_dyn (d2e0)
@@ -740,7 +747,9 @@ d2exp_trup_var_mutabl
   val s2e_sel = s2addr_deref (loc0, s2l, list_nil, s2rt)
 in
   d3exp_var (loc0, s2e_sel, d2v)
-end // end of [d2exp_trup_var_mut]
+end // end of [d2exp_trup_var_mutabl]
+
+(* ****** ****** *)
 
 implement
 d2exp_trup_var_nonmut
@@ -759,7 +768,9 @@ val s2qs = d2var_get_decarg (d2v)
 val s2e0 = d2var_get_type_some (loc0, d2v)
 //
 val () =
-if lin >= 0 then let
+if (
+lin >= 0
+) then let
   val isllamlocal =
     the_d2varenv_d2var_is_llamlocal (d2v)
   // end of [val]
@@ -1603,6 +1614,19 @@ end // end of [d2exp_trup_vcopyenv]
 (* ****** ****** *)
 
 implement
+d2exp_trup_tempenver
+  (d2e0) = let
+//
+val loc0 = d2e0.d2exp_loc
+val-D2Etempenver(d2vs) = d2e0.d2exp_node
+//
+in
+  d3exp_tempenver (loc0, s2exp_void_t0ype(), d2vs)
+end // end of [d2exp_trup_tempenver]
+
+(* ****** ****** *)
+
+implement
 funarg_patck_exhaust
 (
   loc0, p2ts_arg, s2es_arg
@@ -1669,7 +1693,7 @@ val p3ts_arg = p2atlst_trup_arg (npf, p2ts_arg)
 //
 val (pfd2v | ()) = the_d2varenv_push_lam (lin)
 val () = the_d2varenv_add_p3atlst (p3ts_arg)
-val (pfman | ()) = the_pfmanenv_push_lam (lin) // lin:0/1:stopping/continuing search
+val (pfman | ()) = the_pfmanenv_push_lam (lin) // lin:0/1:stopping/continue
 val () = the_pfmanenv_add_p3atlst (p3ts_arg)
 //
 val (pflamlp | ()) = the_lamlpenv_push_lam (p3ts_arg)
@@ -1958,7 +1982,8 @@ d2exp_trup_trywith
   val d3e = d2exp_trup (d2e)
   val s2e_res = d3exp_get_type (d3e)
 //
-  val (pfpush | ()) = the_d2varenv_push_try ()
+  val (pfd2v | ()) = the_d2varenv_push_try ()
+  val (pfman | ()) = the_pfmanenv_push_try ()
 //
   val s2e_pat =
     s2exp_exception_vtype ()
@@ -1974,7 +1999,8 @@ d2exp_trup_trywith
     loc0, CK_case_neg, r2es, c2ls, d3es, s2es_pat, s2e_res
   ) // end of [val]
 //
-  val () = the_d2varenv_pop (pfpush | (*none*))
+  val ((*void*)) = the_d2varenv_pop (pfd2v | (*none*))
+  val ((*void*)) = the_pfmanenv_pop (pfman | (*none*))
 //
 in
   d3exp_trywith (loc0, d3e, c3ls)

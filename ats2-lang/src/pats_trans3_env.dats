@@ -252,7 +252,8 @@ end // end of [stasub_make_svarlst]
 local
 
 fun
-stasub_s2varlst_instantiate_none (
+stasub_s2varlst_instantiate_none
+(
   sub: &stasub
 , locarg: location, s2vs: s2varlst
 , err: &int // HX: [err] is not used
@@ -276,7 +277,8 @@ case+ s2vs of
 end // end of [stasub_s2varlst_instantiate_none]
 
 fun
-stasub_s2varlst_instantiate_some (
+stasub_s2varlst_instantiate_some
+(
   sub: &stasub
 , locarg: location, s2vs: s2varlst, s2es: s2explst
 , err: &int
@@ -315,7 +317,8 @@ end // end of [auxerr2]
 in
 //
 case+ s2vs of
-| list_cons (s2v, s2vs) => (
+| list_cons
+    (s2v, s2vs) => (
   case+ s2es of
   | list_cons (s2e, s2es) => let
       val s2t1 = s2var_get_srt (s2v)
@@ -354,11 +357,11 @@ case+ s2vs of
   ) // end of [list_nil]
 end // end of [stasub_s2varlst_instantiate_some]
 
-fun stasub_s2varlst_instcollect (
+fun
+stasub_s2varlst_instcollect
+(
   sub: &stasub
-, locarg: location
-, s2vs: s2varlst
-, res: s2explst_vt
+, locarg: location, s2vs: s2varlst, res: s2explst_vt
 ) : s2explst_vt = let
 //
 macdef loop = stasub_s2varlst_instcollect
@@ -384,7 +387,7 @@ case+ s2vs of
 //
 end // end of [stasub_s2varlst_instcollect]
 
-in // in of [local]
+in (* in of [local] *)
 
 implement
 s2exp_exiuni_instantiate_all
@@ -777,14 +780,15 @@ extern
 fun the_s2Varset_env_add (x: s2Var): void
 
 local
-
+//
 vtypedef
-s2Varsetlst_vt = List_vt (s2Varset)
-val s2Varset_nil = s2Varset_make_nil ()
+s2Varsetlst_vt = List_vt(s2Varset)
+//
+val s2Varset_nil = s2Varset_nil ()
 val the_s2Varset = ref_make_elt<s2Varset> (s2Varset_nil)
 val the_s2Varsetlst = ref_make_elt<s2Varsetlst_vt> (list_vt_nil ())
-
-in // in of [local]
+//
+in (* in of [local] *)
 
 implement
 the_s2Varset_env_get () = !the_s2Varset
@@ -857,7 +861,7 @@ viewtypedef s3itmlstlst_vt = List_vt (s3itmlst_vt)
 val the_s3itmlst = ref_make_elt<s3itmlst_vt> (list_vt_nil ())
 val the_s3itmlstlst = ref_make_elt<s3itmlstlst_vt> (list_vt_nil ())
 
-in // in of [local]
+in (* in of [local] *)
 
 implement
 the_s3itmlst_env_push () = let
@@ -1327,30 +1331,59 @@ implement
 trans3_env_hypadd_patcstlst
   (loc0, cp2tcs, s2es_pat) = let
 //
-fun loop (
+fun
+loop
+(
   p2tcs: p2atcstlst_vt, s2es: s2explst, serr: int
 ) :<cloref1> int = let
 in
 //
 case+ p2tcs of
-| ~list_vt_cons (p2tc, p2tcs) => (
-  case+ s2es of
-  | list_cons (s2e, s2es) => let
-      val () = trans3_env_hypadd_patcst (loc0, p2tc, s2e)
-    in
-      loop (p2tcs, s2es, serr)
-    end // end of [list_cons]
-  | list_nil () => loop (p2tcs, s2es, serr + 1)
-  ) // end of [list_cons]
-| ~list_vt_nil () => (
-  case+ s2es of
-  | list_cons (_, s2es) => loop (list_vt_nil, s2es, serr - 1)
-  | list_nil () => serr // the number of accumulated errors
-  ) // end of [list_nil]
+| ~list_vt_nil () =>
+  (
+    case+ s2es of
+    | list_cons (_, s2es) =>
+        loop (list_vt_nil, s2es, serr - 1)
+    | list_nil () => serr // the number of errors
+  ) (* end of [list_nil] *)
+| ~list_vt_cons (p2tc, p2tcs) =>
+  (
+    case+ s2es of
+    | list_cons
+        (s2e, s2es) => let
+        val () =
+          trans3_env_hypadd_patcst (loc0, p2tc, s2e)
+        // end of [val]
+      in
+        loop (p2tcs, s2es, serr)
+      end // end of [list_cons]
+    | list_nil ((*void*)) => loop (p2tcs, s2es, serr + 1)
+  ) (* end of [list_cons] *)
 //
 end // end of [loop]
 //
-val () = assertloc (loop (cp2tcs, s2es_pat, 0) = 0)
+val serr = loop (cp2tcs, s2es_pat, 0)
+//
+val () =
+if
+(serr != 0)
+then let
+//
+val () = prerr_error3_loc (loc0)
+val () =
+  filprerr_ifdebug "trans3_env_hypadd_patcstlst"
+//
+val () = print! (": constructor arity mismatch")
+val () = if serr < 0 then println! (": more arguments are expected")
+val () = if serr > 0 then println! (": fewer arguments are expected")
+//
+in
+  the_trans3errlst_add (T3E_cp2atcstlst_arity (loc0, serr))
+end // end of [then]
+//
+(*
+val ((*void*)) = assertloc (serr = 0)
+*)
 //
 in
   (*nothing*)
@@ -1419,12 +1452,14 @@ end // end of [trans3_env_hypadd_labpatcstlst]
 
 local
 
-fun trans3_env_hypadd_disj
-  (xss: s3itmlstlst): void = (
+fun
+trans3_env_hypadd_disj
+  (xss: s3itmlstlst): void =
+(
   the_s3itmlst_env_add (S3ITMdisj (xss))
 ) // end of [trans3_env_hypadd_disj]
 
-in // in of [local]
+in (* in of [local] *)
 //
 // HX: enforcing sequentiality of pattern match
 //
@@ -1466,9 +1501,10 @@ end // end of [local]
 
 local
 
-assume trans3_env_push_v = unit_v
+assume
+trans3_env_push_v = unit_v
 
-in // in of [local]
+in (* in of [local] *)
 
 implement
 trans3_env_pop
@@ -1639,21 +1675,26 @@ fun auxres
   s2e: s2exp
 ) : ws2elstopt =
 (
-  case+ s2e.s2exp_node of
-  | S2Ewthtype
-      (_, ws2es) => Some_vt (ws2es)
-    // end of [S2Ewthtype]
-  | S2Eexi (_, _, s2e) => auxres (s2e)
-  | _ (*rest*) => None_vt ()
+case+
+s2e.s2exp_node of
+| S2Ewthtype
+    (_, ws2es) => Some_vt (ws2es)
+  // end of [S2Ewthtype]
+| S2Eexi (_, _, s2e) => auxres (s2e)
+| _ (*rest*) => None_vt ()
 ) (* end of [auxres] *)
 
 fun auxarg
 (
-  loc: location, s2es: s2explst, ws2es: wths2explst
+  loc: location
+, s2es: s2explst, ws2es: wths2explst
 ) : s2explst = let
 in
 //
 case+ s2es of
+//
+| list_nil
+    ((*void*)) => list_nil ()
 | list_cons
     (s2e, s2es) => (
   case+ ws2es of
@@ -1676,11 +1717,10 @@ case+ s2es of
       list_cons (s2e, auxarg (loc, s2es, ws2es))
   | WTHS2EXPLSTnil () => list_nil ()
   ) // end of [list_cons]
-| list_nil () => list_nil ()
 //
 end // end of [auxarg]
 
-in // in of [local]
+in (* in of [local] *)
 
 implement
 s2fun_opninv_and_add
@@ -1764,7 +1804,8 @@ d3explst_open_and_add
 (* ****** ****** *)
 
 implement
-trans3_env_initialize () = {
+the_trans3_env_initialize
+  ((*void*)) = {
 //
 val () =
   s2cst_add_sup (s2c1, s2c0) where {
@@ -1814,12 +1855,13 @@ val () =
   val s2c1 = s2cstref_get_cst (the_string_int_type)
 } // end of [val]
 //
-} // end of [trans3_env_initialize]
+} // end of [the_trans3_env_initialize]
 
 (* ****** ****** *)
 
 implement
-trans3_finget_constraint () = let
+the_trans3_finget_constraint
+  ((*void*)) = let
 //
 val s3is = the_s3itmlst_env_pop ()
 val s3is = list_of_list_vt{s3itm}(s3is)
@@ -1834,7 +1876,7 @@ val (
 //
 in
   c3nstr_itmlst ($LOC.location_dummy, C3NSTRKmain, s3is)
-end // end of [c3nstr_get_final]
+end // end of [the_trans3_finget_constraint]
 
 (* ****** ****** *)
 

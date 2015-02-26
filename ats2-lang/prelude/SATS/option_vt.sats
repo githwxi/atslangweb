@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/option_vt.atxt
-** Time of generation: Fri Sep 26 22:20:49 2014
+** Time of generation: Wed Jan 21 12:01:47 2015
 *)
 
 (* ****** ****** *)
@@ -99,6 +99,15 @@ fun{a:vt0p}
 fprint_option_vt{b:bool}
    (out: FILEref, opt: !option_vt (INV(a), b)): void
 overload fprint with fprint_option_vt
+
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+(* ****** ****** *)
+
+overload iseqz with option_vt_is_none
+overload isneqz with option_vt_is_some
 
 (* ****** ****** *)
 

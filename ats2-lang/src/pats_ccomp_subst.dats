@@ -180,7 +180,9 @@ fun tmpvar_set_ret
   (tmp: tmpvar, ret: int): void  = "patsopt_tmpvar_set_ret"
 extern
 fun tmpvar_set_origin
-  (tmp: tmpvar, opt: tmpvaropt): void  = "patsopt_tmpvar_set_origin"
+(
+  tmp: tmpvar, opt: tmpvaropt
+) : void  = "patsopt_tmpvar_set_origin"
 extern
 fun tmpvar_set_suffix
   (tmp: tmpvar, sfx: int): void = "patsopt_tmpvar_set_suffix"
@@ -196,10 +198,10 @@ tmpvar_subst
   val hse = hisexp_subst (sub, hse)
   val tmp2 = tmpvar_make (loc, hse)
   val () =
-    if tmpvar_isref (tmp) then tmpvar_set_ref (tmp2, 1)
+    if tmpvar_isref(tmp) then tmpvar_set_ref (tmp2, 1)
   // end of [val]
   val () =
-    if tmpvar_isret (tmp) then tmpvar_set_ret (tmp2, 1)
+    if tmpvar_isret(tmp) then tmpvar_set_ret (tmp2, 1)
   // end of [val]
   val () =
     tmpvar_set_origin (tmp2, Some(tmp))
@@ -658,7 +660,7 @@ val d2es = funent_get_d2envlst (fent)
 val d2es2 = d2envlst_subst (sub, d2es)
 val () = ccompenv_inc_flabsetenv (env)
 val () = ccompenv_incwth_dvarsetenv (env, list_vt2t(d2es2))
-val () = list_vt_free (d2es2)
+val ((*freed*)) = list_vt_free (d2es2)
 //
 val inss2_body =
   instrlst_subst (env, tmpmap2, sub, inss_body, sfx)
@@ -674,7 +676,8 @@ val fls0 = funent_get_flablst (fent)
 val fls0 = funent_funlablst_update (env, fls0)
 val fls02 = list_vt_append (fls0, fls0_tmp)
 //
-val d2es2(*set*) = ccompenv_getdec_dvarsetenv (env)
+val d2es2 = ccompenv_getdec_dvarsetenv (env)
+val d2es2 = ccompenv_dvarsetenv_add_tempenver (env, d2es2)
 val d2es2(*list*) = d2envset_vt_listize_free (d2es2)
 //
 val () = the_d2varlev_dec (pfinc | (*void*))

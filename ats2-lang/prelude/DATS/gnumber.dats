@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gnumber.atxt
-** Time of generation: Fri Sep 26 22:21:00 2014
+** Time of generation: Fri Jan 30 21:37:21 2015
 *)
 
 (* ****** ****** *)
@@ -47,9 +47,48 @@
 
 (* ****** ****** *)
 
-#include "prelude/DATS/gnumber_int.dats"
-#include "prelude/DATS/gnumber_uint.dats"
-#include "prelude/DATS/gnumber_float.dats"
+implement
+{a}(*tmp*)
+gpow_int_val
+  (n, x) = let
+//
+fun
+loop
+{n:pos} .<n>.
+(
+  n: int(n), x: a, res: a
+) :<> a =
+(
+  if n >= 2 then let
+    val n2 = half(n)
+    val r2 = n - (n2 + n2)
+  in
+    if r2 = 0
+      then loop (n2, gmul_val<a> (x, x), res)
+      else loop (n2, gmul_val<a> (x, x), gmul_val<a> (x, res))
+    // end of [if]
+  end else gmul_val<a> (x, res)
+) (* end of [loop] *)
+//
+in
+//
+if
+n >= 2
+then loop (n-1, x, x)
+else (
+  if n >= 1 then x else gnumber_int<a> (1)
+) (* end of [else] *)
+//
+end // end of [gpow_int_val]
+
+(* ****** ****** *)
+
+#include "./SHARE/gnumber_int.dats"
+#include "./SHARE/gnumber_uint.dats"
+
+(* ****** ****** *)
+
+#include "./SHARE/gnumber_float.dats"
 
 (* ****** ****** *)
 

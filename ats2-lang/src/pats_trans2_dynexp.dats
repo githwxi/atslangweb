@@ -310,10 +310,9 @@ in
     ) => d2exp_deref (loc0, d1exp_tr d1e)
   | _ => let
       val () = prerr_interror_loc (loc0)
-      val () = (prerr ": d1exp_tr_deref: d1e0 = "; prerr_d1exp d1e0)
-      val () = prerr_newline ()
+      val () = prerrln! (": d1exp_tr_deref: d1e0 = ", d1e0)
     in
-      $ERR.abort {d2exp} ()
+      $ERR.abort_interr{d2exp}((*reachable*))
     end // end of [_]
 end // end of [d1exp_tr_deref]
 
@@ -330,10 +329,9 @@ in
     // end of [...]
   | _ => let
       val () = prerr_interror_loc (loc0)
-      val () = (prerr ": d1exp_tr_assgn: d1e0 = "; prerr_d1exp d1e0)
-      val () = prerr_newline ()
+      val () = prerrln! (": d1exp_tr_assgn: d1e0 = ", d1e0)
     in
-      $ERR.abort {d2exp} ()
+      $ERR.abort_interr{d2exp}((*reachable*))
     end // end of [_]
 end // end of [d1exp_tr_assgn]
 
@@ -350,10 +348,9 @@ in
     // end of [...]
   | _ => let
       val () = prerr_interror_loc (loc0)
-      val () = (prerr ": d1exp_tr_xchng: d1e0 = "; prerr_d1exp d1e0)
-      val () = prerr_newline ()
+      val () = prerrln! (": d1exp_tr_xchng: d1e0 = ", d1e0)
     in
-      $ERR.abort {d2exp} ()
+      $ERR.abort_interr{d2exp}((*reachable*))
     end // end of [_]
 end // end of [d1exp_tr_xchng]
 
@@ -768,7 +765,8 @@ d1exp_tr_wths1explst
   val loc0 = d1e0.d1exp_loc
 in
 //
-case+ d1e0.d1exp_node of
+case+
+d1e0.d1exp_node of
 | D1Eann_type (d1e, s1e) => let
     val d2e = d1exp_tr (d1e)
     val s2e = s1exp_trdn_res_impred (s1e, w1ts)
@@ -797,7 +795,8 @@ case+ d1e0.d1exp_node of
   end // end of [_]
 end (* end of [d1exp_tr_wths1explst] *)
 
-fun d1exp_tr_arg_body
+fun
+d1exp_tr_arg_body
 (
   p1t_arg: p1at, d1e_body: d1exp
 ) : @(int, p2atlst, d2exp) = let
@@ -814,7 +813,7 @@ fun d1exp_tr_arg_body
   val () = {
     val () = the_s2expenv_add_svarlst ($UT.lstord2list (p2t_arg.p2at_svs))
     val () = the_d2expenv_add_dvarlst ($UT.lstord2list (p2t_arg.p2at_dvs))
-  } // end of [val]
+  } (* end of [val] *)
 //
   val (pfinc | ()) = the_d2varlev_inc ()
 //
@@ -1100,14 +1099,22 @@ fun sc1laulst_trdn (
 
 local
 
-viewtypedef sc2laulst_vt = List_vt (sc2lau)
+vtypedef
+sc2laulst_vt = List_vt (sc2lau)
 
-fn sc2lau_get_tag
-  (sc2l: sc2lau):<> int = let
-  val sp2t = sc2l.sc2lau_pat in
+fun
+sc2lau_get_dstag
+  .<>.
+(
+  sc2l: sc2lau
+) :<> int = let
+  val sp2t = sc2l.sc2lau_pat
+in
   case+ sp2t.sp2at_node of
-  | SP2Tcon (s2c, _) => s2cst_get_tag (s2c) | SP2Terr () => ~1 (*err*)
-end // end of [sc2lau_get_tag]
+  | SP2Tcon (s2c, _) =>
+      $effmask_all (s2cst_get_dstag (s2c))
+  | SP2Terr () => ~1 (*err*)
+end // end of [sc2lau_get_dstag]
 
 fun auxerr_lt
   (loc0: location, sc2l: sc2lau): void = let
@@ -1152,11 +1159,15 @@ fun auxmain1 (
 , sc2ls: sc2laulst
 , s2td_pat: s2rtdat
 ) : void = let
-  val sc2ls2 = list_copy (sc2ls)
-  val sc2ls2 = let
-    var !p_clo = @lam (
+  val
+  sc2ls2 =
+    list_copy (sc2ls)
+  val
+  sc2ls2 = let
+    var !p_clo = @lam
+    (
       x1: &sc2lau, x2: &sc2lau
-    ) : int =<clo> sc2lau_get_tag (x1) - sc2lau_get_tag (x2)
+    ) : int =<clo> sc2lau_get_dstag (x1) - sc2lau_get_dstag (x2)
   in
     list_vt_mergesort (sc2ls2, !p_clo)
   end // end of [val]
@@ -1180,7 +1191,7 @@ in
 case+ sc2ls of
 | ~list_vt_cons
     (sc2l, sc2ls) => let
-    val tag = sc2lau_get_tag (sc2l)
+    val tag = sc2lau_get_dstag (sc2l)
   in
     if tag >= 0 then (
       if tag < n then let
@@ -1209,7 +1220,7 @@ in
   loop (loc0, sc2ls, s2cs, 0)
 end // end of [auxmain2]
 
-in // in of [local]
+in (* in of [local] *)
 
 implement
 sc2laulst_coverck
@@ -1219,10 +1230,10 @@ fun auxerr1 (
   loc0: location, s2t_pat: s2rt
 ) : void = let
   val () = prerr_error2_loc (loc0)
-  val () = prerr ": the static expression being analyzed is of the sort ["
+  val () =
+  prerr ": the static expression being analyzed is of the sort ["
   val () = prerr_s2rt (s2t_pat)
-  val () = prerr "], which is not a base sort as is required."
-  val () = prerr_newline ()
+  val () = prerrln! ("], which is not a base sort as is required.")
 in
   the_trans2errlst_add (T2E_sc2laulst_coverck_sort (loc0, s2t_pat))
 end // end of [auxerr1]
@@ -1230,10 +1241,10 @@ fun auxerr2 (
   loc0: location, s2t_pat: s2rt
 ) : void = let
   val () = prerr_error2_loc (loc0)
-  val () = prerr ": the static expression being analyzed is of the sort ["
+  val () =
+  prerr ": the static expression being analyzed is of the sort ["
   val () = prerr_s2rt (s2t_pat)
-  val () = prerr "], which is not a datasort as is required."
-  val () = prerr_newline ()
+  val () = prerrln! ("], which is not a datasort as is required.")
 in
   the_trans2errlst_add (T2E_sc2laulst_coverck_sort (loc0, s2t_pat))
 end // end of [auxerr2]
@@ -1242,12 +1253,11 @@ in
 //
 case s2t_pat of
 | S2RTbas s2tb => (
-  case+ s2tb of
-  | S2RTBASdef s2td =>
-      auxmain1 (loc0, sc2ls, s2td)
-  | _ => auxerr2 (loc0, s2t_pat)
-  )
-| _ => auxerr1 (loc0, s2t_pat)
+    case+ s2tb of
+    | S2RTBASdef s2td => auxmain1 (loc0, sc2ls, s2td)
+    | _ (*non-S2RTBASdef*) => auxerr2 (loc0, s2t_pat)
+  ) (* end of [S2RTbas] *)
+| _(*non-S2RTbas*) => auxerr1 (loc0, s2t_pat)
 //
 end // end of [sc2laulst_coverck]
 
@@ -1524,7 +1534,44 @@ case+ d1e0.d1exp_node of
 //
 | D1Eshowtype (d1e) => d2exp_showtype (loc0, d1exp_tr d1e)
 //
-| D1Evcopyenv (knd, d1e) => d2exp_vcopyenv (loc0, knd, d1exp_tr d1e)
+| D1Evcopyenv
+    (knd, d1e) => d2exp_vcopyenv (loc0, knd, d1exp_tr d1e)
+  // end of [D1Evcopyenv]
+//
+| D1Etempenver
+    (d1e) => let
+//
+    fun auxlst
+    (
+      d2es: d2explst
+    ) : d2varlst =
+    (
+      case+ d2es of
+      | list_cons
+          (d2e, d2es) =>
+        (
+          case+
+          d2e.d2exp_node of
+          | D2Evar (d2v) =>
+              list_cons(d2v, auxlst(d2es))
+            // end of [D2Evar]
+          | _(*non-D2Evar*) => auxlst(d2es)
+        ) (* end of [list_cons] *)
+      | list_nil ((*void*)) => list_nil ()
+    ) (* end of [auxlst] *)
+//
+    val d2e = d1exp_tr (d1e)
+    val d2vs =
+    (
+      case+
+      d2e.d2exp_node of
+      | D2Evar (d2v) => list_sing(d2v)
+      | D2Elist (_, d2es) => auxlst (d2es)
+      | _(*ignored*) => list_nil(*void*)
+    ) : d2varlst // end of [val]
+  in
+    d2exp_tempenver (loc0, d2vs)
+  end // end of [D1Etempenver]
 //
 | D1Eptrof (d1e) => d2exp_ptrof (loc0, d1exp_tr d1e)
 | D1Eviewat (d1e) => d2exp_viewat (loc0, d1exp_tr d1e)
@@ -1701,11 +1748,9 @@ case+ d1e0.d1exp_node of
 | _ (*unsupported*) => let
     val () = prerr_interror_loc (loc0)
     val () = filprerr_ifdebug "d1exp_tr"
-    val () = prerr ": not yet implemented: d1e0 = "
-    val () = (prerr ("["); prerr_d1exp (d1e0); prerr ("]"))
-    val () = prerr_newline ((*void*))
+    val () = prerrln! (": not yet implemented: d1e0 = ", d1e0)
   in
-    $ERR.abort {d2exp} ()
+    $ERR.abort_interr{d2exp}((*reachable*))
   end // end of [_(*unsupported*)]
 // *)
 //
@@ -1721,7 +1766,7 @@ d1expopt_tr (d1eopt) =
 (
 case+ d1eopt of
 | Some (d1e) => Some (d1exp_tr (d1e)) | None () => None ()
-) // end of [d1expopt_tr]
+) (* end of [d1expopt_tr] *)
 
 (* ****** ****** *)
 

@@ -81,50 +81,72 @@ stadef <> = neq_bool_bool // backward compatibility // deprecated
 //
 // HX-2012-06-12: removed
 //
-stacst eq_char_char : (char, char) -> bool
-stacst neq_char_char : (char, char) -> bool
+stacst
+eq_char_char : (char, char) -> bool
+stacst
+neq_char_char : (char, char) -> bool
+//
 stadef == = eq_char_char
 stadef != = neq_char_char
 stadef <> = neq_char_char // backward compatibility // deprecated
+//
 *)
 
 (* ****** ****** *)
-
+//
 stacst neg_int : (int) -> int
 stadef ~ = neg_int // overloaded
-
-stacst add_int_int : (int, int) -> int
-stacst sub_int_int : (int, int) -> int
-stacst mul_int_int : (int, int) -> int
-stacst div_int_int : (int, int) -> int
+//
+stacst
+add_int_int : (int, int) -> int
+stacst
+sub_int_int : (int, int) -> int
+stacst
+mul_int_int : (int, int) -> int
+stacst
+div_int_int : (int, int) -> int
+//
 stadef + = add_int_int
 stadef - = sub_int_int
 stadef * = mul_int_int
 stadef / = div_int_int
-
-stacst ndiv_int_int : (int, int) -> int
+//
+// HX: ndiv: divisor is positive
+// HX: idiv: alias for div_int_int
+//
+stacst
+ndiv_int_int : (int, int) -> int
+stacst
+idiv_int_int : (int, int) -> int
+//
 stadef ndiv = ndiv_int_int
-stacst idiv_int_int : (int, int) -> int // HX: alias for div_int_int
 stadef idiv = idiv_int_int
-
-stadef mod_int_int
-  (x:int, y:int) = x - y * (x \ndiv_int_int y)
-stadef mod = mod_int_int
-stadef % (*adopted from C*) = mod_int_int
-
+//
+stadef
+nmod_int_int
+(
+  x:int, y:int
+) = x - y * (x \ndiv_int_int y)
+//
+stadef mod = nmod_int_int
+stadef nmod = nmod_int_int
+stadef % (*adopted from C*) = nmod_int_int
+//
+(* ****** ****** *)
+//
 stacst lt_int_int : (int, int) -> bool
 stacst lte_int_int : (int, int) -> bool
 stacst gt_int_int : (int, int) -> bool
 stacst gte_int_int : (int, int) -> bool
 stadef < = lt_int_int and <= = lte_int_int
 stadef > = gt_int_int and >= = gte_int_int
-
+//
 stacst eq_int_int : (int, int) -> bool
 stacst neq_int_int : (int, int) -> bool
 stadef == = eq_int_int
 stadef != = neq_int_int
-stadef <> = neq_int_int // backward compatibility
-
+stadef <> = neq_int_int // HX: backward compatibility
+//
 (* ****** ****** *)
 //
 stacst abs_int : (int) -> int
@@ -197,28 +219,33 @@ ifintrel_bool_int_int_int
 (* ****** ****** *)
 
 stadef
-bool2int (b: bool): int = ifint (b, 1, 0)
+bool2int(b: bool): int = ifint (b, 1, 0)
 stadef int2bool (i: int): bool = (i != 0)
 stadef b2i = bool2int and i2b = int2bool
+
+(* ****** ****** *)
 
 (*
 ** HX: [char] = [int8]
 ** HX-2012-06-12: removed
 //
 stacst int_of_char: char -> int
-stadef c2i = int_of_char
 stacst char_of_int : int -> char
-stadef i2c = char_of_int
+stadef c2i = int_of_char and i2c = char_of_int
 //
 *)
 
-stacst int_of_addr : addr -> int
-stacst addr_of_int : int -> addr
-stadef a2i = int_of_addr
-stadef i2a = addr_of_int
-
 (* ****** ****** *)
 
+(*
+** HX: pointer <-> integer
+*)
+stacst int_of_addr: addr -> int
+stacst addr_of_int: int -> addr
+stadef a2i = int_of_addr and i2a = addr_of_int
+
+(* ****** ****** *)
+//
 stadef pow2_7 = 128
 stadef pow2_8 = 256
 stadef i2u_int8 (i:int) = ifint (i >= 0, i, i+pow2_8)
@@ -229,9 +256,14 @@ stadef u2i8 = u2i_int8
 stadef pow2_15 = 32768
 stadef pow2_16 = 65536
 stadef i2u_int16 (i:int) = ifint (i >= 0, i, i+pow2_16)
-stadef i2u8 = i2u_int16
+stadef i2u16 = i2u_int16
 stadef u2i_int16 (u:int) = ifint (u < pow2_15, u, u-pow2_16)
-stadef u2i8 = u2i_int16
+stadef u2i16 = u2i_int16
+//
+(* ****** ****** *)
+
+stadef pow2_32 = 0x100000000
+stadef pow2_64 = 0x10000000000000000
 
 (* ****** ****** *)
 

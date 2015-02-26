@@ -53,13 +53,22 @@ implement prerr_FILENAME<> () = prerr "pats_typerase_dynexp"
 
 (* ****** ****** *)
 
-staload LAB = "./pats_label.sats"
+staload
+LAB = "./pats_label.sats"
 
-staload LOC = "./pats_location.sats"
+(* ****** ****** *)
+
+staload
+LOC = "./pats_location.sats"
+typedef loc_t = $LOC.location
 overload print with $LOC.print_location
+
+(* ****** ****** *)
 
 staload SYM = "./pats_symbol.sats"
 overload = with $SYM.eq_symbol_symbol
+
+(* ****** ****** *)
 
 staload SYN = "./pats_syntax.sats"
 
@@ -475,12 +484,14 @@ d3exp_tyer
   (d3e0) = let
 //
 val loc0 = d3e0.d3exp_loc
-val s2e0 = d3exp_get_type (d3e0)
-val hse0 = s2exp_tyer_shallow (loc0, s2e0)
 //
 (*
-val () = println! ("d3exp_tyer: d3e0 = ", d3e0)
+val () =
+  println! ("d3exp_tyer: d3e0 = ", d3e0)
 *)
+//
+val s2e0 = d3exp_get_type (d3e0)
+val hse0 = s2exp_tyer_shallow (loc0, s2e0)
 //
 in
 //
@@ -620,10 +631,13 @@ case+
     val hse_rec =
        s2exp_tyer_deep (loc0, s2e0)
     // end of [val]
-    val lhdes = d3explst_npf_tyer_labize (npf, d3es)
+    val lhdes =
+      d3explst_npf_tyer_labize (npf, d3es)
+    // end of [val]
   in
-    hidexp_rec (loc0, hse0, knd, lhdes, hse_rec)
+    hidexp_rec2 (loc0, hse0, knd, lhdes, hse_rec)
   end // end of [D3Etup]
+//
 | D3Erec (
     knd, npf, ld3es
   ) => let
@@ -632,7 +646,7 @@ case+
     // end of [val]
     val lhdes = labd3explst_npf_tyer (npf, ld3es)
   in
-    hidexp_rec (loc0, hse0, knd, lhdes, hse_rec)
+    hidexp_rec2 (loc0, hse0, knd, lhdes, hse_rec)
   end // end of [D3Erec]
 //
 | D3Eseq (d3es) => let
@@ -816,9 +830,19 @@ case+
 //
 | D3Eeffmask (_, d3e) => d3exp_tyer (d3e)
 //
-| D3Evcopyenv (knd, d2v) => let
-    val () = d2var_inc_utimes (d2v) in hidexp_var (loc0, hse0, d2v)
+| D3Evcopyenv
+    (knd, d2v) => let
+    val () = // HX: hidexp_vcopyenv = hidexp_var
+      d2var_inc_utimes (d2v) in hidexp_vcopyenv (loc0, hse0, d2v)
+    // end of [val]
   end // end of [D3Evcopyenv]
+//
+| D3Etempenver (d2vs) => let
+    val () =
+    list_app_fun
+      (d2vs, d2var_inc_utimes) in hidexp_tempenver (loc0, hse0, d2vs)
+    // end of [val]
+  end // end of [D3Etempenver]
 //
 | D3Elam_dyn
   (
@@ -909,7 +933,7 @@ case+
 //
 | _(*unspported*) => let
     val () = prerr_interror_loc(loc0)
-    val () = prerrln! ("d3exp_tyer: d3e0 = ", d3e0)
+    val () = prerrln! (": d3exp_tyer: d3e0 = ", d3e0)
   in
     exitloc (1)
   end // end of [_(*unsupported*)]

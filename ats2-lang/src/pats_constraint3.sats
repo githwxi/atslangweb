@@ -37,12 +37,17 @@ staload "./pats_basics.sats"
 
 (* ****** ****** *)
 
+staload "./pats_jsonize.sats"
+
+(* ****** ****** *)
+//
 staload "./pats_staexp2.sats"
+//
 staload
 TRENV3 = "./pats_trans3_env.sats"
 typedef h3ypo = $TRENV3.h3ypo
 typedef c3nstr = $TRENV3.c3nstr
-
+//
 (* ****** ****** *)
 
 staload "./pats_lintprgm.sats"
@@ -309,9 +314,18 @@ s3exp2myintvec{n:nat}
 fun c3nstr_solve (c3t: c3nstr): void
 
 (* ****** ****** *)
-
+//
+fun
+c3nstr_mapgen_scst_svar
+  (c3t: c3nstr):
+(
+  s2cstset_vt, s2varset_vt
+) (* end of [c3nstr_mapgen_scst_svar] *)
+//
+fun jsonize_c3nstr (c3t: c3nstr): jsonval
+//
 fun c3nstr_export (out: FILEref, c3t: c3nstr): void
-
+//
 (* ****** ****** *)
 //
 abstype s2cfunmap

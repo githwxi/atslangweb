@@ -220,9 +220,11 @@ s2hnf_tyer
   (loc0, flag, s2f0) = let
 //
 val s2e0 = s2hnf2exp (s2f0)
+//
 (*
 val () = println! ("s2hnf_tyer: s2e0 = ", s2e0)
 *)
+//
 in
 //
 case+
@@ -467,7 +469,9 @@ case knd of
   in
     case+ lhses of
     | list_cons
-        (lhse, list_nil()) => hisexp_tyrecsin (lhse)
+      (
+        lhse, list_nil()
+      ) => hisexp_tyrecsin (lhse)
     | _(*non-sing*) => hisexp_tyrec (knd, lhses)
   end // end of [TYRECKINDflt0/1]
 //
@@ -643,18 +647,35 @@ end // end of [s2explst_tyer_arglst]
 implement
 s2zexp_tyer
   (loc0, s2ze0) = let
+//
+(*
+val () =
+println!
+  ("s2zexp_tyer: s2ze0 = ", s2ze0)
+*)
+//
 in
 //
 case+ s2ze0 of
+//
 | S2ZEptr () => hisexp_tybox
+//
 | S2ZEcst (s2c) =>
     s2cst_tyer (loc0, 0(*flag*), s2c)
   // end of [S2ZEcst]
+//
 | S2ZEvar (s2v) => hisexp_tyvar (s2v)
+//
 | S2ZEapp (s2ze1, s2zes2) =>
     s2zexp_tyer_app (loc0, s2ze1, s2zes2)
+//
 | S2ZEtyrec _ => s2zexp_tyer_tyrec (loc0, s2ze0)
-| _ => hisexp_s2zexp (s2ze0)
+//
+// HX-2015-01-30:
+// is this the right way to go?
+| S2ZEVar (s2V) => hisexp_undefined
+//
+| _ (*S2ZE-rest*) => hisexp_s2zexp (s2ze0)
 //
 end // end of [s2zexp_tyer]
 
@@ -665,8 +686,12 @@ s2zexp_tyer_app
 (
   loc0, s2ze1, s2zes2
 ) = let
-  val hse_fun = s2zexp_tyer (loc0, s2ze1)
-  val hses_arg = s2zexplst_tyer_arglst (loc0, s2zes2)
+//
+val hse_fun =
+  s2zexp_tyer (loc0, s2ze1)
+val hses_arg =
+  s2zexplst_tyer_arglst (loc0, s2zes2)
+//
 in
   hisexp_app (hse_fun, hses_arg)
 end // end of [s2exp_tyer_app]
@@ -701,7 +726,9 @@ implement
 s2zexp_tyer_tyrec
   (loc0, s2ze0) = let
 //
-val-S2ZEtyrec (knd, ls2zes) = s2ze0
+val-S2ZEtyrec
+  (knd, ls2zes) = s2ze0
+//
 val lhses = labs2zexplst_tyer (loc0, ls2zes)
 //
 in
@@ -713,7 +740,9 @@ case knd of
   in
     case+ lhses of
     | list_cons
-        (lhse, list_nil()) => hisexp_tyrecsin (lhse)
+      (
+        lhse, list_nil()
+      ) => hisexp_tyrecsin (lhse)
     | _(*non-sing*) => hisexp_tyrec (knd, lhses)
   end // end of [TYRECKINDflt0/1]
 //

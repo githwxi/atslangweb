@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/memory.atxt
-** Time of generation: Fri Sep 26 22:20:56 2014
+** Time of generation: Tue Jan 13 00:14:01 2015
 *)
 
 (* ****** ****** *)
@@ -40,8 +40,9 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-implement{
-} memory$free{l}
+implement
+{}(*tmp*)
+memory$free{l}
   (pfat, pfmf | p) = let
 //
 prval pfgc = $UN.castview0{mfree_gc_v(l)}(pfmf)
@@ -52,8 +53,9 @@ end // end of [memory$free]
 
 (* ****** ****** *)
 
-implement{
-} memory$alloc
+implement
+{}(*tmp*)
+memory$alloc
   {n} (bsz) = let
 //
 val [l:addr]

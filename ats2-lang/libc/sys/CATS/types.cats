@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/sys/CATS/CODEGEN/types.atxt
-** Time of generation: Fri Jan 17 21:02:33 2014
+** Time of generation: Fri Dec 19 13:34:40 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_SYS_TYPES_CATS
-#define ATSLIB_LIBC_SYS_TYPES_CATS
+#ifndef ATSLIB_LIBC_SYS_CATS_TYPES
+#define ATSLIB_LIBC_SYS_CATS_TYPES
 
 /* ****** ****** */
 
@@ -155,7 +155,7 @@ atslib_neq_time_time
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_SYS_TYPES_CATS
+#endif // ifndef ATSLIB_LIBC_SYS_CATS_TYPES
 
 /* ****** ****** */
 

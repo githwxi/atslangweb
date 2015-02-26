@@ -37,6 +37,13 @@ staload
 ATSPRE = "./pats_atspre.dats"
 //
 (* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+staload
+_(*UN*) = "prelude/DATS/unsafe.dats"
+//
+(* ****** ****** *)
 
 staload "./pats_basics.sats"
 
@@ -133,6 +140,22 @@ jsonval_labval6
 (
   (l1, x1) :: (l2, x2) :: (l3, x3) :: (l4, x4) :: (l5, x5) :: (l6, x6) :: list_nil
 )
+implement
+jsonval_labval7
+(
+  l1, x1, l2, x2, l3, x3, l4, x4, l5, x5, l6, x6, l7, x7
+) = JSONlablist
+(
+  (l1, x1) :: (l2, x2) :: (l3, x3) :: (l4, x4) :: (l5, x5) :: (l6, x6) :: (l7, x7) :: list_nil
+)
+implement
+jsonval_labval8
+(
+  l1, x1, l2, x2, l3, x3, l4, x4, l5, x5, l6, x6, l7, x7, l8, x8
+) = JSONlablist
+(
+  (l1, x1) :: (l2, x2) :: (l3, x3) :: (l4, x4) :: (l5, x5) :: (l6, x6) :: (l7, x7) :: (l8, x8) :: list_nil
+)
 //
 (* ****** ****** *)
 //
@@ -170,6 +193,68 @@ jsonval_some (x) = JSONoption (Some(x))
 //
 (* ****** ****** *)
 
+local
+
+fun
+fprint_jsonval_string
+(
+  out: FILEref, str: string
+) : void = let
+//
+fun
+auxch
+(
+  out: FILEref, c: char
+) : void = let
+in
+//
+case+ c of
+| '"' => fprint_string (out, "\\\"")
+| '\\' => fprint_string (out, "\\\\")
+| '\n' => fprint_string (out, "\\n")
+| '\r' => fprint_string (out, "\\r")
+| '\t' => fprint_string (out, "\\t")
+| '\b' => fprint_string (out, "\\b")
+| '\f' => fprint_string (out, "\\f")
+| _ (*rest-of-char*) =>
+  (
+    if char_isprint(c)
+      then fprint_char(out, c)
+      else let
+        val uc = uchar_of_char(c) in
+        fprintf (out, "\\u00%.2X", @($UN.cast2uint(uc)))
+      end // end of [else]
+    // end of [if]
+  ) (* end of [_] *)
+//
+end // end of [auxch]
+//
+fun
+loop
+(
+  out: FILEref, p: ptr
+) : void = let
+//
+val c = $UN.ptr0_get<char> (p)
+//
+in
+//
+if
+c != '\000'
+then (auxch(out, c); loop (out, p+sizeof<char>)) else ()
+//
+end // end of [loop]
+//
+in
+//
+fprint_char (out, '"');
+loop (out, $UN.cast{ptr}(str));
+fprint_char (out, '"');
+//
+end // end of [fprint_jsonval_string]
+
+in (* in-of-local *)
+
 implement
 fprint_jsonval
   (out, x0) = let
@@ -180,7 +265,9 @@ prstr (str) = fprint_string (out, ,(str))
 in
 //
 case+ x0 of
+//
 | JSONnul () => prstr "{}"
+//
 | JSONint (i) => fprint_int (out, i)
 | JSONintinf (i) =>
   {
@@ -188,9 +275,11 @@ case+ x0 of
     val () = $INTINF.fprint_intinf (out, i)
     val () = fprint_char (out, '"')
   }
+//
 | JSONbool (b) => fprint_bool (out, b)
 | JSONfloat (d) => fprint_double (out, d)
-| JSONstring (str) => fprintf (out, "\"%s\"", @(str))
+//
+| JSONstring (str) => fprint_jsonval_string (out, str)
 //
 | JSONlocation (loc) =>
   {
@@ -230,6 +319,8 @@ case+ x0 of
   }
 //
 end // end of [fprint_jsonval]
+
+end // end of [local]
 
 (* ****** ****** *)
 

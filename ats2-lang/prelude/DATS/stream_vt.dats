@@ -26,22 +26,18 @@
 *)
 
 (* ****** ****** *)
-//
-// Author: Hongwei Xi
-// Authoremail: gmhwxiATgmailDOTcom
-// Start Time: July, 2012
-//
-(* ****** ****** *)
-
-#include "prelude/params.hats"
-
-(* ****** ****** *)
 
 (*
-#if VERBOSE_PRELUDE #then
-#print "Loading [stream_vt.dats] starts!\n"
-#endif // end of [VERBOSE_PRELUDE]
+** Source:
+** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
+** Time of generation: Tue Jan 13 00:14:09 2015
 *)
+
+(* ****** ****** *)
+
+(* Author: Hongwei Xi *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: July, 2012 *)
 
 (* ****** ****** *)
 
@@ -563,14 +559,6 @@ case+ !xs of
 end // end of [stream_eval_exn]
 
 end // end of [local]
-
-(* ****** ****** *)
-
-(*
-#if VERBOSE_PRELUDE #then
-#print "Loading [stream_vt.dats] finishes!\n"
-#endif // end of [VERBOSE_PRELUDE]
-*)
 
 (* ****** ****** *)
 

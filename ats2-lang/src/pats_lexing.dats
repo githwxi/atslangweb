@@ -187,8 +187,9 @@ datatype lexsym =
 
 local
 //
-// HX: hashtable based on linear probing seems
-// unwieldy to use
+// HX:
+// linear-probing based HB
+// seems very unwieldy to use
 //
 %{^
 typedef ats_ptr_type string ;
@@ -300,18 +301,21 @@ val rtbl = HASHTBLref_make_ptr {key,itm} (ptbl)
 //
 in (* in of [local] *)
 
-fun IDENT_alp_get_lexsym
+fun
+IDENT_alp_get_lexsym
   (x: string): lexsym = let
   val (fptbl | ptbl) = HASHTBLref_takeout_ptr (rtbl)
   var res: itm?
   val b = hashtbl_search<key,itm> (ptbl, encode(x), res)
   prval () = fptbl (ptbl)
 in
-  if b then let
-    prval () = opt_unsome {itm} (res) in decode (res)
-  end else let
-    prval () = opt_unnone {itm} (res) in LS_NONE (*void*)
-  end // end of [if]
+//
+if b then let
+  prval () = opt_unsome {itm} (res) in decode (res)
+end else let
+  prval () = opt_unnone {itm} (res) in LS_NONE (*void*)
+end // end of [if]
+//
 end // end of [IDENT_alp_get_lexsym]
 
 end // end of [local]
@@ -393,11 +397,10 @@ end // end of [IDENT_sym_get_lexsym]
 end // end of [local]
 
 (* ****** ****** *)
-
-fun BLANK_test
-  (c: char): bool = char_isspace (c)
-// end of [BLANK_test]
-
+//
+fun
+BLANK_test (c: char): bool = char_isspace (c)
+//
 (* ****** ****** *)
 
 fun
@@ -541,24 +544,39 @@ ftesting_seq0
   buf, pos, f
 ) = diff where
 {
-  fun loop (
-    buf: &lexbuf, nchr: uint, f: char -> bool
-  ) : uint = let
-    val i = lexbuf_get_char (buf, nchr)
-  in
-    if i >= 0 then
-      if f ((i2c)i)
-        then loop (buf, succ(nchr), f) else nchr
-      // end of [if]
-    else nchr // end of [if]
-  end // end of [loop]
-  val nchr0 =
-    lexbufpos_diff (buf, pos)
-  val nchr1 = loop (buf, nchr0, f)
-  val diff = nchr1 - nchr0
-  val () = if diff > 0u 
-    then $LOC.position_incby_count (pos, diff) else ()
-  // end of [val]
+//
+fun
+loop
+(
+  buf: &lexbuf
+, nchr: uint, f: char -> bool
+) : uint = let
+  val i = lexbuf_get_char (buf, nchr)
+in
+//
+if
+i >= 0
+then (
+  if f ((i2c)i)
+    then loop (buf, succ(nchr), f) else nchr
+  // end of [if]
+) (* end of [then] *)
+else nchr // end of [else]
+//
+end // end of [loop]
+//
+val
+nchr0 =
+  lexbufpos_diff (buf, pos)
+//
+val nchr1 = loop (buf, nchr0, f)
+//
+val diff = nchr1 - nchr0
+val () =
+if diff > 0u 
+  then $LOC.position_incby_count (pos, diff) else ()
+// end of [if]
+//
 } (* end of [ftesting_seq0] *)
 
 (* ****** ****** *)
@@ -661,7 +679,9 @@ testing_literal
   (buf, pos, lit) = res where
 {
 //
-val [n:int] lit = string1_of_string (lit)
+val
+[n:int]
+lit = string1_of_string (lit)
 //
 fun loop
   {k:nat | k <= n} .<n-k>.
@@ -986,7 +1006,7 @@ implement
 token_make
   (loc, node) = '{
   token_loc= loc, token_node= node
-} // end of [token_make]
+} (* end of [token_make] *)
 
 (* ****** ****** *)
 
@@ -1038,7 +1058,7 @@ fun lexing_FLOAT_hexiexp
 //
 extern
 fun lexing_INT_dec
-  (buf: &lexbuf, pos: &position, k1: uint): token
+  (buf: &lexbuf, pos: &position): token
 extern
 fun lexing_INT_oct
   (buf: &lexbuf, pos: &position, k1: uint): token
@@ -1122,26 +1142,31 @@ implement
 lexing_COMMENT_block_c
   (buf, pos) = let
 //
-  fun feof (
-    buf: &lexbuf, pos: &position
-  ) : token =
-    lexbufpos_lexerr_reset (buf, pos, LE_COMMENT_block_unclose)
-  // end of [feof]
+fun
+feof (
+  buf: &lexbuf, pos: &position
+) : token =
+  lexbufpos_lexerr_reset (buf, pos, LE_COMMENT_block_unclose)
+// end of [feof]
 //
-  val i = lexbufpos_get_char (buf, pos)
+val i = lexbufpos_get_char (buf, pos)
 //
 in
-  if i >= 0 then (
-    case+ (i2c)i of
-    | '*' when
-        testing_literal (buf, pos, "*/") >= 0 =>
-        lexbufpos_token_reset (buf, pos, T_COMMENT_block)
-      // end of ['*']
-    | _ => let
-        val () = posincbyc (pos, i) in
-        lexing_COMMENT_block_c (buf, pos)
-      end // end of [_]
-  ) else feof (buf, pos) // end of [if]
+//
+if
+i >= 0
+then (
+  case+ (i2c)i of
+  | '*' when
+      testing_literal (buf, pos, "*/") >= 0 =>
+      lexbufpos_token_reset (buf, pos, T_COMMENT_block)
+    // end of ['*']
+  | _ => let
+      val () = posincbyc (pos, i) in
+      lexing_COMMENT_block_c (buf, pos)
+    end // end of [_]
+) else feof (buf, pos) // end of [if]
+//
 end // end of [lexing_COMMENT_block_c]
 
 (* ****** ****** *)
@@ -1150,24 +1175,26 @@ implement
 lexing_COMMENT_block_ml
   (buf, pos, xs) = let
 //
-  fun feof
-    {l:pos} (
-    buf: &lexbuf
-  , pos: &position
-  , xs: list_vt (position, l)
-  ) : token = let
-    val list_vt_cons (!p_x, _) = xs
-    val loc = $LOC.location_make_pos_pos (!p_x, pos)
-    prval () = fold@ (xs)
-    val () = list_vt_free (xs)
-    val err = lexerr_make (loc, LE_COMMENT_block_unclose)
-    val () = the_lexerrlst_add (err)
-    val () = lexbuf_set_position (buf, pos)
-  in
-    token_make (loc, T_ERR)
-  end // end of [feof]
+fun
+feof
+{l:pos}
+(
+  buf: &lexbuf
+, pos: &position
+, xs: list_vt (position, l)
+) : token = let
+  val list_vt_cons (!p_x, _) = xs
+  val loc = $LOC.location_make_pos_pos (!p_x, pos)
+  prval () = fold@ (xs)
+  val () = list_vt_free (xs)
+  val err = lexerr_make (loc, LE_COMMENT_block_unclose)
+  val () = the_lexerrlst_add (err)
+  val () = lexbuf_set_position (buf, pos)
+in
+  token_make (loc, T_ERR)
+end // end of [feof]
 //
-  val i = lexbufpos_get_char (buf, pos)
+val i = lexbufpos_get_char (buf, pos)
 //
 in
 //
@@ -1235,17 +1262,20 @@ local
 //
 in (* in-of-local *)
 
-fun extcode_nskip
+fun
+extcode_nskip
   (knd: int): uint = let
 in
-  case+ 0 of
-  | _ when knd = 0 => 3u
-  | _ when knd = DYNBEG => 3u
-  | _ when knd < DYNMID => 4u
-  | _ when knd = DYNMID => 2u
-  | _ when knd < DYNEND => 4u
-  | _ when knd = DYNEND => 3u
-  | _ => 0u // HX: deadcode
+//
+case+ 0 of
+| _ when knd = 0 => 3u
+| _ when knd = DYNBEG => 3u
+| _ when knd < DYNMID => 4u
+| _ when knd = DYNMID => 2u
+| _ when knd < DYNEND => 4u
+| _ when knd = DYNEND => 3u
+| _ (*rest*) => 0u // HX: deadcode
+//
 end // end of [extcode_nskip]
 
 (* ****** ****** *)
@@ -1347,7 +1377,9 @@ lexing_LPAREN
 implement
 lexing_LPAREN
   (buf, pos) = let
-  val i = lexbufpos_get_char (buf, pos)
+//
+val i = lexbufpos_get_char (buf, pos)
+//
 in
   case+ (i2c)i of
   | '*' => let
@@ -1361,7 +1393,7 @@ in
       lexing_COMMENT_block_ml (buf, pos, poslst)
     end // end of ['*']
   | _ => lexbufpos_token_reset (buf, pos, T_LPAREN)
-end // en dof [lexing_LPAREN]
+end // end of [lexing_LPAREN]
 
 (* ****** ****** *)
 
@@ -1388,32 +1420,38 @@ fun
 lexing_AT
   (buf: &lexbuf, pos: &position): token
 implement
-lexing_AT (buf, pos) = let
-  val i = lexbufpos_get_char (buf, pos)
+lexing_AT
+  (buf, pos) = let
+//
+val i =
+  lexbufpos_get_char (buf, pos)
+//
 in
-  case+ (i2c)i of
 //
-  | '\(' => let
-      val () = posincby1 (pos) in
-      lexbufpos_token_reset (buf, pos, T_ATLPAREN)
-    end
-  | '\[' => let
-      val () = posincby1 (pos) in
-      lexbufpos_token_reset (buf, pos, T_ATLBRACKET)
-    end
-  | '\{' => let
-      val () = posincby1 (pos) in
-      lexbufpos_token_reset (buf, pos, T_ATLBRACE)
-    end
+case+ (i2c)i of
 //
-  | _ => let
-      val k =
-        testing_symbolicseq0 (buf, pos)
-      // end of [val]
-    in
-      lexing_IDENT_sym (buf, pos, succ(k))
-    end // end of [_]
+| '\(' => let
+    val () = posincby1 (pos) in
+    lexbufpos_token_reset (buf, pos, T_ATLPAREN)
+  end
+| '\[' => let
+    val () = posincby1 (pos) in
+    lexbufpos_token_reset (buf, pos, T_ATLBRACKET)
+  end
+| '\{' => let
+    val () = posincby1 (pos) in
+    lexbufpos_token_reset (buf, pos, T_ATLBRACE)
+  end
+//
+| _ (*rest*) => let
+    val k =
+      testing_symbolicseq0 (buf, pos)
+    // end of [val]
+  in
+    lexing_IDENT_sym (buf, pos, succ(k))
+  end // end of [_(*rest*)]
 // end of [case]
+//
 end // end of [lexing_AT]
 
 (* ****** ****** *)
@@ -1425,17 +1463,25 @@ lexing_COLON
 implement
 lexing_COLON
   (buf, pos) = let
-  val i = lexbufpos_get_char (buf, pos)
+//
+val i = lexbufpos_get_char (buf, pos)
+//
 in
-  case+ (i2c)i of
-  | '<' => let
-      val () = posincby1 (pos) in
-      lexbufpos_token_reset (buf, pos, T_COLONLT)
-    end // end of ['<']
-  | _ => let
-      val k = testing_symbolicseq0 (buf, pos) in
-      lexing_IDENT_sym (buf, pos, succ(k))
-    end // end of [_]
+//
+case+ (i2c)i of
+//
+| '<' => let
+    val () = posincby1 (pos) in
+    lexbufpos_token_reset (buf, pos, T_COLONLT)
+  end // end of ['<']
+| _ (*rest*) => let
+    val k =
+      testing_symbolicseq0 (buf, pos)
+    // end of [val]
+  in
+    lexing_IDENT_sym (buf, pos, succ(k))
+  end // end of [_(*rest*)]
+//
 end // end of [lexing_COLON]
 
 (* ****** ****** *)
@@ -1800,6 +1846,10 @@ staload _(*anon*) = "libats/ngc/DATS/deque_arr.dats"
 
 (* ****** ****** *)
 
+vtypedef Q(m:int, n:int) = QUEUE(uchar, m, n)
+
+(* ****** ****** *)
+
 fun
 lexing_string_char_oct
 (
@@ -1916,80 +1966,99 @@ implement
 lexing_DQUOTE
   (buf, pos) = let
 //
-  fn regerr ( // register error
-    buf: &lexbuf, pos: &position
-  ) : void = let
-    val loc = lexbufpos_get_location (buf, pos)
-    val err = lexerr_make (loc, LE_STRING_unclose)
-  in
-    the_lexerrlst_add (err)
-  end // end of [regerr]
-//
-  fn* loop {m,n:int | m > 0} (
-    buf: &lexbuf
-  , pos: &position
-  , q: &QUEUE (uchar, m, n) >> QUEUE (uchar, m, n)
-  , m: size_t (m), n: size_t (n)
-  ) : #[m,n:nat] size_t (n) = let
-    val i = lexbufpos_get_char (buf, pos)
-    prval () = lemma_queue_param (q) // m >= n >= 0
-  in
-    if i >= 0 then let
-      val c = (i2c)i
-      val () = posincbyc (pos, i)
-    in
-      case+ c of
-      | '"' => n // string is properly closed
-      | '\\' => let
-          var err: int = 0
-          val i = lexing_string_char_special (buf, pos, err)
-        in
-          if err = AGAIN then
-            loop (buf, pos, q, m, n)
-          else
-            loop_ins (buf, pos, q, m, n, i)
-          // end of [if]
-        end // end of ['\\']
-      | _ => loop_ins (buf, pos, q, m, n, i)
-    end else let
-      val () = regerr (buf, pos) in queue_size {uchar} (q)
-    end (* end of [if] *)
-  end // end of [loop]
-//  
-  and loop_ins {m,n:int | m > 0} (
-    buf: &lexbuf
-  , pos: &position
-  , q: &QUEUE (uchar, m, n) >> QUEUE (uchar, m, n)
-  , m: size_t (m), n: size_t (n), i: int
-  ) : #[m,n:nat] size_t (n) = let
-    val c = (i2uc)i
-    prval () = lemma_queue_param (q) // m >= n >= 0
-  in
-    case+ 0 of
-    | _ when m > n => let
-        val () = queue_insert<uchar> (q, c) in
-        loop (buf, pos, q, m, n+1)
-      end
-    | _ => let
-        val m2 = m + m
-        val () = queue_update_capacity<uchar> (q, m2)
-        val () = queue_insert (q, c)
-      in
-        loop (buf, pos, q, m2, n+1)
-      end
-  end // end of [loop_ins]
-//
-  var q: QUEUE0(uchar)
-  #define m0 128 // HX: chosen randomly
-  val () = queue_initialize<uchar> (q, m0)
-//
-  val n = loop (buf, pos, q, m0, 0)
-  val str = $UTL.queue_get_strptr1 (q, 0, n)
-  val str = string_of_strptr (str)
-//
-  val () = queue_uninitialize (q)
+fn
+regerr
+( // register error
+  buf: &lexbuf, pos: &position
+) : void = let
+  val loc = lexbufpos_get_location (buf, pos)
+  val err = lexerr_make (loc, LE_STRING_unclose)
 in
-  lexbufpos_token_reset (buf, pos, T_STRING (str))
+  the_lexerrlst_add (err)
+end // end of [regerr]
+//
+fn*
+loop
+{m,n:int | m > 0}
+(
+  buf: &lexbuf
+, pos: &position
+, q: &Q(m, n) >> Q(m, n)
+, m: size_t (m), n: size_t (n)
+) : #[m,n:nat] size_t(n) = let
+  val i = lexbufpos_get_char (buf, pos)
+  prval () = lemma_queue_param (q) // m >= n >= 0
+in
+//
+if
+i >= 0
+then let
+  val c = (i2c)i
+  val () = posincbyc (pos, i)
+in
+  case+ c of
+  | '"' => n // string is properly closed
+  | '\\' => let
+      var err: int = 0
+      val i = lexing_string_char_special (buf, pos, err)
+    in
+      if err = AGAIN
+        then loop (buf, pos, q, m, n)
+        else loop_ins (buf, pos, q, m, n, i)
+      // end of [if]
+    end // end of ['\\']
+  | _(*rest*) => loop_ins (buf, pos, q, m, n, i)
+end // end of [then]
+else let
+  val () = regerr (buf, pos) in queue_size {uchar} (q)
+end (* end of [else] *)
+//
+end // end of [loop]
+//  
+and
+loop_ins
+{m,n:int | m > 0}
+(
+  buf: &lexbuf
+, pos: &position
+, q: &Q(m, n) >> Q(m, n)
+, m: size_t (m), n: size_t (n), i: int
+) : #[m,n:nat] size_t (n) = let
+  val c = (i2uc)i
+  prval () =
+    lemma_queue_param (q) // m >= n >= 0
+  // end of [prval]
+in
+  case+ 0 of
+  | _ when m > n => let
+      val () =
+      queue_insert<uchar> (q, c)
+    in
+      loop (buf, pos, q, m, n+1)
+    end // end of [m > n]
+  | _ (* m <= n *) => let
+      val m2 = m + m
+      val () =
+        queue_update_capacity<uchar> (q, m2)
+      // end of [val]
+      val ((*inserted*)) = queue_insert (q, c)
+    in
+      loop (buf, pos, q, m2, n+1)
+    end // end of [m <= n]
+end // end of [loop_ins]
+//
+var q: QUEUE0(uchar)
+#define m0 128 // HX: chosen randomly
+val () = queue_initialize<uchar> (q, m0)
+//
+val n = loop (buf, pos, q, m0, 0)
+val str = $UTL.queue_get_strptr1 (q, 0, n)
+val str = string_of_strptr (str)
+//
+val () = queue_uninitialize (q)
+//
+in
+  lexbufpos_token_reset (buf, pos, T_STRING(str))
 end // end of [lexing_DQUOTE]
 
 end // end of [local]
@@ -2221,9 +2290,10 @@ implement
 lexing_IDENT2_alp
   {l}(buf, pos, mystr) = let
 //
-viewtypedef mystr = strptr(l)
+vtypedef mystr = strptr(l)
 //
-val sym = IDENT_alp_get_lexsym ($UN.castvwtp1{string}{mystr}(mystr))
+val sym =
+  IDENT_alp_get_lexsym($UN.castvwtp1{string}{mystr}(mystr))
 //
 in
 //
@@ -2348,12 +2418,14 @@ implement
 lexing_IDENT_sym
   (buf, pos, k) = let
 //
-val [l:addr]
-  mystr = lexbuf_get_strptr1 (buf, k)
+val
+[l:addr]
+mystr = lexbuf_get_strptr1 (buf, k)
 //
-viewtypedef mystr = strptr(l)
+vtypedef mystr = strptr(l)
 //
-val sym = IDENT_sym_get_lexsym ($UN.castvwtp1{string}{mystr}(mystr))
+val sym =
+  IDENT_sym_get_lexsym($UN.castvwtp1{string}{mystr}(mystr))
 //
 in
 //
@@ -2411,22 +2483,30 @@ implement
 lexing_IDENT_dlr
   (buf, pos, k) = let
 //
-val [l:addr]
-  mystr = lexbuf_get_strptr1 (buf, k)
+val
+[l:addr]
+mystr = lexbuf_get_strptr1 (buf, k)
 //
-viewtypedef mystr = strptr(l)
+vtypedef mystr = strptr(l)
 //
-val tnode = tnode_search ($UN.castvwtp1{string}{mystr}(mystr))
+val tnode =
+  tnode_search($UN.castvwtp1{string}{mystr}(mystr))
 //
 in
-  case+ tnode of
-  | T_NONE () => let
-      val mystr = string_of_strptr (mystr) in
-      lexbufpos_token_reset (buf, pos, T_IDENT_dlr (mystr))
-    end // end of [T_NONE]
-  | _ (*rest*) => let
-      val () = strptr_free (mystr) in lexbufpos_token_reset (buf, pos, tnode)
-    end // end of [_]
+//
+case+
+tnode of
+| T_NONE () => let
+    val mystr =
+      string_of_strptr (mystr)
+    // end of [val]
+  in
+    lexbufpos_token_reset (buf, pos, T_IDENT_dlr (mystr))
+  end // end of [T_NONE]
+| _(*rest*) => let
+    val () = strptr_free (mystr) in
+    lexbufpos_token_reset (buf, pos, tnode)
+  end // end of [_(*rest*)]
 end // end of [lexing_IDENT_dlr]
 
 (* ****** ****** *)
@@ -2435,22 +2515,34 @@ implement
 lexing_IDENT_srp
   (buf, pos, k) = let
 //
-val [l:addr]
-  mystr = lexbuf_get_strptr1 (buf, k)
+val
+[l:addr]
+mystr = lexbuf_get_strptr1 (buf, k)
 //
-viewtypedef mystr = strptr(l)
+vtypedef mystr = strptr(l)
 //
-val tnode = tnode_search ($UN.castvwtp1{string}{mystr}(mystr))
+val tnode =
+  tnode_search($UN.castvwtp1{string}{mystr}(mystr))
 //
 in
-  case+ tnode of
-  | T_NONE () => let
-      val mystr = string_of_strptr (mystr) in
-      lexbufpos_token_reset (buf, pos, T_IDENT_srp (mystr))
-    end // end of [T_NONE]
-  | _ (*rest*) => let
-      val () = strptr_free (mystr) in lexbufpos_token_reset (buf, pos, tnode)
-    end // end of [_]
+//
+case+
+tnode of
+//
+| T_NONE () => let
+    val mystr =
+      string_of_strptr(mystr)
+    // end of [val]
+  in
+    lexbufpos_token_reset (buf, pos, T_IDENT_srp(mystr))
+  end // end of [T_NONE]
+//
+| _ (*rest*) => let
+    val () = strptr_free (mystr)
+  in
+    lexbufpos_token_reset (buf, pos, tnode)
+  end // end of [_(*rest*)]
+//
 end // end of [lexing_IDENT_srp]
 
 (* ****** ****** *)
@@ -2462,7 +2554,7 @@ lexing_FLOAT_deciexp
   val str = lexbufpos_get_strptr1 (buf, pos)
   val str = string_of_strptr (str)
 in
-  lexbufpos_token_reset (buf, pos, T_FLOAT (10(*base*), str, k))
+  lexbufpos_token_reset (buf, pos, T_FLOAT(10(*base*), str, k))
 end // end of [lexing_FLOAT_deciexp]
 
 (* ****** ****** *)
@@ -2474,24 +2566,26 @@ lexing_FLOAT_hexiexp
   val str = lexbufpos_get_strptr1 (buf, pos)
   val str = string_of_strptr (str)
 in
-  lexbufpos_token_reset (buf, pos, T_FLOAT (16(*base*), str, k))
+  lexbufpos_token_reset (buf, pos, T_FLOAT(16(*base*), str, k))
 end // end of [lexing_FLOAT_hexiexp]
 
 (* ****** ****** *)
 
 implement
 lexing_INT_dec
-  (buf, pos, k1) = let
+  (buf, pos) = let
 in
 //
 case+ 0 of
 | _ when
-    testing_deciexp (buf, pos) >= 0 => let
+    testing_deciexp
+      (buf, pos) >= 0 => let
   in
     lexing_FLOAT_deciexp (buf, pos)
   end // end of [_ when ...]
 | _ when
-    testing_fexponent (buf, pos) >= 0 => let
+    testing_fexponent
+      (buf, pos) >= 0 => let
   in
     lexing_FLOAT_deciexp (buf, pos)
   end // end of [_ when ...]
@@ -2500,7 +2594,7 @@ case+ 0 of
     val str = lexbufpos_get_strptr1 (buf, pos)
     val str = string_of_strptr (str)
   in
-    lexbufpos_token_reset (buf, pos, T_INT_dec (str, k2))
+    lexbufpos_token_reset (buf, pos, T_INT_dec(str, k2))
   end // end of [_]
 //
 end // end of [lexing_INT_dec]
@@ -2510,19 +2604,27 @@ end // end of [lexing_INT_dec]
 implement
 lexing_INT_oct
   (buf, pos, k1) = let
+//
+// k1:
+// number of digits
+// after the leading 0
+//
 in
 //
 if
-k1 <= 1u
-then lexing_INT_dec (buf, pos, k1)
-else let
+k1 = 0u
+then (
+  lexing_INT_dec (buf, pos)
+) else let
 //
-val k2 = testing_intspseq0 (buf, pos)
-val str = lexbuf_get_strptr1 (buf, k1+k2+1u) // 0: 1u
+val k2 =
+  testing_intspseq0 (buf, pos)
+val str =
+  lexbufpos_get_strptr1 (buf, pos)
 val str = string_of_strptr (str)
 //
 in
-  lexbufpos_token_reset (buf, pos, T_INT_oct (str, k2))
+  lexbufpos_token_reset (buf, pos, T_INT_oct(str, k2))
 end // end of [else]
 //
 end // end of [lexing_INT_oct]
@@ -2532,16 +2634,23 @@ end // end of [lexing_INT_oct]
 implement
 lexing_INT_hex
   (buf, pos, k1) = let
+//
+// k1:
+// number of digits
+// after the leading 0x
+//
 in
 //
 case+ 0 of
 | _ when
-    testing_hexiexp (buf, pos) >= 0 => let
+    testing_hexiexp
+      (buf, pos) >= 0 => let
   in
     lexing_FLOAT_hexiexp (buf, pos)
   end // end of [_ when ...]
 | _ when
-    testing_fexponent_bin (buf, pos) >= 0 => let
+    testing_fexponent_bin
+      (buf, pos) >= 0 => let
   in
     lexing_FLOAT_hexiexp (buf, pos)
   end // end of [_ when ...]
@@ -2550,7 +2659,7 @@ case+ 0 of
     val str = lexbufpos_get_strptr1 (buf, pos)
     val str = string_of_strptr (str)
   in
-    lexbufpos_token_reset (buf, pos, T_INT_hex (str, k2))
+    lexbufpos_token_reset (buf, pos, T_INT_hex(str, k2))
   end // end of [_]
 //
 end // end of [lexing_INT_hex]
@@ -2584,13 +2693,17 @@ in
       lexing_INT_hex (buf, pos, k1)
     end // end of [_ when ...]
   | _ => let
-      val k1 = testing_octalseq0 (buf, pos)
+      val k1 =
+        testing_octalseq0 (buf, pos)
+      // end of [val]
     in
       lexing_INT_oct (buf, pos, k1)
     end // end of [_]
   // end of [case]
 end // end of [then]
-else lexbufpos_token_reset (buf, pos, INTZERO)
+else (
+  lexbufpos_token_reset (buf, pos, INTZERO)
+) (* end of [else] *)
 //
 end // end of [lexing_ZERO]
 
@@ -2620,16 +2733,16 @@ in
 case+ 0 of
 //
 | _ when c0 = '\(' =>
-    lexing_LPAREN (buf, pos) // HX: handling "(*"
-| _ when c0 = ')' =>
+    lexing_LPAREN (buf, pos) // handling "(*"
+| _ when (c0 = ')') =>
     lexbufpos_token_reset (buf, pos, T_RPAREN)
 | _ when c0 = '\[' =>
     lexbufpos_token_reset (buf, pos, T_LBRACKET)
-| _ when c0 = ']' =>
+| _ when (c0 = ']') =>
     lexbufpos_token_reset (buf, pos, T_RBRACKET)
 | _ when c0 = '\{' =>
     lexbufpos_token_reset (buf, pos, T_LBRACE)
-| _ when c0 = '}' =>
+| _ when (c0 = '}') =>
     lexbufpos_token_reset (buf, pos, T_RBRACE)
 //
 | _ when c0 = ',' => lexing_COMMA (buf, pos)
@@ -2639,38 +2752,43 @@ case+ 0 of
 | _ when c0 = '@' => lexing_AT (buf, pos)
 | _ when c0 = ':' => lexing_COLON (buf, pos)
 | _ when c0 = '.' => lexing_DOT (buf, pos)
-| _ when c0 = '%' => lexing_PERCENT (buf, pos)
 | _ when c0 = '$' => lexing_DOLLAR (buf, pos)
 | _ when c0 = '#' => lexing_SHARP (buf, pos)
-//
-| _ when c0 = '`' => lexing_BQUOTE (buf, pos)
+| _ when c0 = '%' => lexing_PERCENT (buf, pos)
 //
 | _ when c0 = '\'' => lexing_QUOTE (buf, pos)
-| _ when c0 = '"' => lexing_DQUOTE (buf, pos)
+| _ when (c0 = '"') => lexing_DQUOTE (buf, pos)
+| _ when (c0 = '`') => lexing_BQUOTE (buf, pos)
 //
 | _ when c0 = '\\' =>
     lexbufpos_token_reset (buf, pos, T_BACKSLASH)
 //
 | _ when
     IDENTFST_test (c0) => let
-    val k = testing_identrstseq0 (buf, pos)
+    val k =
+      testing_identrstseq0 (buf, pos)
+    // end of [val]
   in
     lexing_IDENT_alp (buf, pos, succ(k))
   end // end of [_ when ...]
 | _ when
     SYMBOLIC_test (c0) => let
-    val k = testing_symbolicseq0 (buf, pos)
+    val k =
+      testing_symbolicseq0 (buf, pos)
+    // end of [val]
   in
     lexing_IDENT_sym (buf, pos, succ(k))
   end // end of [_ when ...]
 //
-| _ when c0 = '0' => lexing_ZERO (buf, pos)
+| _ when (c0 = '0') => lexing_ZERO (buf, pos)
 //
 | _ when
     DIGIT_test (c0) => let
-    val k1 = testing_digitseq0 (buf, pos)
+    val k1 =
+      testing_digitseq0 (buf, pos)
+    // end of [val]
   in
-    lexing_INT_dec (buf, pos, k1)
+    lexing_INT_dec (buf, pos) // HX: k1+1 digits
   end // end of [_ when ...]
 //
 | _ (*rest-of-char*) => let
@@ -2679,16 +2797,20 @@ case+ 0 of
 //
     val loc =
       lexbufpos_get_location (buf, pos)
+    // end of [loc]
     val err =
       lexerr_make (loc, LE_UNSUPPORTED_char(c0))
-    val () = the_lexerrlst_add (err)
-    val () = lexbuf_set_position (buf, pos)
+    // end of [val]
+    val ((*void*)) = the_lexerrlst_add (err)
+    val ((*void*)) = lexbuf_set_position (buf, pos)
   in
     lexing_next_token (buf)
   end // end of [rest-of-char]
 //
 end // end of [then]
-else lexbufpos_token_reset (buf, pos, T_EOF)
+else (
+  lexbufpos_token_reset (buf, pos, T_EOF(*last*))
+) (* end of [else] *)
 //
 end // end of [lexing_next_token]
 
@@ -2702,15 +2824,18 @@ val tok = lexing_next_token (buf)
 //
 in
 //
-case+ tok.token_node of
+case+
+tok.token_node of
 | T_COMMENT_line _ =>
-    lexing_next_token_ncmnt (buf) // HX: skip
+  lexing_next_token_ncmnt (buf) // HX: skip
 | T_COMMENT_block _ =>
-    lexing_next_token_ncmnt (buf) // HX: skip
+  lexing_next_token_ncmnt (buf) // HX: skip
 //
-// HX: A rest-of-file comment is considered as EOF
+// HX-2011:
+// each rest-of-file comment is treated as EOF
 //
 | T_COMMENT_rest _ => token_make (tok.token_loc, T_EOF)
+//
 | _ (*non-COMMENT*) => tok
 //
 end // end of [lexing_next_token_ncmnt]

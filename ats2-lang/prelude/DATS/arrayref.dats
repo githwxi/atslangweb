@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Sep 26 22:21:04 2014
+** Time of generation: Tue Jan 13 00:14:11 2015
 *)
 
 (* ****** ****** *)
@@ -145,7 +145,7 @@ arrayref_interchange
   (A, i, j) = let
 //
 val (vbox pf | p) =
-  arrayref_get_viewptr (A) in array_interchange (!p, i, j)
+  arrayref_get_viewptr (A) in array_interchange<a> (!p, i, j)
 //
 end // end of [arrayref_interchange]
 
@@ -156,7 +156,7 @@ arrayref_subcirculate
   (A, i, j) = let
 //
 val (vbox pf | p) =
-  arrayref_get_viewptr (A) in array_subcirculate (!p, i, j)
+  arrayref_get_viewptr (A) in array_subcirculate<a> (!p, i, j)
 //
 end // end of [arrayref_subcirculate]
 
@@ -165,21 +165,21 @@ end // end of [arrayref_subcirculate]
 implement{a}
 fprint_arrayref
   (out, A, n) = let
-  val (
-    vbox pf | p
-  ) = arrayref_get_viewptr (A)
+//
+val (vbox pf | p) = arrayref_get_viewptr (A)
+//
 in
-  $effmask_ref (fprint_array (out, !p, n))
+  $effmask_ref (fprint_array<a> (out, !p, n))
 end // end of [fprint_arrayref]
 
 implement{a}
 fprint_arrayref_sep
   (out, A, n, sep) = let
-  val (
-    vbox pf | p
-  ) = arrayref_get_viewptr (A)
+//
+val (vbox pf | p) = arrayref_get_viewptr (A)
+//
 in
-  $effmask_ref (fprint_array_sep (out, !p, n, sep))
+  $effmask_ref (fprint_array_sep<a> (out, !p, n, sep))
 end // end of [fprint_arrayref_sep]
 
 (* ****** ****** *)
@@ -188,11 +188,15 @@ implement
 {a}(*tmp*)
 arrayref_copy
   {n} (A, n) = let
-  val (pf, fpf | p) =
-    $UN.ptr0_vtake{array(a,n)}(ptrcast(A))
-  val (pf2, pf2gc | p2) = array_ptr_alloc<a> (n)
-  val ((*void*)) = array_copy<a> (!p2, !p, n)
-  prval () = fpf (pf)
+//
+val (pf, fpf | p) =
+  $UN.ptr0_vtake{array(a,n)}(ptrcast(A))
+//
+val (pf2, pf2gc | p2) = array_ptr_alloc<a> (n)
+val ((*void*)) = array_copy<a> (!p2, !p, n)
+//
+prval ((*void*)) = fpf (pf)
+//
 in
   $UN.castvwtp0{arrayptr(a,n)}((pf2, pf2gc | p2))
 end // end of [arrayref_copy]
@@ -290,41 +294,52 @@ val A = arrpsz_get_ptrsize (psz, asz)
 val A = arrayptr_refize (A)
 //
 in
-  ARRSZREF (A, asz)
+  ARRSZREF(A, asz)
 end // end of [arrszref_make_arrpsz]
 
-implement{}
-arrszref_make_arrayref (A, asz) = ARRSZREF (A, asz)
-
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+arrszref_make_arrayref
+  (A, asz) = ARRSZREF(A, asz)
+//
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 arrszref_get_ref
   (ASZ) = let
 //
-val+ARRSZREF
-  (A, asz) = ASZ in $UN.cast2Ptr1(A)
+val+
+ARRSZREF(A, _) = ASZ in $UN.cast2Ptr1(A)
 //
 end // end of [arrszref_get_size]
 
 (* ****** ****** *)
 
-implement{}
-arrszref_get_size (ASZ) =
-  let val+ARRSZREF (A, asz) = ASZ in asz end 
-// end of [arrszref_get_size]
+implement
+{}(*tmp*)
+arrszref_get_size
+  (ASZ) = let
+//
+val+ARRSZREF(_, n) = ASZ in (n)
+//
+end // end of [arrszref_get_size]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 arrszref_get_refsize
-  (ASZ, asz_r) = let
+  (ASZ, nref) = let
 //
-val+ARRSZREF (A, asz) = ASZ
+val+ARRSZREF(A, n) = ASZ
+//
 prval () = lemma_arrayref_param (A)
 //
 in
-  asz_r := asz; A(*arrayref*)
+  nref := n; A(*arrayref*)
 end // end of [arrszref_get_refsize]
 
 end // end of [local]
@@ -333,11 +348,13 @@ end // end of [local]
 
 implement{a}
 arrszref_make_elt
-  (asz, x) = let
-  val asz = g1ofg0_uint (asz)
-  val A = arrayref_make_elt<a> (asz, x)
+  (n, x) = let
+//
+val n = g1ofg0_uint (n)
+val A = arrayref_make_elt<a> (n, x)
+//
 in
-  arrszref_make_arrayref (A, asz)
+  arrszref_make_arrayref (A, n)
 end // end of [arrszref_make_elt]
 
 (* ****** ****** *)
@@ -346,14 +363,13 @@ implement{a}
 arrszref_make_list
   (xs) = let
 //
-prval () = lemma_list_param (xs)
-//
 val n = list_length<a> (xs)
 val A = arrayref_make_list (n, xs)
-val asz = (i2sz)n
+//
+prval () = lemma_list_param (xs)
 //
 in
-  arrszref_make_arrayref (A, asz)
+  arrszref_make_arrayref (A, i2sz(n))
 end // end of [arrszref_make_list]
 
 implement{a}
@@ -364,10 +380,9 @@ prval () = lemma_list_param (xs)
 //
 val n = list_length<a> (xs)
 val A = arrayref_make_rlist (n, xs)
-val asz = (i2sz)n
 //
 in
-  arrszref_make_arrayref (A, asz)
+  arrszref_make_arrayref (A, i2sz(n))
 end // end of [arrszref_make_rlist]
 
 (* ****** ****** *)

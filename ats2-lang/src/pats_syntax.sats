@@ -1120,6 +1120,8 @@ fun p0at_ann (p0t: p0at, ann: s0exp): p0at
 
 fun p0at_err (loc: location): p0at // HX: indicating syntax-error
 
+(* ****** ****** *)
+
 fun fprint_p0at : fprint_type (p0at)
 
 (* ****** ****** *)
@@ -1393,8 +1395,8 @@ and d0exp_node =
 // recknd:
 // TYRECKIND_flt(0)/TYRECKIND_box(1)/TYRECKIND_box_t(2)/TYRECKIND_box_vt(3)
 //
-  | D0Etup of (int (*tupknd*), int(*npf*), d0explst)
-  | D0Erec of (int (*recknd*), int (*npf*), labd0explst)
+  | D0Etup of (int(*tupknd*), int(*npf*), d0explst)
+  | D0Erec of (int(*recknd*), int (*npf*), labd0explst)
 //
   | D0Eseq of d0explst // dynamic sequence-expression
 //
@@ -1411,6 +1413,8 @@ and d0exp_node =
   | D0Eshowtype of (d0exp) // $showtype
 //
   | D0Evcopyenv of (int(*knd*), d0exp) // $vcopyenv_v/$vcopyenv_vt
+//
+  | D0Etempenver of (d0exp) // $tempenver for adding environvar
 //
   | D0Eptrof of () // taking the addr of a left-value
   | D0Eviewat of () // taking the view at the addr of a left-value
@@ -1777,7 +1781,12 @@ fun d0exp_showtype (tok: token, d0e: d0exp): d0exp
 
 (* ****** ****** *)
 
-fun d0exp_vcopyenv (knd: int, tok: token, d0e: d0exp): d0exp
+fun d0exp_vcopyenv
+  (knd: int(*0/1*), tok: token, d0e: d0exp): d0exp
+
+(* ****** ****** *)
+
+fun d0exp_tempenver (tok: token, d0e: d0exp): d0exp
 
 (* ****** ****** *)
 

@@ -219,7 +219,8 @@ case+ c of
 | '\n' => emit_text (out, "\\n")
 | '\t' => emit_text (out, "\\t")
 | '\\' => emit_text (out, "\\\\")
-| _ => (
+| _ (*rest-of-char*) =>
+  (
     if char_isprint (c)
       then fprint_char (out, c)
       else let
@@ -227,7 +228,7 @@ case+ c of
         fprintf (out, "\\%.3o", @($UN.cast2uint(uc)))
       end // end of [else]
     // end of [if]
-  ) // end of [_]
+  ) (* end of [_] *)
 //
 end // end of [auxch2]
 
@@ -2220,6 +2221,18 @@ fun auxcon1
 , hit_con: hitype, arg: labprimvalist
 ) : void = let
 //
+val
+lincon =
+(
+if $S2E.d2con_is_linear(d2c) then 0 else 1
+) : int // end of [val]
+//
+val () =
+fprintf
+(
+  out, "/*\n#LINCONSTATUS==%i\n*/\n", @(lincon)
+) (* end of [val] *)
+//
 val () =
   emit_text (out, "ATSINSmove_con1_beg()\n")
 //
@@ -2378,25 +2391,31 @@ case+ lxs of
     loop (boxknd, extknd, tmp, hit_rec, lxs, i+1)
   end // end of [list_cons]
 //
-| list_nil () => ()
+| list_nil ((*void*)) => ()
 //
 end // end of [loop]
 //
 in
 //
-case- ins.instr_node of
+case-
+ins.instr_node of
 | INSmove_fltrec
   (
     tmp, lpmvs, hse_rec
   ) => let
 //
-    val () = emit_text (out, "ATSINSmove_fltrec_beg()\n")
-//
     val hit = hisexp_typize (1, hse_rec)
     val extknd = hisexp_get_extknd (hse_rec)
+//
+    val () =
+      emit_text (out, "ATSINSmove_fltrec_beg()\n")
+    // end of [val]
+//
     val () = loop (0(*boxknd*), extknd, tmp, hit, lpmvs, 0)
 //
-    val () = emit_text (out, "\nATSINSmove_fltrec_end()")
+    val () =
+      emit_text (out, "\nATSINSmove_fltrec_end()")
+    // end of [val]
   in
     // nothing
   end // end of [INSmove_fltrec]
@@ -2405,10 +2424,14 @@ case- ins.instr_node of
     tmp, lpmvs, hse_rec
   ) => let
 //
-    val () = emit_text (out, "ATSINSmove_boxrec_beg()\n")
-//
     val hit = hisexp_typize (0, hse_rec)
     val extknd = hisexp_get_extknd (hse_rec)
+//
+    val () =
+      fprint (out, "/*\n#LINCONSTATUS==2\n*/\n")
+    val () =
+      emit_text (out, "ATSINSmove_boxrec_beg()\n")
+    // end of [val]
 //
     val () = emit_text (out, "ATSINSmove_boxrec_new(")
     val () = emit_tmpvar (out, tmp)
@@ -2417,7 +2440,9 @@ case- ins.instr_node of
     val () = emit_text (out, ") ;\n")
     val () = loop (1(*boxknd*), extknd, tmp, hit, lpmvs, 0)
 //
-    val () = emit_text (out, "\nATSINSmove_boxrec_end()")
+    val () =
+      emit_text (out, "\nATSINSmove_boxrec_end()")
+    // end of [val]
 //
   in
     // nothing
@@ -2471,7 +2496,8 @@ end // end of [local]
 
 local
 
-fun auxfnd
+fun
+auxfnd
 (
   l0: label, lxs: labhisexplst
 ) : hisexp = let
@@ -2481,7 +2507,8 @@ in
   if l0 = l then x else auxfnd (l0, lxs)
 end // end of [auxfnd]
 
-fun auxsel
+fun
+auxsel
 (
   hse0: hisexp, pml: primlab
 ) : hisexp = let
@@ -2504,12 +2531,10 @@ case+
     // end of [HSEtysum]
   | _ => let
       val () = prerr_interror ()
-      val () = prerr (": auxsel: hse0 = ")
-      val () = prerr_hisexp (hse0)
-      val () = prerr_newline ()
-      val () = assertloc (false)
+      val () = prerrln! (": auxsel: hse0 = ", hse0)
+      val ((*exit*)) = assertloc (false)
     in
-      $ERR.abort ()
+      $ERR.abort_interr{hisexp}((*deadcode*))
     end // end of [_]
   ) (* end of [PMLlab] *)
 //
@@ -2521,7 +2546,8 @@ case+
 //
 end // end of [auxsel]
 
-fun auxselist
+fun
+auxselist
 (
   hse0: hisexp, pmls: primlablst
 ) : List_vt @(hisexp, primlab) = let
@@ -2547,7 +2573,8 @@ in
   loop (hse0, pmls, list_vt_nil ())
 end // end of [auxselist]
 
-fun auxmain
+fun
+auxmain
 (
   out: FILEref
 , knd: int
@@ -2624,7 +2651,8 @@ case+ xys of
   in
     // nothing
   end // end of [list_vt_cons]
-| ~list_vt_nil () => let
+| ~list_vt_nil
+    ((*void*)) => let
   in
     case+ knd of
     | 0 => emit_primval (out, pmv)

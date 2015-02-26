@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Sep 26 22:21:01 2014
+** Time of generation: Tue Jan 13 00:14:04 2015
 *)
 
 (* ****** ****** *)
@@ -123,12 +123,21 @@ implement{a} ptr1_intch = ptr0_intch<a>
 //
 implement
 {a}(*tmp*)
-ptr0_get_at (p, i) =
+ptr0_get_at_int (p, i) =
   ptr0_get<a> (ptr0_add_gint<a> (p, i))
 implement
 {a}(*tmp*)
-ptr0_set_at (p, i, x) =
+ptr0_set_at_int (p, i, x) =
   ptr0_set<a> (ptr0_add_gint<a> (p, i), x)
+//
+implement
+{a}(*tmp*)
+ptr0_get_at_size (p, i) =
+  ptr0_get<a> (ptr0_add_guint<a> (p, i))
+implement
+{a}(*tmp*)
+ptr0_set_at_size (p, i, x) =
+  ptr0_set<a> (ptr0_add_guint<a> (p, i), x)
 //
 (* ****** ****** *)
 

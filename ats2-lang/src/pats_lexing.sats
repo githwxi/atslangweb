@@ -49,6 +49,12 @@ LBF = "./pats_lexbuf.sats"
 stadef lexbuf = $LBF.lexbuf
 
 (* ****** ****** *)
+//
+typedef
+arrayref
+  (a:t@ype, n:int) = array(a, n)
+//
+(* ****** ****** *)
 
 datatype
 token_node =
@@ -111,11 +117,11 @@ token_node =
   | T_CLASSDEC of () // classdec
   | T_DATASORT of () // datasort
   | T_DATATYPE of int // datatype, dataprop, dataview, dataviewtype
-  | T_DO of () // do
-  | T_DYNLOAD of () // dynload
-  | T_ELSE of () // else
-  | T_END of () // end
-  | T_EXCEPTION of () // exception
+  | T_DO of () // [do]
+  | T_DYNLOAD of () // [dynload]
+  | T_ELSE of () // [else]
+  | T_END of () // the [end] keyword
+  | T_EXCEPTION of () // [exception]
 //
   | T_EXTERN of () // extern
   | T_EXTYPE of () // externally named type
@@ -129,7 +135,7 @@ token_node =
   | T_FUN of (funkind) // fn, fnx, fun, prfn and prfun
   | T_IF of () // (dynamic) if
   | T_IMPLEMENT of
-      (int) // 0/1: implement/primplement
+      (int) // 0/1/2: implmnt/implement/primplmnt
   | T_IMPORT of () // import (for packages)
   | T_IN of () // in
   | T_LAM of int // lam, llam (linear lam) and lam@ (flat lam)
@@ -155,12 +161,12 @@ token_node =
 *)
   | T_SYMELIM of () // symelim // symbol elimination
   | T_SYMINTR of () // symintr // symbol introduction
-  | T_THEN of () // then
+  | T_THEN of () // the [then] keyword
   | T_TKINDEF of () // tkindef // for introducting tkinds
   | T_TRY of () // try
   | T_TYPE of int // type, type+, type-
-  | T_TYPEDEF of
-      (int) // typedef, propdef, viewdef, viewtypedef
+  | T_TYPEDEF of (int)
+    // typedef, propdef, viewdef, viewtypedef
   | T_VAL of (valkind) // val, val+, val-, prval
   | T_VAR of (int(*knd*)) // knd = 0/1: var/prvar
   | T_WHEN of () // when
@@ -209,6 +215,8 @@ token_node =
 //
   | T_DLRVCOPYENV of (int) // $vcopyenv_v(v)/$vcopyenv_vt(vt)
 //
+  | T_DLRTEMPENVER of () // $tempenver // for adding environvar
+//
   | T_SRPASSERT of () // #assert
   | T_SRPDEFINE of () // #define
   | T_SRPELIF of () // #elif
@@ -242,7 +250,7 @@ token_node =
   | T_FLOAT of (int(*base*), string(*rep*), uint(*suffix*))
 //
   | {n:int}
-    T_CDATA of (array (char, n), size_t (n))
+    T_CDATA of (arrayref(char, n), size_t(n)) // for binaries
   | T_STRING of (string)
 //
 (*
@@ -335,6 +343,7 @@ val FORSTAR : tnode
 val FREE : tnode
 val FREEAT : tnode
 
+val IMPLMNT : tnode // implmnt
 val IMPLEMENT : tnode // implement
 val PRIMPLMNT : tnode // primplmnt
 
@@ -385,10 +394,11 @@ val VIEWTYPEDEF : tnode
 val VAL : tnode
 val VAL_pos : tnode
 val VAL_neg : tnode
-val PRVAL  : tnode
+val MCVAL : tnode // for model-checking
+val PRVAL : tnode // for theorem-proving
 
 val VAR : tnode
-val PRVAR  : tnode
+val PRVAR : tnode
 
 val WHILE : tnode
 val WHILESTAR : tnode

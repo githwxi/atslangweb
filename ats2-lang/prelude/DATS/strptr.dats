@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/strptr.atxt
-** Time of generation: Fri Sep 26 22:20:56 2014
+** Time of generation: Tue Jan 13 00:30:06 2015
 *)
 
 (* ****** ****** *)
@@ -147,35 +147,54 @@ strnptr_isnot_null (str) = (strnptr2ptr (str) > nullp)
 (* ****** ****** *)
 
 implement{}
-strptr_length (x) = let
-  val isnot = ptr_isnot_null (strptr2ptr(x))
+strptr_length(x) = let
+  val isnot = ptr_isnot_null(strptr2ptr(x))
 in
-  if isnot
-    then g0u2i(string_length ($UN.strptr2string(x))) else g0i2i(~1)
-  // end of [if]
+//
+if isnot
+  then g0u2i(string_length($UN.strptr2string(x)))
+  else g0i2i(~1)
+//
 end // end of [strptr_length]
 
 implement{}
-strnptr_length (x) = let
+strnptr_length(x) = let
   prval () = lemma_strnptr_param (x)
-  val isnot = ptr_isnot_null (strnptr2ptr(x))
+  val isnot = ptr_isnot_null(strnptr2ptr(x))
 in
-  if isnot
-    then g1u2i(string_length ($UN.strnptr2string(x))) else g1i2i(~1)
-  // end of [if]
+//
+if isnot
+  then g1u2i(string_length($UN.strnptr2string(x)))
+  else g1i2i(~1)
+//
 end // end of [strnptr_length]
 
 (* ****** ****** *)
 
 implement{}
-strptr0_copy (x) = let
-  val isnot = ptr_isnot_null (strptr2ptr(x))
+strptr0_copy(x) = let
+  val isnot = ptr_isnot_null(strptr2ptr(x))
 in
-  if isnot then string0_copy ($UN.strptr2string(x)) else strptr_null ()
+//
+if isnot
+  then string0_copy($UN.strptr2string(x)) else strptr_null()
+//
 end // end of [strptr0_copy]
 
 implement{}
-strptr1_copy (x) = string0_copy ($UN.strptr2string(x))
+strptr1_copy(x) = string0_copy($UN.strptr2string(x))
+
+(* ****** ****** *)
+
+implement{}
+strnptr_copy
+  {n}(x) = x2 where
+{
+  val x = strnptr2ptr(x)
+  val x = $UN.castvwtp0{Strptr0}(x)
+  val x2 = $UN.castvwtp0{strnptr(n)}(strptr0_copy(x))
+  prval ((*void*)) = $UN.cast2void(x)
+} (* end of [strnptr_copy] *)
 
 (* ****** ****** *)
 
@@ -255,7 +274,7 @@ case+ xs of
       prval () =
         strptr_free_null (x)
       val xs1 = xs1
-      val () = free@ {..}{0} (xs)
+      val () = free@{..}{0}(xs)
       val ((*void*)) = (xs := xs1)
     in
       loop (xs)

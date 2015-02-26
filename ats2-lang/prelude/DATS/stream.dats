@@ -26,22 +26,18 @@
 *)
 
 (* ****** ****** *)
-//
-// Author: Hongwei Xi
-// Authoremail: gmhwxiATgmailDOTcom
-// Start Time: July, 2012
-//
-(* ****** ****** *)
-
-#include "prelude/params.hats"
-
-(* ****** ****** *)
 
 (*
-#if VERBOSE_PRELUDE #then
-#print "Loading [stream.dats] starts!\n"
-#endif // end of [VERBOSE_PRELUDE]
+** Source:
+** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
+** Time of generation: Tue Jan 13 00:14:09 2015
 *)
+
+(* ****** ****** *)
+
+(* Author: Hongwei Xi *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: July, 2012 *)
 
 (* ****** ****** *)
 
@@ -696,14 +692,6 @@ end // end of [fprint_stream]
 
 implement{}
 fprint_stream$sep (out) = fprint_string (out, ", ")
-
-(* ****** ****** *)
-
-(*
-#if VERBOSE_PRELUDE #then
-#print "Loading [stream.dats] finishes!\n"
-#endif // end of [VERBOSE_PRELUDE]
-*)
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Tue Oct 28 03:44:16 2014
+** Time of generation: Tue Jan 13 00:14:02 2015
 *)
 
 (* ****** ****** *)
@@ -857,5 +857,7 @@ atspre_string_make_vsnprintf
 } // end of [atspre_string_make_vsnprintf]
 //
 %}
+
+(* ****** ****** *)
 
 (* end of [string.dats] *)

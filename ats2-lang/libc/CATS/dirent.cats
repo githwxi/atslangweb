@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/dirent.atxt
-** Time of generation: Mon Oct 27 19:32:44 2014
+** Time of generation: Sun Jan 11 02:59:43 2015
 */
 
 /* ****** ****** */
@@ -53,12 +53,7 @@
 
 /* ****** ****** */
 
-#define \
-ATSLIBfailexit(cmd) \
-do { \
-  perror(cmd) ; \
-  fprintf(stderr, "exit(ATSLIB): [%s] failed\n", cmd) ; exit(1) ; \
-} while (0) \
+#include "share/H/pats_atslib.h"
 
 /* ****** ****** */
 

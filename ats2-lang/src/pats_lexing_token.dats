@@ -82,8 +82,9 @@ implement PRAXI = T_FUN (FK_praxi)
 //
 implement CASTFN = T_FUN (FK_castfn)
 
-implement IMPLEMENT = T_IMPLEMENT (0)
-implement PRIMPLMNT = T_IMPLEMENT (1)
+implement IMPLMNT = T_IMPLEMENT (0)
+implement IMPLEMENT = T_IMPLEMENT (1)
+implement PRIMPLMNT = T_IMPLEMENT (~1)
 
 implement INFIX = T_FIXITY (FXK_infix)
 implement INFIXL = T_FIXITY (FXK_infixl)
@@ -150,6 +151,9 @@ implement VIEWTYPEDEF = T_TYPEDEF (VIEWT0YPE_int)
 implement VAL = T_VAL (VK_val)
 implement VAL_pos = T_VAL (VK_val_pos)
 implement VAL_neg = T_VAL (VK_val_neg)
+(*
+implement MCVAL = T_VAL (VK_mcval)
+*)
 implement PRVAL = T_VAL (VK_prval)
 
 implement VAR = T_VAR (0)
@@ -404,10 +408,11 @@ val () = ins ("infixr", INFIXR)
 val () = ins ("prefix", PREFIX)
 val () = ins ("postfix", POSTFIX)
 //
-val () = ins ("implmnt", IMPLEMENT)
-val () = ins ("implement", IMPLEMENT)
-val () = ins ("primplmnt", PRIMPLMNT)
-val () = ins ("primplement", PRIMPLMNT)
+val () = ins ("implmnt", IMPLMNT) // 0
+val () = ins ("implement", IMPLEMENT) // 1
+//
+val () = ins ("primplmnt", PRIMPLMNT) // ~1
+val () = ins ("primplement", PRIMPLMNT) // ~1
 //
 val () = ins ("import", T_IMPORT) // for importing packages
 //
@@ -545,6 +550,8 @@ val () = ins ("$showtype", T_DLRSHOWTYPE)
 val () = ins ("$vcopyenv_v", DLRVCOPYENV_V)
 val () = ins ("$vcopyenv_vt", DLRVCOPYENV_VT)
 //
+val () = ins ("$tempenver", T_DLRTEMPENVER)
+//
 val () = ins ("#assert", T_SRPASSERT)
 val () = ins ("#define", T_SRPDEFINE)
 val () = ins ("#elif", T_SRPELIF)
@@ -570,10 +577,10 @@ in (* in of [local] *)
 implement
 tnode_search (x) = let
 //
-  val (fptbl | ptbl) = HASHTBLref_takeout_ptr (rtbl)
-  var res: itm?
-  val b = hashtbl_search<key,itm> (ptbl, encode(x), res)
-  prval () = fptbl (ptbl)
+var res: itm?
+val (fptbl | ptbl) = HASHTBLref_takeout_ptr (rtbl)
+val b = hashtbl_search<key,itm> (ptbl, encode(x), res)
+prval () = fptbl (ptbl)
 //
 in
 //

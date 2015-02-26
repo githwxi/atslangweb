@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-2014 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -77,8 +77,10 @@ staload "./pats_jsonize.sats"
 
 (* ****** ****** *)
 
-staload DEPGEN = "./pats_depgen.sats"
-staload TAGGEN = "./pats_taggen.sats"
+staload
+DEPGEN = "./pats_depgen.sats"
+staload
+TAGGEN = "./pats_taggen.sats"
 
 (* ****** ****** *)
 
@@ -98,6 +100,10 @@ staload "./pats_staexp2.sats"
 staload "./pats_stacst2.sats"
 staload "./pats_dynexp2.sats"
 
+(* ****** ****** *)
+  
+staload "./pats_synent2_jsonize.sats"
+  
 (* ****** ****** *)
 
 staload
@@ -165,10 +171,10 @@ dynload "pats_errmsg.dats"
 
 dynload "pats_reader.dats"
 dynload "pats_lexbuf.dats"
-dynload "pats_lexing_token.dats"
-dynload "pats_lexing_print.dats"
-dynload "pats_lexing_error.dats"
 dynload "pats_lexing.dats"
+dynload "pats_lexing_error.dats"
+dynload "pats_lexing_print.dats"
+dynload "pats_lexing_token.dats"
 
 dynload "pats_label.dats"
 dynload "pats_effect.dats"
@@ -181,8 +187,8 @@ dynload "pats_taggen.dats"
 
 dynload "pats_tokbuf.dats"
 dynload "pats_parsing.dats"
-dynload "pats_parsing_error.dats"
 dynload "pats_parsing_util.dats"
+dynload "pats_parsing_error.dats"
 dynload "pats_parsing_kwds.dats"
 dynload "pats_parsing_base.dats"
 dynload "pats_parsing_e0xp.dats"
@@ -208,8 +214,8 @@ dynload "pats_e1xpval_error.dats"
 //
 dynload "pats_filename_reloc.dats"
 //
-dynload "pats_trans1_error.dats"
 dynload "pats_trans1_e0xp.dats"
+dynload "pats_trans1_error.dats"
 dynload "pats_trans1_effect.dats"
 dynload "pats_trans1_sort.dats"
 dynload "pats_trans1_staexp.dats"
@@ -223,7 +229,6 @@ dynload "pats_stacst2.dats"
 //
 dynload "pats_staexp2_print.dats"
 dynload "pats_staexp2_pprint.dats"
-dynload "pats_staexp2_jsonize.dats"
 //
 dynload "pats_staexp2_sort.dats"
 //
@@ -252,13 +257,15 @@ dynload "pats_dynexp2.dats"
 dynload "pats_dyncst2.dats"
 //
 dynload "pats_dynexp2_print.dats"
-dynload "pats_dynexp2_jsonize.dats"
 //
 dynload "pats_dynexp2_dcst.dats"
 dynload "pats_dynexp2_dvar.dats"
 dynload "pats_dynexp2_dmac.dats"
 //
 dynload "pats_dynexp2_util.dats"
+//
+dynload "pats_dynexp2_mapgen.dats"
+dynload "pats_synent2_jsonize.dats"
 //
 dynload "pats_namespace.dats"
 //
@@ -274,8 +281,8 @@ dynload "pats_trans2_decl.dats"
 dynload "pats_dynexp3.dats"
 dynload "pats_dynexp3_print.dats"
 //
-dynload "pats_trans3_error.dats"
 dynload "pats_trans3_util.dats"
+dynload "pats_trans3_error.dats"
 //
 dynload "pats_trans3_env.dats"
 dynload "pats_trans3_env_print.dats"
@@ -323,9 +330,13 @@ dynload pats_lintprgm_myint_gmp.dats
 dynload "pats_lintprgm_solve.dats"
 //
 dynload "pats_constraint3.dats"
-dynload "pats_constraint3_init.dats"
+//
 dynload "pats_constraint3_print.dats"
+//
+dynload "pats_constraint3_mapgen.dats"
 dynload "pats_constraint3_jsonize.dats"
+//
+dynload "pats_constraint3_init.dats"
 dynload "pats_constraint3_simplify.dats"
 dynload "pats_constraint3_icnstr.dats"
 dynload "pats_constraint3_solve.dats"
@@ -400,7 +411,8 @@ extern void patsopt_ATSPKGRELOCROOT_set () ;
 
 (* ****** ****** *)
 
-fn patsopt_usage
+fn
+patsopt_usage
 (
   out: FILEref, arg0: comarg
 ) : void = let
@@ -409,7 +421,7 @@ val COMARGkey (_, cmdname) = arg0
 //
 in
 //
-fprintln! (out, "usage: ", cmdname, " <command> ... <command>\n");
+fprintln! (out, "Usage: ", cmdname, " <command> ... <command>\n");
 fprintln! (out, "where a <command> is of one of the following forms:\n");
 fprintln! (out, "  -h (for printing out this help usage)");
 fprintln! (out, "  --help (for printing out this help usage)");
@@ -455,12 +467,18 @@ HX: VERSION-0.0.8 released on Sunday, May 4, 2014
 //
 HX: VERSION-0.1.0 released on Monday, June 9, 2014
 HX: VERSION-0.1.1 released on Wednesday, July 30, 2014
-HX: VERSION-0.1.2 released on Friday, Auguest 29, 2014
+HX: VERSION-0.1.2 released on Friday, August 29, 2014
+HX: VERSION-0.1.3 released on Monday, September 29, 2014
+HX: VERSION-0.1.4 released on Thursday, October 23, 2014
+HX: VERSION-0.1.5 released on Thursday, November 20, 2014
+HX: VERSION-0.1.6 released on Tuesday, January 6, 2015
+HX: VERSION-0.1.7 released on Tuesday, January 20, 2015
+HX: VERSION-0.1.8 released on Saturday, January 24, 2015
 //
 *)
 #define PATS_MAJOR_VERSION 0
 #define PATS_MINOR_VERSION 1
-#define PATS_MICRO_VERSION 5
+#define PATS_MICRO_VERSION 9
 (*
 //
 // HX-2011-04-27: this is supported in Postiats:
@@ -480,7 +498,7 @@ implement
 patsopt_version (out) =
 {
   val () = fprintf (out
-, "ATS/Postiats version %i.%i.%i with Copyright (c) 2011-2014 Hongwei Xi\n"
+, "ATS/Postiats version %i.%i.%i with Copyright (c) 2011-2015 Hongwei Xi\n"
 , @(PATS_MAJOR_VERSION, PATS_MINOR_VERSION, PATS_MICRO_VERSION)
   ) // end of [fprintf]
 } (* end of [patsopt_version] *)
@@ -555,6 +573,8 @@ cmdstate = @{
 , typecheckflag= int // 0 by default
 //
 , cnstrsolveflag= int // 0 by default
+//
+, olevel= int // level for output
 //
 , nerror= int // number of accumulated errors
 } // end of [cmdstate]
@@ -897,10 +917,13 @@ do_pkgreloc
 val itms =
   $TRENV1.the_pkgrelocitmlst_get ()
 //
-val filr = outchan_get_filr (state.outchan)
+val filr =
+  outchan_get_filr (state.outchan)
 //
 in
-  $TRENV1.fprint_pkgrelocitmlst (filr, itms)
+//
+$TRENV1.fprint_pkgrelocitmlst(filr, itms)
+//
 end // end of [do_pkgreloc]
 //
 (* ****** ****** *)
@@ -910,7 +933,7 @@ fun
 do_jsonize_2
 (
   state: &cmdstate
-, given: string, d2cs: d2eclist
+, given: string(*unused*), d2cs: d2eclist
 ) : void // end-of-fun
 //
 (* ****** ****** *)
@@ -933,9 +956,9 @@ case+ jsvs of
 | list_cons
     (jsv, jsvs) => let
     val () =
-      if i > 0
-        then fprint_string (out, ",\n")
-      // end of [if]
+    if i > 0
+      then fprint_string (out, ",\n")
+    // end of [if]
     val ((*void*)) = fprintln! (out, jsv)
   in
     loop (out, jsvs, i+1)
@@ -954,17 +977,14 @@ implement
 do_jsonize_2
 (
   state, given, d2cs
-) = () where {
+) = let
 //
-val jsv = jsonize_d2eclist (d2cs)
-val-JSONlist(d2cs) = jsv
-val out = outchan_get_filr (state.outchan)
+val out = state.outchan
+val out = outchan_get_filr (out)
 //
-val ((*void*)) = fprint_string (out, "[\n")
-val ((*void*)) = fprint_jsonlst (out, d2cs)
-val ((*void*)) = fprint_string (out, "]\n")
-//
-} (* end of [do_jsonize_2] *)
+in
+  d2eclist_export (out, d2cs)
+end (* end of [do_jsonize_2] *)
 
 end // end of [local]
 
@@ -1002,6 +1022,10 @@ extern
 fun
 do_transfinal
   (state: &cmdstate, given: string, d0cs: d0eclist): void
+extern
+fun
+do_transfinal2
+  (state: &cmdstate, given: string, d0cs: d0eclist): void
 //
 (* ****** ****** *)
 
@@ -1012,6 +1036,7 @@ do_trans1
 val d1cs =
   $TRANS1.d0eclist_tr_errck (d0cs)
 // end of [val]
+//
 val () = $TRANS1.trans1_finalize ()
 //
 val () =
@@ -1034,7 +1059,15 @@ do_trans12
   state, given, d0cs
 ) = d2cs where {
 //
-val d1cs = do_trans1 (state, given, d0cs)
+val d1cs =
+  do_trans1 (state, given, d0cs)
+//
+val () =
+if
+state.ninpfile >= 2
+then
+  $TRENV2.the_trans2_env_initialize ()
+// end of [if]
 //
 val d2cs = $TRANS2.d1eclist_tr_errck (d1cs)
 //
@@ -1056,10 +1089,13 @@ do_trans123
   state, given, d0cs
 ) = d3cs where {
 //
-val d2cs = do_trans12 (state, given, d0cs)
+val d2cs =
+  do_trans12 (state, given, d0cs)
 //
-val () = $TRENV3.trans3_env_initialize ()
-val d3cs = $TRANS3.d2eclist_tr_errck (d2cs)
+val () =
+  $TRENV3.the_trans3_env_initialize ()
+val d3cs =
+  $TRANS3.d2eclist_tr_errck (d2cs)
 //
 (*
 val () = {
@@ -1071,25 +1107,29 @@ val () = {
 //
 val () = 
 {
-  val flag = state.cnstrsolveflag
-  val c3t0 = $TRENV3.trans3_finget_constraint ()
+val flag = state.cnstrsolveflag
+val c3t0 =
+  $TRENV3.the_trans3_finget_constraint ()
+// end of [val]
 //
-  val () =
-  if flag = 0 then $CNSTR3.c3nstr_solve (c3t0)
+val () =
+if flag = 0 then $CNSTR3.c3nstr_solve (c3t0)
 //
-  val () =
-  if flag > 0 then
-  {
-    val filr =
-      outchan_get_filr (state.outchan)
-    val () = $CNSTR3.c3nstr_export (filr, c3t0)
-  } (* end of [if] *)
+val () =
+if
+flag > 0
+then {
+  val filr =
+    outchan_get_filr (state.outchan)
+  val () = $CNSTR3.c3nstr_export (filr, c3t0)
+} (* end of [if] *)
 //
 } (* end of [val] *)
 //
 val () =
-if isdebug() then
-{
+if
+isdebug()
+then {
   val () = prerrln! (
     "The 3rd translation (type-checking) of [", given, "] is successfully completed!"
   ) (* end of [val] *)
@@ -1108,6 +1148,7 @@ do_trans1234
 val d3cs =
   do_trans123 (state, given, d0cs)
 // end of [d3cs]
+//
 val hids = $TYER.d3eclist_tyer_errck (d3cs)
 //
 (*
@@ -1133,34 +1174,149 @@ do_transfinal
 case+ 0 of
 | _ when
     state.pkgreloc > 0 => let
-    val d1cs =
-      do_trans1 (state, given, d0cs)
-    // end of [val]
+    val d1cs = do_trans1 (state, given, d0cs)
   in
     do_pkgreloc (state, given, d1cs)
   end // end of [when ...]
 | _ when
     state.jsonizeflag = 2 => let
-    val d2cs =
-      do_trans12 (state, given, d0cs)
-    // end of [val]
+    val d2cs = do_trans12 (state, given, d0cs)
   in
     do_jsonize_2 (state, given, d2cs)
   end // end of [when ...]
 | _ when
-    state.typecheckflag > 0 => let
-    val d3cs = do_trans123 (state, given, d0cs) in (*none*)
-  end // end of [when ...]
+    state.typecheckflag > 0 =>
+  {
+    val d3cs = do_trans123 (state, given, d0cs)
+  } (* end of [when ...] *)
 | _ => let
+    val () = state.olevel := 1 // there is output
     val hids = do_trans1234 (state, given, d0cs)
-    val out = outchan_get_filr (state.outchan)
+    val outfil = outchan_get_filr (state.outchan)
     val flag = waitkind_get_stadyn (state.waitkind)
-    val () = $CCOMP.ccomp_main (out, flag, state.infil, hids)
+    val ((*void*)) = $CCOMP.ccomp_main (outfil, flag, state.infil, hids)
   in
     // nothing
   end // end of [_]
 //
 ) (* end of [do_transfinal] *)
+
+(* ****** ****** *)
+
+local
+
+fun
+auxexn
+(
+  p0: ptr
+, given: string, d0cs: d0eclist, exn: exn
+) : void = let
+//
+fun
+auxerr
+(
+  n: int, outfil: FILEref, given: string, msg: string
+) : void = let
+val
+cmtl =
+"/* ****** ****** */\n"
+//
+in
+//
+if
+(n > 0)
+then
+fprintf
+(
+  outfil
+, "%s//\n#error(PATSOPT_ERROR_(patsopt(%s): %s))\n//\n%s", @(cmtl, given, msg, cmtl)
+) // end of [fprintf]
+//
+end (* end of [auxerr] *)
+//
+val
+(pf, fpf | p) =
+$UN.ptr0_vtake{cmdstate}(p0)
+//
+val olevel = p->olevel
+val outfil = outchan_get_filr (p->outchan)
+//
+val nerror = p->nerror
+val ((*void*)) = p->nerror := nerror + 1
+//
+prval ((*addback*)) = fpf (pf)
+//
+in
+//
+case+ exn of
+//
+| ~($ERR.PATSOPT_FIXITY_EXN()) =>
+  (
+    auxerr (olevel, outfil, given, "fixity-errors")
+  )
+//
+| ~($ERR.PATSOPT_TRANS1_EXN()) =>
+  (
+    auxerr (olevel, outfil, given, "trans1-errors")
+  )
+//
+| ~($ERR.PATSOPT_TRANS2_EXN()) =>
+  (
+    auxerr (olevel, outfil, given, "trans2-errors")
+  )
+//
+| ~($ERR.PATSOPT_TRANS3_EXN()) =>
+  (
+    auxerr (olevel, outfil, given, "trans3-errors")
+  )
+//
+| ~($ERR.PATSOPT_TRANS4_EXN()) =>
+  (
+    auxerr (olevel, outfil, given, "trans4-errors")
+  )
+//
+(*
+| $ERR.PATSOPT_FILENONE_EXN(fname) =>
+  (
+    fold@(exn);  
+    fprintf (outfil, "/* ****** ****** */\n//\n", @());
+    fprintf (outfil, "#error(patsopt(%s): [%s] cannot be accessed)\n", @(given, fname));
+    fprintf (outfil, "//\n/* ****** ****** */\n", @());
+    $raise(exn);
+  )
+*)
+//
+| exn => $raise(exn)
+//
+end // end of [auxexn]
+
+in (* in-of-local*)
+
+implement
+do_transfinal2
+  (state, given, d0cs) = let
+//
+val p0 = &state
+//
+in
+//
+try let
+//
+val
+(pf, fpf | p) =
+$UN.ptr0_vtake{cmdstate}(p0)
+//
+val () = do_transfinal(!p, given, d0cs)
+//
+prval ((*addback*)) = fpf (pf)
+//
+in
+  // nothing
+end with exn => auxexn (p0, given, d0cs, exn)
+//
+end // end of [do_transfinal2]
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -1173,9 +1329,11 @@ process_cmdline
 in
 //
 case+ arglst of
+//
 | ~list_vt_cons
     (arg, arglst) =>
     process_cmdline2 (state, arg, arglst)
+//
 | ~list_vt_nil ()
     when state.ninpfile = 0 => let
     val stadyn =
@@ -1186,7 +1344,7 @@ case+ arglst of
     | _ when stadyn >= 0 => {
         val PATSHOME = state.PATSHOME
         val () =
-          prelude_load_if (
+        prelude_load_if (
           PATSHOME, state.preludeflag // loading once
         ) // end of [val]
 //
@@ -1206,15 +1364,20 @@ case+ arglst of
 //
         val given = "<STDIN>"
 //
-        val () = if isdepgen then do_depgen (state, given, d0cs)
-        val () = if istaggen then do_taggen (state, given, d0cs)
+        val () =
+          if isdepgen then do_depgen (state, given, d0cs)
+        val () =
+          if istaggen then do_taggen (state, given, d0cs)
 //
-        val () = if istrans then do_transfinal (state, given, d0cs)
+        val () =
+          if istrans then do_transfinal2 (state, given, d0cs)
+        // end of [val]
 //
       } // end of [_ when ...]
     | _ => ()
   end // end of [list_vt_nil when ...]
-| ~list_vt_nil () => ()
+//
+| ~list_vt_nil ((*void*)) => ()
 //
 end // end of [process_cmdline]
 
@@ -1266,10 +1429,14 @@ case+ arg of
         val istaggen = state.taggen > 0
         val () = if istaggen then istrans := false
 //
-        val () = if isdepgen then do_depgen (state, given, d0cs)
-        val () = if istaggen then do_taggen (state, given, d0cs)
+        val () =
+          if isdepgen then do_depgen (state, given, d0cs)
+        val () =
+          if istaggen then do_taggen (state, given, d0cs)
 //
-        val () = if istrans then do_transfinal (state, given, d0cs)
+        val () =
+          if istrans then do_transfinal2 (state, given, d0cs)
+        // end of [val]
 //
       in
         process_cmdline (state, arglst)
@@ -1389,11 +1556,15 @@ case+ key of
     end // end of [if]
   end
 //
-| "-h" => patsopt_usage (stdout_ref, state.comarg0)
+| "-h" => let
+    val cmd = state.comarg0
+  in
+    patsopt_usage (stdout_ref, cmd)
+  end // end of ["-h"]
 //
 | "-v" => patsopt_version (stdout_ref)
 //
-| _ => comarg_warning (key) // unrecognized key
+| _ (*rest*) => comarg_warning (key) // unrecognized key
 //
 ) : void // end of [val]
 //
@@ -1488,9 +1659,12 @@ patsopt_main
   {n:int | n > 0}
   (argc: int(n), argc: &(@[string][n])): void
 //
+(* ****** ****** *)
+
 implement
 patsopt_main
-  (argc, argv) = {
+  (argc, argv) = () where
+{
 //
 val () =
 set () where
@@ -1517,24 +1691,23 @@ PATSHOME = let
   val opt = get () where
   {
     extern fun get (): Stropt = "mac#patsopt_PATSHOME_get"
-  } // end of [where] // end of [val]
+  } (* end of [where] *)
   val issome = stropt_is_some (opt)
 in
   if issome
-    then
-      stropt_unsome opt
-    // end of [then]
+    then stropt_unsome(opt)
     else let
       val () = prerrln! ("The environment variable PATSHOME is undefined!")
     in
       $ERR.abort ()
-    end // end of [else]
+    end (* end of [else] *)
   // end of [if]
 end : string // end of [val]
 //
 // for the run-time and atslib
 //
-val () = $FIL.the_prepathlst_push (PATSHOME)
+val () =
+  $FIL.the_prepathlst_push (PATSHOME)
 //
 val () = $TRENV1.the_trans1_env_initialize ()
 val () = $TRENV2.the_trans2_env_initialize ()
@@ -1572,14 +1745,21 @@ state = @{
 //
 , cnstrsolveflag= 0 // cnstr-solving by default
 //
+, olevel= 0 // level of output
+//
 , nerror= 0 // number of accumulated errors
 } : cmdstate // end of [var]
 //
 val () = process_ATSPKGRELOCROOT ()
 //
-val ((*void*)) = process_cmdline (state, arglst)
+val () = process_cmdline (state, arglst)
 //
-} (* end of [patsopt_main] *)
+// HX-2015-01-09:
+// A tool like patscc should receive an error:
+//
+val () = if state.nerror > 0 then $ERR.abort{void}()
+//
+} (* end of [where] *) // end of [patsopt_main]
 //
 (* ****** ****** *)
 //
@@ -1587,11 +1767,12 @@ implement
 main (argc, argv) =
 (
 //
-if argc >= 2
-  then patsopt_main (argc, argv)
-  else prerrln! ("Hello from ATS2(ATS/Postiats)!")
+if
+(argc >= 2)
+then patsopt_main (argc, argv)
+else prerrln! ("Hello from ATS2(ATS/Postiats)!")
 // end of [if]
-)
+) (* end of [main] *)
 //
 (* ****** ****** *)
 

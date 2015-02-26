@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Wed Oct 22 14:11:22 2014
+** Time of generation: Thu Feb 19 14:13:59 2015
 *)
 
 (* ****** ****** *)
@@ -47,7 +47,8 @@ staload UN = "prelude/SATS/unsafe.sats"
 //
 implement
 {a}(*tmp*)
-list_vt_make_sing (x) = list_vt_cons{a}(x, list_vt_nil)
+list_vt_make_sing (x) =
+  list_vt_cons{a}(x, list_vt_nil)
 implement
 {a}(*tmp*)
 list_vt_make_pair (x1, x2) =
@@ -208,7 +209,7 @@ case+ xs of
     prval () = fold@ (res)
   in
     // nothing
-  end
+  end // end of [list_vt_cons]
 | list_vt_nil () => res := list_vt_nil ()
 //
 end // end of [loop]
@@ -422,6 +423,7 @@ fun loop
   {n:nat} .<n>. (
   xs: list_vt (a, n)
 ) :<!wrt> void =
+(
   case+ xs of
   | @list_vt_cons
       (x, xs1) => let
@@ -433,7 +435,7 @@ fun loop
       loop (xs1)
     end // end of [list_vt_cons]
   | ~list_vt_nil () => ()
-// end of [loop]
+) (* end of [loop] *)
 //
 in
   loop (xs)
@@ -456,6 +458,7 @@ fun loop
   {n:nat} .<n>. (
   xs: !list_vt (a, n) >> list_vt (a?, n)
 ) :<!wrt> void =
+(
   case+ xs of
   | @list_vt_cons
       (x, xs1) => let
@@ -467,7 +470,7 @@ fun loop
       // nothing
     end // end of [list_vt_cons]
   | @list_vt_nil () => fold@ {a?} (xs)
-// end of [loop]
+) (* end of [loop] *)
 //
 in
   loop (xs)
@@ -573,7 +576,7 @@ fun loop
 (
   xs: list_vt (a, m), ys: list_vt (a, n)
 ) :<!wrt> list_vt (a, m+n) =
-  case xs of
+  case+ xs of
   | @list_vt_cons
       (_, xs1) => let
       val xs1_ = xs1
@@ -802,8 +805,8 @@ case+ xs of
     prval () = fold@ (xs)
   in
     // nothing
-  end
-| list_vt_nil () => ()
+  end // end of [cons]
+| list_vt_nil ((*void*)) => ()
 //
 end // end of [list_vt_app]
 
@@ -821,8 +824,8 @@ case+ xs of
     val () = free@ {a}{0} (xs)
   in
     list_vt_appfree<a> (xs1)
-  end
-| ~list_vt_nil () => ()
+  end // end of [cons]
+| ~list_vt_nil ((*void*)) => ()
 //
 end // end of [list_vt_appfree]
 
@@ -884,21 +887,6 @@ end // end of [list_vt_map_fun]
 
 implement
 {x}{y}(*tmp*)
-list_vt_map_cloref
-  (xs, f) = let
-//
-implement
-{x2}{y2}
-list_vt_map$fopr (x2) = let
-  val f = $UN.cast{(&x2)-<cloref1>y}(f) in $UN.castvwtp0{y2}(f(x2))
-end // end of [list_vt_map$fopr]
-//
-in
-  list_vt_map<x><y> (xs)
-end // end of [list_vt_map_cloref]
-
-implement
-{x}{y}(*tmp*)
 list_vt_map_clo
   (xs, f) = let
 //
@@ -913,6 +901,21 @@ end // end of [list_vt_map$fopr]
 in
   list_vt_map<x><y> (xs)
 end // end of [list_vt_map_clo]
+
+implement
+{x}{y}(*tmp*)
+list_vt_map_cloref
+  (xs, f) = let
+//
+implement
+{x2}{y2}
+list_vt_map$fopr (x2) = let
+  val f = $UN.cast{(&x2)-<cloref1>y}(f) in $UN.castvwtp0{y2}(f(x2))
+end // end of [list_vt_map$fopr]
+//
+in
+  list_vt_map<x><y> (xs)
+end // end of [list_vt_map_cloref]
 
 (* ****** ****** *)
 
@@ -930,15 +933,16 @@ fun loop
 ) : void = let
 in
   case+ xs of
-  | ~list_vt_cons
+  | @list_vt_cons
       (x, xs1) => let
       val y =
-        list_vt_mapfree$fopr<a><b> (x)
-      val () =
-        res := list_vt_cons{b}{0}(y, _)
+      list_vt_mapfree$fopr<a><b> (x)
+      val xs1_val = xs1
+      val ((*freed*)) = free@{a}{0}(xs)
+      val () = res := list_vt_cons{b}{0}(y, _)
       val+list_vt_cons (_, res1) = res
-      val () = loop (xs1, res1)
-      prval () = fold@ (res)
+      val () = loop (xs1_val, res1)
+      prval ((*folded*)) = fold@(res)
     in
       // nothing
     end // end of [list_vt_cons]
@@ -951,6 +955,56 @@ val () = loop (xs, res)
 in
   res
 end // end of [list_vt_mapfree]
+
+(* ****** ****** *)
+
+implement
+{x}{y}(*tmp*)
+list_vt_mapfree_fun
+  (xs, f) = let
+//
+implement
+{x2}{y2}
+list_vt_mapfree$fopr (x2) = let
+  val f = $UN.cast{(&x2>>_?)->y}(f) in $UN.castvwtp0{y2}(f(x2))
+end // end of [list_vt_mapfree$fopr]
+//
+in
+  list_vt_mapfree<x><y> (xs)
+end // end of [list_vt_mapfree_fun]
+
+implement
+{x}{y}(*tmp*)
+list_vt_mapfree_clo
+  (xs, f) = let
+//
+val f =
+$UN.cast{(&x>>_?) -<cloref1> y}(addr@f)
+//
+implement
+{x2}{y2}
+list_vt_mapfree$fopr (x2) = let
+  val f = $UN.cast{(&x2>>_?)-<cloref1>y}(f) in $UN.castvwtp0{y2}(f(x2))
+end // end of [list_vt_mapfree$fopr]
+//
+in
+  list_vt_mapfree<x><y> (xs)
+end // end of [list_vt_mapfree_clo]
+
+implement
+{x}{y}(*tmp*)
+list_vt_mapfree_cloref
+  (xs, f) = let
+//
+implement
+{x2}{y2}
+list_vt_mapfree$fopr (x2) = let
+  val f = $UN.cast{(&x2>>_?)-<cloref1>y}(f) in $UN.castvwtp0{y2}(f(x2))
+end // end of [list_vt_mapfree$fopr]
+//
+in
+  list_vt_mapfree<x><y> (xs)
+end // end of [list_vt_mapfree_cloref]
 
 (* ****** ****** *)
 
@@ -994,8 +1048,8 @@ case+ xs of
     end else let
       prval ((*void*)) = fold@ (xs) in (*nothing*)
     end // end of [if]
-  end // end of [list_vt_cons]
-| list_vt_nil () => ((*void*))
+  end // end of [cons]
+| list_vt_nil ((*void*)) => ()
 //
 end // end of [loop]
 //
@@ -1018,8 +1072,10 @@ list_vt_foreach_fun
 //
 prval () = lemma_list_vt_param (xs)
 //
-fun loop
-  {n:nat} .<n>. (
+fun
+loop
+{n:nat} .<n>.
+(
   xs: !list_vt (a, n), f: (&a) -<fe> void
 ) :<fe> void =
   case+ xs of
@@ -1029,8 +1085,8 @@ fun loop
       val () = loop (xs1, f)
     in
       fold@ (xs)
-    end // end of [list_vt_cons]
-  | list_vt_nil () => ()
+    end // end of [cons]
+  | list_vt_nil ((*void*)) => ()
 // end of [loop]
 in
   loop (xs, f)
@@ -1058,8 +1114,8 @@ fun loop
       val () = loop (pf | xs1, f, env)
     in
       fold@ (xs)
-    end // end of [list_vt_cons]
-  | list_vt_nil () => ()
+    end // end of [cons]
+  | list_vt_nil ((*void*)) => ()
 // end of [loop]
 //
 in
@@ -1090,7 +1146,8 @@ fun loop
 ) : intBtwe(i, n+i) = let
 in
   case+ xs of
-  | @list_vt_cons (x, xs1) => let
+  | @list_vt_cons
+      (x, xs1) => let
       val test =
         list_vt_iforeach$cont<x><env> (i, x, env)
       // end of [val]
@@ -1108,8 +1165,8 @@ in
       in
         i // the number of processed elements
       end // end of [if]
-    end // end of [list_vt_cons]
-  | list_vt_nil () => i // the number of processed elements
+    end // end of [cons]
+  | list_vt_nil ((*void*)) => (i) // |processed-elements|
 end // end of [loop]
 //
 in
@@ -1121,6 +1178,11 @@ end // end of [list_vt_iforeach_env]
 implement
 {x}{env}
 list_vt_iforeach$cont (i, x, env) = true
+
+(* ****** ****** *)
+
+#include "./SHARE/list_vt_mergesort.dats"
+#include "./SHARE/list_vt_quicksort.dats"
 
 (* ****** ****** *)
 

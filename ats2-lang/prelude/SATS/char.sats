@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Fri Sep 26 22:20:44 2014
+** Time of generation: Mon Feb 16 10:41:02 2015
 *)
 
 (* ****** ****** *)
@@ -39,9 +39,23 @@
 (* Start time: September, 2011 *)
 
 (* ****** ****** *)
-
-sortdef t0p = t@ype
-
+//
+praxi
+lemma_char_size
+(
+// argumentless
+) : [sizeof(char)==sizeof(byte)] void
+praxi
+lemma_schar_size
+(
+// argumentless
+) : [sizeof(schar)==sizeof(byte)] void
+praxi
+lemma_uchar_size
+(
+// argumentless
+) : [sizeof(uchar)==sizeof(byte)] void
+//
 (* ****** ****** *)
 //
 castfn char2schar0 (c: char):<> schar
@@ -467,6 +481,24 @@ overload char2u2i with char2u2int0 of 0
 symintr char2u2ui
 overload char2u2ui with char2u2uint0 of 0
 
+(* ****** ****** *)
+//
+fun int2byte0 (i: int): byte = "mac#%"
+fun byte2int0 (b: byte):<> int = "mac#%"
+//
+fun uint2byte0 (u: uint): byte = "mac#%"
+fun byte2uint0 (b: byte):<> uint = "mac#%"
+//
+symintr byte2i
+overload byte2i with byte2int0 of 0
+symintr i2byte
+overload i2byte with int2byte0 of 0
+//
+symintr byte2ui
+overload byte2i with byte2uint0 of 0
+symintr ui2byte
+overload i2byte with uint2byte0 of 0
+//
 (* ****** ****** *)
 
 (* end of [char.sats] *)
