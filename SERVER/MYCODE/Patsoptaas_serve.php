@@ -70,8 +70,11 @@ body {
 
 #thePage2Left
 {
+/*
   background-color: #1e5799;
   background-image: linear-gradient(to right, #1e5799, #7db9e8);
+*/
+  background-color: rgba(30, 87, 153, 0.750);
 }
 </style>
 <link
