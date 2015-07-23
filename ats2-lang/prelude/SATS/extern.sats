@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/extern.atxt
-** Time of generation: Sun Jan 11 02:59:12 2015
+** Time of generation: Sat Jun 27 21:39:19 2015
 *)
 
 (* ****** ****** *)
@@ -88,7 +88,7 @@ overload carrayptr with carrayptr_arrayptr
 absview
 minus_viewt0ype_view_view (vt1: vt0p, v2: view) = vt1
 viewdef
-minus(vt1:vt0p, v2:view) = minus_viewt0ype_view_view(vt1, v2)
+minus(vt1: vt0p, v2: view) = minus_viewt0ype_view_view(vt1, v2)
 //
 praxi minus_addback
   {vt1:vt0p}{v2:view} (pf1: minus (vt1, v2), pf2: v2 | x: !vt1): void

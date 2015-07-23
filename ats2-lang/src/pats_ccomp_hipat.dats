@@ -32,14 +32,21 @@
 // Start Time: October, 2012
 //
 (* ****** ****** *)
-
-staload LAB = "./pats_label.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
-
+//
+staload UT = "./pats_utils.sats"
+//
+(* ****** ****** *)
+//
+staload LAB = "./pats_label.sats"
 staload LOC = "./pats_location.sats"
+//
 overload print with $LOC.print_location
-
+//
 (* ****** ****** *)
 
 staload "./pats_staexp2.sats"
@@ -77,7 +84,8 @@ end // end of [hipat_getset_asvar]
 (* ****** ****** *)
 
 extern
-fun hipatck_ccomp_rec
+fun
+hipatck_ccomp_rec
 (
   env: !ccompenv, res: !instrseq
 , fail: patckont, hip0: hipat, pmv0: primval
@@ -96,7 +104,9 @@ fun aux
 //
 in
 //
-case+ hip.hipat_node of
+case+
+hip.hipat_node
+of (* case+ *)
 | HIPany _ => ()
 | HIPvar _ => ()
 | HIPann (hip, ann) =>
@@ -167,7 +177,8 @@ end // end of [local]
 (* ****** ****** *)
 
 extern
-fun hipatck_ccomp_con
+fun
+hipatck_ccomp_con
 (
   env: !ccompenv, res: !instrseq
 , fail: patckont, loc0: location, d2c: d2con, pmv0: primval
@@ -188,7 +199,8 @@ end // end of [hipatck_ccomp_con]
 (* ****** ****** *)
 
 extern
-fun hipatck_ccomp_sum
+fun
+hipatck_ccomp_sum
 (
   env: !ccompenv, res: !instrseq
 , fail: patckont, hip0: hipat, pmv0: primval
@@ -210,7 +222,9 @@ val loc = hip.hipat_node
 //
 in
 //
-case+ hip.hipat_node of
+case+
+hip.hipat_node
+of (* case+ *)
 | HIPany _ => ()
 | HIPvar _ => ()
 | HIPann (hip, ann) =>
@@ -340,7 +354,9 @@ val () =
 //
 in
 //
-case+ hip0.hipat_node of
+case+
+hip0.hipat_node
+of (* case+ *)
 //
 | HIPany _ => ()
 | HIPvar _ => ()
@@ -348,15 +364,22 @@ case+ hip0.hipat_node of
 | HIPcon _ =>
     hipatck_ccomp_sum (env, res, fail, hip0, pmv0)
   // end of [HIPcon]
-| HIPcon_any (pck, d2c) =>
+| HIPcon_any(pck, d2c) =>
     hipatck_ccomp_con (env, res, fail, loc0, d2c, pmv0)
   // end of [HIPcon_any]
 //
-| HIPint (i) => let
+| HIPint(i) => let
     val ins = instr_patck (loc0, pmv0, PATCKint (i), fail)
   in
     instrseq_add (res, ins)
   end // end of [HIPint]
+| HIPintrep(rep) => let
+    val i = $UN.cast{int}($UT.llint_make_string(rep))
+    val ins = instr_patck (loc0, pmv0, PATCKint (i), fail)
+  in
+    instrseq_add (res, ins)
+  end // end of [HIPint]
+//
 | HIPbool (b) => let
     val ins = instr_patck (loc0, pmv0, PATCKbool (b), fail)
   in
@@ -392,7 +415,7 @@ case+ hip0.hipat_node of
 //
 | HIPann (hip, ann) => hipatck_ccomp (env, res, fail, hip, pmv0)
 //
-| _ => let
+| _ (* rest-of-HIP *) => let
     val () = println! ("hipatck_ccomp: loc0 = ", loc0)
     val () = println! ("hipatck_ccomp: hip0 = ", hip0)
   in
@@ -404,7 +427,8 @@ end // end of [hipatck_ccomp]
 (* ****** ****** *)
 
 extern
-fun himatch_ccomp_rec
+fun
+himatch_ccomp_rec
 (
   env: !ccompenv, res: !instrseq
 , lvl0: int, hip0: hipat, pmv0: primval // HX: [pmv] matches [hip]
@@ -464,7 +488,9 @@ fun auxpat
 ) : void = let
 in
 //
-case+ hip.hipat_node of
+case+
+hip.hipat_node
+of (* case+ *)
 | HIPany _ => ()
 | HIPvar (d2v) =>
     auxvar (env, res, lvl0, lab, hip, pmv0, hse_rec)
@@ -527,7 +553,8 @@ end // end of [local]
 (* ****** ****** *)
 
 extern
-fun himatch_ccomp_sum
+fun
+himatch_ccomp_sum
 (
   env: !ccompenv, res: !instrseq
 , lvl0: int, hip0: hipat, pmv0: primval // HX: [pmv] matches [hip]
@@ -726,6 +753,8 @@ case+ hip0.hipat_node of
 | HIPvar (d2v) => auxvar (env, res, lvl0, d2v, pmv0)
 //
 | HIPint _ => ()
+| HIPintrep _ => ()
+//
 | HIPbool _ => ()
 | HIPchar _ => ()
 | HIPstring _ => ()
@@ -736,17 +765,19 @@ case+ hip0.hipat_node of
 | HIPempty () => ()
 //
 | HIPcon (pck, d2c, _, _) => let
-    val (
-    ) = ccompenv_add_freeconenv_if (env, pmv0, pck, d2c)
+    val () =
+      ccompenv_add_freeconenv_if (env, pmv0, pck, d2c)
+    // end of [val]
     val () = himatch_ccomp_sum (env, res, lvl0, hip0, pmv0)
   in
-    
+    // nothing
   end // end of [HIPcon]
 //
 | HIPcon_any
     (pck, d2c) => let
-    val (
-    ) = ccompenv_add_freeconenv_if (env, pmv0, pck, d2c)
+    val () =
+      ccompenv_add_freeconenv_if (env, pmv0, pck, d2c)
+    // end of [val]
   in
     // nothing
   end // end of [HIPcon_any]
@@ -757,10 +788,10 @@ case+ hip0.hipat_node of
 | HIPrefas (d2v, hip) =>
     himatch_ccomp (env, res, lvl0, hip, pmv0)
 //
-| HIPann (hip, _(*ann*)) =>
+| HIPann (hip, ann) =>
     himatch_ccomp (env, res, lvl0, hip, pmv0)
 //
-| _ => let
+| _ (* rest-of-HIP *) => let
     val () = println! ("himatch_ccomp: hip0 = ", hip0)
   in
     exitloc (1)
@@ -790,7 +821,8 @@ end // end of [himatch2_ccomp]
 (* ****** ****** *)
 
 extern
-fun primval_make_funarg
+fun
+primval_make_funarg
   (loc: location, hse: hisexp, narg: int): primval
 // end of [primval_make_funarg]
 

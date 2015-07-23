@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Tue Jan 13 00:14:09 2015
+** Time of generation: Sat Jun 27 21:39:36 2015
 *)
 
 (* ****** ****** *)
@@ -492,11 +492,12 @@ in
 end // end of [stream_merge_cloref]
 
 (* ****** ****** *)
-
+//
 implement
 {a}(*tmp*)
-stream_merge$cmp (x1, x2) = gcompare_val<a> (x1, x2)
-
+stream_merge$cmp
+  (x1, x2) = gcompare_val_val<a> (x1, x2)
+//
 (* ****** ****** *)
 
 local
@@ -562,11 +563,12 @@ in
 end // end of [stream_mergeq_cloref]
 
 (* ****** ****** *)
-
+//
 implement
 {a}(*tmp*)
-stream_mergeq$cmp (x1, x2) = gcompare_val<a> (x1, x2)
-
+stream_mergeq$cmp
+  (x1, x2) = gcompare_val_val<a> (x1, x2)
+//
 (* ****** ****** *)
 
 implement

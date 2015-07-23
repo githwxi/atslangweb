@@ -58,9 +58,13 @@ staload "./pats_hidynexp.sats"
 // during the level-4 translation
 //
 datatype trans4err =
-  | T4E_d3exp_tyer_isprf of (d3exp)
+//
+  | T4E_p3at_tyer_isprf of (p3at) // [p3at] is partial
+//
+  | T4E_d3exp_tyer_isprf of (d3exp) // [d3exp] should be erased
+//
 (*
-  | T4E_d3exp_tyer_isnotval of (d3exp) // HX: warning
+  | T4E_d3exp_tyer_isnotval of (d3exp) // HX: it is only a warning!
 *)
 // end of [trans4err]
 //
@@ -107,6 +111,7 @@ fun d2cst_tyer (d2c: d2cst): d2cst
 
 fun p3at_tyer (p3t: p3at): hipat
 fun p3atlst_tyer (p3ts: p3atlst): hipatlst
+fun p3atlst_tyer2 (d3es: d3explst, p3ts: p3atlst): hipatlst
 
 (* ****** ****** *)
 

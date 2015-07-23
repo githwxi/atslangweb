@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Fri Dec 19 04:20:28 2014
+** Time of generation: Fri Apr  3 17:36:22 2015
 *)
 
 (* ****** ****** *)
@@ -59,8 +59,10 @@ staload UN = "prelude/SATS/unsafe.sats"
 implement
 {a}(*tmp*)
 array_quicksort$cmp
-  (x1, x2) = gcompare_ref<a> (x1, x2)
-// end of [array_quicksort$cmp]
+  (x1, x2) =
+(
+  gcompare_ref_ref<a> (x1, x2)
+) // end of [array_quicksort$cmp]
 
 (* ****** ****** *)
 
@@ -328,7 +330,8 @@ void qsort
   int(*compar)(const void *, const void *)
 ) ; // end of [qsort]
 *)
-implement{a}
+implement
+{a}(*tmp*)
 array_quicksort_stdlib
   (A, asz, cmp) = let
 in

@@ -34,18 +34,7 @@ LNS=ln -s
 RMF=rm -f
 
 ######
-
-all:: autodiff
-autodiff: autodiff.exe
-autodiff.exe: autodiff_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_GCBDW -O2 -o $@ $< -lm -lgc
-autodiff_dats.c: autodiff.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output autodiff_dats.c --dynamic autodiff.dats
-clean:: ; $(RMF) autodiff_dats.o
-clean:: ; $(RMF) autodiff_dats.c
-cleanall:: ; $(RMF) autodiff autodiff.exe
-
-
-######
-
+#
 all:: arith_overflow
 arith_overflow: arith_overflow.exe
 arith_overflow.exe: arith_overflow_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2 -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -o $@ $<
@@ -86,22 +75,6 @@ clean:: ; $(RMF) fibver_trec_dats.o
 clean:: ; $(RMF) fibver_trec_dats.c
 cleanall:: ; $(RMF) fibver_trec fibver_trec.exe
 
-all:: fourslot
-fourslot: fourslot.exe
-fourslot.exe: fourslot_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
-fourslot_dats.c: fourslot.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output fourslot_dats.c --dynamic fourslot.dats
-clean:: ; $(RMF) fourslot_dats.o
-clean:: ; $(RMF) fourslot_dats.c
-cleanall:: ; $(RMF) fourslot fourslot.exe
-
-all:: hanoi
-hanoi: hanoi.exe
-hanoi.exe: hanoi_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
-hanoi_dats.c: hanoi.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output hanoi_dats.c --dynamic hanoi.dats
-clean:: ; $(RMF) hanoi_dats.o
-clean:: ; $(RMF) hanoi_dats.c
-cleanall:: ; $(RMF) hanoi hanoi.exe
-
 all:: isqrt
 isqrt: isqrt.exe
 isqrt.exe: isqrt_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2 -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -o $@ $<
@@ -117,6 +90,39 @@ matrixops_dats.c: matrixops.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --outp
 clean:: ; $(RMF) matrixops_dats.o
 clean:: ; $(RMF) matrixops_dats.c
 cleanall:: ; $(RMF) matrixops matrixops.exe
+
+#
+all:: autodiff
+autodiff: autodiff.exe
+autodiff.exe: autodiff_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_GCBDW -O2 -o $@ $< -lm -lgc
+autodiff_dats.c: autodiff.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output autodiff_dats.c --dynamic autodiff.dats
+clean:: ; $(RMF) autodiff_dats.o
+clean:: ; $(RMF) autodiff_dats.c
+cleanall:: ; $(RMF) autodiff autodiff.exe
+
+all:: fib_memo
+fib_memo: fib_memo.exe
+fib_memo.exe: fib_memo_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< -L$(PATSLIB) -latslib
+fib_memo_dats.c: fib_memo.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output fib_memo_dats.c --dynamic fib_memo.dats
+clean:: ; $(RMF) fib_memo_dats.o
+clean:: ; $(RMF) fib_memo_dats.c
+cleanall:: ; $(RMF) fib_memo fib_memo.exe
+
+all:: fourslot
+fourslot: fourslot.exe
+fourslot.exe: fourslot_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
+fourslot_dats.c: fourslot.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output fourslot_dats.c --dynamic fourslot.dats
+clean:: ; $(RMF) fourslot_dats.o
+clean:: ; $(RMF) fourslot_dats.c
+cleanall:: ; $(RMF) fourslot fourslot.exe
+
+all:: hanoi
+hanoi: hanoi.exe
+hanoi.exe: hanoi_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
+hanoi_dats.c: hanoi.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output hanoi_dats.c --dynamic hanoi.dats
+clean:: ; $(RMF) hanoi_dats.o
+clean:: ; $(RMF) hanoi_dats.c
+cleanall:: ; $(RMF) hanoi hanoi.exe
 
 all:: monad_maybe
 monad_maybe: monad_maybe.exe
@@ -141,6 +147,14 @@ morse_enum_dats.c: morse_enum.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --ou
 clean:: ; $(RMF) morse_enum_dats.o
 clean:: ; $(RMF) morse_enum_dats.c
 cleanall:: ; $(RMF) morse_enum morse_enum.exe
+
+all:: mysendmailist
+mysendmailist: mysendmailist.exe
+mysendmailist.exe: mysendmailist_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
+mysendmailist_dats.c: mysendmailist.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output mysendmailist_dats.c --dynamic mysendmailist.dats
+clean:: ; $(RMF) mysendmailist_dats.o
+clean:: ; $(RMF) mysendmailist_dats.c
+cleanall:: ; $(RMF) mysendmailist mysendmailist.exe
 
 all:: passwdgen
 passwdgen: passwdgen.exe
@@ -230,7 +244,7 @@ clean:: ; $(RMF) word-chain_dats.o
 clean:: ; $(RMF) word-chain_dats.c
 cleanall:: ; $(RMF) word-chain word-chain.exe
 
-
+#
 ######
 
 clean:: ; $(RMF) *~

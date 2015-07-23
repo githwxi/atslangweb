@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Tue Jan 13 00:14:02 2015
+** Time of generation: Sat Jun 27 21:39:24 2015
 *)
 
 (* ****** ****** *)
@@ -71,7 +71,7 @@ fun memcpy
 implement
 {}(*tmp*)
 string_sing (c) = let
-  val (pfat, pfgc | p) = malloc_gc (i2sz(2))
+  val (pfat, pfgc | p) = malloc_gc(i2sz(2))
   val ((*void*)) = $UN.ptr0_set<char> (p, c)
   val ((*void*)) = $UN.ptr0_set_at<char> (p, 1, '\000')
 in
@@ -244,7 +244,7 @@ end // end of [loop]
 //
 val n1 = n + 1
 val (pf, pfgc | p0) =
-  $effmask_wrt (malloc_gc ((i2sz)n1))
+  $effmask_wrt (malloc_gc(i2sz(n1)))
 val p1 = $effmask_wrt (loop (cs, n, p0))
 val () =
   $effmask_wrt ($UN.ptr0_set<char>(p1, CNUL))
@@ -283,7 +283,7 @@ end // end of [loop]
 //
 val n1 = n + 1
 val (pf, pfgc | p0) =
-  $effmask_wrt (malloc_gc ((i2sz)n1))
+  $effmask_wrt (malloc_gc(i2sz(n1)))
 val p1 = ptr_add<char>(p0, n)
 val () =
   $effmask_wrt ($UN.ptr0_set<char>(p1, CNUL))
@@ -359,7 +359,7 @@ in
 //
 if
 isneqz(str1)
-  then loop (str1.tail, pred(n2), succ(r)) else (r)
+  then loop (str1.tail(), pred(n2), succ(r)) else (r)
 //
 end // end of [then]
 else (r) // end of [else]

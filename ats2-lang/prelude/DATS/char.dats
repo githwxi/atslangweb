@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/char.atxt
-** Time of generation: Tue Jan 13 00:14:02 2015
+** Time of generation: Sat Jun 27 21:39:23 2015
 *)
 
 (* ****** ****** *)
@@ -42,6 +42,10 @@
 (* ****** ****** *)
 
 #define ATS_DYNLOADFLAG 0 // no dynloading at run-time
+
+(* ****** ****** *)
+
+staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
@@ -90,6 +94,34 @@ g1uint_of_uchar1
   {c} (c) = __cast (c) where {
   extern castfn __cast (c: uchar c):<> g1uint (tk, c)
 } // end of [g1uint_of_uchar1]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+char2string(c) =
+$effmask_wrt
+(
+  $UN.castvwtp0{string}(char2strptr(c))
+) (* end of [char2string] *)
+implement
+{}(*tmp*)
+char2strptr(c) = let
+//
+#define BSZ 16
+//
+typedef
+cstring = $extype"atstype_string"
+//
+var buf = @[byte][BSZ]()
+val bufp = $UN.cast{cstring}(addr@buf)
+//
+val _(*int*) =
+  $extfcall(ssize_t, "snprintf", bufp, BSZ, "%c", c)
+//
+in
+  $UN.castvwtp0{Strptr1}(string0_copy($UN.cast{string}(bufp)))
+end // end of [char2strptr]
 
 (* ****** ****** *)
 //

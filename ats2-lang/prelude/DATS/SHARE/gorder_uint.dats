@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gorder_uint.atxt
-** Time of generation: Fri Dec 19 04:20:18 2014
+** Time of generation: Tue Mar 10 10:28:38 2015
 *)
 
 (* ****** ****** *)
@@ -42,13 +42,13 @@
 (* ****** ****** *)
 //
 implement
-gcompare_val<uint> = g0uint_compare_uint
+gcompare_val_val<uint> = g0uint_compare_uint
 implement
-gcompare_val<ulint> = g0uint_compare_ulint
+gcompare_val_val<ulint> = g0uint_compare_ulint
 implement
-gcompare_val<ullint> = g0uint_compare_ullint
+gcompare_val_val<ullint> = g0uint_compare_ullint
 implement
-gcompare_val<size_t> = g0uint_compare_size
+gcompare_val_val<size_t> = g0uint_compare_size
 //
 (* ****** ****** *)
 

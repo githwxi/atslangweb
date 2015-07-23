@@ -50,30 +50,32 @@ staload "libats/ML/SATS/list0.sats"
 staload "libats/ML/SATS/funmap.sats"
 
 (* ****** ****** *)
-
+//
 assume
-map_type (key:t0p, itm:t0p) = $FM.map (key, itm)
-
+map_type(key, itm) = $FM.map (key, itm)
+//
 (* ****** ****** *)
 
 implement{a}
-compare_key_key = gcompare_val<a>
+compare_key_key = gcompare_val_val<a>
 implement{a}
 $FM.compare_key_key = compare_key_key<a>
 
 (* ****** ****** *)
 
-implement{}
-funmap_nil () = $FM.funmap_nil ()
-implement{}
-funmap_make_nil () = $FM.funmap_make_nil ()
+implement
+{}(*tmp*)
+funmap_nil() = $FM.funmap_nil ()
+implement
+{}(*tmp*)
+funmap_make_nil() = $FM.funmap_make_nil ()
 
 (* ****** ****** *)
 
 implement{}
-funmap_is_nil (map) = $FM.funmap_is_nil (map)
+funmap_is_nil(map) = $FM.funmap_is_nil (map)
 implement{}
-funmap_isnot_nil (map) = $FM.funmap_isnot_nil (map)
+funmap_isnot_nil(map) = $FM.funmap_isnot_nil (map)
 
 (* ****** ****** *)
 //
@@ -108,6 +110,49 @@ implement
 {key,itm}
 funmap_remove (map, k) = $FM.funmap_remove (map, k)
 //
+(* ****** ****** *)
+
+implement
+{key,itm}
+fprint_funmap
+  (out, map) = let
+//
+implement
+$FM.fprint_funmap$sep<> = fprint_funmap$sep<>
+implement
+$FM.fprint_funmap$mapto<> = fprint_funmap$mapto<>
+//
+val () = $FM.fprint_funmap (out, map)
+//
+in
+  // nothing
+end // end of [fprint_funmap]
+
+(* ****** ****** *)
+
+implement{}
+fprint_funmap$sep (out) = fprint (out, "; ")
+implement{}
+fprint_funmap$mapto (out) = fprint (out, "->")
+
+(* ****** ****** *)
+
+implement
+{key,itm}
+funmap_foreach_cloref
+  (tbl, fwork) = () where
+{
+//
+var env: void = ((*void*))
+//
+implement
+(env)(*tmp*)
+$FM.funmap_foreach$fwork<key,itm><env> (k, x, env) = fwork(k, x)
+//
+val ((*void*)) = $FM.funmap_foreach_env<key,itm><void> (tbl, env)
+//
+} (* end of [funmap_foreach_cloref] *)
+
 (* ****** ****** *)
 
 implement

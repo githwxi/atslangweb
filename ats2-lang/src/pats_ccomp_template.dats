@@ -272,62 +272,163 @@ case+ env of
     (s2v, s2f, env) => let
     val s2e = s2hnf2exp (s2f)
   in
-    TMPSUBcons (s2v, s2e, aux (env, tsub))
+    TMPSUBcons(s2v, s2e, aux (env, tsub))
   end // end of [IMPENVcons]
-| ~IMPENVnil () => tsub
+| ~IMPENVnil((*void*)) => tsub
 //
 end // end of [aux]
 //
 in
-  aux (env, TMPSUBnil ())
+  aux (env, TMPSUBnil(*void*))
 end // end of [impenv2tmpsub]
 //
 (* ****** ****** *)
 
 local
 
-fun auxmat
+(* ****** ****** *)
+
+fun
+auxenv
+(
+  env: !s2varlst_vt, s2vs: s2varlst
+) : s2varlst_vt = let
+  val env2 = list_vt_copy (env)
+in
+  list_reverse_append2_vt<s2var> (s2vs, env2)
+end // end of [auxenv]
+
+(* ****** ****** *)
+
+fun
+auxfvar
+(
+  env: !s2varlst_vt, s2v0: s2var
+) : bool =
+(
+case+ env of
+| list_vt_cons
+    (s2v, !p_env1) => (
+    if (s2v = s2v0)
+      then (fold@env; false)
+      else let
+        val ans =
+          auxfvar(!p_env1, s2v0)
+        // end of [val]
+        prval ((*void*)) = fold@env
+      in
+        ans
+      end // end of [else]
+  ) (* end of [list_vt_cons] *)
+| list_vt_nil() => (fold@env; true)
+) (* end of [auxbvar] *)
+
+(* ****** ****** *)
+
+fun
+auxmat
 (
   env: !impenv
-, s2e_pat: s2exp
-, s2e_arg: s2exp
+, s2e0_pat: s2exp, s2e0_arg: s2exp
+) : bool = ismatch where
+{
+//
+val env_pat = list_vt_nil()
+and env_arg = list_vt_nil()
+//
+val
+ismatch =
+auxmat_env
+(
+  env, env_pat, env_arg, s2e0_pat, s2e0_arg
+) (* end of [val] *)
+//
+val ((*void*)) = list_vt_free (env_pat)
+val ((*void*)) = list_vt_free (env_arg)
+//
+} (* end of [auxmat] *)
+
+and
+auxmatlst
+(
+  env: !impenv
+, s2es_pat: s2explst, s2es_arg: s2explst
+) : bool = ismatch where
+{
+//
+val env_pat = list_vt_nil()
+and env_arg = list_vt_nil()
+//
+val
+ismatch =
+auxmatlst_env
+(
+  env, env_pat, env_arg, s2es_pat, s2es_arg
+) (* end of [val] *)
+//
+val ((*void*)) = list_vt_free (env_pat)
+val ((*void*)) = list_vt_free (env_arg)
+//
+} (* end of [auxmatlst] *)
+
+(* ****** ****** *)
+
+and
+auxmat_env
+(
+  env: !impenv
+, env_pat: !s2varlst_vt
+, env_arg: !s2varlst_vt
+, s2e0_pat: s2exp, s2e0_arg: s2exp
 ) : bool = let
 //
-val s2f_pat = s2exp2hnf (s2e_pat)
-val s2f_arg = s2exp2hnf (s2e_arg)
-val s2e_pat = s2hnf2exp (s2f_pat)
-val s2e_arg = s2hnf2exp (s2f_arg)
-val s2en_pat = s2e_pat.s2exp_node
-val s2en_arg = s2e_arg.s2exp_node
+val s2f0_pat = s2exp2hnf(s2e0_pat)
+val s2f0_arg = s2exp2hnf(s2e0_arg)
+val s2e0_pat = s2hnf2exp(s2f0_pat)
+val s2e0_arg = s2hnf2exp(s2f0_arg)
+val s2en_pat = s2e0_pat.s2exp_node
+val s2en_arg = s2e0_arg.s2exp_node
 //
 (*
-val () = println! ("auxmat: s2e_pat(aft) = ", s2e_pat)
-val () = println! ("auxmat: s2e_arg(aft) = ", s2e_arg)
+val () = println! ("auxmat_env: s2e0_pat(aft) = ", s2e0_pat)
+val () = println! ("auxmat_env: s2e0_arg(aft) = ", s2e0_arg)
 *)
 //
 in
 //
-case+ s2en_pat of
+case+
+s2en_pat of
 //
 | S2Evar(s2v) => let
-    val s2f =
-      impenv_find (env, s2v)
+    val ans =
+      auxfvar (env_pat, s2v)
     // end of [val]
-    val iserr = s2hnf_is_err (s2f)
   in
-    if iserr then
-    (
-      impenv_update(env, s2v, s2f_arg)
-    ) else (s2hnf_syneq (s2f, s2f_arg))
+    case+ ans of
+    | true => let
+        val s2f =
+          impenv_find (env, s2v)
+        // end of [val]
+        val iserr = s2hnf_is_err (s2f)
+      in
+        if iserr
+          then (
+            impenv_update (env, s2v, s2f0_arg)
+          ) else (s2hnf_syneq2 (s2f, s2f0_arg))
+       end (* [true] *)
+     | false =>
+       s2hnf_syneq_env
+         (env_pat, env_arg, s2f0_pat, s2f0_arg)
+       (* end of [false] *)
   end // end of [S2Evar]
 //
 | S2Ecst(s2c) => let
   in
     case+ s2en_arg of
-    | S2Ecst (s2c_arg) =>
+    | S2Ecst(s2c_arg) =>
         if s2c = s2c_arg then true else false
       // end of [S2Ecst]
-    | _ (*non-s2cst*) => false
+    | _ (* non-S2Ecst *) => false
   end // end of [S2Ecst]
 //
 | S2Eapp
@@ -340,13 +441,21 @@ case+ s2en_pat of
       (
         s2e_arg, s2es_arg
       ) => let
-        val ans = auxmat (env, s2e_pat, s2e_arg)
+        val
+        ismatch =
+        auxmat_env
+          (env, env_pat, env_arg, s2e_pat, s2e_arg)
+        // end of [val]
       in
-        if ans then
-          auxmatlst (env, s2es_pat, s2es_arg) else false
+        if ismatch
+          then
+          auxmatlst_env
+            (env, env_pat, env_arg, s2es_pat, s2es_arg)
+          // end of [then]
+          else false
         // end of [if]
       end // end of [S2Eapp]
-    | _ => false
+    | _ (* non-S2Eapp *) => false
   end // end of [S2Eapp]
 //
 | S2Etyrec
@@ -354,35 +463,81 @@ case+ s2en_pat of
     knd, npf, ls2es_pat
   ) => let
   in
-    case+ s2en_arg of
+    case+
+    s2en_arg of
     | S2Etyrec
       (
         knd2, npf2, ls2es_arg
       ) => (
-        if knd = knd2 then
-          auxlabmatlst (env, ls2es_pat, ls2es_arg) else false
+        if knd = knd2
+          then
+          auxlabmatlst_env
+            (env, env_pat, env_arg, ls2es_pat, ls2es_arg)
+          // end of [then]
+          else false
         // end of [if]
       ) // end of [S2Etyrec]
-    | _ => false
+    | _ (* non-S2Etyrec *) => false
   end // end of [S2Etyrec]
 //
-| _ when s2hnf_syneq (s2f_pat, s2f_arg) => true
+| S2Eexi
+  (
+    s2vs_pat, s2ps_pat, s2e_pat
+  ) => let
+  in
+    case+ s2en_arg of
+    | S2Eexi
+      (
+        s2vs_arg, s2ps_arg, s2e_arg
+      ) => ismatch where
+      {
+        val
+        env_pat = auxenv (env_pat, s2vs_pat)
+        val
+        env_arg = auxenv (env_arg, s2vs_arg)
+        val
+        syneq =
+        s2explst_syneq_env
+        (
+          env_pat, env_arg, s2ps_pat, s2ps_arg
+        ) (* end of [val] *)
+        val
+        ismatch =
+        (
+          if syneq
+            then
+            auxmat_env
+              (env, env_pat, env_arg, s2e_pat, s2e_arg)
+            // end of [then]
+            else false
+        ) : bool // end of [val]
+        val () = list_vt_free(env_pat)
+        and () = list_vt_free(env_arg)
+      } (* [S2Eexi] *)
+    | _ (* non-S2Eexi *) => false
+  end // end of [S2Eexi]
 //
-| _ => false
+| _ when
+    s2hnf_syneq_env
+      (env_pat, env_arg, s2f0_pat, s2f0_arg) => true
+    // end of [when]
 //
-end // end of [auxmat]
+| _ (* rest-of-s2exp *) => false
+//
+end // end of [auxmat_env]
 
 and
-auxmatlst
+auxmatlst_env
 (
   env: !impenv
-, s2es_pat: s2explst
-, s2es_arg: s2explst
+, env_pat: !s2varlst_vt
+, env_arg: !s2varlst_vt
+, s2es_pat: s2explst, s2es_arg: s2explst
 ) : bool = let
 //
 (*
-val () = println! ("auxmatlst: s2es_pat = ", s2es_pat)
-val () = println! ("auxmatlst: s2es_arg = ", s2es_arg)
+val () = println! ("auxmatlst_env: s2es_pat = ", s2es_pat)
+val () = println! ("auxmatlst_env: s2es_arg = ", s2es_arg)
 *)
 //
 in
@@ -397,9 +552,13 @@ s2es_pat of
     | list_cons (
         s2e_arg, s2es_arg
       ) => let
-         val ans = auxmat (env, s2e_pat, s2e_arg)
+         val ismatch =
+           auxmat_env (env, env_pat, env_arg, s2e_pat, s2e_arg)
        in
-         if ans then auxmatlst (env, s2es_pat, s2es_arg) else false
+         if ismatch
+           then (
+             auxmatlst_env (env, env_pat, env_arg, s2es_pat, s2es_arg)
+           ) else false
        end // end of [list_cons]
      | list_nil () => true // HX: deadcode
   ) // end of [list_cons]
@@ -408,45 +567,61 @@ s2es_pat of
 end // end of [auxmatlst]
 
 and
-auxlabmatlst
+auxlabmatlst_env
 (
   env: !impenv
-, ls2es_pat: labs2explst
-, ls2es_arg: labs2explst
+, env_pat: !s2varlst_vt, env_arg: !s2varlst_vt
+, ls2es_pat: labs2explst, ls2es_arg: labs2explst
 ) : bool = let
 (*
 val out = stdout_ref
-val () = fprintln! (out, "auxlabmatlst: ls2es_pat = ", ls2es_pat)
-val () = fprintln! (out, "auxlabmatlst: ls2es_arg = ", ls2es_arg)
+val () = fprintln! (out, "auxlabmatlst_env: ls2es_pat = ", ls2es_pat)
+val () = fprintln! (out, "auxlabmatlst_env: ls2es_arg = ", ls2es_arg)
 *)
 in
 //
-case+ ls2es_pat of
+case+
+ls2es_pat of
 | list_cons _ => (
   case+ ls2es_arg of
   | list_cons _ => let
-      val+list_cons (lx1, ls2es_pat) = ls2es_pat
-      val+list_cons (lx2, ls2es_arg) = ls2es_arg
-      val+SLABELED (l1, _, x1) = lx1 and SLABELED (l2, _, x2) = lx2
-      val ans = (
-        if l1 = l2 then auxmat (env, x1, x2) else false
+      val+list_cons
+        (lx1, ls2es_pat) = ls2es_pat
+      val+list_cons
+        (lx2, ls2es_arg) = ls2es_arg
+      val+SLABELED (l1, _, x1) = lx1
+      and SLABELED (l2, _, x2) = lx2
+      val
+      ismatch =
+      (
+        if l1 = l2
+          then (
+            auxmat_env (env, env_pat, env_arg, x1, x2)
+          ) else false
       ) : bool // end of [val]
     in
-      if ans then auxlabmatlst (env, ls2es_pat, ls2es_arg) else false
+      if ismatch
+        then
+        auxlabmatlst_env
+          (env, env_pat, env_arg, ls2es_pat, ls2es_arg)
+        // end of [then]
+        else false
     end // end of [list_cons]
-  | list_nil () => false
-  ) (* end o [cons] *)
-| list_nil () => (
-  case+ ls2es_arg of
-  | list_cons _ => false | list_nil () => true
-  ) // end of [list_nil]
+  | list_nil ((*void*)) => false
+  ) (* [list_cons] *)
+| list_nil () =>
+    (case+ ls2es_arg of list_cons _ => false | list_nil() => true)
+  (* end of [list_nil] *)
 //
-end // end of [auxlabmatlst]
+end // end of [auxlabmatlst_env]
+
+(* ****** ****** *)
 
 fun
 auxmatlstlst
 (
-  env: !impenv, s2ess: s2explstlst, t2mas: t2mpmarglst
+  env: !impenv
+, s2ess: s2explstlst, t2mas: t2mpmarglst
 ) : bool = let
 in
 //
@@ -470,7 +645,8 @@ end // end of [auxmatlstlst]
 
 (* ****** ****** *)
 
-fun auxbndlstlst
+fun
+auxbndlstlst
 (
   s2vs: s2varlst, t2mas: t2mpmarglst
 ) : tmpsub = let
@@ -524,7 +700,7 @@ end // end of [funlab_tmpcst_match]
 
 implement
 hiimpdec_tmpcst_match
-  (imp, d2c0, t2mas) = let
+  (imp, d2c0, t2mas, knd) = let
 //
 val d2c1 = imp.hiimpdec_cst
 //
@@ -535,7 +711,9 @@ val () = println! ("hiimpdec_tmpcst_match: d2c1 = ", d2c1)
 //
 in
 //
-if d2c0 = d2c1 then let
+if
+d2c0=d2c1
+then let
   val env =
     impenv_make_svarlst (imp.hiimpdec_imparg)
   val ans = auxmatlstlst (env, imp.hiimpdec_tmparg, t2mas)
@@ -545,12 +723,12 @@ in
       impenv2tmpsub (env)
     // end of [val]
   in
-    TMPCSTMATsome (imp, tsub)
+    TMPCSTMATsome (imp, tsub, knd)
   end else let
     val () = impenv_free (env) in TMPCSTMATnone ()
   end // end of [if]
-end else
-  TMPCSTMATnone ()
+end // end of [then]
+else TMPCSTMATnone() // else
 // end of [if]
 //
 end // end of [hiimpdec_tmpcst_match]
@@ -559,7 +737,7 @@ end // end of [hiimpdec_tmpcst_match]
 
 implement
 hiimpdec2_tmpcst_match
-  (imp2, d2c0, t2mas) = let
+  (imp2, d2c0, t2mas, knd) = let
 //
 val HIIMPDEC2
   (imp, tsub0, tmparg) = imp2
@@ -573,10 +751,15 @@ val () = println! ("hiimpdec_tmpcst_match2: d2c1 = ", d2c1)
 //
 in
 //
-if d2c0 = d2c1 then let
+if
+d2c0=d2c1
+then let
   val env =
     impenv_make_svarlst (imparg)
-  val ans = auxmatlstlst (env, tmparg, t2mas)
+  // end of [val]
+  val ans =
+    auxmatlstlst (env, tmparg, t2mas)
+  // end of [val]
 in
   if ans then let
     val tsub1 =
@@ -585,11 +768,12 @@ in
       tmpsub_append (tsub0, tsub1)
     // end of [val]
   in
-    TMPCSTMATsome (imp, tsub01)
+    TMPCSTMATsome (imp, tsub01, knd)
   end else let
     val () = impenv_free (env) in TMPCSTMATnone ()
   end // end of [if]
-end else TMPCSTMATnone () // end of [if]
+end // end of [then]
+else TMPCSTMATnone() // else
 //
 end // end of [hiimpdec2_tmpcst_match]
 
@@ -597,7 +781,7 @@ end // end of [hiimpdec2_tmpcst_match]
 
 implement
 hiimpdeclst_tmpcst_match
-  (imps, d2c0, t2mas) = let
+  (imps, d2c0, t2mas, knd) = let
 //
 (*
 val () =
@@ -610,12 +794,16 @@ case+ imps of
 | list_cons (
     imp, imps
   ) => let
-    val opt = hiimpdec_tmpcst_match (imp, d2c0, t2mas)
+    val opt =
+      hiimpdec_tmpcst_match (imp, d2c0, t2mas, knd)
+    // end of [val]
   in
     case+ opt of
     | TMPCSTMATsome _ => opt
     | TMPCSTMATsome2 _ => opt
-    | TMPCSTMATnone _ => hiimpdeclst_tmpcst_match (imps, d2c0, t2mas)
+    | TMPCSTMATnone _ =>
+        hiimpdeclst_tmpcst_match (imps, d2c0, t2mas, knd)
+      // end of [TMPCSTMATnone]
   end // end of [list_cons]
 | list_nil () => TMPCSTMATnone ()
 //
@@ -663,7 +851,7 @@ val s2vs = hfd.hifundec_imparg
 val tsub = auxbndlstlst (s2vs, t2mas)
 //
 in
-  TMPVARMATsome (hfd, tsub)
+  TMPVARMATsome (hfd, tsub, 0(*local*))
 end // end of [hifundec2tmpvarmat]
 
 implement
@@ -713,7 +901,7 @@ then let
   val tsub1 = auxbndlstlst (s2vs, t2mas)
   val tsub01 = tmpsub_append (tsub0, tsub1)
 in
-  TMPVARMATsome (hfd, tsub01)
+  TMPVARMATsome (hfd, tsub01, 0(*local*))
 end // end of [then]
 else TMPVARMATnone() // end of [else]
 //
@@ -750,13 +938,16 @@ end // end of [local]
 (* ****** ****** *)
 //
 extern
-fun ccomp_funlab_tmpsubst
+fun
+ccomp_funlab_tmpsubst
   (env: !ccompenv, loc0: location, hse0: hisexp, fl: funlab, tsub: tmpsub): primval
 extern
-fun ccomp_funlab_tmpsubst_none
+fun
+ccomp_funlab_tmpsubst_none
   (env: !ccompenv, loc0: location, hse0: hisexp, fl: funlab, tsub: tmpsub): primval
 extern
-fun ccomp_funlab_tmpsubst_some
+fun
+ccomp_funlab_tmpsubst_some
 (
   env: !ccompenv, loc0: location, hse0: hisexp, fl: funlab, tsub: tmpsub, fent: funent
 ) : primval // end of [ccomp_funlab_tmpsubst_some]
@@ -824,15 +1015,14 @@ val () = the_funlablst_add (flab2)
 //
 val () = ccompenv_add_flabsetenv (env, flab2)
 //
-val (
-  pfpush | ()
-) = ccompenv_push (env)
+val (pfpush|()) = ccompenv_push (env)
+//
 val () = ccompenv_add_tmpsub (env, tsub)
 val () = ccompenv_inc_tmprecdepth (env)
 val fent2 = funent_subst (env, sub, flab2, fent, sfx)
 val () = ccompenv_dec_tmprecdepth (env)
-val (
-) = ccompenv_pop (pfpush | env)
+//
+val ((*popped*)) = ccompenv_pop (pfpush | env)
 //
 val () = funent_set_tmpsub (fent2, Some (tsub))
 //
@@ -847,10 +1037,11 @@ end // end of [ccomp_funlab_tmpsubst_some]
 (* ****** ****** *)
 
 extern
-fun ccomp_tmpcstmat_some
+fun
+ccomp_tmpcstmat_some
 (
-  env: !ccompenv
-, loc0: location, hse0: hisexp, d2c: d2cst, t2mas: t2mpmarglst, mat: tmpcstmat
+  env: !ccompenv, loc0: location
+, hse0: hisexp, d2c: d2cst, t2mas: t2mpmarglst, mat: tmpcstmat
 ) : primval // end of [ccomp_tmpcstmat_some]
 
 (* ****** ****** *)
@@ -876,12 +1067,14 @@ in
 //
 case+ mat of
 | TMPCSTMATsome _ =>
-    ccomp_tmpcstmat_some (env, loc0, hse0, d2c, t2mas, mat)
+  ccomp_tmpcstmat_some
+    (env, loc0, hse0, d2c, t2mas, mat)
   // end of [TMPCSTMATsome]
 | TMPCSTMATsome2
-    (d2c, s2ess, flab) => primval_make2_funlab (loc0, hse0, flab)
-| TMPCSTMATnone
-    () => primval_tmpltcstmat (loc0, hse0, d2c, t2mas, mat)
+    (d2c, s2ess, flab) =>
+    primval_make2_funlab (loc0, hse0, flab)
+| TMPCSTMATnone() =>
+    primval_tmpltcstmat (loc0, hse0, d2c, t2mas, mat)
   // end of [TMPCSTMATnone]
 //
 end // end of [ccomp_tmpcstmat]
@@ -890,10 +1083,14 @@ implement
 ccomp_tmpcstmat_some
   (env, loc0, hse0, d2c, t2mas, mat) = let
 //
-val-TMPCSTMATsome (imp, tsub) = mat
+val-TMPCSTMATsome
+  (imp, tsub, knd) = mat
 //
 val lvl0 = the_d2varlev_save ()
-val () = hiimpdec_ccomp_if (env, 0(*level*), imp)
+//
+val () =
+  hiimpdec_ccomp_if (env, 0(*level*), imp, knd)
+//
 val () = the_d2varlev_restore (lvl0)
 //
 val-Some (flab) = hiimpdec_get_funlabopt (imp)
@@ -934,12 +1131,15 @@ in
 //
 case+ mat of
 | TMPVARMATsome _ =>
-    ccomp_tmpvarmat_some (env, loc0, hse0, d2v, t2mas, mat)
+    ccomp_tmpvarmat_some
+      (env, loc0, hse0, d2v, t2mas, mat)
+    // end of [ccomp_tmpvarmat_some]
   // end of [TMPVARMATsome]
 | TMPVARMATsome2
-    (d2c, s2ess, flab) => primval_make2_funlab (loc0, hse0, flab)
-| TMPVARMATnone
-    () => primval_tmpltvarmat (loc0, hse0, d2v, t2mas, mat)
+    (d2c, s2ess, flab) =>
+    primval_make2_funlab (loc0, hse0, flab)
+| TMPVARMATnone() =>
+    primval_tmpltvarmat (loc0, hse0, d2v, t2mas, mat)
   // end of [TMPVARMATnone]
 //
 end // end of [ccomp_tmpvarmat]
@@ -948,7 +1148,9 @@ implement
 ccomp_tmpvarmat_some
   (env, loc0, hse0, d2v, t2mas, mat) = let
 //
-val-TMPVARMATsome (hfd, tsub) = mat
+val-TMPVARMATsome
+  (hfd, tsub, _(*knd*)) = mat
+//
 val opt = hifundec_get_funlabopt (hfd)
 val () =
 (
@@ -956,12 +1158,14 @@ case+ opt of
 | None _ => let
     val-Some
       (hdc0) = hifundec_get_hideclopt (hfd)
+    // end of [val]
     val-HIDfundecs
       (knd, decarg, hfds) = hdc0.hidecl_node
+    // end of [val]
   in
     hifundeclst_ccomp (env, 0(*lvl0*), knd, decarg, hfds)
   end // end of [None]
-| Some _ => ()
+| Some _ => ((*void*))
 )
 val-Some(flab) = hifundec_get_funlabopt (hfd)
 //

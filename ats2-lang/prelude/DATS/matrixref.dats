@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixref.atxt
-** Time of generation: Tue Jan 13 00:14:13 2015
+** Time of generation: Sat Jun 27 21:39:42 2015
 *)
 
 (* ****** ****** *)
@@ -395,6 +395,53 @@ val A =
 in
   fprint_matrixref_sep<a> (out, A, nrow, ncol, sep1, sep2)
 end // end of [fprint_mtrxszref_sep]
+
+(* ****** ****** *)
+
+implement{a}
+mtrxszref_foreach
+  (A) = let
+//
+var env: void = ()
+//
+in
+  mtrxszref_foreach_env<a><void> (A, env)
+end // end of [mtrxszref_foreach]
+
+implement
+{a}{env}
+mtrxszref_foreach_env
+  (MSZ, env) = let
+//
+var nrow: size_t and ncol: size_t
+//
+val MAT = mtrxszref_get_refsize(MSZ, nrow, ncol)
+//
+in
+  matrixref_foreach_env<a><env> (MAT, nrow, ncol, env)
+end // end of [mtrxszref_foreach_env]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+mtrxszref_foreach_cloref
+  (MSZ, fwork) = let
+//
+implement
+{a2}{env}
+matrix_foreach$fwork
+  (x, env) = let
+  val (pf, fpf | p) = $UN.ptr_vtake{a}(addr@x)
+  val ((*void*)) = fwork(!p)
+  prval ((*void*)) = fpf(pf)
+in
+  // nothing
+end // end of [matrix_foreach$work]
+//
+in
+  mtrxszref_foreach(MSZ)
+end // end of [mtrxszref_foreach_cloref]
 
 (* ****** ****** *)
 

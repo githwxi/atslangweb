@@ -124,7 +124,7 @@ jsonize_s2rt
 in
 //
 case+ s2t0 of
-| S2RTbas (s2tb) => let
+| S2RTbas(s2tb) => let
     val s2tb = jsonize_s2rtbas (s2tb)
   in
     jsonval_conarg1 ("S2RTbas", s2tb)
@@ -142,13 +142,17 @@ case+ s2t0 of
     jsonval_conarg2 ("S2RTfun", arg, res)
   end // end of [S2RTfun]
 //
-| S2RTtup (s2ts) => let
+| S2RTtup(s2ts) => let
     val s2ts = jsonize_s2rtlst (s2ts)
   in
     jsonval_conarg1 ("S2RTtup", s2ts)
   end // end of [S2RTtup]
 //
-| _(*ignored*) => jsonval_conarg0 ("S2RTignored")
+| S2RTVar(s2tV) =>
+    jsonize_s2rt(s2rtVar_get_s2rt(s2tV))
+  // end of [S2RTVar]
+//
+| S2RTerr((*void*)) => jsonval_conarg0 ("S2RTerr")
 //
 end // end of [jsonize_s2rt]
   
@@ -468,6 +472,7 @@ case+ s2e0.s2exp_node of
     (knd, npf, ls2es) => let
     val knd =
       jsonize_tyreckind (knd)
+    // end of [val]
     val npf = jsonval_int (npf)
     val ls2es = jsonize_labs2explst (flag, ls2es)
   in
@@ -586,7 +591,7 @@ case+ ls2es of
   in
     list_cons (ls2e, auxlst (flag, ls2es))
   end // end of [list_cons]
-| list_nil ((*void*)) => list_nil ()
+| list_nil((*void*)) => list_nil ()
 //
 in
   JSONlist (auxlst (flag, ls2es))
@@ -1147,6 +1152,11 @@ d2e0.d2exp_node of
     jsonval_conarg4 ("D2Ecasehead", jsv1, jsv2, jsv3, jsv4)
   end // end of [D2Ecasehead]
 //
+| D2Esing(d2e) => let
+    val jsv = jsonize_d2exp (d2e)
+  in
+    jsonval_conarg1 ("D2Esing", jsv)
+  end // end of [D2Esing]
 | D2Elist
     (npf, d2es) => let
     val jsv1 = jsonval_int (npf)

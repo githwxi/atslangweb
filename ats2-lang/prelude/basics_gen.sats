@@ -83,11 +83,11 @@ gclear_ref (x: &a >> a?):<!wrt> void
 //
 fun
 {a:t0p}
-gequal_val (x: a, y: a):<> bool
+gequal_val_val (x: a, y: a):<> bool
 //
 fun
 {a:vt0p}
-gequal_ref (x: &INV(a), y: &a):<> bool
+gequal_ref_ref (x: &INV(a), y: &a):<> bool
 //
 (* ****** ****** *)
 
@@ -99,9 +99,9 @@ tostring_ref (x: &INV(a)):<> string
 (* ****** ****** *)
 
 fun{a:t0p}
-tostrptr_val (x: a):<> Strptr1
+tostrptr_val (x: a):<!wrt> Strptr1
 fun{a:vt0p}
-tostrptr_ref (x: &INV(a)):<> Strptr1
+tostrptr_ref (x: &INV(a)):<!wrt> Strptr1
 
 (* ****** ****** *)
 

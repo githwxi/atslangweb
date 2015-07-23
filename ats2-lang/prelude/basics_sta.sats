@@ -587,6 +587,13 @@ vtypedef cloptr0 = cloptr_vt0ype_vtype (void)
 //
 (* ****** ****** *)
 //
+typedef
+stamped_t(a:t@ype) = [x:int] stamped_t(a, x)
+vtypedef
+stamped_vt(a:vt@ype) = [x:int] stamped_vt(a, x)
+//
+(* ****** ****** *)
+//
 // HX: for memory deallocation (with/without GC)
 //
 absview
@@ -666,9 +673,11 @@ stadef cmpval = cmpval_funenv
 
 (* ****** ****** *)
 
-typedef cmpref_fun
+typedef
+cmpref_fun
   (a: vt@ype) = (&RD(a), &RD(a)) -<fun> int
-typedef cmpref_funenv
+typedef
+cmpref_funenv
   (a: vt@ype, vt: vt@ype) = (&RD(a), &RD(a), !vt) -<fun> int
 stadef cmpref = cmpref_fun
 stadef cmpref = cmpref_funenv
@@ -692,12 +701,23 @@ lazy_vt0ype_vtype (vt@ype+) = ptr
 vtypedef lazy_vt (a: vt@ype)= lazy_vt0ype_vtype (a)
 //
 (* ****** ****** *)
-
+//
+(*
+abst@ype
+literal_int(intlit) = $extype"atsliteral_int"
+*)
+abst@ype
+literal_float(float) = $extype"atsliteral_float"
+abst@ype
+literal_string(string) = $extype"atsliteral_string"
+//
+(* ****** ****** *)
+//
 abst@ype
 undefined_t0ype = $extype"atstype_undefined"
 absvt@ype
 undefined_vt0ype = $extype"atstype_undefined"
-
+//
 (* ****** ****** *)
 
 #if VERBOSE_PRELUDE #then

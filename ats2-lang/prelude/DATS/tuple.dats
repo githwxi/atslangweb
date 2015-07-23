@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/tuple.atxt
-** Time of generation: Tue Jan 13 00:14:03 2015
+** Time of generation: Sat Jun 27 21:39:25 2015
 *)
 
 (* ****** ****** *)
@@ -63,7 +63,8 @@ in
   // nothing
 end // end of [fprint_tupval2]
 
-implement(a0,a1)
+implement
+(a0,a1)
 fprint_val<tup(a0,a1)> (out, x) = fprint_tupval2<a0,a1> (out, x)
 
 (* ****** ****** *)
@@ -83,7 +84,8 @@ in
   // nothing
 end // end of [fprint_tupval3]
 
-implement(a0,a1,a2)
+implement
+(a0,a1,a2)
 fprint_val<tup(a0,a1,a2)> (out, x) = fprint_tupval3<a0,a1,a2> (out, x)
 
 (* ****** ****** *)
@@ -105,7 +107,8 @@ in
   // nothing
 end // end of [fprint_tupval4]
 
-implement(a0,a1,a2,a3)
+implement
+(a0,a1,a2,a3)
 fprint_val<tup(a0,a1,a2,a3)> (out, x) = fprint_tupval4<a0,a1,a2,a3> (out, x)
 
 (* ****** ****** *)
@@ -123,7 +126,8 @@ in
   // nothing
 end // end of [fprint_tupref2]
 
-implement(a0,a1)
+implement
+(a0,a1)
 fprint_ref<tup(a0,a1)> (out, x) = fprint_tupref2<a0,a1> (out, x)
 
 (* ****** ****** *)
@@ -143,7 +147,8 @@ in
   // nothing
 end // end of [fprint_tupref3]
 
-implement(a0,a1,a2)
+implement
+(a0,a1,a2)
 fprint_ref<tup(a0,a1,a2)> (out, x) = fprint_tupref3<a0,a1,a2> (out, x)
 
 (* ****** ****** *)
@@ -165,7 +170,8 @@ in
   // nothing
 end // end of [fprint_tupref4]
 
-implement(a0,a1,a2,a3)
+implement
+(a0,a1,a2,a3)
 fprint_ref<tup(a0,a1,a2,a3)> (out, x) = fprint_tupref4<a0,a1,a2,a3> (out, x)
 
 (* ****** ****** *)
@@ -173,60 +179,71 @@ fprint_ref<tup(a0,a1,a2,a3)> (out, x) = fprint_tupref4<a0,a1,a2,a3> (out, x)
 implement
 {a0,a1}
 tupval2_compare (x, y) = let
-  val sgn0 = gcompare_val<a0> (x.0, y.0)
+  val sgn0 = gcompare_val_val<a0> (x.0, y.0)
 in
-  if sgn0 != 0 then sgn0 else gcompare_val<a1> (x.1, y.1)
+  if sgn0 != 0 then sgn0 else gcompare_val_val<a1> (x.1, y.1)
 end // end of [tupval2_compare]  
 
-implement(a0,a1)
-gcompare_val<tup(a0,a1)> (x, y) = tupval2_compare<a0,a1> (x, y)
+implement
+(a0,a1)
+gcompare_val_val<tup(a0,a1)> (x, y) = tupval2_compare<a0,a1> (x, y)
 
 (* ****** ****** *)
 
 implement
 {a0,a1,a2}
 tupval3_compare (x, y) = let
-  val sgn0 = gcompare_val<a0> (x.0, y.0)
+//
+val sgn0 = gcompare_val_val<a0> (x.0, y.0)
+//
 in
 //
-if sgn0 != 0 then sgn0
+if
+sgn0 != 0
+then sgn0
 else let
-  val sgn1 = gcompare_val<a1> (x.1, y.1)
+  val sgn1 = gcompare_val_val<a1> (x.1, y.1)
 in
-  if sgn1 != 0 then sgn1 else gcompare_val<a2> (x.2, y.2)
+  if sgn1 != 0 then sgn1 else gcompare_val_val<a2> (x.2, y.2)
 end // end of [if]
 //
 end // end of [tupval3_compare]
 
-implement(a0,a1,a2)
-gcompare_val<tup(a0,a1,a2)> (x, y) = tupval3_compare<a0,a1,a2> (x, y)
+implement
+(a0,a1,a2)
+gcompare_val_val<tup(a0,a1,a2)> (x, y) = tupval3_compare<a0,a1,a2> (x, y)
 
 (* ****** ****** *)
 
 implement
 {a0,a1,a2,a3}
 tupval4_compare (x, y) = let
-  val sgn0 = gcompare_val<a0> (x.0, y.0)
+//
+val sgn0 = gcompare_val_val<a0> (x.0, y.0)
+//
 in
 //
-if sgn0 != 0 then sgn0
+if
+sgn0 != 0
+then sgn0
 else let
-  val sgn1 = gcompare_val<a1> (x.1, y.1)
+  val sgn1 = gcompare_val_val<a1> (x.1, y.1)
 in
 //
 if sgn1 != 0 then sgn1
 else let
-  val sgn2 = gcompare_val<a2> (x.2, y.2)
+  val sgn2 = gcompare_val_val<a2> (x.2, y.2)
 in
-  if sgn2 != 0 then sgn2 else gcompare_val<a3> (x.3, y.3)
+  if sgn2 != 0 then sgn2 else gcompare_val_val<a3> (x.3, y.3)
 end // end of [if]
 //
 end // end of [if]
 //
 end // end of [tupval4_compare]  
 
-implement(a0,a1,a2,a3)
-gcompare_val<tup(a0,a1,a2,a3)> (x, y) = tupval4_compare<a0,a1,a2,a3> (x, y)
+implement
+(a0,a1,a2,a3)
+gcompare_val_val<tup(a0,a1,a2,a3)> (x, y) = tupval4_compare<a0,a1,a2,a3> (x, y)
 
 (* ****** ****** *)
 

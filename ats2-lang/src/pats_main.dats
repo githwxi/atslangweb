@@ -446,6 +446,7 @@ fprintln! (out, "  --debug (for enabling the generation of more informative erro
 fprintln! (out, "  --debug2 (for enabling the generation of debugging information in target code)");
 fprintln! (out, "  --pkgreloc (for generating a script to help relocate packages in need)");
 fprintln! (out, "  --jsonize-2 (for output level-2 syntax in JSON format)");
+fprintln! (out, "  --tlcalopt-disable (for disabling tail-call optimization)");
 fprintln! (out, "  --constraint-export (for exporting constraints in JSON format)");
 fprintln! (out, "  --constraint-ignore (for entirely ignoring constraint-solving)");
 fprint_newline (out);
@@ -474,11 +475,15 @@ HX: VERSION-0.1.5 released on Thursday, November 20, 2014
 HX: VERSION-0.1.6 released on Tuesday, January 6, 2015
 HX: VERSION-0.1.7 released on Tuesday, January 20, 2015
 HX: VERSION-0.1.8 released on Saturday, January 24, 2015
+HX: VERSION-0.1.9 released on Friday, February 27, 2015
+HX: VERSION-0.1.10 released on Sunday, March 22, 2015
+HX: VERSION-0.1.11 released on Thursday, April 23, 2015
+HX: VERSION-0.1.12 released on Saturday, May 16, 2015
 //
 *)
 #define PATS_MAJOR_VERSION 0
-#define PATS_MINOR_VERSION 1
-#define PATS_MICRO_VERSION 9
+#define PATS_MINOR_VERSION 2
+#define PATS_MICRO_VERSION 2
 (*
 //
 // HX-2011-04-27: this is supported in Postiats:
@@ -814,6 +819,7 @@ val () = pervasive_load (PATSHOME, "prelude/SATS/intrange.sats")
 //
 val () = pervasive_load (PATSHOME, "prelude/SATS/gorder.sats")
 val () = pervasive_load (PATSHOME, "prelude/SATS/gnumber.sats")
+val () = pervasive_load (PATSHOME, "prelude/SATS/grandom.sats")
 //
 (*
 //
@@ -849,6 +855,7 @@ val () = pervasive_load (PATSHOME, "prelude/SATS/stream.sats")
 val () = pervasive_load (PATSHOME, "prelude/SATS/stream_vt.sats")
 //
 val () = pervasive_load (PATSHOME, "prelude/SATS/gprint.sats")
+val () = pervasive_load (PATSHOME, "prelude/SATS/tostring.sats")
 //
 val () = pervasive_load (PATSHOME, "prelude/SATS/parray.sats") // null-terminated
 //
@@ -885,8 +892,16 @@ fun do_taggen
 implement
 do_depgen
   (state, given, d0cs) = let
+//
   val ents = $DEPGEN.depgen_eval (d0cs)
+//
+// HX-2015-05-28:
+// [trans1] is not allowed after [depgen]
+//
+  val ((*pop*)) = $FIL.the_filenamelst_ppop ()
+//
   val filr = outchan_get_filr (state.outchan)
+//
 in
   $DEPGEN.fprint_entlst (filr, given, ents)
 end // end of [do_depgen]
@@ -894,8 +909,16 @@ end // end of [do_depgen]
 implement
 do_taggen
   (state, given, d0cs) = let
+//
   val ents = $TAGGEN.taggen_proc (d0cs)
+//
+// HX-2015-05-28:
+// [trans1] is not allowed after [taggen]
+//
+  val ((*pop*)) = $FIL.the_filenamelst_ppop ()
+//
   val filr = outchan_get_filr (state.outchan)
+//
 in
   $TAGGEN.fprint_entlst (filr, given, ents)
 end // end of [do_taggen]
@@ -1112,8 +1135,15 @@ val c3t0 =
   $TRENV3.the_trans3_finget_constraint ()
 // end of [val]
 //
-val () =
-if flag = 0 then $CNSTR3.c3nstr_solve (c3t0)
+val () = (
+//
+if
+flag = 0
+then {
+  val () = $CNSTR3.c3nstr_ats2_solve (c3t0)
+} (* end of [if] *)
+//
+) (* end of [val] *)
 //
 val () =
 if
@@ -1341,7 +1371,8 @@ case+ arglst of
     // end of [val]
   in
     case+ 0 of
-    | _ when stadyn >= 0 => {
+    | _ when
+        stadyn >= 0 => {
         val PATSHOME = state.PATSHOME
         val () =
         prelude_load_if (
@@ -1366,15 +1397,17 @@ case+ arglst of
 //
         val () =
           if isdepgen then do_depgen (state, given, d0cs)
+        // end of [val]
         val () =
           if istaggen then do_taggen (state, given, d0cs)
+        // end of [val]
 //
         val () =
           if istrans then do_transfinal2 (state, given, d0cs)
         // end of [val]
 //
-      } // end of [_ when ...]
-    | _ => ()
+      } (* end of [_ when ...] *)
+    | _ (* stadyn < 0 *) => ((*nothing*))
   end // end of [list_vt_nil when ...]
 //
 | ~list_vt_nil ((*void*)) => ()
@@ -1431,8 +1464,10 @@ case+ arg of
 //
         val () =
           if isdepgen then do_depgen (state, given, d0cs)
+        // end of [val]
         val () =
           if istaggen then do_taggen (state, given, d0cs)
+        // end of [val]
 //
         val () =
           if istrans then do_transfinal2 (state, given, d0cs)
@@ -1628,6 +1663,11 @@ case+ key of
   } (* end of [--pkgreloc] *)
 //
 | "--jsonize-2" => (state.jsonizeflag := 2)
+//
+| "--tlcalopt-disable" =>
+  {
+    val () = $GLOB.the_CCOMPATS_tlcalopt_set(0)
+  }
 //
 | "--constraint-export" =>
   {

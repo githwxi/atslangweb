@@ -15,6 +15,7 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 staload "libats/ML/SATS/basis.sats"
+staload "libats/ML/SATS/list0.sats"
 staload "libats/ML/SATS/array0.sats"
 
 (* ****** ****** *)
@@ -26,11 +27,9 @@ staload _(*anon*) = "libats/ML/DATS/array0.dats"
 val () =
 {
 //
-val out = stdout_ref
-//
 val asz = i2sz(3)
 val A_elt = array0_make_elt<int> (asz, 0)
-val () = fprintln! (out, "A_elt = ", A_elt)
+val ((*void*)) = println! ("A_elt = ", A_elt)
 //
 } (* end of [val] *)
 
@@ -64,6 +63,24 @@ val () = fprintln! (out, "isum(285) = ", isum)
 //
 val rsum = array0_foldright<int><int> (A, lam (x, res) => x + res, 0)
 val () = fprintln! (out, "rsum(45) = ", rsum)
+//
+} (* end of [val] *)
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val xs =
+  $list{int}(3, 9, 7, 8, 6, 0, 4, 2, 1, 5)
+//
+val A0 = array0_make_list(g0ofg1_list(xs))
+//
+val () = println! ("A0(bef) = ", A0)
+//
+val () = array0_quicksort<int> (A0, lam(x, y) => compare(x, y))
+//
+val () = println! ("A0(aft) = ", A0)
 //
 } (* end of [val] *)
 

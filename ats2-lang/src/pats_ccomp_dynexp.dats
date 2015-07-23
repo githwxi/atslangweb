@@ -54,6 +54,11 @@ implement
 prerr_FILENAME<> () = prerr "pats_ccomp_dynexp"
 //
 (* ****** ****** *)
+//
+staload
+GLOB = "./pats_global.sats"
+//  
+(* ****** ****** *)
 
 staload
 LOC = "./pats_location.sats"
@@ -1025,7 +1030,9 @@ val pmls = hilablst_ccomp (env, res, hils)
 //
 in
 //
-case+ d2var_get_view (d2v) of
+case+
+d2var_get_view (d2v)
+of // case+
 | Some _ => primval_selptr (loc0, hse0, pmv, hse_rt, pmls)
 | None _ => primval_select2 (loc0, hse0, pmv, hse_rt, pmls)
 //
@@ -1212,7 +1219,15 @@ val pmv_fun = hidexp_ccomp (env, res, hde_fun)
 val pmvs_arg = hidexplst_ccomp (env, res, hdes_arg)
 //
 var added: int = 0
-val isret = tmpvar_isret (tmpret)
+//
+val
+tlcalopt =
+  $GLOB.the_CCOMPATS_tlcalopt_get()
+//
+val isret =
+(
+  if tlcalopt > 0 then tmpvar_isret(tmpret) else false
+) : bool // end of [val]
 //
 (*
 val () =
@@ -1315,7 +1330,7 @@ if added = 0 then let
   val ins = instr_fcall (loc0, tmpret, pmv_fun, hse_fun, pmvs_arg)
 in
   instrseq_add (res, ins)
-end // end of [if]
+end // end of [then] // end of [if]
 //
 in
   // nothing

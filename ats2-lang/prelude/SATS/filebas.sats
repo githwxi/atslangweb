@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Sun Jan 11 02:59:04 2015
+** Time of generation: Sat Jun 27 21:39:07 2015
 *)
 
 (* ****** ****** *)
@@ -77,19 +77,19 @@ filename_test_base (name: string, base: string):<> bool
 (* ****** ****** *)
 //
 val file_mode_r
-  : file_mode (r()) = "mac#%" // = "r"
+  : file_mode (file_mode_r()) = "mac#%" // = "r"
 val file_mode_rr
-  : file_mode (rw()) = "mac#%" // = "r+"
+  : file_mode (file_mode_rw()) = "mac#%" // = "r+"
 //
 val file_mode_w
-  : file_mode (w()) = "mac#%" // = "w"
+  : file_mode (file_mode_w()) = "mac#%" // = "w"
 val file_mode_ww
-  : file_mode (rw()) = "mac#%" // = "w+"
+  : file_mode (file_mode_rw()) = "mac#%" // = "w+"
 //
 val file_mode_a
-  : file_mode (rw()) = "mac#%" // = "a"
+  : file_mode (file_mode_rw()) = "mac#%" // = "a"
 val file_mode_aa
-  : file_mode (rw()) = "mac#%" // = "a+"
+  : file_mode (file_mode_rw()) = "mac#%" // = "a+"
 //
 (* ****** ****** *)
 //

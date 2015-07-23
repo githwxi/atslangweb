@@ -820,6 +820,8 @@ and d2exp_node =
 //
   | D2Ecstsp of $SYN.cstsp // special constants
 //
+  | D2Eliteral of (d2exp) // $literal: int, float, string
+//
   | D2Eextval of (s2exp(*type*), string(*name*))
   | D2Eextfcall of
     (
@@ -866,6 +868,7 @@ and d2exp_node =
       i2nvresstate, s2exp, sc2laulst // static case-expression
     ) // end of [D2Escaseof]
 //
+  | D2Esing of (d2exp) // singleton
   | D2Elist of (int(*pfarity*), d2explst) // temporary
 //
   | D2Elst of (int(*lin*), s2expopt, d2explst) // list
@@ -924,13 +927,16 @@ and d2exp_node =
 //
   | D2Etrywith of (i2nvresstate, d2exp, c2laulst)
 //
+  | D2Eann_type of (d2exp, s2exp) // ascribled expression
+  | D2Eann_seff of (d2exp, s2eff) // ascribed with effects
+  | D2Eann_funclo of (d2exp, funclo) // ascribed with funtype
+//
   | D2Emac of (d2mac) // macro-expression
   | D2Emacsyn of (macsynkind, d2exp) // backquote-comma-notation
   | D2Emacfun of (symbol(*name*), d2explst) // built-in macfun
 //
-  | D2Eann_type of (d2exp, s2exp) // ascribled expression
-  | D2Eann_seff of (d2exp, s2eff) // ascribed with effects
-  | D2Eann_funclo of (d2exp, funclo) // ascribed with funtype
+  | D2Esolassert of (d2exp) // $solve_assert(d2e_prf)
+  | D2Esolverify of (s2exp) // $solve_verify(s2e_prop)
 //
   | D2Eerrexp of () // HX: placeholder for indicating an error
 // end of [d2exp_node]
@@ -953,8 +959,9 @@ and d2eclist = List (d2ecl)
 
 and
 d2exp = '{
-  d2exp_loc= location, d2exp_node= d2exp_node, d2exp_type= s2expopt
-} // end of [d2exp]
+  d2exp_loc= location
+, d2exp_node= d2exp_node, d2exp_type= s2expopt
+} (* end of [d2exp] *)
 
 and d2explst = List (d2exp)
 and d2expopt = Option (d2exp)
@@ -1207,10 +1214,17 @@ fun d2exp_top2 (loc: location, s2e: s2exp): d2exp
 fun d2exp_empty (loc: location): d2exp
 
 (* ****** ****** *)
-
-fun d2exp_cstsp
-  (loc: location, cst: $SYN.cstsp): d2exp
-
+//
+fun
+d2exp_cstsp
+(
+  loc: location, cst: $SYN.cstsp
+) : d2exp // end-of-function
+//
+fun
+d2exp_literal
+  (loc: location, d2e_lit: d2exp): d2exp
+//
 (* ****** ****** *)
 //
 fun
@@ -1280,27 +1294,32 @@ fun d2exp_where
 
 (* ****** ****** *)
 
-fun d2exp_applst
+fun
+d2exp_applst
 (
-  loc: location, d2e_fun: d2exp, d2as: d2exparglst
+  loc: location
+, d2e_fun: d2exp, d2as: d2exparglst
 ) : d2exp // end of [d2exp_applst]
-fun d2exp_app_sta
+fun
+d2exp_app_sta
 (
   loc: location
 , d2e_fun: d2exp
 , locarg: location, sarg: s2exparglst
 ) : d2exp // end of [d2exp_app_sta]
-fun d2exp_app_dyn
+fun
+d2exp_app_dyn
 (
   loc: location
 , d2e_fun: d2exp
 , npf: int, locarg: location, darg: d2explst
 ) : d2exp // end of [d2exp_app_dyn]
-fun d2exp_app_sta_dyn (
+fun
+d2exp_app_sta_dyn
+(
   loc_dyn: location
 , loc_sta: location
-, d2e_fun: d2exp
-, sarg: s2exparglst
+, d2e_fun: d2exp, sarg: s2exparglst
 , locarg: location, npf: int, darg: d2explst
 ) : d2exp // end of [d2exp_app_sta_dyn]
 
@@ -1318,7 +1337,9 @@ fun d2exp_sifhead (
 
 (* ****** ****** *)
 
-fun d2exp_casehead (
+fun
+d2exp_casehead
+(
   loc: location
 , knd: caskind
 , res: i2nvresstate
@@ -1326,36 +1347,50 @@ fun d2exp_casehead (
 , c2ls: c2laulst
 ) : d2exp // end of [d2exp_casehead]
 
-fun d2exp_scasehead (
-  loc: location, res: i2nvresstate, s2f: s2exp, sc2ls: sc2laulst
+fun
+d2exp_scasehead
+(
+  loc: location
+, res: i2nvresstate, s2f: s2exp, sc2ls: sc2laulst
 ) : d2exp // end of [d2exp_scasehead]
 
 (* ****** ****** *)
-
-fun d2exp_list (
-  loc: location, npf: int, d2es: d2explst
-) : d2exp // end of [d2exp_list]
-
+//
+fun
+d2exp_sing
+  (loc: location, d2e: d2exp): d2exp
+fun
+d2exp_list
+  (loc: location, npf: int, d2es: d2explst): d2exp
+//
 (* ****** ****** *)
-
-fun d2exp_lst (
+//
+fun
+d2exp_lst
+(
   loc: location
 , lin: int, elt: s2expopt, d2es: d2explst
 ) : d2exp // end of [d2exp_lst]
-
-fun d2exp_tup (
+//
+fun
+d2exp_tup
+(
   loc: location
 , knd: int, npf: int, d2es: d2explst
 ) : d2exp // end of [d2exp_tup]
-fun d2exp_tup_flt (
+fun
+d2exp_tup_flt
+(
   loc: location, npf: int, d2es: d2explst  
 ) : d2exp // end of [d2exp_tup_flt]
-
-fun d2exp_rec (
+//
+fun
+d2exp_rec
+(
   loc: location
 , knd: int, npf: int, ld2es: labd2explst
 ) : d2exp // end of [d2exp_rec]
-
+//
 (* ****** ****** *)
 
 fun d2exp_seq (loc: location, d2es: d2explst): d2exp
@@ -1392,34 +1427,38 @@ fun d2exp_arrinit
 ) : d2exp // end of [d2exp_arrinit]
 
 (* ****** ****** *)
-//
-fun
-d2exp_raise (loc: location, d2e: d2exp): d2exp
-//
-(* ****** ****** *)
-//
-fun d2exp_effmask
-  (loc: location, s2fe: s2eff, d2e: d2exp): d2exp
-//
-(* ****** ****** *)
 
 fun d2exp_ptrof (loc: location, d2e: d2exp): d2exp
 fun d2exp_viewat (loc: location, d2e: d2exp): d2exp
 
 (* ****** ****** *)
 //
-fun d2exp_selab
+fun
+d2exp_selab
 (
   loc: location, _rec: d2exp, d2ls: d2lablst
 ) : d2exp // end of [d2exp_selab]
 //
-fun d2exp_sel_dot // = d2exp_selab
+fun
+d2exp_sel_dot // = d2exp_selab
 (
   loc: location, _rec: d2exp, d2ls: d2lablst
 ) : d2exp // end of [d2exp_sel_dot]
 //
-fun d2exp_sel_ptr
+fun
+d2exp_sel_ptr
   (loc: location, _rec: d2exp, d2l: d2lab): d2exp
+//
+(* ****** ****** *)
+//
+fun
+d2exp_raise (loc: location, d2e: d2exp): d2exp
+//
+(* ****** ****** *)
+//
+fun
+d2exp_effmask
+  (loc: location, s2fe: s2eff, d2e: d2exp): d2exp
 //
 (* ****** ****** *)
 //
@@ -1518,18 +1557,6 @@ fun d2exp_trywith
 ) : d2exp // end of [d2exp_trywith]
 
 (* ****** ****** *)
-
-fun d2exp_mac (loc: location, d2m: d2mac): d2exp
-
-fun d2exp_macsyn
-  (loc: location, knd: macsynkind, d2e: d2exp): d2exp
-// end of [d2exp_macsyn]
-
-fun d2exp_macfun
-  (loc: location, name: symbol, d2es: d2explst): d2exp
-// end of [d2exp_macfun]
-
-(* ****** ****** *)
 //
 fun
 d2exp_ann_type
@@ -1545,8 +1572,31 @@ d2exp_ann_funclo
 //
 (* ****** ****** *)
 
-fun d2exp_errexp (loc: location): d2exp
+fun d2exp_mac(loc: location, d2m: d2mac): d2exp
 
+fun d2exp_macsyn
+  (loc: location, knd: macsynkind, d2e: d2exp): d2exp
+// end of [d2exp_macsyn]
+
+fun d2exp_macfun
+  (loc: location, name: symbol, d2es: d2explst): d2exp
+// end of [d2exp_macfun]
+
+(* ****** ****** *)
+//
+fun
+d2exp_solassert
+  (loc: location, d2e_prf: d2exp): d2exp
+//
+fun
+d2exp_solverify
+  (loc: location, s2e_prop: s2exp): d2exp
+//
+(* ****** ****** *)
+//
+fun
+d2exp_errexp (loc: location): d2exp // HX: indicating error
+//
 (* ****** ****** *)
 
 fun labd2exp_make (l: l0ab, d2e: d2exp): labd2exp

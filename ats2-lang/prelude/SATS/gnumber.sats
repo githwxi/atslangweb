@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gnumber.atxt
-** Time of generation: Fri Jan 30 21:36:32 2015
+** Time of generation: Sat Jun 27 21:39:10 2015
 *)
 
 (* ****** ****** *)
@@ -92,12 +92,24 @@ fun{a:t0p} grecip_val (x: a):<!exn> a
 
 (* ****** ****** *)
 
-fun{a:t0p} gadd_val (x: a, y: a):<> a
-fun{a:t0p} gsub_val (x: a, y: a):<> a
-fun{a:t0p} gmul_val (x: a, y: a):<> a
-fun{a:t0p} gdiv_val (x: a, y: a):<!exn> a
-fun{a:t0p} gmod_val (x: a, y: a):<!exn> a
+fun{a:t0p} gadd_val_val (x: a, y: a):<> a
+fun{a:t0p} gsub_val_val (x: a, y: a):<> a
+fun{a:t0p} gmul_val_val (x: a, y: a):<> a
+fun{a:t0p} gdiv_val_val (x: a, y: a):<!exn> a
+fun{a:t0p} gmod_val_val (x: a, y: a):<!exn> a
 
+(* ****** ****** *)
+//
+fun{a:t0p} gadd_val_int (x: a, y: int):<> a
+fun{a:t0p} gsub_val_int (x: a, y: int):<> a
+//
+fun{a:t0p} gmul_int_val (x: int, y: a):<> a
+fun{a:t0p} gmul_val_int (x: a, y: int):<> a
+//
+fun{a:t0p} gdiv_int_val (x: int, y: a):<!exn> a
+fun{a:t0p} gdiv_val_int (x: a, y: int):<!exn> a
+fun{a:t0p} gmod_val_int (x: a, y: int):<!exn> a
+//
 (* ****** ****** *)
 
 fun{a:t0p} gsqrt_val (x: a):<!exn> a
@@ -108,8 +120,7 @@ fun{a:t0p} gconjugate_val (x: a):<> a
 
 (* ****** ****** *)
 
-fun{a:t0p}
-gpow_int_val (n: intGte(0), x: a):<> a
+fun{a:t0p} gpow_int_val (n: intGte(0), x: a):<> a
 
 (* ****** ****** *)
 

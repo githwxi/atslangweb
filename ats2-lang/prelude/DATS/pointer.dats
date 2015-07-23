@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/pointer.atxt
-** Time of generation: Tue Jan 13 00:14:01 2015
+** Time of generation: Sat Jun 27 21:39:20 2015
 *)
 
 (* ****** ****** *)
@@ -117,15 +117,58 @@ ptr_exch (pf | p, x) =
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 ptr_nullize
-  (pf | x) = ptr_nullize_tsz (pf | x, sizeof<a>)
-// end of [ptr_nullize]
+  (pf | x) =
+(
+  ptr_nullize_tsz{a}(pf | x, sizeof<a>)
+) (* ptr_nullize *)
 
 (* ****** ****** *)
 
-implement{a} ptr_alloc () = ptr_alloc_tsz (sizeof<a>)
+implement
+{a}(*tmp*)
+ptr_alloc () = ptr_alloc_tsz{a}(sizeof<a>)
 
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+aptr_make_elt(x) = let
+//
+val (pf, fpf | p) = ptr_alloc()
+//
+in
+  !p := x; $UN.castvwtp0{aPtr1(a)}((pf, fpf, p))
+end // end of [aptr_make_elt]
+
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+aptr_getfree_elt
+  {l}(ap) = x where
+{
+  val p = aptr2ptr(ap)
+  val x = $UN.ptr1_get<a>(p)
+  prval
+  pfat_ = $UN.castview0{(a?)@l}(0)
+  prval
+  pfgc_ = $UN.castview0{mfree_gc_v(l)}(0)
+  val () = ptr_free{a?}{l}(pfgc_, pfat_ | p)
+  prval () = $UN.cast2void(ap)
+} (* end of [aptr_getfree_elt] *)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+aptr_get_elt(ap) = $UN.ptr1_get<a>(aptr2ptr(ap))
+implement
+{a}(*tmp*)
+aptr_set_elt(ap, x) = $UN.ptr1_set<a>(aptr2ptr(ap), x)
+//
 (* ****** ****** *)
 
 implement

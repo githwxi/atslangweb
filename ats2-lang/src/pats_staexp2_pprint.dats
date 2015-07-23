@@ -47,9 +47,10 @@ staload
 STMP = "./pats_stamp.sats"
 
 (* ****** ****** *)
-
+//
 staload EFF = "./pats_effect.sats"
-
+staload SYN = "./pats_syntax.sats"
+//
 (* ****** ****** *)
 
 staload "./pats_staexp2.sats"
@@ -67,6 +68,7 @@ fun aux_s2exp (
 in
 //
 case+ s2e0.s2exp_node of
+//
 | S2Eint (x) => {
     val () = prstr "S2Eint("
     val () = fprint_int (out, x)
@@ -75,6 +77,17 @@ case+ s2e0.s2exp_node of
 | S2Eintinf (x) => {
     val () = prstr "S2Eintinf("
     val () = fprint_intinf (out, x)
+    val () = prstr ")"
+  }
+//
+| S2Efloat (rep) => {
+    val () = prstr "S2Efloat("
+    val () = fprint_string (out, rep)
+    val () = prstr ")"
+  }
+| S2Estring (str) => {
+    val () = prstr "S2Estring("
+    val () = fprint_string (out, str)
     val () = prstr ")"
   }
 //

@@ -581,7 +581,8 @@ case+ xs of
     val imp = !p_x
     val d2c = imp.hiimpdec_cst
     val () =
-      fprint_d2cst (out, d2c)
+      fprint! (out, "HIIMPDEC(", d2c, ")")
+    // end of [val]
     val () = loop (out, !p_xs, i+1)
     prval ((*void*)) = fold@ (xs)
   in
@@ -593,8 +594,7 @@ case+ xs of
     if i > 0
       then fprint_string (out, ", ")
     // end of [val]
-    val () =
-      fprint_hiimpdec2 (out, !p_x)
+    val () = fprint_hiimpdec2 (out, !p_x)
     val () = loop (out, !p_xs, i+1)
     prval ((*void*)) = fold@ (xs)
   in
@@ -610,6 +610,7 @@ case+ xs of
     val fname = filenv_get_name (!p_x)
     val () =
       $FIL.fprint_filename_full (out, fname)
+    // end of [val]
     val () = loop (out, !p_xs, i+1)
     prval ((*void*)) = fold@ (xs)
   in
@@ -1921,10 +1922,11 @@ implement
 ccompenv_add_tmpsub
   (env, tsub) = let
 //
-  val CCOMPENV (!p) = env
-  val xs = p->ccompenv_markenvlst
-  val () = p->ccompenv_markenvlst := MARKENVLSTcons_tmpsub (tsub, xs)
-  prval () = fold@ (env)
+val
+CCOMPENV(!p) = env
+val xs = p->ccompenv_markenvlst
+val () = p->ccompenv_markenvlst := MARKENVLSTcons_tmpsub (tsub, xs)
+prval () = fold@ (env)
 //
 in
   // nothing
@@ -1935,10 +1937,13 @@ end // end of [ccompenv_add_tmpsub]
 extern
 fun
 ccompenv_find_tmpsub
-  (env: !ccompenv): tmpsubopt_vt
+(
+  env: !ccompenv
+) : tmpsubopt_vt // endfun
 //
 implement
-ccompenv_find_tmpsub (env) = let
+ccompenv_find_tmpsub
+  (env) = let
 //
 fun loop
 (
@@ -2159,7 +2164,9 @@ case+ xs of
     (imp, !p_xs) => res where
   {
     val res =
-    hiimpdec_tmpcst_match (imp, d2c0, t2mas)
+    hiimpdec_tmpcst_match
+      (imp, d2c0, t2mas, 0(*local*))
+    // end of [val]
     val res = auxcont (res, !p_xs, d2c0, t2mas)
     prval () = fold@ (xs)
   } (* end of [MARKENVLSTcons_impdec] *)
@@ -2167,7 +2174,9 @@ case+ xs of
     (imp2, !p_xs) => res where
   {
     val res =
-    hiimpdec2_tmpcst_match (imp2, d2c0, t2mas)
+    hiimpdec2_tmpcst_match
+      (imp2, d2c0, t2mas, 0(*local*))
+    // end of [val]
     val res = auxcont (res, !p_xs, d2c0, t2mas)
     prval () = fold@ (xs)
   } (* end of [MARKENVLSTcons_impdec2] *)
@@ -2179,7 +2188,8 @@ case+ xs of
     case+ opt of
     | Some (map) => let
         val implst = tmpcstimpmap_find (map, d2c0)
-        val tmpmat = hiimpdeclst_tmpcst_match (implst, d2c0, t2mas)
+        val tmpmat =
+        hiimpdeclst_tmpcst_match (implst, d2c0, t2mas, 1(*staload*))
         val tmpmat = auxcont (tmpmat, !p_xs, d2c0, t2mas)
       in
         fold@ (xs); tmpmat
@@ -2238,7 +2248,9 @@ implement
 ccompenv_tmpcst_match
   (env, d2c0, t2mas) = let
 //
-val CCOMPENV (!p) = env
+val
+CCOMPENV (!p) = env
+//
 val opt = auxlst (p->ccompenv_markenvlst, d2c0, t2mas)
 prval () = fold@ (env)
 //

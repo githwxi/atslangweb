@@ -64,6 +64,7 @@ staload _ = "{$PATSPRE}/DATS/intrange.dats"
 
 staload _ = "{$PATSPRE}/DATS/gorder.dats"
 staload _ = "{$PATSPRE}/DATS/gnumber.dats"
+staload _ = "{$PATSPRE}/DATS/grandom.dats"
 
 (* ****** ****** *)
 //
@@ -93,9 +94,11 @@ staload _ = "{$PATSPRE}/DATS/stream.dats"
 staload _ = "{$PATSPRE}/DATS/stream_vt.dats"
 //
 (* ****** ****** *)
-
+//
 staload _ = "{$PATSPRE}/DATS/gprint.dats"
-
+//
+staload _ = "{$PATSPRE}/DATS/tostring.dats"
+//
 (* ****** ****** *)
 //
 staload UNSAFE = "{$PATSPRE}/SATS/unsafe.sats"

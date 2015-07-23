@@ -56,7 +56,8 @@ fun memmove
 // 0: manual
 // 1: automatic doubling
 //
-implement{}
+implement
+{}(*tmp*)
 dynarray$recapacitize () = 1 // default policy
 //
 (* ****** ****** *)
@@ -74,7 +75,8 @@ dynarray_vtype (a) = dynarray (a)
 
 in (* in of [local] *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_make_nil
   (cap) = let
 //
@@ -90,7 +92,8 @@ end (* end of [dynarray_make_nil] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 dynarray_getfree_arrayptr
   (DA, n) = let
 //
@@ -106,7 +109,8 @@ end (* end of [dynarray_getfree_arrayptr] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 dynarray_get_array
   (DA, n) = let
 //
@@ -123,18 +127,21 @@ end (* end of [dynarray_get_array] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 dynarray_get_size (DA) = let
   val+DYNARRAY (_, _, n) = DA in (n)
 end // end of [dynarray_get_size]
-implement{}
+implement
+{}(*tmp*)
 dynarray_get_capacity (DA) = let
   val+DYNARRAY (_, m, _) = DA in (m)
 end // end of [dynarray_get_capacity]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_getref_at
   (DA, i) = let
 //
@@ -151,7 +158,8 @@ end // end of [dynarray_getref_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_insert_at
   (DA, i, x, res) = let
 //
@@ -208,13 +216,15 @@ end // end of [dynarray_insert_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_insert_atbeg_exn
   (DA, x) = let
 in
   dynarray_insert_at_exn (DA, i2sz(0), x)
 end // end of [dynarray_insert_atbeg_exn]
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_insert_atbeg_opt
   (DA, x) = let
 in
@@ -222,8 +232,9 @@ in
 end // end of [dynarray_insert_atbeg_opt]
 
 (* ****** ****** *)
-
-implement{a}
+//
+implement
+{a}(*tmp*)
 dynarray_insert_atend_exn
   (DA, x) = let
 //
@@ -232,7 +243,9 @@ val+DYNARRAY (_, _, n) = DA
 in
   dynarray_insert_at_exn (DA, n, x)
 end // end of [dynarray_insert_atend_exn]
-implement{a}
+//
+implement
+{a}(*tmp*)
 dynarray_insert_atend_opt
   (DA, x) = let
 //
@@ -241,10 +254,11 @@ val+DYNARRAY (_, _, n) = DA
 in
   dynarray_insert_at_opt (DA, n, x)
 end // end of [dynarray_insert_atend_opt]
-
+//
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_insertseq_at
   (DA, i, xs, n2) = let
 //
@@ -309,7 +323,8 @@ end // end of [dynarray_insertseq_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_takeout_at
   (DA, i, res) = let
 //
@@ -341,14 +356,16 @@ end // end of [dynarray_takeout_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_takeout_atbeg_exn
   (DA) = let
 in
   dynarray_takeout_at_exn (DA, i2sz(0))
 end // end of [dynarray_takeout_atbeg_exn]
 //
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_takeout_atbeg_opt
   (DA) = let
 in
@@ -357,7 +374,8 @@ end // end of [dynarray_takeout_atbeg_opt]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_takeout_atend_exn
   (DA) = let
   val+DYNARRAY (_, _, n) = DA
@@ -375,7 +393,8 @@ end (* end of [if] *)
 //
 end // end of [dynarray_takeout_atend_exn]
 //
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_takeout_atend_opt
   (DA) = let
   val+DYNARRAY (_, _, n) = DA
@@ -385,7 +404,8 @@ end // end of [dynarray_takeout_atend_opt]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_removeseq_at
   (DA, st, ln) = let
 //
@@ -421,7 +441,8 @@ end // end of [dynarray_removeseq_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_reset_capacity
   (DA, m2) = let
 //
@@ -463,38 +484,46 @@ end // end of [if]
 end // end of [dynarray_reset_capacity]
 
 (* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+dynarray_quicksort$cmp
+  (x, y) = gcompare_ref_ref<a> (x, y)
+//
+(* ****** ****** *)
 
-implement{a}
-dynarray_quicksort
-  (DA) = let
+implement
+{a}(*tmp*)
+dynarray_quicksort(DA) = let
 //
-val+DYNARRAY{a}{m,n}(A, m, n) = DA
+val+
+DYNARRAY{_a_}{m,n}(A, m, n) = DA
 //
-val p = arrayptr2ptr (A)
+val p0 = arrayptr2ptr (A)
 //
 prval
 (
 pf, fpf
-) = __assert (p) where
+) = __assert (p0) where
 {
 extern
 praxi __assert
   {l:addr} (p: ptr l): vtakeout0 (array_v (a, l, n))
 } (* end of [prval] *)
 //
-implement{a}
-array_quicksort$cmp (x, y) = dynarray_quicksort$cmp<a> (x, y)
+implement
+{a}(*tmp*)
+array_quicksort$cmp
+  (x, y) = dynarray_quicksort$cmp<a> (x, y)
 //
-val () = array_quicksort (!p, n)
+val () =
+  array_quicksort<a> (!p0, n)
 //
-prval () = fpf (pf)
+prval ((*returned*)) = fpf (pf)
 //
 in
   // nothing
 end // end of [dynarray_quicksort]
-
-implement{a}
-dynarray_quicksort$cmp (x, y) = gcompare_ref<a> (x, y)
 
 (* ****** ****** *)
 
@@ -502,7 +531,8 @@ end // end of [local]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 dynarray_free (DA) = let
   var n: size_t
   val A = dynarray_getfree_arrayptr (DA, n)
@@ -512,15 +542,17 @@ end (* end of [dynarray_free] *)
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_dynarray (out, DA) = let
 //
 var n: size_t
-val (pf, fpf | p) = dynarray_get_array (DA, n)
+val
+(pf, fpf | p) = dynarray_get_array (DA, n)
 //
-val () = fprint_array (out, !p, n)
+val ((*void*)) = fprint_array (out, !p, n)
 //
-prval () = fpf (pf)
+prval ((*void*)) = fpf (pf)
 //
 in
   // nothing
@@ -528,7 +560,8 @@ end (* end of [fprint_dynarray] *)
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_get_at_exn
   (DA, i) = let
 //
@@ -540,7 +573,8 @@ if cptr2ptr(pi) > 0 then $UN.cptr_get (pi) else $raise ArraySubscriptExn()
 //
 end // end of [dynarray_get_at_exn]
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_set_at_exn
   (DA, i, x) = let
 //
@@ -554,7 +588,8 @@ end // end of [dynarray_set_at_exn]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_insert_at_exn
   (DA, i, x) = let
 //
@@ -584,7 +619,8 @@ end (* end of [dynarray_insert_at_exn] *)
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_insert_at_opt
   (DA, i, x) = let
 //
@@ -599,7 +635,8 @@ end (* end of [dynarray_insert_at_opt] *)
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_takeout_at_exn
   (DA, i) = let
 //
@@ -631,7 +668,8 @@ end // end of [dynarray_takeout_at_exn]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 dynarray_takeout_at_opt
   (DA, i) = let
 //

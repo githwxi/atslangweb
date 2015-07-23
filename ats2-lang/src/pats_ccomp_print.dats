@@ -110,6 +110,15 @@ case+ x of
 end // end of [fprint_primcstsp]
 
 (* ****** ****** *)
+//
+implement
+print_primdec
+  (pmd) = fprint_primdec (stdout_ref, pmd)
+implement
+prerr_primdec
+  (pmd) = fprint_primdec (stderr_ref, pmd)
+//
+(* ****** ****** *)
 
 implement
 fprint_primdec
@@ -277,11 +286,6 @@ case+ x.primdec_node of
 //
 end // end of [fprint_primdec]
 
-implement
-print_primdec (pmd) = fprint_primdec (stdout_ref, pmd)
-implement
-prerr_primdec (pmd) = fprint_primdec (stderr_ref, pmd)
-
 (* ****** ****** *)
 
 implement
@@ -294,6 +298,15 @@ in
   fprint_newline (out)
 end // end of [fprint_primdeclst]
 
+(* ****** ****** *)
+//
+implement
+print_primval
+  (pmv) = fprint_primval (stdout_ref, pmv)
+implement
+prerr_primval
+  (pmv) = fprint_primval (stderr_ref, pmv)
+//
 (* ****** ****** *)
 
 implement
@@ -597,17 +610,20 @@ end // end of [fprint_primval]
 (* ****** ****** *)
 
 implement
-print_primval (pmv) = fprint_primval (stdout_ref, pmv)
-implement
-prerr_primval (pmv) = fprint_primval (stderr_ref, pmv)
-
-(* ****** ****** *)
-
-implement
 fprint_primvalist
-  (out, xs) = $UT.fprintlst (out, xs, ", ", fprint_primval)
+  (out, xs) =
+  $UT.fprintlst (out, xs, ", ", fprint_primval)
 // end of [fprint_primvalist]
 
+(* ****** ****** *)
+//
+implement
+print_primlab
+  (pmv) = fprint_primlab (stdout_ref, pmv)
+implement
+prerr_primlab
+  (pmv) = fprint_primlab (stderr_ref, pmv)
+//
 (* ****** ****** *)
 
 implement
@@ -1367,10 +1383,11 @@ fprint_tmpcstmat
 in
 //
 case+ opt of
-| TMPCSTMATnone (
-  ) => prstr "TMPCSTMATnone()"
+| TMPCSTMATnone
+    ((*void*)) => prstr "TMPCSTMATnone()"
+  // end of [TMPCSTMATnone]
 | TMPCSTMATsome
-    (imp, tmpsub) => let
+    (imp, tmpsub, knd) => let
     val () = prstr "TMPCSTMATsome("
     val () = fprint_d2cst (out, imp.hiimpdec_cst)
     val () = prstr "; "
@@ -1382,7 +1399,7 @@ case+ opt of
     val () = prstr ")"
   in
     // nothing
-  end // end of [TMPCSTMATnone]
+  end // end of [TMPCSTMATsome]
 | TMPCSTMATsome2
     (d2c, s2ess, flab) => let
     val () = prstr "TMPCSTMATsome2("
@@ -1418,10 +1435,11 @@ fprint_tmpvarmat
 in
 //
 case+ opt of
-| TMPVARMATnone (
-  ) => prstr "TMPVARMATnone()"
+| TMPVARMATnone
+    ((*void*)) => prstr "TMPVARMATnone()"
+  // end of [TMPVARMATnone]
 | TMPVARMATsome
-    (hfd, tmpsub) => let
+    (hfd, tmpsub, knd) => let
     val () = prstr "TMPVARMATsome("
     val () = fprint_d2var (out, hfd.hifundec_var)
     val () = prstr "; "
@@ -1431,7 +1449,7 @@ case+ opt of
     val () = prstr ")"
   in
     // nothing
-  end // end of [TMPVARMATnone]
+  end // end of [TMPVARMATsome]
 | TMPVARMATsome2
     (d2v, s2ess, flab) => let
     val () = prstr "TMPVARMATsome2("

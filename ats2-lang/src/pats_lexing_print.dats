@@ -151,7 +151,12 @@ fprint_token
   | T_VIEWAT () => fprintf (out, "VIEWAT()", @()) // view@
 //
   | T_DLRARRPSZ () => fprintf (out, "DLRARRPSZ()", @())
+//
+  | T_DLRSOLASSERT () => fprintf (out, "DLRSOLASSERT()", @())
+  | T_DLRSOLVERIFY () => fprintf (out, "DLRSOLVERIFY()", @())
+//
   | T_DLRDELAY (x) => fprintf (out, "DLRDELAY(%i)", @(x))
+//
   | T_DLREFFMASK () => fprintf (out, "DLREFFMASK()", @())
   | T_DLREFFMASK_ARG (x) => fprintf (out, "DLREFFMASK(%i)", @(x))
 //
@@ -164,17 +169,20 @@ fprint_token
   | T_DLREXTFCALL () => fprintf (out, "DLREXTFCALL()", @())
   | T_DLREXTMCALL () => fprintf (out, "DLREXTMCALL()", @())
 //
-  | T_DLRBREAK () => fprintf (out, "DLRBREAK()", @())
-  | T_DLRCONTINUE () => fprintf (out, "DLRCONTINUE()", @())
-  | T_DLRRAISE () => fprintf (out, "DLRRAISE()", @())
+  | T_DLRLITERAL () => fprintf (out, "DLRLITERAL()", @())
+//
+  | T_DLRMYFILENAME () => fprintf (out, "DLRMYFILENAME()", @())
+  | T_DLRMYLOCATION () => fprintf (out, "DLRMYLOCATION()", @())
+  | T_DLRMYFUNCTION () => fprintf (out, "DLRMYFUNCTION()", @())
 //
   | T_DLRLST (x) => fprintf (out, "DLRLST(%i)", @(x))
   | T_DLRREC (x) => fprintf (out, "DLRREC(%i)", @(x))
   | T_DLRTUP (x) => fprintf (out, "DLRTUP(%i)", @(x))
 //
-  | T_DLRMYFILENAME () => fprintf (out, "DLRMYFILENAME()", @())
-  | T_DLRMYLOCATION () => fprintf (out, "DLRMYLOCATION()", @())
-  | T_DLRMYFUNCTION () => fprintf (out, "DLRMYFUNCTION()", @())
+  | T_DLRBREAK () => fprintf (out, "DLRBREAK()", @())
+  | T_DLRCONTINUE () => fprintf (out, "DLRCONTINUE()", @())
+//
+  | T_DLRRAISE () => fprintf (out, "DLRRAISE()", @())
 //
   | T_DLRSHOWTYPE () => fprintf (out, "DLRSHOWTYPE()", @())
 //

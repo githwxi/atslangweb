@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Thu Feb 19 14:13:59 2015
+** Time of generation: Sat Jun 27 21:39:32 2015
 *)
 
 (* ****** ****** *)
@@ -177,7 +177,9 @@ implement
 list_vt_copy (xs) = let
 //
 implement
-list_vt_copylin$copy<x> (x) = x
+{x2}(*tmp*)
+list_vt_copylin$copy
+  (x) = $UN.ptr0_get<x2>(addr@x)
 //
 in
   $effmask_all (list_vt_copylin<x> (xs))
@@ -221,6 +223,30 @@ val () =
 in
   res
 end // end of [list_vt_copylin]
+
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
+list_vt_copylin_fun
+  (xs, f) = let
+//
+implement
+{x2}(*tmp*)
+list_vt_copylin$copy
+  (x) = x2 where
+{
+//
+val f2 =
+  $UN.cast{(&RD(x2))->x2}(f)
+//
+val x2 = $effmask_all(f2(x))
+//
+} (* end of [copy] *)
+//
+in
+  list_vt_copylin<x> (xs)
+end // end of [list_vt_copylin_fun]
 
 (* ****** ****** *)
 
@@ -399,13 +425,14 @@ implement
 list_vt_free (xs) = let
 //
 implement
-list_vt_freelin$clear<a>
+(a2:t0p)
+list_vt_freelin$clear<a2>
   (x) = let
   prval () = topize (x) in (*void*)
 end // end of [list_vt_freelin$clear]
 //
 in
-  list_vt_freelin (xs)
+  list_vt_freelin<a> (xs)
 end // end of [list_vt_free]
 
 (* ****** ****** *)
@@ -440,6 +467,30 @@ fun loop
 in
   loop (xs)
 end // end of [list_vt_freelin]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+list_vt_freelin_fun
+  (xs, f) = let
+//
+implement
+{a2}(*tmp*)
+list_vt_freelin$clear
+  (x) = () where
+{
+//
+val f2 =
+  $UN.cast{(&a2 >> _?) -> void}(f)
+//
+val ((*void*)) = $effmask_all(f2(x))
+//
+} (* end of [clear] *)
+//
+in
+  list_vt_freelin<a> (xs)
+end // end of [list_vt_freelin_fun]
 
 (* ****** ****** *)
 

@@ -489,18 +489,23 @@ implement
 d1exp_s0tring (loc, x) = d1exp_make (loc, D1Es0tring (x))
 
 (* ****** ****** *)
-
+//
 implement
-d1exp_cstsp (loc, x) = d1exp_make (loc, D1Ecstsp (x))
-
+d1exp_cstsp
+  (loc, x) = d1exp_make (loc, D1Ecstsp (x))
+//
+implement
+d1exp_literal
+  (loc, x) = d1exp_make (loc, D1Eliteral (x))
+//
 (* ****** ****** *)
-
+//
 implement
-d1exp_empty
-  (loc) = d1exp_make (loc, D1Eempty ())
+d1exp_top(loc) = d1exp_make (loc, D1Etop ())
+//
 implement
-d1exp_top (loc) = d1exp_make (loc, D1Etop ())
-
+d1exp_empty(loc) = d1exp_make (loc, D1Eempty ())
+//
 (* ****** ****** *)
 //
 implement
@@ -532,28 +537,40 @@ d1exp_tmpid (loc, qid, tmparg) =
 // end of [d1exp_tmpid]
 
 (* ****** ****** *)
-
+//
 implement
 d1exp_let (loc, d1cs, body) =
-  d1exp_make (loc, D1Elet (d1cs, body))
-
+  d1exp_make (loc, D1Elet(d1cs, body))
+//
 implement
 d1exp_where (loc, body, d1cs) =
-  d1exp_make (loc, D1Ewhere (body, d1cs))
-
+  d1exp_make (loc, D1Ewhere(body, d1cs))
+//
 (* ****** ****** *)
 
 implement
 d1exp_app_sta (loc, d1e, s1as) =
-  d1exp_make (loc, D1Eapp_sta (d1e, s1as))
+  d1exp_make (loc, D1Eapp_sta(d1e, s1as))
 // end of [d1exp_app_sta]
 
 implement
 d1exp_app_dyn
   (loc, d1e, loc_arg, npf, d1es) =
-  d1exp_make (loc, D1Eapp_dyn (d1e, loc_arg, npf, d1es))
+  d1exp_make (loc, D1Eapp_dyn(d1e, loc_arg, npf, d1es))
 // end of [d1exp_app_dyn]
 
+(* ****** ****** *)
+//
+implement
+d1exp_sing
+  (loc, d1e) =
+(
+case+
+d1e.d1exp_node of
+| D1Eide _ => d1e
+| _(*non-D1Eide*) => d1exp_make (loc, D1Esing(d1e))
+) (* end of [d1exp_sing] *)
+//
 (* ****** ****** *)
 
 implement
@@ -561,20 +578,26 @@ d1exp_list
   (loc, npf, d1es) = let
 in
 //
-if npf >= 0 then
+if
+npf >= 0
+then (
   d1exp_make (loc, D1Elist (npf, d1es))
-else (case+ d1es of
+) else (
+  case+ d1es of
   | list_cons (
       d1e, list_nil ()
     ) => (
       case+ d1e.d1exp_node of
-      | D1Elist (npf, d1es) => let
-          val knd = TYTUPKIND_flt in d1exp_tup (loc, knd, npf, d1es)
+      | D1Elist
+          (npf, d1es) => let
+          val knd = TYTUPKIND_flt
+        in
+          d1exp_tup(loc, knd, npf, d1es)
         end // end of [D1Elist]
-      | _(*non-list*) => d1e // end of [_]
-    ) // end of [list_cons]
-  | _ => d1exp_make (loc, D1Elist (npf, d1es))
-) // end of [if]
+      | _(*non-list*) => d1exp_sing(loc, d1e)
+    ) (* end of [list_sing] *)
+  | _ (*non-list-sing*) => d1exp_make (loc, D1Elist(npf, d1es))
+) (* end of [if] *)
 //
 end // end of [d1exp_list]
 
@@ -643,66 +666,78 @@ d1exp_arrinit
 
 (* ****** ****** *)
 
+implement
+d1exp_selab
+  (loc, knd, d1e, d1l) =
+(
+  d1exp_make (loc, D1Eselab (knd, d1e, d1l))
+) // end of [d1exp_selab]
+
+(* ****** ****** *)
+//
+implement
+d1exp_ptrof
+  (loc, d1e) = d1exp_make (loc, D1Eptrof (d1e))
+implement
+d1exp_viewat
+  (loc, d1e) = d1exp_make (loc, D1Eviewat (d1e))
+//
+(* ****** ****** *)
 //
 implement
 d1exp_raise
   (loc, d1e) = d1exp_make (loc, D1Eraise (d1e))
 //
 (* ****** ****** *)
-
+//
 implement
-d1exp_effmask (loc, efc, d1e) =
-  d1exp_make (loc, D1Eeffmask (efc, d1e))
-
+d1exp_effmask
+  (loc, efc, d1e) = let
+//
+val node =
+  D1Eeffmask (efc, d1e)
+//
+in
+  d1exp_make (loc, node)
+end (* end of [d1exp_effmask] *)
+//
 implement
 d1exp_effmask_arg
   (loc, knd, d1e) = let
-  val efc = (
-    case+ knd of
-    | 0 => effcst_ntm
-    | 1 => effcst_exn
-    | 2 => effcst_ref
-    | 3 => effcst_wrt
-    | _ => effcst_all
-  ) : effcst // end of [val]
+//
+val efc = (
+  case+ knd of
+  | 0 => effcst_ntm
+  | 1 => effcst_exn
+  | 2 => effcst_ref
+  | 3 => effcst_wrt
+  | _ => effcst_all
+) : effcst // end of [val]
+//
 in
   d1exp_effmask (loc, efc, d1e)
 end // end of [d1exp_effmask_arg]
-
-(* ****** ****** *)
-
-implement
-d1exp_selab (loc, knd, d1e, d1l) =
-  d1exp_make (loc, D1Eselab (knd, d1e, d1l))
-// end of [d1exp_selab]
-
-(* ****** ****** *)
-
-implement
-d1exp_ptrof (loc, d1e) =
-  d1exp_make (loc, D1Eptrof (d1e))
-
-implement
-d1exp_viewat (loc, d1e) =
-  d1exp_make (loc, D1Eviewat (d1e))
-
-(* ****** ****** *)
-//
-implement
-d1exp_showtype (loc, d1e) =
-  d1exp_make (loc, D1Eshowtype (d1e))
 //
 (* ****** ****** *)
 //
 implement
-d1exp_vcopyenv (loc, knd, d1e) =
-  d1exp_make (loc, D1Evcopyenv (knd, d1e))
+d1exp_showtype
+  (loc, d1e) =
+  d1exp_make (loc, D1Eshowtype(d1e))
 //
 (* ****** ****** *)
 //
 implement
-d1exp_tempenver (loc, d1e) =
-  d1exp_make (loc, D1Etempenver (d1e))
+d1exp_vcopyenv
+  (loc, knd, d1e) =
+  d1exp_make (loc, D1Evcopyenv(knd, d1e))
+//
+(* ****** ****** *)
+//
+implement
+d1exp_tempenver
+  (loc, d1e) =
+  d1exp_make (loc, D1Etempenver(d1e))
 //
 (* ****** ****** *)
 
@@ -717,48 +752,65 @@ d1exp_exist
 // end of [d1exp_exist]
 
 (* ****** ****** *)
-
+//
 implement
-d1exp_lam_dyn (loc, lin, p1t, d1e) =
-  d1exp_make (loc, D1Elam_dyn (lin, p1t, d1e))
-
+d1exp_lam_dyn
+  (loc, lin, p1t, d1e) =
+  d1exp_make (loc, D1Elam_dyn(lin, p1t, d1e))
+//
 implement
-d1exp_laminit_dyn (loc, lin, p1t, d1e) =
-  d1exp_make (loc, D1Elaminit_dyn (lin, p1t, d1e))
-
+d1exp_laminit_dyn
+  (loc, lin, p1t, d1e) =
+  d1exp_make (loc, D1Elaminit_dyn(lin, p1t, d1e))
+//
 implement
-d1exp_lam_met (loc, loc_arg, s1es, d1e) =
-  d1exp_make (loc, D1Elam_met (loc_arg, s1es, d1e))
-
+d1exp_lam_met
+  (loc, loc_arg, s1es, d1e) =
+  d1exp_make (loc, D1Elam_met(loc_arg, s1es, d1e))
+//
 implement
-d1exp_lam_sta_ana (loc, loc_arg, s1v, d1e) =
-  d1exp_make (loc, D1Elam_sta_ana (loc_arg, s1v, d1e))
-
+d1exp_lam_sta_ana
+  (loc, loc_arg, s1v, d1e) =
+  d1exp_make (loc, D1Elam_sta_ana(loc_arg, s1v, d1e))
+//
 implement
-d1exp_lam_sta_syn (loc, loc_arg, s1qs, d1e) =
-  d1exp_make (loc, D1Elam_sta_syn (loc_arg, s1qs, d1e))
-
-implement
-d1exp_fix (loc, knd, id, d1e) =
-  d1exp_make (loc, D1Efix (knd, id, d1e))
-
+d1exp_lam_sta_syn
+  (loc, loc_arg, s1qs, d1e) =
+  d1exp_make (loc, D1Elam_sta_syn(loc_arg, s1qs, d1e))
+//
 (* ****** ****** *)
-
+//
 implement
-d1exp_delay (loc, knd, d1e) =
-  d1exp_make (loc, D1Edelay (knd, d1e))
-
+d1exp_fix
+  (loc, knd, id, d1e) =
+  d1exp_make(loc, D1Efix(knd, id, d1e))
+//
+(* ****** ****** *)
+//
+implement
+d1exp_delay
+  (loc, knd, d1e_body) =
+  d1exp_make (loc, D1Edelay(knd, d1e_body))
+//
 (* ****** ****** *)
 
 implement
 d1exp_for
-  (loc, inv, ini, test, post, body) =
-  d1exp_make (loc, D1Efor (inv, ini, test, post, body))
-// end of [d1exp_for]
+(
+  loc, inv
+, ini, test, post, body
+) = (
+//
+d1exp_make
+  (loc, D1Efor(inv, ini, test, post, body))
+//
+) (* end of [d1exp_for] *)
 
 implement
 d1exp_while
-  (loc, inv, test, body) =
+(
+  loc, inv, test, body
+) =
   d1exp_make (loc, D1Ewhile (inv, test, body))
 // end of [d1exp_while]
 
@@ -776,44 +828,61 @@ d1exp_trywith
 // end of [d1exp_trywith]
 
 (* ****** ****** *)
-
+//
+implement
+d1exp_ann_type
+  (loc, d1e, s1e) =
+  d1exp_make (loc, D1Eann_type (d1e, s1e))
+// end of [d1exp_ann_type]
+//
+implement
+d1exp_ann_effc
+  (loc, d1e, efc) =
+  d1exp_make (loc, D1Eann_effc (d1e, efc))
+//
+implement
+d1exp_ann_funclo
+  (loc, d1e, fc0) =
+  d1exp_make (loc, D1Eann_funclo (d1e, fc0))
+//
+implement
+d1exp_ann_funclo_opt
+  (loc, d1e, fc0) = (
+//
+case+
+d1e.d1exp_node
+of // case+
+| D1Eann_funclo _ => d1e
+| _ (*non-D1Eann_funclo*) => d1exp_ann_funclo (loc, d1e, fc0)
+//
+) (* end of [d1exp_ann_funclo_opt] *)
+//
+(* ****** ****** *)
+//
 implement
 d1exp_macsyn
   (loc, knd, d1e) =
-  d1exp_make (loc, D1Emacsyn (knd, d1e))
-// end of [d1exp_macsyn]
-
+  d1exp_make (loc, D1Emacsyn(knd, d1e))
+//
 implement
 d1exp_macfun
   (loc, name, d1es) =
-  d1exp_make (loc, D1Emacfun (name, d1es))
-// end of [d1exp_macfun]
-
+  d1exp_make (loc, D1Emacfun(name, d1es))
+//
+(* ****** ****** *)
+//
+implement
+d1exp_solassert
+  (loc, d1e) = d1exp_make(loc, D1Esolassert(d1e))
+//
+implement
+d1exp_solverify
+  (loc, s1e) = d1exp_make(loc, D1Esolverify(s1e))
+//
 (* ****** ****** *)
 
 implement
-d1exp_ann_type
-  (loc, d1e, s1e) = d1exp_make (loc, D1Eann_type (d1e, s1e))
-// end of [d1exp_ann_type]
-
-implement
-d1exp_ann_effc (loc, d1e, efc) =
-  d1exp_make (loc, D1Eann_effc (d1e, efc))
-
-implement
-d1exp_ann_funclo (loc, d1e, fc) =
-  d1exp_make (loc, D1Eann_funclo (d1e, fc))
-
-implement
-d1exp_ann_funclo_opt
-  (loc, d1e, fc) = case+ d1e.d1exp_node of
-  | D1Eann_funclo _ => d1e | _ => d1exp_ann_funclo (loc, d1e, fc)
-// end of [d1exp_ann_funclo_opt]
-
-(* ****** ****** *)
-
-implement
-d1exp_errexp (loc) = d1exp_make (loc, D1Eerrexp ())
+d1exp_errexp (loc) = d1exp_make (loc, D1Eerrexp())
 
 (* ****** ****** *)
 
@@ -822,13 +891,18 @@ implement labd1exp_make (l, d1e) = DL0ABELED (l, d1e)
 (* ****** ****** *)
 
 implement
-d1exp_is_metric (d1e) = begin
-  case+ d1e.d1exp_node of
-  | D1Elam_dyn (_, _, d1e) => d1exp_is_metric (d1e)
-  | D1Elam_met _ => true
-  | D1Elam_sta_ana (_, _, d1e) => d1exp_is_metric (d1e)
-  | D1Elam_sta_syn (_, _, d1e) => d1exp_is_metric (d1e)
-  | _ => false
+d1exp_is_metric
+  (d1e) = let
+in
+//
+case+
+d1e.d1exp_node of
+| D1Elam_met _ => true
+| D1Elam_dyn (_, _, d1e) => d1exp_is_metric (d1e)
+| D1Elam_sta_ana (_, _, d1e) => d1exp_is_metric (d1e)
+| D1Elam_sta_syn (_, _, d1e) => d1exp_is_metric (d1e)
+| _ (*non-D1Elam_...*) => false
+//
 end // end of [d1exp_is_metric]
 
 (* ****** ****** *)
@@ -857,17 +931,22 @@ e0.e1xp_node of
 | E1XPfloat (rep) => d1exp_float (loc0, rep)
 | E1XPstring (str) => d1exp_string (loc0, str)
 | E1XPv1al (v1) => d1exp_make_v1al (loc0, v1)
+//
 | E1XPapp(
     e1, loc_arg, es2
   ) => let
     val d1e1 = aux (e1)
     val d1es2 = auxlst (es2)
   in
-    d1exp_app_dyn (loc0, d1e1, loc0, ~1(*npf*), d1es2)
+    d1exp_app_dyn(loc0, d1e1, loc0, ~1(*npf*), d1es2)
   end // end of [E1XPapp]
-| E1XPlist es => d1exp_list (loc0, ~1(*npf*), auxlst (es))
-| E1XPnone () => d1exp_empty (loc0)
-| _ (*rest*) => let
+//
+| E1XPlist(es) =>
+  d1exp_list(loc0, ~1(*npf*), auxlst(es))
+//
+| E1XPnone((*void*)) => d1exp_empty (loc0)
+//
+| _ (*rest-of-e1xp*) => let
     val () =
     prerr_error1_loc (loc0)
     val () = prerr ": the expression ["
@@ -875,7 +954,7 @@ e0.e1xp_node of
     val () = prerrln! "] cannot be translated into a legal dynamic expression."
   in
     d1exp_errexp (loc0)
-  end // end of [rest]
+  end // end of [rest-of-e1xp]
 //
 end // end of [aux]
 
@@ -931,8 +1010,9 @@ fun aux (
     in
       e1xp_app (loc0, e_fun, loc0, es_arg)
     end
-  | D1Elist (_(*npf*), s1es) => e1xp_list (loc0, auxlst s1es)
-  | _ => e1xp_err (loc0)
+  | D1Esing (d1e) => aux (d1e)
+  | D1Elist (_(*npf*), d1es) => e1xp_list (loc0, auxlst(d1es))
+  | _ (*rest-of-d1exp*) => e1xp_err (loc0)
 (* end of [aux] *)
 //
 and auxlst (

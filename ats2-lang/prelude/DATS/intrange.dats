@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/intrange.atxt
-** Time of generation: Tue Jan 13 00:14:07 2015
+** Time of generation: Sat Jun 27 21:39:29 2015
 *)
 
 (* ****** ****** *)
@@ -41,16 +41,12 @@
 
 (* ****** ****** *)
 
-implement{env}
-intrange_foreach$cont (i, env) = true
-(*
-implement{env}
-intrange_foreach$fwork (i, env) = ((*void*))
-*)
-
 implement{}
-intrange_foreach (l, r) = let
-  var env: void = () in intrange_foreach_env<void> (l, r, env)
+intrange_foreach
+  (l, r) = let
+  var env: void = ()
+in
+  intrange_foreach_env<void> (l, r, env)
 end // end of [intrange_foreach]
 
 implement{tenv}
@@ -62,13 +58,22 @@ fun loop
   l: int, r: int, env: &tenv
 ) : int =
 (
-  if l < r then let
-    val cont = intrange_foreach$cont<tenv> (l, env)
-  in
-    if cont then let
-      val () = intrange_foreach$fwork<tenv> (l, env) in loop (succ(l), r, env)
-    end else l // end of [if]
-  end else l // end of [if]
+//
+if
+l < r
+then let
+  val cont = intrange_foreach$cont<tenv> (l, env)
+in
+//
+if
+cont
+then (
+  intrange_foreach$fwork<tenv> (l, env); loop (succ(l), r, env)
+) else l // end of [if]
+//
+end // end of [then]
+else l // end of [else]
+//
 ) // end of [loop]
 //
 in
@@ -78,15 +83,51 @@ end // end of [intrange_foreach_env]
 (* ****** ****** *)
 
 implement{env}
-intrange_rforeach$cont (i, env) = true
+intrange_foreach$cont (i, env) = true
 (*
 implement{env}
-intrange_rforeach$fwork (i, env) = ((*void*))
+intrange_foreach$fwork (i, env) = ((*void*))
 *)
 
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+int_foreach_cloref
+  (n, fwork) = (
+//
+intrange_foreach_cloref<> (0, n, fwork)
+//
+) (* end of [int_foreach_cloref] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+intrange_foreach_cloref
+  (l, r, fwork) = let
+//
+implement
+(env)(*tmp*)
+intrange_foreach$cont<env> (i, env) = true
+implement
+(env)(*tmp*)
+intrange_foreach$fwork<env>(i, env) = fwork(i)
+//
+var env: void = ()
+//
+in
+  intrange_foreach_env<void> (l, r, env)
+end // end of [intrange_foreach_cloref]
+
+(* ****** ****** *)
+
 implement{}
-intrange_rforeach (l, r) = let
-  var env: void = () in intrange_rforeach_env<void> (l, r, env)
+intrange_rforeach
+  (l, r) = let
+  var env: void = ()
+in
+  intrange_rforeach_env<void> (l, r, env)
 end // end of [intrange_rforeach]
 
 implement{tenv}
@@ -98,19 +139,109 @@ fun loop
   l: int, r: int, env: &tenv
 ) : int =
 (
-  if l < r then let
-    val r1 = pred (r)
-    val cont = intrange_rforeach$cont<tenv> (r1, env)
-  in
-    if cont then let
-      val () = intrange_rforeach$fwork<tenv> (r1, env) in loop (l, r1, env)
-    end else r // end of [if]
-  end else r // end of [if]
+//
+if
+l < r
+then let
+  val r1 = pred (r)
+  val cont = intrange_rforeach$cont<tenv> (r1, env)
+in
+//
+if
+cont
+then (
+  intrange_rforeach$fwork<tenv> (r1, env); loop (l, r1, env)
+) else r // end of [if]
+//
+end // end of [then]
+else r // end of [else]
+//
 ) // end of [loop]
 //
 in
   loop (l, r, env)
 end // end of [intrange_rforeach_env]
+
+(* ****** ****** *)
+
+implement{env}
+intrange_rforeach$cont (i, env) = true
+(*
+implement{env}
+intrange_rforeach$fwork (i, env) = ((*void*))
+*)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+int_rforeach_cloref
+  (n, fwork) = (
+//
+intrange_rforeach_cloref<> (0, n, fwork)
+//
+) (* end of [int_rforeach_cloref] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+intrange_rforeach_cloref
+  (l, r, fwork) = let
+//
+implement
+(env)(*tmp*)
+intrange_rforeach$cont<env> (i, env) = true
+implement
+(env)(*tmp*)
+intrange_rforeach$fwork<env>(i, env) = fwork(i)
+//
+var env: void = ()
+//
+in
+  intrange_rforeach_env<void> (l, r, env)
+end // end of [intrange_rforeach_cloref]
+
+(* ****** ****** *)
+
+implement{}
+intrange2_foreach
+  (l1, r1, l2, r2) = let
+  var env: void = () in
+  intrange2_foreach_env<void> (l1, r1, l2, r2, env)
+end // end of [intrange2_foreach]
+
+(* ****** ****** *)
+
+implement{tenv}
+intrange2_foreach_env
+  (l1, r1, l2, r2, env) = let
+//
+fnx
+loop1
+(
+  i: int, env: &(tenv) >> _
+) : void =
+(
+if i < r1 then loop2 (i, l2, env) else ()
+)
+//
+and
+loop2
+(
+  i: int, j: int, env: &(tenv) >> _
+) : void =
+(
+if
+j < r2
+then (
+  intrange2_foreach$fwork(i, j, env); loop2 (i, j+1, env)
+) else loop1 (i+1, env)
+)
+//
+in
+  loop1 (l1, env)
+end // end of [intrange2_foreach]
 
 (* ****** ****** *)
 

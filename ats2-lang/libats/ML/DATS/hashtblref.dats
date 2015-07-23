@@ -62,15 +62,31 @@ hash_key = ghash_val<key>
 
 implement
 {key}(*tmp*)
-equal_key_key = gequal_val<key>
+equal_key_key = gequal_val_val<key>
 
+(* ****** ****** *)
+//
+implement
+hash_key<int> (key) = let
+  val key = $UN.cast{uint32}(key)
+in
+  $UN.cast{ulint}(inthash_jenkins<>(key))
+end // end of [hash_key<int>]
+//
+implement
+hash_key<uint> (key) = let
+  val key = $UN.cast{uint32}(key)
+in
+  $UN.cast{ulint}(inthash_jenkins<>(key))
+end // end of [hash_key<uint>]
+//
 (* ****** ****** *)
 //
 // HX: 31 and 37 are top choices
 //
 implement
-hash_key<string> (str) =
-  string_hash_multiplier (31UL, 31415926536UL, str)
+hash_key<string> (key) =
+  string_hash_multiplier (31UL, 31415926536UL, key)
 //
 (* ****** ****** *)
 //
@@ -258,6 +274,26 @@ implement{}
 fprint_hashtbl$sep (out) = fprint (out, "; ")
 implement{}
 fprint_hashtbl$mapto (out) = fprint (out, "->")
+
+(* ****** ****** *)
+
+implement
+{key,itm}
+hashtbl_foreach_cloref
+  (tbl, fwork) = () where
+{
+//
+var env: void = ((*void*))
+//
+implement
+(env)(*tmp*)
+$HT.hashtbl_foreach$fwork<key,itm><env> (k, x, env) = fwork(k, x)
+//
+val tbl = htdecode (tbl)
+val ((*void*)) = $HT.hashtbl_foreach_env<key,itm><void> (tbl, env)
+prval ((*void*)) = $UN.cast2void (tbl)
+//
+} (* end of [hashtbl_foreach_cloref] *)
 
 (* ****** ****** *)
 

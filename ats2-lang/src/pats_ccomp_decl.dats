@@ -47,9 +47,16 @@ staload "./pats_basics.sats"
 
 (* ****** ****** *)
 
-staload LOC = "./pats_location.sats"
-overload print with $LOC.print_location
+staload
+GLOB = "./pats_global.sats"
 
+(* ****** ****** *)
+//
+staload
+LOC = "./pats_location.sats"
+overload
+print with $LOC.print_location
+//
 (* ****** ****** *)
 //
 staload "./pats_staexp2.sats"
@@ -57,7 +64,11 @@ staload "./pats_staexp2.sats"
 staload D2E = "./pats_dynexp2.sats"
 //
 typedef d2cst = $D2E.d2cst
-typedef dynexp2_funlabopt = $D2E.funlabopt
+//
+typedef
+dynexp2_funlabopt = $D2E.funlabopt
+//
+overload print with $D2E.print_d2var
 //
 (* ****** ****** *)
 
@@ -174,7 +185,9 @@ case+ hid0.hidecl_node of
     (_(*knd*), imp) => let
     val d2c = imp.hiimpdec_cst
     val lvl0 = the_d2varlev_get ()
-    val ((*void*)) = hiimpdec_ccomp (env, lvl0, imp)
+    val ((*void*)) =
+      hiimpdec_ccomp (env, lvl0, imp, 0(*local*))
+    // end of [val]
   in
     primdec_impdec (loc0, imp)
   end // end of [HIDimpdec]
@@ -452,8 +465,16 @@ case+ hfds of
     ((*void*)) => list_nil ()
 | list_cons
     (hfd, hfds) => let
+//
     val loc = hfd.hifundec_loc
     val d2v = hfd.hifundec_var
+//
+(*
+    val () =
+    println! ("auxinit: loc = ", loc)
+    val () =
+    println! ("auxinit: d2v = ", d2v)
+*)
 //
     val () =
       $D2E.d2var_set_level (d2v, lvl0)
@@ -575,7 +596,14 @@ hifundeclst_ccomp
   env, lvl0, knd, decarg, hfds
 ) = let
 //
-val isfnx = funkind_is_mutailrec(knd)
+val
+tlcalopt =
+  $GLOB.the_CCOMPATS_tlcalopt_get()
+val isfnx =
+(
+if tlcalopt > 0
+  then funkind_is_mutailrec(knd) else false
+) : bool // end of [val]
 //
 val i0 = (if isfnx then 1 else 0): int
 //
@@ -673,7 +701,8 @@ end // end of [local]
 
 local
 
-fun auxinit
+fun
+auxinit
   {n:nat} .<n>.
 (
   env: !ccompenv
@@ -984,7 +1013,7 @@ in (* in of [local] *)
 implement
 hiimpdec_ccomp
 (
-  env, lvl0, imp
+  env, lvl0, imp, knd
 ) = let
 //
 val d2c = imp.hiimpdec_cst
@@ -1020,19 +1049,30 @@ case+ 0 of
     // end of [val]
 *)
 //
-    val () = if istmp then ccompenv_inc_tmplevel (env)
-    val flab = auxmain (env, loc0, d2c, imparg, tmparg, hde_def)
-    val () = if istmp then ccompenv_dec_tmplevel (env)
+    val () =
+      if istmp then ccompenv_inc_tmplevel (env)
+    // end of [val]
+    val flab =
+      auxmain (env, loc0, d2c, imparg, tmparg, hde_def)
+    // end of [val]
+    val () =
+      if istmp then ccompenv_dec_tmplevel (env)
+    // end of [val]
 //
-    val () = if istmp then ccompenv_add_impdec (env, imp)
+    val () = (
+      if knd = 0 then
+        (if istmp then ccompenv_add_impdec (env, imp))
+      // end of [if]
+    ) (* end of [val] *)
 //
     val opt = Some (flab)
+    val ((*void*)) = hiimpdec_set_funlabopt (imp, opt)
     val ((*void*)) =
-      hiimpdec_set_funlabopt (imp, opt)
-    val ((*void*)) =
-    if not(istmp) then
-      $D2E.d2cst_set_funlab (d2c, $UN.cast{dynexp2_funlabopt}(opt))
-    // end of [if] // end of [val]
+    (
+      if not(istmp) then
+        $D2E.d2cst_set_funlab (d2c, $UN.cast{dynexp2_funlabopt}(opt))
+      // end of [if]
+    ) (* end of [val] *)
 //
   in
     // nothing
@@ -1057,7 +1097,7 @@ end // end of [local]
 
 implement
 hiimpdec_ccomp_if
-  (env, lvl0, imp) = let
+  (env, lvl0, imp, knd) = let
 //
 val opt =
   hiimpdec_get_funlabopt (imp)
@@ -1066,7 +1106,7 @@ in
 //
 case+ opt of
 | Some _ => ((*void*))
-| None _ => hiimpdec_ccomp (env, lvl0, imp)
+| None _ => hiimpdec_ccomp (env, lvl0, imp, knd)
 //
 end // end of [hiimpdec_ccomp_if]
 

@@ -830,6 +830,20 @@ in '{
 (* ****** ****** *)
 
 implement
+s0exp_f0loat (x) = let
+in '{
+  s0exp_loc= x.token_loc, s0exp_node= S0Efloat (x)
+} end // end of [s0exp_f0loat]
+
+implement
+s0exp_s0tring (x) = let
+in '{
+  s0exp_loc= x.token_loc, s0exp_node= S0Estring (x)
+} end // end of [s0exp_string]
+
+(* ****** ****** *)
+
+implement
 s0exp_app (x1, x2) = let
   val loc = x1.s0exp_loc + x2.s0exp_loc
 in '{
@@ -1205,20 +1219,23 @@ dcstextdef_sta (sym) =
   DCSTEXTDEFsome_sta ($SYM.symbol_get_name (sym))
 
 (* ****** ****** *)
-
+//
 implement
-dcstextdef_is_ext (x) = (
+dcstextdef_is_ext(x) =
+(
   case+ x of DCSTEXTDEFsome_ext _ => true | _ => false
 ) // end of [dcstextdef_is_ext]
 implement
-dcstextdef_is_mac (x) = (
+dcstextdef_is_mac(x) =
+(
   case+ x of DCSTEXTDEFsome_mac _ => true | _ => false
 ) // end of [dcstextdef_is_mac]
 implement
-dcstextdef_is_sta (x) = (
+dcstextdef_is_sta(x) =
+(
   case+ x of DCSTEXTDEFsome_sta _ => true | _ => false
 ) // end of [dcstextdef_is_sta]
-
+//
 (* ****** ****** *)
 
 implement
@@ -1267,7 +1284,7 @@ in '{
 implement
 p0at_i0de (id) = '{
   p0at_loc= id.i0de_loc, p0at_node= P0Tide id.i0de_sym
-} (* end of [p2at_i0de] *)
+} (* end of [p0at_i0de] *)
 
 implement
 p0at_dqid (ent1, ent2) = let
@@ -1759,6 +1776,19 @@ d0exp_MYFUN (tok) = '{
 (* ****** ****** *)
 
 implement
+d0exp_literal
+  (t_beg, lit, t_end) = let
+//
+val loc =
+  t_beg.token_loc + t_end.token_loc
+//
+in '{
+  d0exp_loc= loc, d0exp_node= D0Eliteral (lit)
+} end // end of [d0exp_literal]
+
+(* ****** ****** *)
+
+implement
 d0exp_extval
 (
   t_beg, _type, rep, t_end
@@ -2072,60 +2102,6 @@ end // end of [d0exp_seq]
 (* ****** ****** *)
 
 implement
-d0exp_raise (tok, ent2) = let
-  val loc = tok.token_loc + ent2.d0exp_loc
-in '{
-  d0exp_loc= loc, d0exp_node= D0Eraise (ent2)
-} end // end of [d0exp_raise]
-
-(* ****** ****** *)
-
-implement
-d0exp_effmask
-  (tok, eff, body) = let
-  val loc = tok.token_loc + body.d0exp_loc
-in '{
-  d0exp_loc= loc, d0exp_node= D0Eeffmask (eff, body)
-} end // end of [d0exp_effmask]
-
-implement
-d0exp_effmask_arg
-  (knd, tok, body) = let
-  val loc = tok.token_loc + body.d0exp_loc
-in '{
-  d0exp_loc= loc, d0exp_node= D0Eeffmask_arg (knd, body)
-} end // end of [d0exp_effmask_arg]
-
-(* ****** ****** *)
-
-implement
-d0exp_showtype (tok, ent2) = let
-  val loc = tok.token_loc + ent2.d0exp_loc
-in '{
-  d0exp_loc= loc, d0exp_node= D0Eshowtype (ent2)
-} end // end of [d0exp_showtype]
-
-(* ****** ****** *)
-
-implement
-d0exp_vcopyenv (knd, tok, ent2) = let
-  val loc = tok.token_loc + ent2.d0exp_loc
-in '{
-  d0exp_loc= loc, d0exp_node= D0Evcopyenv (knd, ent2)
-} end // end of [d0exp_vcopyenv]
-
-(* ****** ****** *)
-
-implement
-d0exp_tempenver (tok, ent2) = let
-  val loc = tok.token_loc + ent2.d0exp_loc
-in '{
-  d0exp_loc= loc, d0exp_node= D0Etempenver (ent2)
-} end // end of [d0exp_tempenver]
-
-(* ****** ****** *)
-
-implement
 d0exp_ptrof (t_addrat) = '{
   d0exp_loc= t_addrat.token_loc, d0exp_node= D0Eptrof ()
 } // end of [d0exp_ptrof]
@@ -2159,6 +2135,64 @@ d0exp_sel_int (tok) = let
 in '{
   d0exp_loc= tok.token_loc, d0exp_node= D0Esel_lab (knd, lab)
 } end // end of [d0exp_sel_int]
+
+(* ****** ****** *)
+
+implement
+d0exp_raise
+  (tok, ent2) = let
+  val loc = tok.token_loc + ent2.d0exp_loc
+in '{
+  d0exp_loc= loc, d0exp_node= D0Eraise (ent2)
+} end // end of [d0exp_raise]
+
+(* ****** ****** *)
+
+implement
+d0exp_effmask
+  (tok, eff, body) = let
+  val loc = tok.token_loc + body.d0exp_loc
+in '{
+  d0exp_loc= loc, d0exp_node= D0Eeffmask (eff, body)
+} end // end of [d0exp_effmask]
+
+implement
+d0exp_effmask_arg
+  (knd, tok, body) = let
+  val loc = tok.token_loc + body.d0exp_loc
+in '{
+  d0exp_loc= loc, d0exp_node= D0Eeffmask_arg (knd, body)
+} end // end of [d0exp_effmask_arg]
+
+(* ****** ****** *)
+
+implement
+d0exp_showtype
+  (tok, ent2) = let
+  val loc = tok.token_loc + ent2.d0exp_loc
+in '{
+  d0exp_loc= loc, d0exp_node= D0Eshowtype (ent2)
+} end // end of [d0exp_showtype]
+
+(* ****** ****** *)
+
+implement
+d0exp_vcopyenv
+  (knd, tok, ent2) = let
+  val loc = tok.token_loc + ent2.d0exp_loc
+in '{
+  d0exp_loc= loc, d0exp_node= D0Evcopyenv (knd, ent2)
+} end // end of [d0exp_vcopyenv]
+
+(* ****** ****** *)
+
+implement
+d0exp_tempenver
+  (tok, ent2) = let
+  val loc = tok.token_loc + ent2.d0exp_loc
+in '{
+  d0exp_loc= loc, d0exp_node= D0Etempenver (ent2)
+} end // end of [d0exp_tempenver]
 
 (* ****** ****** *)
 
@@ -2246,6 +2280,33 @@ in '{
 
 (* ****** ****** *)
 
+implement
+d0exp_ann (d0e, s0e) = let
+  val loc = d0e.d0exp_loc + s0e.s0exp_loc
+in '{
+  d0exp_loc= loc, d0exp_node= D0Eann (d0e, s0e)
+} end // end of [d0exp_ann]
+
+(* ****** ****** *)
+
+implement
+d0exp_solassert
+  (tok, ent2) = let
+  val loc = tok.token_loc + ent2.d0exp_loc
+in '{
+  d0exp_loc= loc, d0exp_node= D0Esolassert(ent2)
+} end // end of [d0exp_solassert]
+
+implement
+d0exp_solverify
+  (tok, ent2) = let
+  val loc = tok.token_loc + ent2.s0exp_loc
+in '{
+  d0exp_loc= loc, d0exp_node= D0Esolverify(ent2)
+} end // end of [d0exp_solverify]
+
+(* ****** ****** *)
+
 local
 
 fun
@@ -2283,15 +2344,6 @@ in
 end // end of [d0exp_macsyn_encode_seq]
 
 end // end of [local]
-
-(* ****** ****** *)
-
-implement
-d0exp_ann (d0e, s0e) = let
-  val loc = d0e.d0exp_loc + s0e.s0exp_loc
-in '{
-  d0exp_loc= loc, d0exp_node= D0Eann (d0e, s0e)
-} end // end of [d0exp_ann]
 
 (* ****** ****** *)
 

@@ -48,27 +48,92 @@ staload "libats/ML/SATS/basis.sats"
 //
 fun{}
 int_repeat_lazy
-  (n: int, f: lazy(void)): void
+  (n: int, f: lazy (void)): void
 fun{}
 int_repeat_cloref
   (n: int, f: cfun0 (void)): void
 //
 overload repeat with int_repeat_lazy
 overload repeat with int_repeat_cloref
+overload .repeat with int_repeat_cloref
 //
 (* ****** ****** *)
 //
 fun{}
 int_foreach_cloref
   (n: int, f: cfun1 (int, void)): void
+fun{}
+int_foreach_method
+  (n: int) (f: cfun1 (int, void)): void
 //
-overload foreach with int_foreach_cloref
+overload .foreach with int_foreach_method
+//
+(* ****** ****** *)
+//
+fun{res:vt0p}
+int_foldleft_cloref
+  (n: int, ini: res, f: cfun2 (res, int, res)): res
+//
+fun{res:vt0p}
+int_foldleft_method
+  (int, TYPE(res))(ini: res, f: cfun2 (res, int, res)): res
+//
+overload .foldleft with int_foldleft_method
 //
 (* ****** ****** *)
 //
 fun{}
 intrange_foreach_cloref
   (l: int, r: int, f: cfun1 (int, void)): void
+fun{}
+intrange_foreach_method
+  (lr: @(int, int)) (f: cfun1 (int, void)): void
+//
+overload .foreach with intrange_foreach_method
+//
+(* ****** ****** *)
+//
+fun{res:vt0p}
+intrange_foldleft_cloref
+  (l: int, r: int, ini: res, f: cfun2 (res, int, res)): res
+//
+fun{res:vt0p}
+intrange_foldleft_method
+  ((int, int), TYPE(res))(ini: res, f: cfun2 (res, int, res)): res
+//
+overload .foldleft with intrange_foldleft_method
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+int_list_map_cloref
+  (n: intGte(0), f: cfun(int, a)): list0(a)
+fun{a:t0p}
+int_list_map_method
+  (n: intGte(0), TYPE(a))(f: cfun(int, a)): list0(a)
+//
+overload .list_map with int_list_map_method
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+int_array_map_cloref
+  (n: intGte(0), f: cfun(size_t, a)): array0(a)
+fun{a:t0p}
+int_array_map_method
+  (n: intGte(0), TYPE(a))(f: cfun(size_t, a)): array0(a)
+//
+overload .array_map with int_array_map_method
+//
+(* ****** ****** *)
+//
+fun{}
+int2_foreach_cloref
+  (n1: int, n2: int, f: cfun2 (int, int, void)): void
+//
+fun{}
+intrange2_foreach_cloref
+  (l1: int, r1: int, l2: int, r2: int, f: cfun2 (int, int, void)): void
 //
 (* ****** ****** *)
 

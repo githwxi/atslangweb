@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gorder_float.atxt
-** Time of generation: Fri Dec 19 04:20:19 2014
+** Time of generation: Tue Mar 10 10:28:39 2015
 *)
 
 (* ****** ****** *)
@@ -42,10 +42,10 @@
 (* ****** ****** *)
 
 implement
-gcompare_val<float> = g0float_compare_float
+gcompare_val_val<float> = g0float_compare_float
 implement
-gcompare_val<double> = g0float_compare_double
+gcompare_val_val<double> = g0float_compare_double
 implement
-gcompare_val<ldouble> = g0float_compare_ldouble
+gcompare_val_val<ldouble> = g0float_compare_ldouble
 
 (* end of [gorder_float.dats] *)

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gnumber_int.atxt
-** Time of generation: Fri Dec 19 04:20:20 2014
+** Time of generation: Tue Mar 10 10:28:40 2015
 *)
 
 (* ****** ****** *)
@@ -82,55 +82,55 @@ gpred_val<llint> (x) = pred (x)
 (* ****** ****** *)
 
 implement
-gadd_val<int> (x, y) = x + y
+gadd_val_val<int> (x, y) = x + y
 implement
-gadd_val<lint> (x, y) = x + y
+gadd_val_val<lint> (x, y) = x + y
 implement
-gadd_val<llint> (x, y) = x + y
+gadd_val_val<llint> (x, y) = x + y
 implement
-gadd_val<ssize_t> (x, y) = x + y
+gadd_val_val<ssize_t> (x, y) = x + y
 
 (* ****** ****** *)
 
 implement
-gsub_val<int> (x, y) = x - y
+gsub_val_val<int> (x, y) = x - y
 implement
-gsub_val<lint> (x, y) = x - y
+gsub_val_val<lint> (x, y) = x - y
 implement
-gsub_val<llint> (x, y) = x - y
+gsub_val_val<llint> (x, y) = x - y
 
 (* ****** ****** *)
 
 implement
-gmul_val<int> (x, y) = x * y
+gmul_val_val<int> (x, y) = x * y
 implement
-gmul_val<lint> (x, y) = x * y
+gmul_val_val<lint> (x, y) = x * y
 implement
-gmul_val<llint> (x, y) = x * y
+gmul_val_val<llint> (x, y) = x * y
 implement
-gmul_val<ssize_t> (x, y) = x * y
+gmul_val_val<ssize_t> (x, y) = x * y
 
 (* ****** ****** *)
 
 implement
-gdiv_val<int> (x, y) = x / y
+gdiv_val_val<int> (x, y) = x / y
 implement
-gdiv_val<lint> (x, y) = x / y
+gdiv_val_val<lint> (x, y) = x / y
 implement
-gdiv_val<llint> (x, y) = x / y
+gdiv_val_val<llint> (x, y) = x / y
 implement
-gdiv_val<ssize_t> (x, y) = x / y
+gdiv_val_val<ssize_t> (x, y) = x / y
 
 (* ****** ****** *)
 
 implement
-gmod_val<int> (x, y) = x mod y
+gmod_val_val<int> (x, y) = x mod y
 implement
-gmod_val<lint> (x, y) = x mod y
+gmod_val_val<lint> (x, y) = x mod y
 implement
-gmod_val<llint> (x, y) = x mod y
+gmod_val_val<llint> (x, y) = x mod y
 implement
-gmod_val<ssize_t> (x, y) = x mod y
+gmod_val_val<ssize_t> (x, y) = x mod y
 
 (* ****** ****** *)
 

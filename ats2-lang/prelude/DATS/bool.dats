@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/bool.atxt
-** Time of generation: Tue Jan 13 00:14:01 2015
+** Time of generation: Sat Jun 27 21:39:20 2015
 *)
 
 (* ****** ****** *)
@@ -50,13 +50,10 @@
 // HX: see CATS/bool.cats
 //
 implement
-tostring_bool
+bool2string
   (b) = if b then "true" else "false"
-// end of [tostring_bool]
+// end of [bool2string]
 *)
-
-implement
-tostring_val<bool> = tostring_bool
 
 (* ****** ****** *)
 
@@ -66,7 +63,7 @@ tostring_val<bool> = tostring_bool
 //
 implement
 fprint_bool (out, x) =
-  fprint_string (out, tostring_bool (x))
+  fprint_string (out, bool2string (x))
 // end of [fprint_bool]
 *)
 

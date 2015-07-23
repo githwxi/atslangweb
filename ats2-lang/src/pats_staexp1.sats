@@ -42,6 +42,7 @@ FIL = "./pats_filename.sats"
 typedef filename = $FIL.filename
 staload
 LOC = "./pats_location.sats"
+typedef loc_t = $LOC.location
 typedef location = $LOC.location
 //
 (* ****** ****** *)
@@ -327,9 +328,12 @@ d1atsrtdec = '{
 , d1atsrtdec_con= d1atsrtconlst
 } // end of [d1atsrtdec]
 
-typedef d1atsrtdeclst = List d1atsrtdec
+typedef
+d1atsrtdeclst = List d1atsrtdec
 
-fun d1atsrtdec_make (
+fun
+d1atsrtdec_make
+(
   loc: location, name: symbol, conlst: d1atsrtconlst
 ) : d1atsrtdec // end of [d1atsrtdec]
 
@@ -343,7 +347,9 @@ typedef s1arg = '{
 typedef s1arglst = List s1arg
 typedef s1arglstlst = List s1arglst
 
-fun s1arg_make (
+fun
+s1arg_make
+(
   loc: location, sym: symbol, srtopt: s1rtopt
 ) : s1arg // end of [s1arg_make]
 
@@ -417,15 +423,19 @@ fun sp1at_cstr
 
 (* ****** ****** *)
 
-datatype s1exp_node =
+datatype
+s1exp_node =
 //
-  | S1Eide of (symbol) // static identifier
-  | S1Esqid of (s0taq, symbol) // qualified static identifier
+  | S1Eide of (symbol) // identifier
+  | S1Esqid of (s0taq, symbol) // qualified ID
 //
   | S1Eint of int
   | S1Eintrep of string(*rep*)
 //
   | S1Echar of char // character constant
+//
+  | S1Efloat of string // floating-points
+  | S1Estring of string // string constants
 //
   | S1Eextype of (string(*name*), s1explstlst) // extern type
   | S1Eextkind of (string(*name*), s1explstlst) // extern tkind
@@ -501,9 +511,6 @@ and s1qualstlst = List (s1qualst)
 
 (* ****** ****** *)
 
-fun s1exp_char (loc: location, c: char): s1exp
-fun s1exp_c0har (loc: location, c: c0har): s1exp
-
 fun s1exp_int
   (loc: location, i: int): s1exp
 fun s1exp_intrep
@@ -511,12 +518,29 @@ fun s1exp_intrep
 fun s1exp_i0nt
   (loc: location, x: i0nt): s1exp
 
-fun s1exp_extype (
+fun s1exp_char (loc: location, c: char): s1exp
+fun s1exp_c0har (loc: location, tok: c0har): s1exp
+
+fun s1exp_float (loc: location, rep: string): s1exp
+fun s1exp_f0loat (loc: location, tok: f0loat): s1exp
+
+fun s1exp_string (loc: location, str: string): s1exp
+fun s1exp_s0tring (loc: location, tok: s0tring): s1exp
+
+(* ****** ****** *)
+
+fun
+s1exp_extype
+(
   loc: location, name: string, arg: s1explstlst
 ) : s1exp // end of [s1exp_extype]
-fun s1exp_extkind (
+fun
+s1exp_extkind
+(
   loc: location, name: string, arg: s1explstlst
 ) : s1exp // end of [s1exp_extkind]
+
+(* ****** ****** *)
 
 fun s1exp_ide (loc: location, id: symbol): s1exp
 fun s1exp_sqid (loc: location, sq: s0taq, id: symbol): s1exp
@@ -697,17 +721,22 @@ fun fprint_s1rtdef : fprint_type (s1rtdef)
 (* ****** ****** *)
 
 typedef
-s1tacst = '{ // static constant declaration
-  s1tacst_loc= location
+s1tacst = '{
+//
+// static constant declaration
+//
+  s1tacst_loc= loc_t
 , s1tacst_sym= symbol
-, s1tacst_arg= a1msrtlst
-, s1tacst_res= s1rt
+, s1tacst_fil= filename
+, s1tacst_arg= a1msrtlst, s1tacst_res= s1rt
 } // end of [s1tacst]
 
 typedef s1tacstlst = List s1tacst
 
-fun s1tacst_make (
-  loc: location, sym: symbol, arg: a1msrtlst, res: s1rt
+fun
+s1tacst_make (
+  loc: location
+, fil: filename, sym: symbol, arg: a1msrtlst, res: s1rt
 ) : s1tacst // end of [s1tacst_make]
 
 fun fprint_s1tacst : fprint_type (s1tacst)
@@ -715,17 +744,22 @@ fun fprint_s1tacst : fprint_type (s1tacst)
 (* ****** ****** *)
 
 typedef
-s1tacon = '{ // static constructor declaration
-  s1tacon_loc= location
+s1tacon = '{
+//
+// static constructor declaration
+//
+  s1tacon_loc= loc_t
 , s1tacon_sym= symbol
-, s1tacon_arg= a1msrtlst
-, s1tacon_def= s1expopt
+, s1tacon_fil= filename
+, s1tacon_arg= a1msrtlst, s1tacon_def= s1expopt
 } // end of [s1tacon]
 
 typedef s1taconlst = List s1tacon
 
-fun s1tacon_make (
-  loc: location, sym: symbol, arg: a1msrtlst, def: s1expopt
+fun
+s1tacon_make (
+  loc: location
+, fil: filename, sym: symbol, arg: a1msrtlst, def: s1expopt
 ) : s1tacon // end of [s1tacon]
 
 fun fprint_s1tacon : fprint_type (s1tacon)

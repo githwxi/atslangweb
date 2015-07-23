@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Thu Feb 19 14:13:22 2015
+** Time of generation: Sat Jun 27 21:39:11 2015
 *)
 
 (* ****** ****** *)
@@ -218,25 +218,34 @@ list_vt_copy{n:int}
 // end of [list_vt_copy]
 
 (* ****** ****** *)
-
+//
 fun{x:vt0p}
 list_vt_copylin{n:int}
   (xs: !list_vt (INV(x), n)):<!wrt> list_vt (x, n)
 fun{x:vt0p}
 list_vt_copylin$copy (x: &RD(x)): (x)
-
+//
+fun{x:vt0p}
+list_vt_copylin_fun{n:int}{fe:eff}
+  (xs: !list_vt (INV(x), n), f: (&RD(x)) -<fe> x):<!wrt,fe> list_vt (x, n)
+//
 (* ****** ****** *)
 
 fun{x:t0p}
 list_vt_free (xs: List_vt (INV(x))):<!wrt> void
 
 (* ****** ****** *)
-
+//
 fun{x:vt0p}
-list_vt_freelin (xs: List_vt (INV(x))):<!wrt> void
+list_vt_freelin
+  (xs: List_vt (INV(x))):<!wrt> void
 fun{x:vt0p}
 list_vt_freelin$clear (x: &x >> x?):<!wrt> void
-
+//
+fun{x:vt0p}
+list_vt_freelin_fun{fe:eff}
+  (xs: List_vt (INV(x)), f: (&x>>x?) -<fe> void):<!wrt,fe> void
+//
 (* ****** ****** *)
 //
 fun{
@@ -252,9 +261,10 @@ list_vt_uninitize$clear (x: &(x) >> x?):<!wrt> void
 fun{
 x:vt0p
 } list_vt_uninitize_fun
-  {n:int}{fe:eff} (
+  {n:int}{fe:eff}
+(
   xs: !list_vt (INV(x), n) >> list_vt (x?, n), f: (&x>>x?) -<fe> void
-) :<fe> void // end of [list_vt_uninitize_fun]
+) :<!wrt,fe> void // end of [list_vt_uninitize_fun]
 //
 (* ****** ****** *)
 
@@ -269,13 +279,13 @@ a:vt0p
 
 fun{
 x:vt0p
-} list_vt_extend
-  {n:int} (xs1: list_vt (INV(x), n), x2: x):<!wrt> list_vt (x, n+1)
+} list_vt_extend{n:int}
+  (xs1: list_vt (INV(x), n), x2: x):<!wrt> list_vt (x, n+1)
 // end of [list_vt_extend]
 
 fun{x:vt0p}
 list_vt_unextend{n:pos}
-  (xs: &list_vt (INV(x), n) >> list_vt (x, n-1)):<!wrt> x
+  (xs: &list_vt (INV(x), n) >> list_vt (x, n-1)):<!wrt> (x)
 // end of [list_vt_unextend]
 
 (* ****** ****** *)

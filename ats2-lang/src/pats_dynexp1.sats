@@ -227,7 +227,8 @@ typedef intlst = List (int)
 
 (* ****** ****** *)
 
-datatype d1ecl_node =
+datatype
+d1ecl_node =
   | D1Cnone of ()
   | D1Clist of d1eclist
 //
@@ -323,6 +324,8 @@ and d1exp_node =
 //
   | D1Ecstsp of cstsp // special constants
 //
+  | D1Eliteral of d1exp // $literal: int, float, string
+//
   | D1Eextval of (s1exp (*type*), string (*name*))
   | D1Eextfcall of // externally named fcall
       (s1exp(*res*), string(*fun*), d1explst(*arg*))
@@ -348,6 +351,7 @@ and d1exp_node =
   | D1Eapp_sta of (* static application *)
       (d1exp, s1exparglst)
 //
+  | D1Esing of (d1exp) // singleton
   | D1Elist of (int(*pfarity*), d1explst) // temporary
 //
   | D1Eifhead of
@@ -373,12 +377,12 @@ and d1exp_node =
   | D1Earrpsz of (* arraysize expression *)
       (s1expopt (*element type*), d1explst (*elements*))
 //
-  | D1Eraise of (d1exp) // raised exception
-  | D1Eeffmask of (effcst(*eff*), d1exp(*body*)) // $effmask(...)
-//
   | D1Eptrof of d1exp // taking the address of
   | D1Eviewat of d1exp // taking view at a given address
   | D1Eselab of (int(*knd*), d1exp, d1lab)
+//
+  | D1Eraise of (d1exp) // raised exception
+  | D1Eeffmask of (effcst(*eff*), d1exp(*body*)) // $effmask(...)
 //
   | D1Eshowtype of (d1exp) // $showtype: for debugging
 //
@@ -420,12 +424,15 @@ and d1exp_node =
 //
   | D1Etrywith of (i1nvresstate, d1exp, c1laulst)
 //
-  | D1Emacsyn of (macsynkind, d1exp) // macro syntax
-  | D1Emacfun of (symbol(*name*), d1explst) // built-in macfun
-//
   | D1Eann_type of (d1exp, s1exp) // ascribed dynexp
   | D1Eann_effc of (d1exp, effcst) // ascribed with effects
   | D1Eann_funclo of (d1exp, funclo) // ascribed with funtype
+//
+  | D1Emacsyn of (macsynkind, d1exp) // macro syntax
+  | D1Emacfun of (symbol(*name*), d1explst) // built-in macfun
+//
+  | D1Esolassert of (d1exp) // $solver_assert(d1e_prf)
+  | D1Esolverify of (s1exp) // $solver_verify(s1e_prop)
 //
   | D1Eerrexp of () // HX: placeholder for indicating an error
 // end of [d1exp_node]
@@ -576,11 +583,19 @@ fun d1exp_c0har (loc: location, x: c0har): d1exp
 fun d1exp_f0loat (loc: location, x: f0loat): d1exp
 fun d1exp_s0tring (loc: location, x: s0tring): d1exp
 //
-fun d1exp_cstsp (loc: location, x: cstsp): d1exp
-//
-fun d1exp_empty (loc: location): d1exp
 fun d1exp_top (loc: location): d1exp
-
+fun d1exp_empty (loc: location): d1exp
+//
+(* ****** ****** *)
+//
+fun
+d1exp_cstsp
+  (loc: location, x: cstsp): d1exp
+//
+fun
+d1exp_literal
+  (loc: location, lit: d1exp): d1exp
+//
 (* ****** ****** *)
 //
 fun
@@ -635,11 +650,13 @@ fun d1exp_app_dyn (
 ) : d1exp // end of [d1exp_app_dyn]
 
 (* ****** ****** *)
-
+//
+fun d1exp_sing
+  (loc: location, d1e: d1exp): d1exp
+//
 fun d1exp_list
   (loc: location, npf: int, d1es: d1explst): d1exp
-// end of [d1exp_list]
-
+//
 (* ****** ****** *)
 
 fun d1exp_ifhead (
@@ -701,35 +718,34 @@ fun d1exp_arrinit (
 (* ****** ****** *)
 //
 fun
-d1exp_sexparg (loc: location, s1a: s1exparg): d1exp
+d1exp_sexparg
+  (loc: location, s1a: s1exparg): d1exp
 //
-fun d1exp_exist (loc: location, s1a: s1exparg, d1e: d1exp): d1exp
+fun
+d1exp_exist
+  (loc: location, s1a: s1exparg, d1e: d1exp): d1exp
 //
 (* ****** ****** *)
-
-fun d1exp_raise (loc: location, d1e: d1exp): d1exp
-
-(* ****** ****** *)
-
-fun d1exp_effmask (
-  loc: location, eff: effcst, d1e: d1exp
-) : d1exp // end of [d1exp_effmask]
-
-fun d1exp_effmask_arg
-  (loc: location, knd: int, d1e: d1exp): d1exp
-// end of [d1exp_effmask_arg]
-
-(* ****** ****** *)
-
-fun d1exp_selab
+//
+fun
+d1exp_selab
   (loc: location, kind: int, root: d1exp, lab: d1lab): d1exp
 // end of [d1exp_selab]
-
+//
 (* ****** ****** *)
 
 fun d1exp_ptrof (loc: location, d1e: d1exp): d1exp
 fun d1exp_viewat (loc: location, d1e: d1exp): d1exp
 
+(* ****** ****** *)
+//
+fun d1exp_raise (loc: location, d1e: d1exp): d1exp
+//
+fun
+d1exp_effmask (loc: location, eff: effcst, d1e: d1exp): d1exp
+fun
+d1exp_effmask_arg (loc: location, knd: int, d1e: d1exp): d1exp
+//
 (* ****** ****** *)
 
 fun d1exp_showtype (loc: location, d1e: d1exp): d1exp
@@ -792,30 +808,44 @@ fun d1exp_while (
 fun d1exp_loopexn (loc: location, knd: int): d1exp
 
 (* ****** ****** *)
-
-fun d1exp_macsyn
-  (loc: location, knd: macsynkind, d1e: d1exp): d1exp
-// end of [d1exp_macsyn]
-
-fun d1exp_macfun
-  (loc: location, name: symbol, d1es: d1explst): d1exp
-// end of [d1exp_macfun]
-
-(* ****** ****** *)
-
-fun d1exp_ann_type
+//
+fun
+d1exp_ann_type
   (loc: location, d1e: d1exp, s1e: s1exp): d1exp
-fun d1exp_ann_effc
+fun
+d1exp_ann_effc
   (loc: location, d1e: d1exp, efc: effcst): d1exp
-fun d1exp_ann_funclo
-  (loc: location, d1e: d1exp, fc: funclo): d1exp
-fun d1exp_ann_funclo_opt
-  (loc: location, d1e: d1exp, fc: funclo): d1exp
-
+fun
+d1exp_ann_funclo
+  (loc: location, d1e: d1exp, fc0: funclo): d1exp
+fun
+d1exp_ann_funclo_opt
+  (loc: location, d1e: d1exp, fc0: funclo): d1exp
+//
 (* ****** ****** *)
-
-fun d1exp_errexp (loc: location): d1exp
-
+//
+fun
+d1exp_macsyn
+  (loc: location, knd: macsynkind, d1e: d1exp): d1exp
+//
+fun
+d1exp_macfun
+  (loc: location, name: symbol, d1es: d1explst): d1exp
+//
+(* ****** ****** *)
+//
+fun
+d1exp_solassert
+  (loc: location, d1e_prf: d1exp): d1exp
+fun
+d1exp_solverify
+  (loc: location, s1e_prop: s1exp): d1exp
+//
+(* ****** ****** *)
+//
+fun
+d1exp_errexp (loc: location): d1exp // indicating error
+//
 (* ****** ****** *)
 
 fun print_d1exp (x: d1exp): void

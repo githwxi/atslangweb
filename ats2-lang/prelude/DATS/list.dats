@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Thu Feb 19 14:02:54 2015
+** Time of generation: Sat Jun 27 21:39:32 2015
 *)
 
 (* ****** ****** *)
@@ -43,6 +43,10 @@
 
 staload UN = "prelude/SATS/unsafe.sats"
 staload _(*anon*) = "prelude/DATS/unsafe.dats"
+
+(* ****** ****** *)
+
+abstype List0_(a:t@ype+) = List0(a)
 
 (* ****** ****** *)
 
@@ -228,10 +232,15 @@ fprint_listlist_sep
   (out, xss, sep1, sep2) = let
 //
 implement
-fprint_val<List(a)> (out, xs) = fprint_list_sep<a> (out, xs, sep2)
+fprint_val<List0_(a)>
+  (out, xs) = let
+  val xs = $UN.cast{List0(a)}(xs)
+in
+  fprint_list_sep<a> (out, xs, sep2)
+end // end of [fprint_val]
 //
 in
-  fprint_list_sep<List(a)> (out, xss, sep1)
+  fprint_list_sep<List0_(a)> (out, $UN.cast{List(List0_(a))}(xss), sep1)
 end // end of [fprint_listlist_sep]
 
 (* ****** ****** *)
@@ -918,7 +927,7 @@ end // end of [list_forall]
 
 implement
 {a}(*tmp*)
-list_equal$eqfn = gequal_val<a>
+list_equal$eqfn = gequal_val_val<a>
 
 implement
 {x}(*tmp*)
@@ -975,7 +984,7 @@ end // end of [list_find_opt]
 
 implement
 {key}(*tmp*)
-list_assoc$eqfn = gequal_val<key>
+list_assoc$eqfn = gequal_val_val<key>
 
 implement
 {key,itm}
@@ -1134,16 +1143,63 @@ list_app (xs) = let
 //
 prval () = lemma_list_param (xs)
 //
-fun loop{n:nat} .<n>. (xs: list (x, n)): void =
+fun
+loop{n:nat} .<n>. (xs: list (x, n)): void =
 (
 case+ xs of
 | list_nil () => ()
 | list_cons (x, xs) => (list_app$fwork(x); loop (xs))
-)
+) (* end of [loop] *)
 //
 in
   loop (xs)
 end // end of [list_app]
+
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
+list_app_fun(xs, f) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun
+loop{n:nat} .<n>.
+(
+  xs: list (x, n), f: (x) -<fun1> void
+) : void = (
+//
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) => (f(x); loop (xs, f))
+//
+) (* end of [loop] *)
+//
+in
+  loop (xs, f)
+end // end of [list_app_fun]
+
+implement
+{x}(*tmp*)
+list_app_cloref(xs, f) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun
+loop{n:nat} .<n>.
+(
+  xs: list (x, n), f: (x) -<cloref1> void
+) : void = (
+//
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) => (f(x); loop (xs, f))
+//
+) (* end of [loop] *)
+//
+in
+  loop (xs, f)
+end // end of [list_app_cloref]
 
 (* ****** ****** *)
 
@@ -1996,7 +2052,7 @@ end // end of [list_foldright]
 implement
 {a}(*tmp*)
 list_mergesort$cmp
-  (x1, x2) = gcompare_val<a> (x1, x2)
+  (x1, x2) = gcompare_val_val<a> (x1, x2)
 // end of [list_mergesort$cmp]
 
 implement
@@ -2061,7 +2117,7 @@ end // end of [list_mergesort_cloref]
 implement
 {a}(*tmp*)
 list_quicksort$cmp
-  (x1, x2) = gcompare_val<a> (x1, x2)
+  (x1, x2) = gcompare_val_val<a> (x1, x2)
 // end of [list_quicksort$cmp]
 
 implement

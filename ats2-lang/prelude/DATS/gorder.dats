@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gorder.atxt
-** Time of generation: Tue Jan 13 00:14:07 2015
+** Time of generation: Sat Jun 27 21:39:32 2015
 *)
 
 (* ****** ****** *)
@@ -42,52 +42,79 @@
 (* ****** ****** *)
 
 implement{a}
-glt_val (x, y) = gcompare_val<a> (x, y) < 0
+glt_val_val (x, y) = gcompare_val_val<a> (x, y) < 0
 implement{a}
-glte_val (x, y) = gcompare_val<a> (x, y) <= 0
+glte_val_val (x, y) = gcompare_val_val<a> (x, y) <= 0
 implement{a}
-ggt_val (x, y) = gcompare_val<a> (x, y) > 0
+ggt_val_val (x, y) = gcompare_val_val<a> (x, y) > 0
 implement{a}
-ggte_val (x, y) = gcompare_val<a> (x, y) >= 0
-implement{a}
-geq_val (x, y) = gcompare_val<a> (x, y) = 0
-implement{a}
-gneq_val (x, y) = gcompare_val<a> (x, y) != 0
+ggte_val_val (x, y) = gcompare_val_val<a> (x, y) >= 0
 
 (* ****** ****** *)
 
 implement{a}
-glt_ref (x, y) = gcompare_ref<a> (x, y) < 0
+glt_val_int (x, y) = glt_val_val<a> (x, gnumber_int<a>(y))
 implement{a}
-glte_ref (x, y) = gcompare_ref<a> (x, y) <= 0
+glte_val_int (x, y) = glte_val_val<a> (x, gnumber_int<a>(y))
 implement{a}
-ggt_ref (x, y) = gcompare_ref<a> (x, y) > 0
+ggt_val_int (x, y) = ggt_val_val<a> (x, gnumber_int<a>(y))
 implement{a}
-ggte_ref (x, y) = gcompare_ref<a> (x, y) >= 0
+ggte_val_int (x, y) = ggte_val_val<a> (x, gnumber_int<a>(y))
+
+(* ****** ****** *)
+
 implement{a}
-geq_ref (x, y) = gcompare_ref<a> (x, y) = 0
+geq_val_val (x, y) = gcompare_val_val<a> (x, y) = 0
 implement{a}
-gneq_ref (x, y) = gcompare_ref<a> (x, y) != 0
+gneq_val_val (x, y) = gcompare_val_val<a> (x, y) != 0
+
+(* ****** ****** *)
+
+implement{a}
+geq_val_int (x, y) = geq_val_val<a> (x, gnumber_int<a>(y))
+implement{a}
+gneq_val_int (x, y) = gneq_val_val<a> (x, gnumber_int<a>(y))
+
+(* ****** ****** *)
+
+implement{a}
+gisltz_val (x) = glt_val_int<a> (x, 0)
+implement{a}
+gisltez_val (x) = glte_val_int<a> (x, 0)
+implement{a}
+gisgtz_val (x) = ggt_val_int<a> (x, 0)
+implement{a}
+gisgtez_val (x) = ggte_val_int<a> (x, 0)
+
+(* ****** ****** *)
+
+implement{a}
+giseqz_val (x) = geq_val_int<a> (x, 0)
+implement{a}
+gisneqz_val (x) = gneq_val_int<a> (x, 0)
+
+(* ****** ****** *)
+
+implement{a}
+glt_ref_ref (x, y) = gcompare_ref_ref<a> (x, y) < 0
+implement{a}
+glte_ref_ref (x, y) = gcompare_ref_ref<a> (x, y) <= 0
+implement{a}
+ggt_ref_ref (x, y) = gcompare_ref_ref<a> (x, y) > 0
+implement{a}
+ggte_ref_ref (x, y) = gcompare_ref_ref<a> (x, y) >= 0
+
+(* ****** ****** *)
+
+implement{a}
+geq_ref_ref (x, y) = gcompare_ref_ref<a> (x, y) = 0
+implement{a}
+gneq_ref_ref (x, y) = gcompare_ref_ref<a> (x, y) != 0
 
 (* ****** ****** *)
 
 implement(a:t0p)
-gcompare_ref<a> (x, y) = gcompare_val<a> (x, y)
-
-(* ****** ****** *)
-
-implement{a}
-gisltz_val (x) = glt_val (x, gnumber_int<a> (0))
-implement{a}
-gisltez_val (x) = glte_val (x, gnumber_int<a> (0))
-implement{a}
-gisgtz_val (x) = ggt_val (x, gnumber_int<a> (0))
-implement{a}
-gisgtez_val (x) = ggte_val (x, gnumber_int<a> (0))
-implement{a}
-giseqz_val (x) = geq_val (x, gnumber_int<a> (0))
-implement{a}
-gisneqz_val (x) = gneq_val (x, gnumber_int<a> (0))
+gcompare_ref_ref<a> (x, y) = gcompare_val_val<a> (x, y)
 
 (* ****** ****** *)
 
@@ -99,9 +126,9 @@ gabs_val (x) =
 (* ****** ****** *)
 
 implement{a}
-gmax_val (x, y) = if ggte_val (x, y) then x else y
+gmax_val_val (x, y) = if ggte_val_val (x, y) then x else y
 implement{a}
-gmin_val (x, y) = if glte_val (x, y) then x else y
+gmin_val_val (x, y) = if glte_val_val (x, y) then x else y
 
 (* ****** ****** *)
 

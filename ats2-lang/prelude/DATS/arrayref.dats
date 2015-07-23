@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Tue Jan 13 00:14:11 2015
+** Time of generation: Sat Jun 27 21:39:39 2015
 *)
 
 (* ****** ****** *)
@@ -45,35 +45,41 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_make_elt (asz, x) =
   arrayptr_refize(arrayptr_make_elt<a> (asz, x))
 // end of [arrayref_make_elt]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 arrayref_make_intrange (l, r) =
   arrayptr_refize{int}(arrayptr_make_intrange (l, r))
 // end of [arrayref_make_intrange]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_make_list (asz, xs) =
   arrayptr_refize(arrayptr_make_list<a> (asz, xs))
 // end of [arrayref_make_list]
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_make_rlist (asz, xs) =
   arrayptr_refize(arrayptr_make_rlist<a> (asz, xs))
 // end of [arrayref_make_rlist]
 
 (* ****** ****** *)
 //
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_head(A) = $UN.ptr0_get<a> (arrayref2ptr(A))
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_tail{n}(A) =
   $UN.cast{arrayref(a,n-1)}(ptr_succ<a>(arrayref2ptr(A)))
 //
@@ -140,7 +146,8 @@ end // end of [arrayref_exch_at_guint]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_interchange
   (A, i, j) = let
 //
@@ -151,7 +158,8 @@ end // end of [arrayref_interchange]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_subcirculate
   (A, i, j) = let
 //
@@ -162,7 +170,8 @@ end // end of [arrayref_subcirculate]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_arrayref
   (out, A, n) = let
 //
@@ -172,7 +181,8 @@ in
   $effmask_ref (fprint_array<a> (out, !p, n))
 end // end of [fprint_arrayref]
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_arrayref_sep
   (out, A, n, sep) = let
 //
@@ -203,19 +213,22 @@ end // end of [arrayref_copy]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_tabulate
   (asz) = arrayptr_refize (arrayptr_tabulate<a> (asz))
 // end of [arrayref_tabulate]
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_tabulate_cloref
   (asz, f) = arrayptr_refize (arrayptr_tabulate_cloref<a> (asz, f))
 // end of [arrayref_tabulate_cloref]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_foreach
   (A, asz) = let
   var env: void = ()
@@ -226,14 +239,17 @@ implement
 {a}{env}
 arrayref_foreach_env
   (A, asz, env) = let
-  val (vbox pf | p) = arrayref_get_viewptr (A)
+//
+val (vbox pf | p) = arrayref_get_viewptr (A)
+//
 in
   $effmask_ref (array_foreach_env<a><env> (!p, asz, env))
 end // end of [arrayref_foreach_env]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_iforeach
   (A, asz) = let
   var env: void = () in
@@ -244,14 +260,17 @@ implement
 {a}{env}
 arrayref_iforeach_env
   (A, asz, env) = let
-  val (vbox pf | p) = arrayref_get_viewptr (A)
+//
+val (vbox pf | p) = arrayref_get_viewptr (A)
+//
 in
   $effmask_ref (array_iforeach_env<a><env> (!p, asz, env))
 end // end of [arrayref_iforeach_env]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayref_rforeach
   (A, asz) = let
   var env: void = () in
@@ -262,10 +281,25 @@ implement
 {a}{env}
 arrayref_rforeach_env
   (A, asz, env) = let
-  val (vbox pf | p) = arrayref_get_viewptr (A)
+//
+val (vbox pf | p) = arrayref_get_viewptr (A)
+//
 in
   $effmask_ref (array_rforeach_env<a><env> (!p, asz, env))
 end // end of [arrayref_rforeach_env]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+arrayref_quicksort
+  (A, asz) = let
+//
+val (vbox pf | p) = arrayref_get_viewptr (A)
+//
+in
+  $effmask_ref (array_quicksort<a> (!p, asz))
+end // end of [arrayref_quicksort]
 
 (* ****** ****** *)
 
@@ -285,7 +319,8 @@ arrszref_vt0ype_type = arrszref
 
 in (* in of [local] *)
 
-implement{}
+implement
+{}(*tmp*)
 arrszref_make_arrpsz
   (psz) = let
 //
@@ -346,7 +381,8 @@ end // end of [local]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_make_elt
   (n, x) = let
 //
@@ -359,7 +395,8 @@ end // end of [arrszref_make_elt]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_make_list
   (xs) = let
 //
@@ -372,7 +409,8 @@ in
   arrszref_make_arrayref (A, i2sz(n))
 end // end of [arrszref_make_list]
 
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_make_rlist
   (xs) = let
 //
@@ -387,7 +425,8 @@ end // end of [arrszref_make_rlist]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_get_at_size
   (ASZ, i) = $effmask_wrt let
 //
@@ -428,7 +467,8 @@ end // end of [arrszref_get_at_guint]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_set_at_size
   (ASZ, i, x) = $effmask_wrt let
 //
@@ -468,7 +508,8 @@ end // end of [arrszref_set_at_guint]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_exch_at_size
   (ASZ, i, x) = $effmask_wrt let
 //
@@ -509,7 +550,8 @@ end // end of [arrszref_exch_at_guint]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_interchange
 (
   ASZ, i, j
@@ -533,7 +575,8 @@ end // end of [arrszref_interchange]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_subcirculate
 (
   ASZ, i, j
@@ -557,7 +600,8 @@ end // end of [arrszref_subcirculate]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_arrszref
   (out, ASZ) = let
 //
@@ -568,7 +612,8 @@ in
   fprint_arrayref (out, A, asz)
 end // end of [fprint_arrszref]
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_arrszref_sep
   (out, ASZ, sep) = let
 //
@@ -581,13 +626,15 @@ end // end of [fprint_arrszref_sep]
 
 (* ****** ****** *)
 //
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_tabulate (asz) = let
   val asz = g1ofg0_uint (asz)
   val A = arrayref_tabulate<a> (asz) in arrszref_make_arrayref(A, asz)
 end // end of [arrszref_tabulate]
 //
-implement{a}
+implement
+{a}(*tmp*)
 arrszref_tabulate_cloref (asz, f) = let
   val A = arrayref_tabulate_cloref<a> (asz, f) in arrszref_make_arrayref(A, asz)
 end // end of [arrszref_tabulate_cloref]

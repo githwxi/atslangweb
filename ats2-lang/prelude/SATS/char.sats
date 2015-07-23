@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Mon Feb 16 10:41:02 2015
+** Time of generation: Sat Jun 27 21:39:00 2015
 *)
 
 (* ****** ****** *)
@@ -137,14 +137,6 @@ overload <> with neq_char0_char0 of 0
 fun compare_char0_char0
   (c1: char, c2: char):<> int = "mac#%"
 overload compare with compare_char0_char0 of 0
-
-(* ****** ****** *)
-//
-// HX: the return is dynamically allocated
-//
-fun tostring_char
-  (c: char):<> strnptr(1) = "mac#%"
-overload tostring with tostring_char
 
 (* ****** ****** *)
 //
@@ -335,6 +327,16 @@ g1uint_of_uchar1
   {c:int} (c: uchar (c)):<> g1uint (tk, c)
 // end of [g1uint_of_uchar1]
 
+(* ****** ****** *)
+//
+// HX:
+// return is dynamically allocated
+//
+fun{}
+char2string(c: char):<> string
+fun{}
+char2strptr(c: char):<!wrt> Strptr1
+//
 (* ****** ****** *)
 
 fun print_char (x: char): void = "mac#%"

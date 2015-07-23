@@ -52,8 +52,6 @@ fprint_intinf = $INTINF.fprint_intinf
 staload STMP = "./pats_stamp.sats"
 macdef fprint_stamp = $STMP.fprint_stamp
 //
-(* ****** ****** *)
-//
 staload SYM = "./pats_symbol.sats"
 macdef fprint_symbol = $SYM.fprint_symbol
 //
@@ -273,6 +271,17 @@ case+ x.s2exp_node of
 | S2Eintinf (x) => {
     val () = prstr "S2Eintinf("
     val () = fprint_intinf (out, x)
+    val () = prstr ")"
+  }
+//
+| S2Efloat (rep) => {
+    val () = prstr "S2Efloat("
+    val () = fprint_string (out, rep)
+    val () = prstr ")"
+  }
+| S2Estring (str) => {
+    val () = prstr "S2Estring("
+    val () = fprint_string (out, str)
     val () = prstr ")"
   }
 //

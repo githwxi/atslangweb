@@ -126,12 +126,18 @@ datatype trans3err =
   | T3E_s2exp_selab_labnot of (loc_t, s2exp, label) // label is not found
   | T3E_s2exp_selab_tyarr of (loc_t, s2exp)
   | T3E_d3exp_arrind of (d3exp) // arrind is not a generic integer
-  | T3E_d3exp_arrdim of
-      (loc_t, s2explst, d3explst) // array dimen/index mismatch
-    // end of [T3E_d3exp_arrdim]
+  | T3E_d3exp_arrdim of (loc_t, s2explst, d3explst) // array dimen/index mismatch
   | T3E_d3exp_selab_linrest of (loc_t, d3exp, d3lablst)
 //
   | T3E_d2var_nonmut of (loc_t, d2var) // no address for d2var
+//
+(*
+  | T3E_d2var_lin_overld of (loc_t, d2var, d3lablst)
+  | T3E_d2var_mul_overld of (loc_t, d2var, d3lablst)
+  | T3E_d2exp_deref_overld of (loc_t, d2exp, d3lablst)
+*)
+//
+  | T3E_d3lab_overld_app of (loc_t, d3lab) // dot-symbol not applied
 //
   | T3E_d2exp_nonlval of (d2exp) // non-lval expression
   | T3E_d2exp_addrless of (d2exp) // addressless lval
@@ -273,7 +279,11 @@ fun fshowtype_d3exp_dn (d3e: d3exp): void
 
 (* ****** ****** *)
 
-dataviewtype d23exp =
+fun d3lablst_is_overld (d3ls: d3lablst): bool
+
+(* ****** ****** *)
+
+datavtype d23exp =
   | D23Ed2exp of d2exp | D23Ed3exp of d3exp
 viewtypedef d23explst = List_vt (d23exp)
 
@@ -319,6 +329,11 @@ fun d2exp_trup_cstsp
   (d2e0: d2exp, x: $SYN.cstsp): d3exp
 // end of [d2exp_trup_cstsp]
 
+(* ****** ****** *)
+//
+fun d2exp_trup_literal
+  (d2e0: d2exp, d2e_lit: d2exp): d3exp
+//
 (* ****** ****** *)
 
 fun d2var_get_type_some

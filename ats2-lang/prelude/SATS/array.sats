@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Sun Jan 11 02:59:07 2015
+** Time of generation: Sat Jun 27 21:39:12 2015
 *)
 
 (* ****** ****** *)
@@ -63,9 +63,10 @@ array_v
 (
   a:vt@ype+, addr, int
 ) = // HX: for arry view
+  | {l:addr}
+    array_v_nil (a, l, 0)
   | {l:addr}{n:int}
     array_v_cons (a, l, n+1) of (a @ l, array_v (a, l+sizeof a, n))
-  | {l:addr} array_v_nil (a, l, 0)
 // end of [array_v]
 *)
 

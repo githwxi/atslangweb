@@ -64,11 +64,17 @@ staload
 FIL = "./pats_filename.sats"
 typedef filename = $FIL.filename
 
+(* ****** ****** *)
+//
 staload
 SYN = "./pats_syntax.sats"
+//
 typedef c0har = $SYN.c0har
+typedef f0loat = $SYN.f0loat
+typedef s0tring = $SYN.s0tring
+//
 typedef sl0abeled (a:type) = $SYN.sl0abeled (a)
-
+//
 (* ****** ****** *)
 
 staload
@@ -196,16 +202,21 @@ datatype s2rtbas =
 fun fprint_s2rtbas : fprint_type (s2rtbas)
 
 (* ****** ****** *)
-
+//
 abstype s2rtVar // ref (s2rt)
-
-fun eq_s2rtVar_s2rtVar (x1: s2rtVar, x2: s2rtVar): bool
+//
+fun
+eq_s2rtVar_s2rtVar
+  (x1: s2rtVar, x2: s2rtVar): bool
+fun
+compare_s2rtVar_s2rtVar
+  (s2tV1: s2rtVar, s2tV2: s2rtVar): Sgn
+//
 overload = with eq_s2rtVar_s2rtVar
-fun compare_s2rtVar_s2rtVar (x1: s2rtVar, x2: s2rtVar): Sgn
 overload compare with compare_s2rtVar_s2rtVar
-
+//
 fun s2rtVar_make (loc: location): s2rtVar
-
+//
 (* ****** ****** *)
 
 datatype s2rt =
@@ -239,24 +250,28 @@ fun fprint_s2rtlst : fprint_type (s2rtlst)
 
 (* ****** ****** *)
 //
-// HX: pre-defined predicative sorts
+// HX:
+// pre-defined predicative sorts
 //
 val s2rt_int : s2rt // integers
 val s2rt_bool : s2rt // booleans
 val s2rt_addr : s2rt // addresses
+//
 (*
 val s2rt_char : s2rt // = s2rt_int
 *)
 //
-val s2rt_real : s2rt // real numbers
+val s2rt_float : s2rt // floating-point
+val s2rt_string : s2rt // string constants
 //
-val s2rt_cls : s2rt // nominal classes
+val s2rt_cls : s2rt (* nominal classes *)
 //
-val s2rt_eff : s2rt // sets of effects
+val s2rt_eff : s2rt (* sets of effects *)
 //
 val s2rt_tkind : s2rt // for template arguments
 //
-// HX: pre-defined predicative sorts
+// HX:
+// pre-defined impredicative sorts
 //
 val s2rt_prop : s2rt
 val s2rt_prop_pos : s2rt
@@ -301,7 +316,8 @@ fun s2rt_is_bool (x: s2rt): bool
 fun s2rt_is_char (x: s2rt): bool
 *)
 //
-fun s2rt_is_real (x: s2rt): bool
+fun s2rt_is_float (x: s2rt): bool
+fun s2rt_is_string (x: s2rt): bool
 //
 fun s2rt_is_dat (x: s2rt): bool
 //
@@ -324,16 +340,18 @@ fun s2rt_is_tkind_fun (x: s2rt): bool // is (... ->) tkind?
 fun s2rt_get_pol (x: s2rt): int // neg/neu/pos: -1/0/1
 
 (* ****** ****** *)
-
-fun s2rtVar_set_s2rt (V: s2rtVar, s2t: s2rt): void
-fun s2rtVar_occurscheck (V: s2rtVar, s2t: s2rt): bool
-
-fun s2rt_delink (x: s2rt): s2rt // HX: shallow removal
-fun s2rt_delink_all (x: s2rt): s2rt // HX: perform deep removal
-
+//
+fun s2rtVar_get_s2rt (s2tV: s2rtVar): s2rt
+fun s2rtVar_set_s2rt (s2tV: s2rtVar, s2t: s2rt): void
+//
+fun s2rtVar_occurcheck (s2tV: s2rtVar, s2t: s2rt): bool
+//
+fun s2rt_delink (s2t: s2rt): s2rt // HX: shallow removal
+fun s2rt_delink_all (s2t: s2rt): s2rt // HX: perform deep removal
+//
 fun s2rt_ltmat0 (s2t1: s2rt, s2t2: s2rt): bool // HX: dry-run
 fun s2rt_ltmat1 (s2t1: s2rt, s2t2: s2rt): bool // HX: real-run
-
+//
 (* ****** ****** *)
 //
 // HX-2011-05-02:
@@ -350,11 +368,16 @@ fun filenv_get_name (x: filenv): filename
 // static items
 //
 datatype s2itm =
+//
   | S2ITMvar of s2var
+//
   | S2ITMcst of s2cstlst
+//
   | S2ITMe1xp of e1xp
+//
   | S2ITMdatcontyp of d2con
   | S2ITMdatconptr of d2con
+//
   | S2ITMfilenv of filenv
 // end of [s2itm]
 
@@ -425,9 +448,8 @@ s2exp_node =
   | S2Echar of char // chars have been removed for now
 *)
 //
-(*
-  | S2Ereal of double // static reals are yet to be supported
-*)
+  | S2Efloat of string // static floating-points
+  | S2Estring of string // static string constants
 //
   | S2Ecst of s2cst // constant
 //
@@ -569,9 +591,11 @@ fun fprint_s2qualst : fprint_type (s2qualst)
 //
 (* ****** ****** *)
 
-fun s2cst_make (
-  id: symbol // the name
-, loc: location // the location of declaration
+fun
+s2cst_make (
+  id: symbol
+, loc: location
+, fil: filename
 , s2t: s2rt // the sort
 , isabs: Option (s2expopt)
 , iscon: bool
@@ -582,7 +606,8 @@ fun s2cst_make (
 , def: s2expopt
 ) : s2cst // end of [s2cst_make]
 
-fun s2cst_make_dat (
+fun
+s2cst_make_dat (
   id: symbol
 , loc: location
 , s2ts_arg: s2rtlstlst
@@ -1037,6 +1062,10 @@ fun s2exp_int_uchar (c: uchar): s2exp
 fun s2exp_bool (b: bool): s2exp // HX: in stacst.sats
 fun s2exp_char (c: char): s2exp // HX: merged into S2Eint
 *)
+//
+fun s2exp_float (rep: string): s2exp // HX: for exporting
+fun s2exp_string (str: string): s2exp // HX: for exporting
+//
 fun s2exp_cst (x: s2cst): s2exp // HX: static constant
 fun s2exp_var (x: s2var): s2exp // HX: static variable
 fun s2exp_Var (x: s2Var): s2exp // HX: static existential variable

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/filebas.atxt
-** Time of generation: Sun Jan 11 02:59:38 2015
+** Time of generation: Sat Jun 27 21:39:50 2015
 */
 
 /* ****** ****** */
@@ -233,7 +233,7 @@ atspre_fileref_getc
 // end of [atspre_fileref_getc]
 
 /* ****** ****** */
-
+//
 ATSinline()
 atsvoid_t0ype
 atspre_fileref_putc
@@ -242,19 +242,32 @@ atspre_fileref_putc
 ) {
   fputc (c, (FILE*)filr) ; return ;
 } // end of [atspre_fileref_putc]
+//
 #define atspre_fileref_putc_int atspre_fileref_putc
 #define atspre_fileref_putc_char atspre_fileref_putc
+//
+/* ****** ****** */
+
+ATSinline()
+atsvoid_t0ype
+atspre_fileref_puts
+(
+  atstype_ref filr, atstype_ptr cs
+) {
+  fputs ((char*)cs, (FILE*)filr) ; return ;
+} // end of [atspre_fileref_puts]
 
 /* ****** ****** */
 
 ATSinline()
 atstype_bool
-atspre_fileref_is_eof (atstype_ref filr)
+atspre_fileref_is_eof
+  (atstype_ref filr)
 {
   int eof ;
   eof = feof ((FILE*)filr) ;
   return (eof != 0 ? atsbool_true : atsbool_false) ;
-} // end of [fileref_is_eof]
+} // end of [atspre_fileref_is_eof]
 
 /* ****** ****** */
 

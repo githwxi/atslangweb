@@ -479,18 +479,26 @@ tmpvar2var (map, tmp) = let
 in
 //
 case+ opt of
-| ~Some_vt (tmp2) => tmp2
+| ~Some_vt
+    (tmp2) => tmp2
+  // Some_vt
 | ~None_vt () => let
 //
-    val loc = tmpvar_get_loc (tmp)
-    val () = prerr_warnccomp_loc (loc)
-    val () = prerr ": toplevel non-global code in template may be problematic."
-    val () = prerr_newline ((*void*))
+    val
+    loc = tmpvar_get_loc (tmp)
 //
 (*
-    val () = prerr_interror ()
-    val () = prerrln! (": tmpvar2var: copy is not found: tmp = ", tmp)
+    val () =
+    prerr_interror_loc (loc)
+    val () =
+    prerrln! (": tmpvar2var: copy is not found: tmp = ", tmp)
 *)
+//
+    val () =
+    prerr_warnccomp_loc (loc)
+    val () =
+    prerrln! ": referencing toplevel code in a template may be problematic."
+//
   in
     tmpvar_copy_err (tmp)
   end // end of [None_vt]
@@ -1823,7 +1831,16 @@ in
 case+ decarg of
 | list_cons _ => ()
 | list_nil () => let
-    val isfnx = funkind_is_mutailrec (knd)
+//
+    val
+    tlcalopt =
+      $GLOB.the_CCOMPATS_tlcalopt_get()
+    val isfnx =
+    (
+      if tlcalopt > 0
+      then funkind_is_mutailrec(knd) else false
+    ) : bool // end of [val]
+//
     val i0 = (if isfnx then 1 else 0): int
     val fls = auxinit (env, sub, hfds, i0)
     val ((*void*)) = auxmain (env, sub, hfds, fls)

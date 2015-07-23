@@ -46,6 +46,10 @@
 sortdef t0p = t@ype and vt0p = vt@ype
 //
 (* ****** ****** *)
+
+datatype TYPE(a:vt@ype) = TYPE(a) of ()
+
+(* ****** ****** *)
 //
 // HX-2012: In $ATSHOME/ccomp/runtime:
 // atsbool_true/atsbool_false are mapped to 1/0
@@ -232,27 +236,41 @@ read_unsplit // HX: there is no need to check
 // end of [read_unsplit]
 *)
 (* ****** ****** *)
+//
+castfn
+stamp_t{a:t@ype}(x: a):<> stamped_t(a)
+castfn
+stamp_vt{a:vt@ype}(x: a):<> stamped_vt(a)
+//
+(* ****** ****** *)
 
 castfn
-unstamp_t0ype
-  {a:t@ype}{x:int} (x: stamped_t0ype (INV(a), x)):<> a
-// end of [unstamp_t0ype]
+unstamp_t
+  {a:t@ype}{x:int} (x: stamped_t (INV(a), x)):<> a
+// end of [unstamp_t]
 castfn
-unstamp_vt0ype
-  {a:vt@ype}{x:int} (x: stamped_vt0ype (INV(a), x)):<> a
-// end of [unstamp_vt0ype]
+unstamp_vt
+  {a:vt@ype}{x:int} (x: stamped_vt (INV(a), x)):<> a
+// end of [unstamp_vt]
 
+(* ****** ****** *)
+//
 castfn
 stamped_t2vt
   {a:t@ype}{x:int}
-  (x: stamped_t0ype (INV(a), x)):<> stamped_vt0ype (a, x)
+  (x: stamped_t(INV(a), x)):<> stamped_vt (a, x)
 // end of [stamped_t2vt]
+//
 castfn
 stamped_vt2t
   {a:t@ype}{x:int}
-  (x: &stamped_vt0ype (INV(a), x)):<> stamped_t0ype (a, x)
+  (x: stamped_vt(INV(a), x)):<> stamped_t (a, x)
 // end of [stamped_vt2t]
-
+//
+fun{a:t@ype}
+stamped_vt2t_ref{x:int}
+  (x: &stamped_vt(INV(a), x)):<> stamped_t (a, x)
+//
 (* ****** ****** *)
 //
 praxi
@@ -327,6 +345,26 @@ datatype unit = unit of ()
 dataprop unit_p = unit_p of ()
 dataview unit_v = unit_v of ()
 prfun unit_v_elim (pf: unit_v): void
+//
+(* ****** ****** *)
+//
+abstype
+boxed_t0ype_type(a:t@ype+) = unit
+absvtype
+boxed_vt0ype_vtype(a:vt@ype+) = unit
+//
+vtypedef
+boxed(a:vt@ype) = boxed_vt0ype_vtype(a)
+vtypedef
+boxed_vt(a:vt@ype) = boxed_vt0ype_vtype(a)
+//
+typedef boxed(a:t@ype) = boxed_t0ype_type(a)
+typedef boxed_t(a:t@ype) = boxed_t0ype_type(a)
+//
+fun{a:type} box: (INV(a)) -> boxed_t(a)
+fun{a:type} unbox: boxed_t(INV(a)) -> (a)
+fun{a:vtype} box_vt: (INV(a)) -> boxed_vt(a)
+fun{a:vtype} unbox_vt: boxed_vt(INV(a)) -> (a)
 //
 (* ****** ****** *)
 //
@@ -511,10 +549,12 @@ lemma_argv_param {n:int} (argv: !argv(n)): [n >= 0] void
 // end of [praxi]
 
 (* ****** ****** *)
-
-fun argv_get_at{n:int}
+//
+fun
+argv_get_at{n:int}
   (argv: !argv (n), i: natLt n):<> string = "mac#%"
-fun argv_set_at{n:int}
+fun
+argv_set_at{n:int}
   (argv: !argv (n), i: natLt n, x: string):<!wrt> void = "mac#%"
 //
 overload [] with argv_get_at
@@ -561,7 +601,7 @@ fun exit_fprintf{ts:types}
 ) :<!exn> {a:vt0p}(a) = "mac#%" // end of [exit_fprintf]
 *)
 
-(* ****** ****** *)
+(* *****p* ****** *)
 //
 fun exit_void
   (ecode: int):<!exn> void = "mac#%"
@@ -614,15 +654,22 @@ overload assert_errmsg2 with assert_errmsg2_bool1 of 10
 //
 (* ****** ****** *)
 
-datasort file_mode =
+datasort
+file_mode =
   | file_mode_r (* read *)
   | file_mode_w (* write *)
   | file_mode_rw (* read and write *)
 // end of [file_mode]
 
+(* ****** ****** *)
+
+local
+//
 stadef r() = file_mode_r()
 stadef w() = file_mode_w()
 stadef rw() = file_mode_rw()
+//
+in (* in-of-local *)
 
 (* ****** ****** *)
 
@@ -652,23 +699,32 @@ file_mode_lte
 
 (* ****** ****** *)
 //
-prval file_mode_lte_r_r
+prval
+file_mode_lte_r_r
   : file_mode_lte (r(), r()) // impled in [filebas_prf.dats]
-prval file_mode_lte_w_w
+prval
+file_mode_lte_w_w
   : file_mode_lte (w(), w()) // impled in [filebas_prf.dats]
-prval file_mode_lte_rw_rw
+prval
+file_mode_lte_rw_rw
   : file_mode_lte (rw(), rw()) // impled in [filebas_prf.dats]
 //
+(* ****** ****** *)
+
+end // end of [local]
+
 (* ****** ****** *)
 
 abstype FILEref_type = ptr
 typedef FILEref = FILEref_type
 
 (* ****** ****** *)
-
-typedef fprint_type (a: t0p) = (FILEref, a) -> void
-typedef fprint_vtype (a: vt0p) = (FILEref, !a) -> void
-
+//
+typedef
+fprint_type (a: t0p) = (FILEref, a) -> void
+typedef
+fprint_vtype (a: vt0p) = (FILEref, !a) -> void
+//
 (* ****** ****** *)
 
 fun print_newline (): void = "mac#%"

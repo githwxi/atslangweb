@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Tue Jan 13 00:14:07 2015
+** Time of generation: Tue Jul 21 21:16:36 2015
 *)
 
 (* ****** ****** *)
@@ -40,9 +40,24 @@
 (* Start time: March, 2012 *)
 
 (* ****** ****** *)
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
 primplmnt
-false_elim () = case+ 0 of _ =/=> ()
+false_elim() = case+ 0 of _ =/=> ()
+//
+(* ****** ****** *)
+
+primplmnt prop_verify () = ()
+primplmnt prop_verify_and_add () = ()
+
+(* ****** ****** *)
+
+primplmnt pridentity_v (x) = ()
+primplmnt pridentity_vt (x) = ()
 
 (* ****** ****** *)
 
@@ -62,16 +77,6 @@ primplmnt eqbool_make_bool (x) = EQBOOL ()
 
 (* ****** ****** *)
 
-primplmnt prop_verify () = ()
-primplmnt prop_verify_and_add () = ()
-
-(* ****** ****** *)
-
-primplmnt pridentity_v (x) = ()
-primplmnt pridentity_vt (x) = ()
-
-(* ****** ****** *)
-
 implement
 {a}(*tmp*)
 lazy_force (lazyval) = !lazyval
@@ -80,12 +85,27 @@ implement
 lazy_vt_force (lazyval) = !lazyval
 
 (* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stamped_vt2t_ref{x}(x) =
+  $UN.ptr0_get<stamped_t(a,x)>(addr@x)
+//
+(* ****** ****** *)
 
 primplmnt
 unit_v_elim (pf) = let
   prval unit_v () = pf in (*nothing*)
 end // end of [unit_v_elim]
 
+(* ****** ****** *)
+//
+implement{a} box(x) = $UN.cast(x)
+implement{a} unbox(x) = $UN.cast(x)
+//
+implement{a} box_vt(x) = $UN.castvwtp0(x)
+implement{a} unbox_vt(x) = $UN.castvwtp0(x)
+//
 (* ****** ****** *)
 //
 // HX:
@@ -125,24 +145,61 @@ implement{a} gidentity (x) = x
 implement{a} gidentity_vt (x) = x
 
 (* ****** ****** *)
+
+implement
+{a}(*tmp*)
+gcopy_val (x) = (x)
+implement
+(a:t@ype)
+gcopy_ref<a> (x) = (x)
+
+(* ****** ****** *)
+//
+implement
+gequal_val_val<int> (x, y) = (x = y)
+implement
+gequal_val_val<bool> (x, y) = (x = y)
+implement
+gequal_val_val<char> (x, y) = (x = y)
+implement
+gequal_val_val<double> (x, y) = (x = y)
+implement
+gequal_val_val<string> (x, y) = (x = y)
+//
+(* ****** ****** *)
 //
 implement
 (a:t@ype)
-gequal_ref<a> (x, y) = gequal_val<a> (x, y)
+gequal_ref_ref<a>
+  (x, y) = gequal_val_val<a> (x, y)
 //
-implement gequal_val<int> (x, y) = (x = y)
-implement gequal_val<bool> (x, y) = (x = y)
-implement gequal_val<char> (x, y) = (x = y)
-implement gequal_val<double> (x, y) = (x = y)
-implement gequal_val<string> (x, y) = (x = y)
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+tostring_val(x) = let
+//
+val str =
+  $effmask_wrt(tostrptr_val<a>(x))
+in
+  strptr2string(str)
+end // end of [tostring_val]
+//
+implement
+{a}(*tmp*)
+tostring_ref(x) = let
+//
+val str =
+  $effmask_wrt(tostrptr_ref<a>(x))
+in
+  strptr2string(str)
+end // end of [tostring_ref]
 //
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
-tostring_val (x) =
-  strptr2string (tostrptr_val<a> (x))
-// end of [tostring_val]
+(a:t@ype)
+tostrptr_ref<a> (x) = tostrptr_val<a> (x)
 
 (* ****** ****** *)
 

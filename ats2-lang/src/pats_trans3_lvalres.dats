@@ -50,11 +50,13 @@ UN = "prelude/SATS/unsafe.sats"
 staload "./pats_basics.sats"
 
 (* ****** ****** *)
-
+//
 staload "./pats_errmsg.sats"
 staload _(*anon*) = "./pats_errmsg.dats"
-implement prerr_FILENAME<> () = prerr "pats_trans3_lvalres"
-
+//
+implement
+prerr_FILENAME<> () = prerr "pats_trans3_lvalres"
+//
 (* ****** ****** *)
 
 staload "./pats_syntax.sats"
@@ -176,7 +178,8 @@ end // end of [local]
 
 local
 
-fun auxerr_linold
+fun
+auxerr_linold
 (
   loc0: loc_t
 , d3e: d3exp, d3ls: d3lablst, s2e_old: s2exp
@@ -189,7 +192,8 @@ in
   the_trans3errlst_add (T3E_d3lval_exch_type_linold (loc0, d3e, d3ls))
 end // end of [auxerr_linold]
 
-fun d2var_refval_check
+fun
+d2var_refval_check
 (
   loc0: loc_t, d2v: d2var, refval: int
 ) : void = 
@@ -415,10 +419,19 @@ auxerr
 (
   d3e0: d3exp
 ) : void = let
-  val loc0 = d3e0.d3exp_loc
-  val () = prerr_error3_loc (loc0)
-  val () = prerr ": the function argument needs to be a left-value."
-  val () = prerr_newline ()
+//
+val
+loc0 = d3e0.d3exp_loc
+//
+(*
+val () = prerr_error3_loc (loc0)
+val () = prerrln! (": auxerr: d3e0 = ", d3e0)
+*)
+//
+val () = prerr_error3_loc (loc0)
+val () =
+  prerrln! (": the function argument needs to be a left-value.")
+//
 in
   the_trans3errlst_add (T3E_d3lval_funarg (d3e0))
 end // end of [_]
@@ -591,31 +604,20 @@ end // end of [local]
 
 local
 
-fun auxerr
-(
-  d3e0: d3exp
-) : void = let
-  val loc0 = d3e0.d3exp_loc
-  val () = prerr_error3_loc (loc0)
-  val () = prerr ": the function argument needs to be a left-value."
-  val () = prerr_newline ()
-in
-  the_trans3errlst_add (T3E_d3lval_funarg (d3e0))
-end // end of [_]
-
-fun auxlst1
+fun
+auxlst1
 (
   d3es: d3explst
 , s2es_arg: s2explst
 , wths2es: wths2explst
 ) : d3explst =
   case d3es of
-  | list_cons _ =>
-      auxlst2 (d3es, s2es_arg, wths2es)
   | list_nil () => list_nil ()
+  | list_cons _ => auxlst2 (d3es, s2es_arg, wths2es)
 // end of [auxlst1]
 
-and auxlst2
+and
+auxlst2
 (
   d3es: d3explst
 , s2es_arg: s2explst
@@ -624,6 +626,9 @@ and auxlst2
 in
 //
 case+ wths2es of
+//
+| WTHS2EXPLSTnil
+    ((*void*)) => list_nil ()
 //
 | WTHS2EXPLSTcons_invar
     (_, _, wths2es) => let
@@ -669,8 +674,6 @@ case+ wths2es of
   in
     list_cons (d3e, d3es)
   end // end of [WTHS2EXPLSTcons_none]
-//
-| WTHS2EXPLSTnil () => list_nil ()
 //
 end // end of [d3explst_arg_restore]
 

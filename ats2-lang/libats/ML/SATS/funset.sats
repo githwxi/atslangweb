@@ -132,7 +132,7 @@ funset_union (xs1: set(INV(a)), xs2: set(a)):<> set(a)
 fun{a:t0p}
 funset_intersect (xs1: set(INV(a)), xs2: set(a)):<> set(a)
 fun{a:t0p}
-funset_diff (xs1: set(INV(a)), xs2: set(a)):<> set(a)
+funset_differ (xs1: set(INV(a)), xs2: set(a)):<> set(a)
 fun{a:t0p}
 funset_symdiff (xs1: set(INV(a)), xs2: set(a)):<> set(a)
 
@@ -157,10 +157,6 @@ funset_is_supset (xs1: set(INV(a)), xs2: set(a)):<> bool
 //
 (* ****** ****** *)
 //
-fun{
-a:t0p}{env:vt0p
-} funset_foreach$fwork (x: a, env: &(env) >> _): void
-//
 fun{a:t0p}
 funset_foreach (set: set(INV(a))): void
 fun{
@@ -168,6 +164,22 @@ a:t0p}{env:vt0p
 } funset_foreach_env
   (set: set(INV(a)), env: &(env) >> _): void
 // end of [funset_foreach_env]
+//
+fun{
+a:t0p}{env:vt0p
+} funset_foreach$fwork (x: a, env: &(env) >> _): void
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+funset_foreach_cloref
+  (set: set(INV(a)), fwork: (a) -<cloref1> void): void
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+funset_tabulate_cloref
+  {n:nat}(int(n), fopr: (natLt(n)) -<cloref1> a): set(a)
 //
 (* ****** ****** *)
 

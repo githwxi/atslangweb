@@ -92,6 +92,28 @@ val () = assertloc (fact (10) = 10*9*8*7*6*5*4*3*2*1)
 
 (* ****** ****** *)
 
+val () =
+{
+//
+val N = 10
+//
+implement(tenv)
+intrange2_foreach$fwork<tenv>
+  (i, j, env) =
+(
+//
+if j > 1 then print ' ';
+$extfcall(void, "printf", "%dx%d=%02d", i, j, i*j);
+if (j+1=N) then println! ();
+//
+)
+//
+val () = intrange2_foreach (1, N, 1, N)
+//
+} (* end of [val] *)
+
+(* ****** ****** *)
+
 implement main0 () = ()
 
 (* ****** ****** *)

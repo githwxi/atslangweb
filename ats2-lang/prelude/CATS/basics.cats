@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/basics.atxt
-** Time of generation: Sun Jan 11 02:59:31 2015
+** Time of generation: Sat Jun 27 21:39:43 2015
 */
 
 /* ****** ****** */
@@ -141,7 +141,7 @@ atspre_exit_errmsg
 #define atspre_exit_errmsg_void atspre_exit_errmsg
 
 /* ****** ****** */
-
+//
 ATSinline()
 atsvoid_t0ype
 atspre_assert_bool
@@ -149,11 +149,12 @@ atspre_assert_bool
 {
   if (!b) exit(1) ; return ;
 } /* endfun */
+//
 #define atspre_assert_bool0 atspre_assert_bool
 #define atspre_assert_bool1 atspre_assert_bool
-
+//
 /* ****** ****** */
-
+//
 ATSinline()
 atsvoid_t0ype
 atspre_assert_errmsg_bool
@@ -166,11 +167,12 @@ atspre_assert_errmsg_bool
   } // end of [if]
   return ;
 } /* endfun */
+//
 #define atspre_assert_errmsg_bool0 atspre_assert_errmsg_bool
 #define atspre_assert_errmsg_bool1 atspre_assert_errmsg_bool
-
+//
 /* ****** ****** */
-
+//
 ATSinline()
 atsvoid_t0ype
 atspre_assert_errmsg2_bool
@@ -184,11 +186,12 @@ atspre_assert_errmsg2_bool
   } // end of [if]
   return ;
 } /* endfun */
+//
 #define atspre_assert_errmsg2_bool0 atspre_assert_errmsg2_bool
 #define atspre_assert_errmsg2_bool1 atspre_assert_errmsg2_bool
-
+//
 /* ****** ****** */
-
+//
 ATSinline()
 atsvoid_t0ype
 atspre_fprint_newline
@@ -203,9 +206,10 @@ atspre_fprint_newline
   } // end of [if]
   return ;
 } /* endfun */
+//
 #define atspre_print_newline() atspre_fprint_newline(stdout)
 #define atspre_prerr_newline() atspre_fprint_newline(stderr)
-
+//
 /* ****** ****** */
 
 #endif // ifndef ATSLIB_PRELUDE_CATS_BASICS

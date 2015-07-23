@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gnumber.atxt
-** Time of generation: Fri Dec 19 04:20:21 2014
+** Time of generation: Tue Mar 10 10:28:40 2015
 *)
 
 (* ****** ****** *)
@@ -99,47 +99,47 @@ grecip_val<ldouble> (x) = 1.0l / x
 (* ****** ****** *)
 
 implement
-gadd_val<float> (x, y) = x + y
+gadd_val_val<float> (x, y) = x + y
 implement
-gadd_val<double> (x, y) = x + y
+gadd_val_val<double> (x, y) = x + y
 implement
-gadd_val<ldouble> (x, y) = x + y
+gadd_val_val<ldouble> (x, y) = x + y
 
 (* ****** ****** *)
 
 implement
-gsub_val<float> (x, y) = x - y
+gsub_val_val<float> (x, y) = x - y
 implement
-gsub_val<double> (x, y) = x - y
+gsub_val_val<double> (x, y) = x - y
 implement
-gsub_val<ldouble> (x, y) = x - y
+gsub_val_val<ldouble> (x, y) = x - y
 
 (* ****** ****** *)
 
 implement
-gmul_val<float> (x, y) = x * y
+gmul_val_val<float> (x, y) = x * y
 implement
-gmul_val<double> (x, y) = x * y
+gmul_val_val<double> (x, y) = x * y
 implement
-gmul_val<ldouble> (x, y) = x * y
+gmul_val_val<ldouble> (x, y) = x * y
 
 (* ****** ****** *)
 
 implement
-gdiv_val<float> (x, y) = x / y
+gdiv_val_val<float> (x, y) = x / y
 implement
-gdiv_val<double> (x, y) = x / y
+gdiv_val_val<double> (x, y) = x / y
 implement
-gdiv_val<ldouble> (x, y) = x / y
+gdiv_val_val<ldouble> (x, y) = x / y
 
 (* ****** ****** *)
 
 implement
-gmod_val<float> (x, y) = x mod y
+gmod_val_val<float> (x, y) = x mod y
 implement
-gmod_val<double> (x, y) = x mod y
+gmod_val_val<double> (x, y) = x mod y
 implement
-gmod_val<ldouble> (x, y) = x mod y
+gmod_val_val<ldouble> (x, y) = x mod y
 
 (* ****** ****** *)
 

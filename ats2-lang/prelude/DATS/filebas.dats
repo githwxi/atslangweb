@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Tue Jan 13 00:14:05 2015
+** Time of generation: Sat Jun 27 21:39:27 2015
 *)
 
 (* ****** ****** *)
@@ -76,7 +76,8 @@ implement{} dirname_parent () = ".."
 //
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 filename_get_ext (name) = let
 //
 #define NUL '\000'
@@ -89,7 +90,7 @@ fun loop
   val c = $UN.ptr0_get<char> (p1)
 in
   if c != NUL then let
-    val p1 = p1 + (i2sz)1
+    val p1 = p1 + i2sz(1)
   in
     if c != c0 then loop (p1, p2, c0) else loop (p1, p1, c0)
   end else p2 // end of [if]
@@ -104,7 +105,8 @@ end // end of [filename_get_ext]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 filename_test_ext
   (name, ext0) = let
 //
@@ -126,7 +128,8 @@ end // end of [filename_test_ext]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 filename_get_base (name) = let
 //
 #define NUL '\000'
@@ -139,7 +142,7 @@ fun loop
   val c = $UN.ptr0_get<char> (p1)
 in
   if c != NUL then let
-    val p1 = p1 + (i2sz)1
+    val p1 = p1 + i2sz(1)
   in
     if c != c0 then loop (p1, p2, c0) else loop (p1, p1, c0)
   end else p2 // end of [if]
@@ -155,7 +158,8 @@ end // end of [filename_get_base]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 filename_test_base
   (name, base0) = let
 //
@@ -203,7 +207,8 @@ __cast_filp (r: FILEref): FILEptr1
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 test_file_mode
   (path) = let
 //
@@ -230,24 +235,36 @@ end // end of [test_file_mode]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fileref_open_opt
   (path, fm) = let
 //
-val filp = $STDIO.fopen (path, fm)
-val isnot = $STDIO.FILEptr2ptr(filp) > 0
+val
+filp = $STDIO.fopen (path, fm)
+val
+isnot = $STDIO.FILEptr2ptr(filp) > 0
 //
 in
 //
-if isnot then let
-  val fil = $STDIO.FILEptr_refize (filp)
+if
+isnot
+then let
+//
+val filr =
+  $STDIO.FILEptr_refize(filp)
+//
 in
-  Some_vt{FILEref}(fil)
-end else let
-  prval () = $STDIO.FILEptr_free_null (filp)
+  Some_vt{FILEref}(filr) // success
+end // end of [then]
+else let
+//
+prval () =
+  $STDIO.FILEptr_free_null(filp)
+//
 in
-  None_vt{FILEref}((*void*))
-end // end of [if]
+  None_vt{FILEref}((*void*)) // failure
+end // end of [else]
 //
 end // end of [fileref_open_opt]
 
@@ -465,7 +482,7 @@ in
     val () =
     (
       res :=
-      list_vt_cons{char}{0}((i2c)i, _)
+      list_vt_cons{char}{0}(i2c(i), _)
     )
     val+list_vt_cons (_, res1) = res
     val n = loop (inp, pred(n), res1)
@@ -517,31 +534,39 @@ in
 end // end of [fileref_put_charlst]
 
 (* ****** ****** *)
-
-implement{}
+//
+implement
+{}(*tmp*)
 fileref_get_line_string$bufsize () = 64
-implement{}
+implement
+{}(*tmp*)
 fileref_get_file_string$bufsize () = 1024
-
+//
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fileref_get_line_string
   (inp) = let
-  var nlen: int // uninitialized
-  val line = fileref_get_line_string_main (inp, nlen)
-  prval () = lemma_strnptr_param (line)
+//
+var nlen: int // uninitialized
+val line = fileref_get_line_string_main (inp, nlen)
+prval () = lemma_strnptr_param (line)
+//
 in
   strnptr2strptr (line)
 end // end of [fileref_get_line_string]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fileref_get_line_string_main
   (inp, nlen) = let
 //
-val bsz = fileref_get_line_string$bufsize ()
+val bsz =
+fileref_get_line_string$bufsize ()
+//
 val [l:addr,n:int] str = $extfcall
 (
 Strnptr0, "atspre_fileref_get_line_string_main2", bsz, inp, addr@(nlen)
@@ -570,7 +595,8 @@ end // end of [fileref_get_line_string_main]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fileref_get_lines_stringlst
   (inp) = let
 //
@@ -614,7 +640,8 @@ end // end of [fileref_get_lines_stringlst]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fileref_get_file_string (inp) = let
 //
 #define CNUL '\000'
@@ -801,7 +828,8 @@ fileref_get_word$isalpha (charNZ) = isalpha (charNZ)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fileref_foreach
   (inp) = let
   var env: void = ()
@@ -860,7 +888,8 @@ end // end of [local]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fileref_foreach$bufsize () = i2sz(4 * 1024)
 
 (* ****** ****** *)

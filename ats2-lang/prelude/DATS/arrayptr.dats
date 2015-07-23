@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayptr.atxt
-** Time of generation: Tue Jan 13 00:14:10 2015
+** Time of generation: Sat Jun 27 21:39:38 2015
 *)
 
 (* ****** ****** *)
@@ -45,7 +45,8 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_make_elt
   (asz, elt) = let
 //
@@ -62,7 +63,8 @@ end // end of [arrayptr_make_elt]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 arrayptr_make_intrange
   {l,r} (l, r) = let
 //
@@ -92,7 +94,8 @@ end // end of [arrayptr_make_intrange]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_make_list
   (asz, xs) = let
 //
@@ -108,7 +111,8 @@ in
   arrayptr_encode(pf, pfgc | p)
 end // end of [arrayptr_make_list]
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_make_rlist
   (asz, xs) = let
 //
@@ -126,7 +130,8 @@ end // end of [arrayptr_make_rlist]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_make_subarray
   {n}{st,ln}(A, st, ln) = let
 //
@@ -152,7 +157,8 @@ end // end of [arrayptr_make_subarray]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_make_list_vt
   (asz, xs) = let
 //
@@ -167,7 +173,8 @@ in
   arrayptr_encode(pf, pfgc | p)
 end // end of [arrayptr_make_list_vt]
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_make_rlist_vt
   (asz, xs) = let
 //
@@ -184,7 +191,8 @@ end // end of [arrayptr_make_rlist_vt]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_make_uninitized
   (asz) = let
 in
@@ -193,7 +201,8 @@ end // end of [arrayptr_uninitize]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_imake_list
   (A, asz) = res where
 {
@@ -213,7 +222,8 @@ arrayptr_free = ATS_MFREE // HX: in arrayptr.cats
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_arrayptr
   (out, A, n) = () where
 {
@@ -227,7 +237,8 @@ prval () = arrayptr_addback (pf | A)
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_arrayptr_sep
   (out, A, n, sep) = () where
 {
@@ -241,14 +252,16 @@ prval () = arrayptr_addback (pf | A)
 
 (* ****** ****** *)
 
-implement{a}{tk}
+implement
+{a}{tk}
 arrayptr_get_at_gint
   (A, i) = let
   val p = ptrcast (A) in
   $UN.ptr0_get<a> (ptr1_add_gint<a><tk> (p, i))
 end // end of [arrayptr_get_at_gint]
 
-implement{a}{tk}
+implement
+{a}{tk}
 arrayptr_get_at_guint
   (A, i) = let
   val p = ptrcast (A) in
@@ -257,14 +270,16 @@ end // end of [arrayptr_get_at_guint]
 
 (* ****** ****** *)
 
-implement{a}{tk}
+implement
+{a}{tk}
 arrayptr_set_at_gint
   (A, i, x) = let
   val p = ptrcast (A) in
   $UN.ptr0_set<a> (ptr1_add_gint<a><tk> (p, i), x)
 end // end of [arrayptr_set_at_gint]
 
-implement{a}{tk}
+implement
+{a}{tk}
 arrayptr_set_at_guint
   (A, i, x) = let
   val p = ptrcast (A) in
@@ -273,7 +288,8 @@ end // end of [arrayptr_set_at_guint]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_interchange
   (A, i, j) = let
 //
@@ -288,7 +304,8 @@ end // end of [arrayptr_interchange]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_foreach
   (A, asz) = let
   var env: void = () in
@@ -307,7 +324,8 @@ arrayptr_foreach_env
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_foreach_fun
   (A, asz, f) = let
   val p = ptrcast (A)
@@ -320,7 +338,8 @@ end // end of [arrayptr_foreach_fun]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_foreach_funenv
   (pfv | A, asz, f, env) = let
 //
@@ -336,7 +355,8 @@ end // end of [arrayptr_foreach_funenv]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_iforeach
   (A, asz) = let
   var env: void = () in
@@ -355,7 +375,8 @@ arrayptr_iforeach_env
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_rforeach
   (A, asz) = let
   var env: void = () in
@@ -374,7 +395,8 @@ arrayptr_rforeach_env
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_initize
   (A, asz) = () where {
   val p = ptrcast (A)
@@ -385,7 +407,8 @@ arrayptr_initize
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_uninitize
   (A, asz) = () where {
   val p = ptrcast (A)
@@ -396,7 +419,8 @@ arrayptr_uninitize
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_freelin
   (A, asz) = let
 //
@@ -408,14 +432,16 @@ end // end of [arrayptr_freelin]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_tabulate
   (asz) = arrayptr_encode2(array_ptr_tabulate<a> (asz))
 // end of [arrayptr_tabulate]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 arrayptr_tabulate_cloref
   {n} (asz, f) = let
 //
@@ -425,6 +451,19 @@ array_tabulate$fopr<a2> (i) = $UN.castvwtp0{a2}(f($UN.cast{sizeLt(n)}(i)))
 in
   arrayptr_tabulate<a> (asz)
 end // end of [arrayptr_tabulate_cloref]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+arrayptr_quicksort
+  (A, asz) = () where
+{
+  val p = ptrcast (A)
+  prval pfarr = arrayptr_takeout (A)
+  val () = array_quicksort<a> (!p, asz)
+  prval () = arrayptr_addback (pfarr | A)
+} (* end of [arrayptr_quicksort] *)
 
 (* ****** ****** *)
 

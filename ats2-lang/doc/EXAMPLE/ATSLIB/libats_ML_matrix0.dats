@@ -26,12 +26,13 @@ staload _(*anon*) = "libats/ML/DATS/matrix0.dats"
 val () =
 {
 //
-val out = stdout_ref
-//
 val nrow = i2sz(3)
-val ncol = i2sz(4)
-val A_elt = matrix0_make_elt<int> (nrow, ncol, 0)
-val () = fprintln! (out, "A_elt = ", A_elt)
+and ncol = i2sz(4)
+//
+val A_elt =
+  matrix0_make_elt<int> (nrow, ncol, 0)
+//
+val ((*void*)) = println! ("A_elt = ", A_elt)
 //
 } (* end of [val] *)
 
@@ -49,8 +50,10 @@ matrix0_tabulate<int>
   (nrow, ncol, lam (i, j) => sz2i(i+j)+1)
 val () = fprintln! (out, "M_elt = ", M_elt)
 //
-val () = fprintln! (out, "M_elt.nrow = ", M_elt.nrow)
-val () = fprintln! (out, "M_elt.ncol = ", M_elt.ncol)
+val () =
+  fprintln! (out, "M_elt.nrow = ", M_elt.nrow())
+val () =
+  fprintln! (out, "M_elt.ncol = ", M_elt.ncol())
 //
 var i: int and j: int
 val () =

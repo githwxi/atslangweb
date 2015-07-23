@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Sun Jan 11 02:58:59 2015
+** Time of generation: Sat Jun 27 21:39:00 2015
 *)
 
 (* ****** ****** *)
@@ -232,45 +232,56 @@ ptr0_sub_size (p: ptr, u: size): ptr
 *)
 
 (* ****** ****** *)
-
-fun print_ptr (p: ptr): void = "mac#%"
-fun prerr_ptr (p: ptr): void = "mac#%"
+//
+fun
+print_ptr (p: ptr): void = "mac#%"
+fun
+prerr_ptr (p: ptr): void = "mac#%"
+fun
+fprint_ptr : fprint_type (ptr) = "mac#%"
+//
 overload print with print_ptr
 overload prerr with prerr_ptr
-fun fprint_ptr : fprint_type (ptr) = "mac#%"
 overload fprint with fprint_ptr
-
-(* ****** ****** *)
-
-praxi
-ptr1_is_gtez {l:addr} (p: ptr l): [l >= null] void
-
+//
 (* ****** ****** *)
 //
-fun ptr1_is_null
-  {l:addr} (p: ptr l):<> bool (l==null) = "mac#%"
-fun ptr1_isnot_null
-  {l:addr} (p: ptr l):<> bool (l > null) = "mac#%"
+praxi
+ptr1_is_gtez
+  {l:addr}(p: ptr l): [l >= null] void
+//
+(* ****** ****** *)
+//
+fun
+ptr1_is_null
+  {l:addr}(p: ptr l):<> bool (l==null) = "mac#%"
+fun
+ptr1_isnot_null
+  {l:addr}(p: ptr l):<> bool (l > null) = "mac#%"
 //
 overload ptr_is_null with ptr1_is_null of 10
 overload ptr_isnot_null with ptr1_isnot_null of 10
 //
 (* ****** ****** *)
 //
-fun add_ptr1_bsz{l:addr}{i:int}
+fun
+add_ptr1_bsz{l:addr}{i:int}
   (p: ptr l, ofs: size_t (i)):<> ptr (l+i) = "mac#%"
-fun sub_ptr1_bsz{l:addr}{i:int}
+fun
+sub_ptr1_bsz{l:addr}{i:int}
   (p: ptr l, ofs: size_t (i)):<> ptr (l-i) = "mac#%"
 //
 overload add_ptr_bsz with add_ptr1_bsz of 20
 overload sub_ptr_bsz with sub_ptr1_bsz of 20
 //
 (* ****** ****** *)
-
-fun sub_ptr1_ptr1{l1,l2:addr}
+//
+fun
+sub_ptr1_ptr1{l1,l2:addr}
   (p1: ptr l1, p2: ptr l2):<> ssize_t (l1-l2) = "mac#%"
+//
 overload - with sub_ptr1_ptr1 of 20
-
+//
 (* ****** ****** *)
 //
 fun{
@@ -386,17 +397,18 @@ ptr_exch{l:addr}
 // end of [ptr_exch]
 
 (* ****** ****** *)
-
+//
 abstype
 cptr_vt0ype_addr_type
   (a:vt@ype+, addr) = ptr // HX: for simulating C pointers
+//
 stadef cptr = cptr_vt0ype_addr_type
 stadef cPtr0 (a:vt0p) = [l:addr] cptr (a, l)
 stadef cPtr1 (a:vt0p) = [l:addr | l > null] cptr (a, l)
-
+//
 castfn
 cptr2ptr{a:vt0p}{l:addr} (p: cptr (a, l)):<> ptr (l)
-
+//
 (* ****** ****** *)
 //
 fun cptr_null{a:vt0p} ():<> cptr (a, null) = "mac#%"
@@ -472,6 +484,44 @@ praxi ptrlin_free{l:addr} (p: ptrlin (l)): void
 //
 castfn ptr2ptrlin{l:addr} (p: ptr l):<> ptrlin (l)
 castfn ptrlin2ptr{l:addr} (p: ptrlin l):<> ptr (l)
+//
+(* ****** ****** *)
+//
+// HX-2015-03-24:
+// singleton linear arrayptr
+//
+absvtype
+aptr_vt0ype_addr_type
+  (a:vt@ype+, addr) = ptr // HX: for safe ATS pointers
+//
+stadef aptr = aptr_vt0ype_addr_type
+stadef aPtr0 (a:vt0p) = [l:addr] aptr (a, l)
+stadef aPtr1 (a:vt0p) = [l:addr | l > null] aptr (a, l)
+//
+castfn
+aptr2ptr{a:vt0p}{l:addr} (ap: !aptr (a, l)):<> ptr (l)
+//
+(* ****** ****** *)
+//
+fun
+{a:vt0p}
+aptr_make_elt(x: a):<!wrt> aPtr1(a)
+fun
+{a:vt0p}
+aptr_getfree_elt{l:agz}(aptr(a, l)):<!wrt> (a)
+//
+fun
+{a:t0p}
+aptr_get_elt{l:agz}(ap: !aptr(INV(a), l)):<!wrt> a
+fun
+{a:t0p}
+aptr_set_elt{l:agz}(ap: !aptr(INV(a), l) >> _, x: a):<!wrt> void
+fun
+{a:t0p}
+aptr_exch_elt{l:agz}(ap: !aptr(INV(a), l) >> _, x: &(a)>>_):<!wrt> void
+//
+overload [] with aptr_get_elt
+overload [] with aptr_set_elt
 //
 (* ****** ****** *)
 //

@@ -239,25 +239,12 @@ fun
 aux_item (
   s0e0: s0exp
 ) : s1expitm = let
-  val loc0 = s0e0.s0exp_loc in
-  case+ s0e0.s0exp_node of
 //
-  | S0Eint (int) => FXITMatm (s1exp_i0nt (loc0, int))
-  | S0Echar (char) => FXITMatm (s1exp_c0har (loc0, char))
+val loc0 = s0e0.s0exp_loc
 //
-  | S0Eextype
-      (name, s0es) => let
-      val s1ess = list_map_fun (s0es, aux_extarg)
-    in
-      FXITMatm (s1exp_extype (loc0, name, (l2l)s1ess))
-    end // end of [S0Eextype]
+in
 //
-  | S0Eextkind
-      (name, s0es) => let
-      val s1ess = list_map_fun (s0es, aux_extarg)
-    in
-      FXITMatm (s1exp_extkind (loc0, name, (l2l)s1ess))
-    end // end of [S0Eextkind]
+case+ s0e0.s0exp_node of
 //
   | S0Eide id when id = AMPERSAND => let
       fn f (
@@ -347,8 +334,29 @@ aux_item (
       | ~Some_vt f => s1exp_make_opr (s1e, f) | ~None_vt () => FXITMatm (s1e)
       // end of [case]
     end // end of [S0Eide]
+//
   | S0Eopid (id) => FXITMatm (s1exp_ide (loc0, id))
   | S0Esqid (sq, id) => FXITMatm (s1exp_sqid (loc0, sq, id))
+//
+  | S0Eint (int) => FXITMatm (s1exp_i0nt (loc0, int))
+  | S0Echar (char) => FXITMatm (s1exp_c0har (loc0, char))
+//
+  | S0Efloat (ftok) => FXITMatm (s1exp_f0loat (loc0, ftok))
+  | S0Estring (stok) => FXITMatm (s1exp_s0tring (loc0, stok))
+//
+  | S0Eextype
+      (name, s0es) => let
+      val s1ess = list_map_fun (s0es, aux_extarg)
+    in
+      FXITMatm (s1exp_extype (loc0, name, (l2l)s1ess))
+    end // end of [S0Eextype]
+//
+  | S0Eextkind
+      (name, s0es) => let
+      val s1ess = list_map_fun (s0es, aux_extarg)
+    in
+      FXITMatm (s1exp_extkind (loc0, name, (l2l)s1ess))
+    end // end of [S0Eextkind]
 //
   | S0Eapp _ => let 
       val s1e_app = fixity_resolve (
@@ -460,6 +468,7 @@ aux_item (
       val () = assertloc (false) in $ERR.abort_interr((*deadcode*))
     end (* end of [_] *)
 *)
+//
 end // end of [aux_item]
 //
 and aux_itemlst
@@ -678,10 +687,14 @@ in
 end // end of [d0atcon_tr]
 
 (* ****** ****** *)
-
+//
 extern
-fun proc_extdef (sym: symbol, ext: string): string
-
+fun
+proc_extdef
+(
+  d0c: d0cstdec, sym: symbol, ext: string
+) : string // end of [proc_extdef]
+//
 (* ****** ****** *)
 
 local
@@ -689,30 +702,51 @@ local
 staload UN = "prelude/SATS/unsafe.sats"
 staload _(*anon*) = "prelude/DATS/unsafe.dats"
 
-fun extprfx_add (
-  sym: symbol, pext: Ptr1
+fun
+extprfx_add
+(
+  d0c: d0cstdec
+, sym: symbol, pext: Ptr1
 ) : string = let
 //
-val ext2 = $UN.cast{string}(pext+1)
+val ext2 =
+  $UN.cast{string}(pext+1)
 val ext2 = (
-  if string_is_empty (ext2) then symbol_get_name (sym) else ext2
+  if string_is_empty(ext2)
+    then symbol_get_name (sym) else ext2
+  // end of [if]
 ) : string // end of [val]
 //
 val opt =
-  the_EXTERN_PREFIX_get ()
+  the_EXTERN_PREFIX_get()
 // end of [val]
-val issome = stropt_is_some (opt)
+val
+issome = stropt_is_some(opt)
 //
 in
 //
-if issome then let
-  val extprfx = stropt_unsome (opt)
-  val ext2 = sprintf ("%s%s", @(extprfx, ext2))
+if
+issome
+then let
+  val prfx =
+    stropt_unsome(opt)
+  val prfxext2 =
+    sprintf ("%s%s", @(prfx, ext2))
+  // end of [val]
 in
-  string_of_strptr (ext2)
-end else
-  $UN.cast{string}(pext)
-// end of [if]
+  string_of_strptr(prfxext2)
+end // end of [then]
+else let
+(*
+// HX-2015-05:
+// Should a warning/error be reported?
+*)
+  val prfxext2 =
+    sprintf ("__ATS_EXTERN_PREFIX__%s", @(ext2))
+  // end of [val]
+in
+  string_of_strptr(prfxext2)
+end // end of [else]
 //
 end // end of [extprfx_add]
 
@@ -720,9 +754,10 @@ in (* in of [local] *)
 
 implement
 proc_extdef
-  (sym, ext) = let
+  (d0c, sym, ext) = let
 //
 #define NUL '\000'
+//
 fun isemp
   (p: Ptr1): bool = $UN.ptrget<char> (p) = NUL
 fun isperc
@@ -734,7 +769,7 @@ in
 //
 case+ 0 of
 | _ when isemp (pext) => symbol_get_name (sym)
-| _ when isperc (pext) => extprfx_add (sym, pext)
+| _ when isperc (pext) => extprfx_add (d0c, sym, pext)
 | _ (*non-special*) => ext // HX: no processing
 //
 end // end of [proc_extdef]
@@ -744,24 +779,33 @@ end // end of [local]
 (* ****** ****** *)
 
 local
-
-extern fun ismac
+//
+extern
+fun ismac
   (ext: string, ext_new: &string): bool = "patsopt_extnam_ismac"
-extern fun issta
+extern
+fun issta
   (ext: string, ext_new: &string): bool = "patsopt_extnam_issta"
-extern fun isext
+extern
+fun isext
   (ext: string, ext_new: &string): bool = "patsopt_extnam_isext"
-
+//
 in (* in of [local] *)
 
 implement
-dcstextdef_tr (sym, extopt) = let
+dcstextdef_tr
+  (d0c, sym, extopt) = let
+//
 (*
-val () = print ("dcstextdef_tr: sym = ...")
-val () = print ("dcstextdef_tr: extopt = ...")
+//
+val () =
+  print ("dcstextdef_tr: sym = ...")
+val () =
+  print ("dcstextdef_tr: extopt = ...")
+//
 *)
 //
-macdef f (x) = proc_extdef (sym, ,(x))
+macdef f (x) = proc_extdef (d0c, sym, ,(x))
 //
 in
 //
@@ -906,12 +950,12 @@ fn d0cstdec_tr
 //
 // HX; [fil] should be the includer instead of includee
 //
-  val fil = $FIL.filename_get_current ()
   val sym = d0c.d0cstdec_sym
+  val fil = $FIL.filename_get_current ()
   val s1e_res = s0exp_tr d0c.d0cstdec_res
   val arg = d0c.d0cstdec_arg and eff = d0c.d0cstdec_eff
   val s1e = aux2 (d0c, isfun, isprf, arg, eff, s1e_res)
-  val extdef = dcstextdef_tr (sym, d0c.d0cstdec_extopt)
+  val extdef = dcstextdef_tr (d0c, sym, d0c.d0cstdec_extopt)
 in
   d1cstdec_make (loc, fil, sym, s1e, extdef)
 end // end of [d0cstdec_tr]

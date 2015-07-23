@@ -160,19 +160,27 @@ in
 end // end of [array0_make_subarray]
 
 (* ****** ****** *)
-
+//
+implement
+{a}(*tmp*)
+print_array0 (A) =
+  fprint_array0<a> (stdout_ref, A)
+//
+implement
+{a}(*tmp*)
+prerr_array0 (A) =
+  fprint_array0<a> (stderr_ref, A)
+//
 implement
 {a}(*tmp*)
 fprint_array0 (out, A) =
-  fprint_arrszref (out, arrszref_of_array0 (A))
-// end of [fprint_array0]
-
+  fprint_arrszref (out, arrszref_of_array0(A))
+//
 implement
 {a}(*tmp*)
 fprint_array0_sep (out, A, sep) =
-  fprint_arrszref_sep (out, arrszref_of_array0 (A), sep)
-// end of [fprint_array0_sep]
-
+  fprint_arrszref_sep (out, arrszref_of_array0(A), sep)
+//
 (* ****** ****** *)
 
 implement
@@ -399,9 +407,11 @@ implement
 {a}(*tmp*)
 array0_find_exn (A0, p) = let
 //
-val ASZ = arrszref_of_array0 (A0)
+val
+ASZ = arrszref_of_array0 (A0)
 //
-var asz: size_t
+var
+asz : size_t
 val A = arrszref_get_refsize (ASZ, asz)
 //
 implement(tenv)
@@ -432,9 +442,11 @@ implement
 array0_foreach
   (A0, f) = let
 //
-val ASZ = arrszref_of_array0 (A0)
+val
+ASZ = arrszref_of_array0 (A0)
 //
-var asz: size_t
+var
+asz : size_t
 val A = arrszref_get_refsize (ASZ, asz)
 //
 implement(tenv)
@@ -442,7 +454,7 @@ array_foreach$cont<a><tenv> (x, env) = true
 implement(tenv)
 array_foreach$fwork<a><tenv> (x, env) = f (x)
 //
-val _ = arrayref_foreach<a> (A, asz)
+val _(*asz*) = arrayref_foreach<a> (A, asz)
 //
 in
   // nothing
@@ -455,9 +467,11 @@ implement
 array0_iforeach
   (A0, f) = let
 //
-val ASZ = arrszref_of_array0 (A0)
+val
+ASZ = arrszref_of_array0 (A0)
 //
-var asz: size_t
+var
+asz : size_t
 val A = arrszref_get_refsize (ASZ, asz)
 //
 implement(tenv)
@@ -465,7 +479,7 @@ array_iforeach$cont<a><tenv> (i, x, env) = true
 implement(tenv)
 array_iforeach$fwork<a><tenv> (i, x, env) = f (i, x)
 //
-val _ = arrayref_iforeach<a> (A, asz)
+val _(*asz*) = arrayref_iforeach<a> (A, asz)
 //
 in
   // nothing
@@ -478,9 +492,11 @@ implement
 array0_rforeach
   (A0, f) = let
 //
-val ASZ = arrszref_of_array0 (A0)
+val
+ASZ = arrszref_of_array0 (A0)
 //
-var asz: size_t
+var
+asz : size_t
 val A = arrszref_get_refsize (ASZ, asz)
 //
 implement(tenv)
@@ -488,7 +504,7 @@ array_rforeach$cont<a><tenv> (x, env) = true
 implement(tenv)
 array_rforeach$fwork<a><tenv> (x, env) = f (x)
 //
-val _ = arrayref_rforeach<a> (A, asz)
+val _(*asz*) = arrayref_rforeach<a> (A, asz)
 //
 in
   // nothing
@@ -501,9 +517,11 @@ implement
 array0_foldleft
   (A0, ini, f) = let
 //
-val ASZ = arrszref_of_array0 (A0)
+val
+ASZ = arrszref_of_array0 (A0)
 //
-var asz: size_t
+var
+asz : size_t
 val A = arrszref_get_refsize (ASZ, asz)
 //
 implement
@@ -511,8 +529,9 @@ array_foreach$cont<a><res> (x, env) = true
 implement
 array_foreach$fwork<a><res> (x, env) = env := f (env, x)
 //
-var result: res = ini
-val _ = arrayref_foreach_env<a><res> (A, asz, result)
+var
+result: res = ini
+val _(*asz*) = arrayref_foreach_env<a><res> (A, asz, result)
 //
 in
   result
@@ -525,9 +544,11 @@ implement
 array0_ifoldleft
   (A0, ini, f) = let
 //
-val ASZ = arrszref_of_array0 (A0)
+val
+ASZ = arrszref_of_array0 (A0)
 //
-var asz: size_t
+var
+asz : size_t
 val A = arrszref_get_refsize (ASZ, asz)
 //
 implement
@@ -535,8 +556,9 @@ array_iforeach$cont<a><res> (i, x, env) = true
 implement
 array_iforeach$fwork<a><res> (i, x, env) = (env := f (env, i, x))
 //
-var result: res = ini
-val _ = arrayref_iforeach_env<a><res> (A, asz, result)
+var
+result: res = ini
+val _(*asz*) = arrayref_iforeach_env<a><res> (A, asz, result)
 //
 in
   result
@@ -549,9 +571,11 @@ implement
 array0_foldright
   (A0, f, snk) = let
 //
-val ASZ = arrszref_of_array0 (A0)
+val
+ASZ = arrszref_of_array0 (A0)
 //
-var asz: size_t
+var
+asz : size_t
 val A = arrszref_get_refsize (ASZ, asz)
 //
 implement
@@ -559,12 +583,44 @@ array_rforeach$cont<a><res> (x, env) = true
 implement
 array_rforeach$fwork<a><res> (x, env) = env := f (x, env)
 //
-var result: res = snk
-val _ = arrayref_rforeach_env<a><res> (A, asz, result)
+var
+result: res = snk
+val _(*asz*) = arrayref_rforeach_env<a><res> (A, asz, result)
 //
 in
   result
 end // end of [array0_foldright]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+array0_quicksort
+  (A0, cmp) = let
+//
+val
+ASZ = arrszref_of_array0 (A0)
+//
+var
+asz : size_t
+val A = arrszref_get_refsize (ASZ, asz)
+//
+implement
+{a}(*tmp*)
+array_quicksort$cmp
+  (x1, x2) = let
+//
+val
+cmp =
+$UN.cast{(&a,&a)-<cloref>int}(cmp)
+//
+in
+   cmp(x1, x2)
+end // end of [array_quicksort$cmp]
+//
+in
+  arrayref_quicksort<a> (A, asz)
+end // end of [array0_quicksort]
 
 (* ****** ****** *)
 

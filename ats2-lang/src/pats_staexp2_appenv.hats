@@ -138,6 +138,9 @@ s2e0.s2exp_node of
 | S2Eint _ => ()
 | S2Eintinf _ => ()
 //
+| S2Efloat _ => ()
+| S2Estring _ => ()
+//
 | S2Ecst (s2c) => s2cst_app (s2c, env)
 //
 | S2Eextype

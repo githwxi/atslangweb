@@ -137,7 +137,7 @@ funset_union (xs1: set(INV(a)), xs2: set(a)):<> set(a)
 fun{a:t0p}
 funset_intersect (xs1: set(INV(a)), xs2: set(a)):<> set(a)
 fun{a:t0p}
-funset_diff (xs1: set(INV(a)), xs2: set(a)):<> set(a)
+funset_differ (xs1: set(INV(a)), xs2: set(a)):<> set(a)
 fun{a:t0p}
 funset_symdiff (xs1: set(INV(a)), xs2: set(a)):<> set(a)
 
@@ -184,6 +184,15 @@ a:t0p}{env:vt0p
 } funset_foreach_env
   (set: set(INV(a)), env: &(env) >> _): void
 // end of [funset_foreach_env]
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+funset_tabulate{n:nat}(n: int(n)): set(a)
+fun
+{a:t0p}
+funset_tabulate$fopr (index: intGte(0)): (a)
 //
 (* ****** ****** *)
 

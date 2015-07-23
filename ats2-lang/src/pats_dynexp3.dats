@@ -174,17 +174,75 @@ end // end of [p3at_is_prf]
 
 implement
 p3at_is_lincon (p3t) =
+(
   case+ p3t.p3at_node of
-  | P3Tcon (pck, _, _, _) => pck = PCKlincon
-  | _ => false
-// end of [p3at_is_lincon]
+  | P3Tcon (pck, _, _, _) => pck = PCKlincon | _ => false
+) (* end of [p3at_is_lincon] *)
 
 implement
 p3at_is_unfold (p3t) =
+(
   case+ p3t.p3at_node of
-  | P3Tcon (pck, _, _, _) => pck = PCKunfold
-  | _ => false
-// end of [p3at_is_unfold]
+  | P3Tcon (pck, _, _, _) => pck = PCKunfold | _ => false
+) (* end of [p3at_is_unfold] *)
+
+(* ****** ****** *)
+
+local
+
+fun
+aux_labp3atlst
+(
+  lxs: labp3atlst
+) : bool =
+(
+case+ lxs of
+| list_nil
+    ((*void*)) => true
+| list_cons
+    (lx, lxs) => let
+    val+LABP3AT(l, x) = lx
+  in
+    if p3at_is_full(x)
+      then aux_labp3atlst(lxs) else false
+    // end of [if]
+  end // end of [list_con]
+)
+
+in (* in-of-local *)
+
+implement
+p3at_is_full
+  (p3t0) =
+(
+//
+case+
+p3t0.p3at_node of
+//
+| P3Tany _ => true
+| P3Tvar _ => true
+//
+| P3Tempty _ => true
+//
+| P3Trec
+  (
+    knd, npf, lxs
+  ) => aux_labp3atlst (lxs)
+//
+| P3Trefas
+    (_, p3t) => p3at_is_full (p3t)
+  // end of [P3Trefas]
+| P3Texist
+    (_, p3t) => p3at_is_full (p3t)
+  // end of [P3Texist]
+//
+| P3Tann(p3t, _) => p3at_is_full (p3t)
+//
+| _ (*rest-of-P3T*) => false
+//
+) (* end of [p3at_is_full] *)
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -324,6 +382,16 @@ d3exp_cstsp
 , d3exp_type= s2f
 , d3exp_node= D3Ecstsp (csp)
 } // end of [d3exp_cstsp]
+
+(* ****** ****** *)
+
+implement
+d3exp_literal
+  (loc, s2f, d3e) = '{
+  d3exp_loc= loc
+, d3exp_type= s2f
+, d3exp_node= D3Eliteral (d3e)
+} // end of [d3exp_literal]
 
 (* ****** ****** *)
 
@@ -662,6 +730,8 @@ d3exp_sel_var (
 , d3exp_node= D3Esel_var (d2v, s2rt, d3ls)
 } // end of [d3exp_sel_var]
 
+(* ****** ****** *)
+
 implement
 d3exp_sel_ptr
   (loc, s2f, d3e, s2rt, d3ls) = '{
@@ -800,7 +870,9 @@ d3exp_effmask
 (
   loc, s2fe, d3e
 ) = let
-  val s2f = d3exp_get_type (d3e)
+//
+val s2f = d3exp_get_type (d3e)
+//
 in '{
   d3exp_loc= loc
 , d3exp_type= s2f
@@ -830,6 +902,16 @@ d3exp_tempenver
 , d3exp_type= s2f
 , d3exp_node= D3Etempenver (d2vs)
 } // end of [d3exp_tempenver]
+
+(* ****** ****** *)
+
+implement
+d3exp_ann_type
+  (loc, d3e, s2f) = '{
+  d3exp_loc= loc
+, d3exp_type= s2f
+, d3exp_node= D3Eann_type (d3e, s2f)
+} // end of [d3exp_ann_type]
 
 (* ****** ****** *)
 
@@ -945,18 +1027,19 @@ d3exp_trywith (
 ) = '{
   d3exp_loc= loc
 , d3exp_type= d3e_try.d3exp_type
-, d3exp_node= D3Etrywith (d3e_try, c3ls_wth)
+, d3exp_node= D3Etrywith(d3e_try, c3ls_wth)
 } // end of [d3exp_trywith]
 
 (* ****** ****** *)
 
 implement
-d3exp_ann_type
-  (loc, d3e, s2f) = '{
+d3exp_solverify
+  (loc, s2e_prop) = let
+in '{
   d3exp_loc= loc
-, d3exp_type= s2f
-, d3exp_node= D3Eann_type (d3e, s2f)
-} // end of [d3exp_ann_type]
+, d3exp_type= s2e_prop
+, d3exp_node= D3Esolverify(s2e_prop)
+} end // end of [d3exp_solverify]
 
 (* ****** ****** *)
 
@@ -991,7 +1074,7 @@ d3lab_lab
 , d3lab_node= D3LABlab (lab)
 , d3lab_overld= opt
 , d3lab_overld_app= None(*void*)
-} // end of [d3lab_lab]
+} (* end of [d3lab_lab] *)
 
 implement
 d3lab_ind
@@ -1000,7 +1083,7 @@ d3lab_ind
 , d3lab_node= D3LABind (ind)
 , d3lab_overld= None(*void*)
 , d3lab_overld_app= None(*void*)
-} // end of [d3lab_ind]
+} (* end of [d3lab_ind] *)
 
 (* ****** ****** *)
 

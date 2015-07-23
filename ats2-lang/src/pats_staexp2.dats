@@ -198,6 +198,24 @@ s2exp_int_char (c) = s2exp_int (int_of_char(c))
 implement
 s2exp_int_uchar (c) = s2exp_int (int_of_uchar(c))
 
+(* ****** ****** *)
+
+implement
+s2exp_float
+  (rep) = hnf '{
+  s2exp_srt= s2rt_float, s2exp_node= S2Efloat(rep)
+} // end of [s2exp_float]
+
+(* ****** ****** *)
+
+implement
+s2exp_string
+  (str) = hnf '{
+  s2exp_srt= s2rt_string, s2exp_node= S2Estring(str)
+} // end of [s2exp_string]
+
+(* ****** ****** *)
+
 implement
 s2exp_cst (s2c) = let
   val s2t = s2cst_get_srt (s2c)

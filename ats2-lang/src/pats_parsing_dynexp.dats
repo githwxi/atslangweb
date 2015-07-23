@@ -728,6 +728,17 @@ case+ tok.token_node of
     val () = incby1 () in d0exp_MYFUN (tok)
   end
 //
+| T_DLRLITERAL((*void*)) => let
+    val () = incby1 ()
+    val ent2 = p_LPAREN (buf, bt, err)
+    val ent3 = pif_fun (buf, bt, err, p_d0exp, err0)
+    val ent4 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then d0exp_literal (tok, ent3, ent4) else synent_null ()
+    // end of [if]
+  end // end of [T_DLRLITERAL]
+//
 | _ when
     ptest_fun (
     buf, p_s0elop, ent // s0elop ::= DOT | MINUSGT
@@ -1175,17 +1186,33 @@ end // end of [p_argd0exp]
 (* ****** ****** *)
 
 (*
-d0exp0 ::= atmd0exp argd0expseq [COLON s0exp]
+d0exp0 ::=
+| atmd0exp argd0expseq [COLON s0exp]
+| break | continue
+| $showtype d0exp
+| $vcopyenv_v d0exp
+| $vcopyenv_vt d0exp
+| $tempenver d0exp
+| $solassert d0exp
+| $solverify s0exp
 *)
 fun
 p_d0exp0
 (
   buf: &tokbuf, bt: int, err: &int
 ) : d0exp = let
+//
+  val err0 = err
   var ent: synent?
+  val n0 = tokbuf_get_ntok (buf)
+  val tok = tokbuf_get_token (buf)
+  macdef incby1 () = tokbuf_incby1 (buf)
+//
 in
 //
-case+ 0 of
+case+
+tok.token_node
+of // case+
 | _ when
     ptest_fun (
     buf, p_atmd0exp, ent
@@ -1208,12 +1235,73 @@ case+ 0 of
     case+ ent3 of
     | Some s0e => d0exp_ann (d0e, s0e) | None () => d0e
   end
-| _ => let
+//
+| T_DLRBREAK() => let
+    val () = incby1 () in d0exp_loopexn (0(*knd*), tok)
+  end // end of [T_DLRBREAK]
+| T_DLRCONTINUE() => let
+    val () = incby1 () in d0exp_loopexn (1(*knd*), tok)
+  end // end of [T_DLRCONTINUE]
+//
+| T_DLRSHOWTYPE() => let
+    val bt = 0
+    val () = incby1 ()
+    val ent2 = p_d0exp0 (buf, bt, err)
+  in
+    if err = err0 then
+      d0exp_showtype (tok, ent2) else tokbuf_set_ntok_null (buf, n0)
+    (* end of [if] *)
+  end
+//
+| T_DLRVCOPYENV(knd) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent2 = p_d0exp0 (buf, bt, err)
+  in
+    if err = err0
+      then d0exp_vcopyenv (knd, tok, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
+    (* end of [if] *)
+  end
+//
+| T_DLRTEMPENVER() => let
+    val bt = 0
+    val () = incby1 ()
+    val ent2 = p_d0exp0 (buf, bt, err)
+  in
+    if err = err0
+      then d0exp_tempenver (tok, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
+    (* end of [if] *)
+  end
+//
+| T_DLRSOLASSERT() => let
+    val bt = 0
+    val () = incby1 ()
+    val ent2 = p_atmd0exp (buf, bt, err)
+  in
+    if err = err0
+      then d0exp_solassert (tok, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
+    (* end of [if] *)
+  end
+| T_DLRSOLVERIFY() => let
+    val bt = 0
+    val () = incby1 ()
+    val ent2 = p_atms0exp (buf, bt, err)
+  in
+    if err = err0
+      then d0exp_solverify (tok, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
+    (* end of [if] *)
+  end
+//
+| _ (* rest-of-d0exp0 *) => let
     val tok =
-      tokbuf_get_token (buf)
+      tokbuf_get_token(buf)
     val loc = tok.token_loc
-    val () = err := err + 1
-    val () = the_parerrlst_add_ifnbt (bt, loc, PE_d0exp0)
+    val ((*void*)) = err := err + 1
+    val ((*void*)) = the_parerrlst_add_ifnbt (bt, loc, PE_d0exp0)
   in
     synent_null ()
   end
@@ -1224,8 +1312,10 @@ end // end of [p_d0exp0]
 (*
 d0exp1 ::=
   | d0exp0 {d0exp1}*
-  | DLRRAISE d0exp1 // done!
-  | DLRDELAY d0exp1 // done!
+  | DLRRAISE d0exp0 // done!
+  | DLREFFMASK d0exp0 // done!
+  | DLREFFMASK_ARG d0exp0 // done!
+  | DLRDELAY d0exp0 // done!
 *)
 fun
 p_d0exp1
@@ -1239,7 +1329,9 @@ p_d0exp1
   macdef incby1 () = tokbuf_incby1 (buf)
 in
 //
-case+ tok.token_node of
+case+
+tok.token_node
+of // case+
 | _ when
     ptest_fun (
     buf, p_d0exp0, ent
@@ -1260,34 +1352,28 @@ case+ tok.token_node of
     loop (ent1, ent2)
   end
 //
-| T_DLRBREAK () => let
-    val () = incby1 () in d0exp_loopexn (0(*knd*), tok)
-  end // end of [T_DLRBREAK]
-| T_DLRCONTINUE () => let
-    val () = incby1 () in d0exp_loopexn (1(*knd*), tok)
-  end // end of [T_DLRCONTINUE]
-//
-| T_DLRRAISE () => let
+| T_DLRDELAY(knd) => let
     val bt = 0
     val () = incby1 ()
-    val ent2 = p_d0exp1 (buf, bt, err)
+    val ent2 = p_d0exp0 (buf, bt, err)
   in
-    if err = err0 then
-      d0exp_raise (tok, ent2) else tokbuf_set_ntok_null (buf, n0)
+    if err = err0
+      then d0exp_delay (knd, tok, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
     (* end of [if] *)
   end
 //
-| T_DLRDELAY (knd) => let
+| T_DLRRAISE() => let
     val bt = 0
     val () = incby1 ()
-    val ent2 = p_d0exp1 (buf, bt, err)
+    val ent2 = p_d0exp0 (buf, bt, err)
   in
-    if err = err0 then
-      d0exp_delay (knd, tok, ent2) else tokbuf_set_ntok_null (buf, n0)
+    if err = err0
+      then d0exp_raise (tok, ent2) else tokbuf_set_ntok_null (buf, n0)
     (* end of [if] *)
   end
 //
-| T_DLREFFMASK () => let
+| T_DLREFFMASK() => let
     val bt = 0
     val () = incby1 ()
     val ent2 = pif_fun (buf, bt, err, p_LBRACE, err0)
@@ -1295,51 +1381,21 @@ case+ tok.token_node of
     val ent4 = pif_fun (buf, bt, err, p_RBRACE, err0)
     val ent5 = pif_fun (buf, bt, err, p_d0exp1, err0)
   in
-    if err = err0 then
+    if err=err0 then
       d0exp_effmask (tok, ent3, ent5) else tokbuf_set_ntok_null (buf, n0)
     (* end of [if] *)
   end
-| T_DLREFFMASK_ARG (knd) => let
+| T_DLREFFMASK_ARG(knd) => let
     val bt = 0
     val () = incby1 ()
-    val ent2 = p_d0exp1 (buf, bt, err)
+    val ent2 = p_d0exp0 (buf, bt, err)
   in
-    if err = err0 then
+    if err=err0 then
       d0exp_effmask_arg (knd, tok, ent2) else tokbuf_set_ntok_null (buf, n0)
     (* end of [if] *)
   end
 //
-| T_DLRSHOWTYPE () => let
-    val bt = 0
-    val () = incby1 ()
-    val ent2 = p_d0exp1 (buf, bt, err)
-  in
-    if err = err0 then
-      d0exp_showtype (tok, ent2) else tokbuf_set_ntok_null (buf, n0)
-    (* end of [if] *)
-  end
-//
-| T_DLRTEMPENVER () => let
-    val bt = 0
-    val () = incby1 ()
-    val ent2 = p_d0exp1 (buf, bt, err)
-  in
-    if err = err0 then
-      d0exp_tempenver (tok, ent2) else tokbuf_set_ntok_null (buf, n0)
-    (* end of [if] *)
-  end
-//
-| T_DLRVCOPYENV (knd) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent2 = p_d0exp1 (buf, bt, err)
-  in
-    if err = err0 then
-      d0exp_vcopyenv (knd, tok, ent2) else tokbuf_set_ntok_null (buf, n0)
-    (* end of [if] *)
-  end
-//
-| _ => let
+| _ (*rest-of-tokens*) => let
     val loc = tok.token_loc
     val () = err := err + 1
     val () = the_parerrlst_add_ifnbt (bt, loc, PE_d0exp1)

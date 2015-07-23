@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_quicksort.atxt
-** Time of generation: Fri Dec 19 04:20:21 2014
+** Time of generation: Sun Mar 22 22:18:47 2015
 *)
 
 (* ****** ****** *)
@@ -46,7 +46,11 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 implement{a}
-list_vt_quicksort$cmp (x1, x2) = gcompare_ref<a> (x1, x2)
+list_vt_quicksort$cmp
+  (x1, x2) =
+(
+  gcompare_ref_ref<a> (x1, x2)
+) (* end of [list_vt_quicksort$cmp] *)
 
 (* ****** ****** *)
 (*
@@ -110,7 +114,7 @@ prval () = lemma_list_vt_param (xs)
 val n = list_vt_length (xs)
 //
 val [l:addr]
-  (pfat, pfgc | p0) = array_ptr_alloc<a> ((i2sz)n)
+  (pfat, pfgc | p0) = array_ptr_alloc<a> (i2sz(n))
 //
 extern praxi
 __out (pf: !array_v (a?, l, n) >> array_v (a, l, n)): void
@@ -119,7 +123,7 @@ __into (pf: !array_v (a, l, n) >> array_v (a?, l, n)): void
 //
 val () = copyout (xs, p0)
 prval () = __out (pfat)
-val () = array_quicksort<a> (!p0, (i2sz)n)
+val () = array_quicksort<a> (!p0, i2sz(n))
 prval () = __into (pfat)
 val () = copyinto (xs, p0)
 //

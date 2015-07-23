@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/bool.atxt
-** Time of generation: Thu Jan 29 14:58:15 2015
+** Time of generation: Sat Jun 27 21:39:00 2015
 *)
 
 (* ****** ****** *)
@@ -144,6 +144,14 @@ overload compare with compare_bool0_bool0
 
 (* ****** ****** *)
 //
+// HX:
+// return is statically allocated
+//
+fun
+bool2string(b: bool):<> string = "mac#%"
+//
+(* ****** ****** *)
+//
 fun print_bool (x: bool): void = "mac#%"
 fun prerr_bool (x: bool): void = "mac#%"
 fun fprint_bool : fprint_type (bool) = "mac#%"
@@ -152,14 +160,6 @@ overload print with print_bool
 overload prerr with prerr_bool
 overload fprint with fprint_bool
 //
-(* ****** ****** *)
-//
-// HX: the return is statically allocated
-//
-fun tostring_bool
-  (b: bool):<> string = "mac#%"
-overload tostring with tostring_bool
-
 (* ****** ****** *)
 
 fun neg_bool1 {b:bool}

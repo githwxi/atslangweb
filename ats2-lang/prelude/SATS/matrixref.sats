@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Sun Jan 11 02:59:10 2015
+** Time of generation: Sat Jun 27 21:39:14 2015
 *)
 
 (* ****** ****** *)
@@ -225,7 +225,8 @@ matrixref_tabulate_cloref
 (*
 fun{
 a:vt0p}{env:vt0p
-} matrix_foreach$fwork (x: &a >> _, env: &(env) >> _): void
+} matrix_foreach$fwork
+  (x: &a >> _, env: &(env) >> _): void
 *)
 //
 fun{
@@ -339,6 +340,27 @@ fprint_mtrxszref_sep
 (* ****** ****** *)
 //
 (*
+fun{
+a:vt0p}{env:vt0p
+} matrix_foreach$fwork
+  (x: &a >> _, env: &(env) >> _): void
+*)
+//
+fun{
+a:vt0p
+} mtrxszref_foreach(mtrxszref (a)): void
+fun{
+a:vt0p}{env:vt0p
+} mtrxszref_foreach_env(mtrxszref(a), &(env) >> _) : void
+//
+fun{
+a:vt0p
+} mtrxszref_foreach_cloref
+  (A: mtrxszref(a), fwork: (&(a) >> _) -<cloref1> void ): void
+//
+(* ****** ****** *)
+//
+(*
 fun{a:vt0p}
 matrix_tabulate$fopr (i: size_t, j: size_t): (a)
 *)
@@ -362,6 +384,9 @@ overload [] with matrixref_get_at_int of 0
 overload [] with matrixref_get_at_size of 0
 overload [] with matrixref_set_at_int of 0
 overload [] with matrixref_set_at_size of 0
+
+(* ****** ****** *)
+
 overload [] with mtrxszref_get_at_int of 0
 overload [] with mtrxszref_get_at_size of 0
 overload [] with mtrxszref_set_at_int of 0

@@ -88,7 +88,9 @@ castfn s2cstopt_decode (x: s2cstopt_t):<> s2cstopt
 typedef
 s2cst_struct = @{
   s2cst_sym= symbol // the name
-, s2cst_loc= location // the location of declaration
+, s2cst_loc= location // location
+, s2cst_fil= filename // filename
+//
 , s2cst_srt= s2rt // the sort
 //
 , s2cst_def= s2expopt // definition
@@ -145,7 +147,8 @@ in // in of [local]
 implement
 s2cst_make
 (
-  id, loc, s2t
+  id
+, loc, fil, s2t
 , isabs, iscon, isrec, isasp, islst
 , argsrtss, def
 ) = let
@@ -157,6 +160,8 @@ prval () = free_gc_elim {s2cst_struct?} (pfgc)
 //
 val () = p->s2cst_sym := id
 val () = p->s2cst_loc := loc
+val () = p->s2cst_fil := fil
+//
 val () = p->s2cst_srt := s2t
 //
 val () = p->s2cst_def := def
@@ -194,6 +199,11 @@ implement
 s2cst_get_loc (s2c) = let
   val (vbox pf | p) = ref_get_view_ptr (s2c) in p->s2cst_loc
 end // end of [s2cst_get_loc]
+
+implement
+s2cst_get_fil (s2c) = let
+  val (vbox pf | p) = ref_get_view_ptr (s2c) in p->s2cst_fil
+end // end of [s2cst_get_fil]
 
 implement
 s2cst_get_srt (s2c) = let
@@ -314,14 +324,6 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
-s2cst_get_fil
-  (s2c) = let
-  val loc = s2cst_get_loc (s2c)
-in
-  $LOC.location_get_filename (loc)
-end // end of [s2cst_get_fil]
-
-implement
 s2cst_get_name (s2c) =
   $SYM.symbol_get_name (s2cst_get_sym (s2c))
 // end of [s2cst_get_name]
@@ -329,7 +331,8 @@ s2cst_get_name (s2c) =
 (* ****** ****** *)
 
 implement
-s2cst_make_dat (
+s2cst_make_dat
+(
   id, loc, s2tss_arg, s2t_res, argsrtss
 ) = let
 //
@@ -345,7 +348,8 @@ in
 //
 s2cst_make (
   id // name
-, loc // the location of declaration
+, loc // location
+, $FIL.filename_dummy
 , s2t_fun // sort
 , None () // isabs
 , true // iscon

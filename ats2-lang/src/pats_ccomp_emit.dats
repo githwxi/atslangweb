@@ -37,10 +37,12 @@ staload
 ATSPRE = "./pats_atspre.dats"
 //
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-staload _(*anon*) = "prelude/DATS/unsafe.dats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+staload
+_(*anon*) = "prelude/DATS/unsafe.dats"
+//
 (* ****** ****** *)
 
 staload "./pats_basics.sats"
@@ -958,6 +960,13 @@ val hse = tmpvar_get_type (tmp)
 val knd = tmpvar_get_topknd (tmp)
 val isvoid = hisexp_is_void (hse)
 //
+(*
+val () =
+println! ("emit_tmpdec: tmp = ", tmp)
+val () =
+println! ("emit_tmpdec: hse = ", hse)
+*)
+//
 val () =
 if isvoid then emit_text (out, "// ")
 //
@@ -994,8 +1003,12 @@ val () =
 emit_text (out, ", ")
 val () =
 (
-case+ hse.hisexp_node of
-| HSEtyarr (hse_elt, _(*dim*)) => emit_hisexp (out, hse_elt)
+case+
+hse.hisexp_node of
+| HSEtyarr
+  (
+    hse_elt, _(*dim*)
+  ) => emit_hisexp (out, hse_elt)
 | _ (*non-tyarr*) => emit_hisexp (out, hse)
 ) (* end of [val] *)
 } (* end of [then] *)
@@ -1437,14 +1450,19 @@ if isenv then
 } (* end of [then] *) // end of [if]
 )
 //
-val () =
-(
-if isenv then
-  emit_text (out, "ATSERRORnotenvless(")
+val () = (
+//
+if
+isenv
+then
+emit_text
+  (out, "ATSERRORnotenvless(")
+//
 ) (* end of [val] *)
 //
 val () =
-  emit_text (out, "ATSPMVfunlab(")
+emit_text
+  (out, "ATSPMVfunlab(")
 //
 val ((*void*)) = emit_funlab (out, flab)
 //
@@ -1468,20 +1486,22 @@ val opt = funlab_get_funent (flab)
 val d2es =
 (
 case+ opt of
+| None () => list_nil ()
 | Some (fent) =>
     funent_eval_d2envlst (fent)
-| None () => list_nil ()
-) : d2envlst
+  // end of [Some]
+) : d2envlst // end of [val]
 //
 val () =
-emit_text (out, "ATSPMVcfunlab(")
+emit_text
+  (out, "ATSPMVcfunlab(")
 //
 val () = emit_int (out, knd)
 val () = emit_text (out, ", ")
 val () = emit_funlab (out, flab)
 val () = emit_text (out, ", (")
 val nenv = emit_d2envlst (out, d2es, 0)
-val () = emit_text (out, "))")
+val ((*closing*)) = emit_text (out, "))")
 //
 in
   // nothing
@@ -1491,7 +1511,8 @@ end // end of [emit_primval_cfunlab]
 
 local
 
-fun auxmain
+fun
+auxmain
 (
   out: FILEref
 , pmv: primval, hse: hisexp
@@ -2512,10 +2533,16 @@ auxsel
 (
   hse0: hisexp, pml: primlab
 ) : hisexp = let
+//
+(*
+val () =
+println! ("auxsel: hse0 = ", hse0)
+*)
+//
 in
 //
 case+
-  pml.primlab_node of
+pml.primlab_node of
 //
 | PMLlab (lab) => (
   case+
@@ -2529,7 +2556,9 @@ case+
   | HSEtysum
       (d2c, lhses) => auxfnd (lab, lhses)
     // end of [HSEtysum]
-  | _ => let
+  | _ (*non-tuple*) => let
+      val () = prerr_interror ()
+      val () = prerrln! (": auxsel: pml = ", pml)
       val () = prerr_interror ()
       val () = prerrln! (": auxsel: hse0 = ", hse0)
       val ((*exit*)) = assertloc (false)
@@ -2560,13 +2589,13 @@ fun loop
 ) : res =
 (
   case+ pmls of
+  | list_nil ((*void*)) => res
   | list_cons (pml, pmls) => let
       val hse1 = auxsel (hse0, pml)
       val res = list_vt_cons ( @(hse0, pml), res )
     in
       loop (hse1, pmls, res)
     end // end of [list_cons]
-  | list_nil () => res
 ) (* end of [loop] *)
 //
 in
@@ -2693,7 +2722,7 @@ val () = let
   val xys = auxselist (hse_rt, pmls)
 in
   auxmain (out, 0(*non*), pmv, hse_rt, xys, 0)
-end // end of [val]
+end // end of [let] // end of [val]
 //
 in
   // nothing

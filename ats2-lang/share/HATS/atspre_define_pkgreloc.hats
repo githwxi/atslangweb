@@ -132,6 +132,10 @@ LIBATSCC2JS_targetloc
 "$PATSHOMERELOC/contrib/libatscc/libatscc2js"
 //
 #define
+LIBATSCC2ERL_targetloc
+"$PATSHOMERELOC/contrib/libatscc/libatscc2erl"
+//
+#define
 LIBATSCC2PHP_targetloc
 "$PATSHOMERELOC/contrib/libatscc/libatscc2php"
 //
@@ -142,10 +146,6 @@ LIBATSCC2PL_targetloc
 #define
 LIBATSCC2PY_targetloc
 "$PATSHOMERELOC/contrib/libatscc/libatscc2py"
-//
-#define
-LIBATSCC2CIL_targetloc
-"$PATSHOMERELOC/contrib/libatscc/libatscc2cil"
 //
 (* ****** ****** *)
 //
@@ -179,6 +179,11 @@ LIBATS_HWXI_targetloc "$PATSHOMERELOC/contrib/libats-/hwxi"
 #define LINUX_sourceloc "$ATSLANGWEBLIB/contrib/linux"
 #define LINUX_targetloc "$PATSHOMERELOC/contrib/linux"
 //
+(* ****** ****** *)
+
+#define EXTSOLVE_sourceloc "$ATSLANGWEBLIB/contrib/extsolve"
+#define EXTSOLVE_targetloc "$PATSHOMERELOC/contrib/extsolve"
+
 (* ****** ****** *)
 
 (* end of [atspre_define_pkgreloc.hats] *)

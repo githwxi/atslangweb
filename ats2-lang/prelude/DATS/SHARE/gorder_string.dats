@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gorder_string.atxt
-** Time of generation: Fri Dec 19 04:20:20 2014
+** Time of generation: Tue Mar 10 10:28:39 2015
 *)
 
 (* ****** ****** *)
@@ -42,7 +42,7 @@
 (* ****** ****** *)
 
 implement
-gcompare_val<string> = compare_string_string
+gcompare_val_val<string> = compare_string_string
 
 (* ****** ****** *)
 

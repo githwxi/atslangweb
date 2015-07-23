@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Sun Jan 11 02:59:00 2015
+** Time of generation: Sat Jun 27 21:39:01 2015
 *)
 
 (* ****** ****** *)
@@ -86,11 +86,11 @@ g0string2float (str: NSH(string)):<> g0float (tk)
 fun g0string2float_double (x: NSH(string)):<> double = "mac#%"
 //
 (* ****** ****** *)
-
+//
 typedef
 g0float_uop_type
   (tk:tk) = g0float (tk) -<fun0> g0float (tk)
-
+//
 (* ****** ****** *)
 
 fun{tk:tk}

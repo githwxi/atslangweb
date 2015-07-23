@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Sun Jan 11 02:59:08 2015
+** Time of generation: Sat Jun 27 21:39:13 2015
 *)
 
 (* ****** ****** *)
@@ -473,7 +473,15 @@ arrayptr_tabulate
 //
 fun{a:vt0p}
 arrayptr_tabulate_cloref
-  {n:int} (size_t n, (sizeLt(n)) -<cloref> a): arrayptr (a, n)
+  {n:int}
+  (size_t n, (sizeLt(n)) -<cloref> a): arrayptr (a, n)
+//
+(* ****** ****** *)
+//
+fun
+{a:vt0p}
+arrayptr_quicksort
+  {n:int}(A: !arrayptr(a, n) >> _, asz: size_t(n)): void
 //
 (* ****** ****** *)
 //

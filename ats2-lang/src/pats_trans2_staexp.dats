@@ -1804,10 +1804,15 @@ case+ s1e0.s1exp_node of
 //
 | S1Eint (i) => s2exp_int (i)
 | S1Eintrep (rep) => let
-    val i = $INTINF.intinf_make_string (rep) in s2exp_intinf (i)
+    val i =
+      $INTINF.intinf_make_string (rep) in s2exp_intinf (i)
+    // end of [val]
   end // end of [S1Eintrep]
 //
-| S1Echar (char) => s2exp_int_char (char) // HX: it is signed!
+| S1Echar (c) => s2exp_int_char (c) // HX: it is signed!
+//
+| S1Efloat (rep) => s2exp_float (rep) // HX: for exporting
+| S1Estring (str) => s2exp_string (str) // HX: for exporting
 //
 | S1Eextype
     (name, s1ess) => let

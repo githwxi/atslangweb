@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gprint.atxt
-** Time of generation: Sun Jan 11 02:59:11 2015
+** Time of generation: Sat Jun 27 21:39:15 2015
 *)
 
 (* ****** ****** *)
@@ -53,17 +53,19 @@ sortdef t0p = t@ype
 (* ****** ****** *)
 
 fun{}
-gprint$out (): FILEref
+gprint$out(): FILEref
 
 (* ****** ****** *)
 
 fun{}
-gprint_newline (): void
+gprint_newline(): void
 
 (* ****** ****** *)
 
 fun{a:t0p}
 gprint_val (x: a): void
+fun{a:vt0p}
+gprint_ref (x: &RD(a)): void
 
 (* ****** ****** *)
 
@@ -80,57 +82,49 @@ gprint_string (x: string): void
 
 (* ****** ****** *)
 
-fun{}
-gprint_list$beg (): void
-fun{}
-gprint_list$end (): void
-fun{}
-gprint_list$sep (): void
+fun{} gprint_list$beg(): void
+fun{} gprint_list$end(): void
+fun{} gprint_list$sep(): void
 //
 fun{a:t0p}
-gprint_list (xs: List (a)): void
+gprint_list (xs: List(a)): void
 
 (* ****** ****** *)
 
-fun{}
-gprint_listlist$beg1 (): void
-fun{}
-gprint_listlist$end1 (): void
-fun{}
-gprint_listlist$sep1 (): void
+fun{} gprint_listlist$beg1(): void
+fun{} gprint_listlist$end1(): void
+fun{} gprint_listlist$sep1(): void
 //
-fun{}
-gprint_listlist$beg2 (): void
-fun{}
-gprint_listlist$end2 (): void
-fun{}
-gprint_listlist$sep2 (): void
+fun{} gprint_listlist$beg2(): void
+fun{} gprint_listlist$end2(): void
+fun{} gprint_listlist$sep2(): void
 //
 fun{a:t0p}
-gprint_listlist (xss: List (List (a))): void
+gprint_listlist (xss: List(List(a))): void
 
 (* ****** ****** *)
-
-fun{}
-gprint_array$beg (): void
-fun{}
-gprint_array$end (): void
-fun{}
-gprint_array$sep (): void
+//
+fun{} gprint_array$beg(): void
+fun{} gprint_array$end(): void
+fun{} gprint_array$sep(): void
 //
 fun{a:t0p}
 gprint_array
-  {n:int} (A: &RD(@[INV(a)][n]), n: size_t n): void
+  {n:int}
+  (A: &RD(@[INV(a)][n]), n: size_t(n)): void
 // end of [gprint_array]
 fun{a:t0p}
 gprint_arrayptr
-  {n:int} (A: !arrayptr (INV(a), n), n: size_t n): void
+  {n:int}
+  (A: !arrayptr(INV(a), n), n: size_t(n)): void
 // end of [gprint_arrayptr]
 fun{a:t0p}
 gprint_arrayref
-  {n:int} (ref: arrayref (INV(a), n), n: size_t n): void
+  {n:int}(A: arrayref(a, n), n: size_t(n)): void
 // end of [gprint_arrayref]
-
+//
+fun{a:t0p} gprint_arrszref(ASZ: arrszref(a)): void
+//
 (* ****** ****** *)
 
 (* end of [gprint.sats] *)
