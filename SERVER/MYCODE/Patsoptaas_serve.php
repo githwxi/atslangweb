@@ -947,7 +947,7 @@ File_newfile_template1_onclick
   theTopmenuTables_hide2(0);
   File_newfile_load(Patsoptaas_File_newfile_template1);
 }
-/*
+//
 function
 File_newfile_template2_onclick
   ()
@@ -955,7 +955,6 @@ File_newfile_template2_onclick
   theTopmenuTables_hide2(0);
   File_newfile_load(Patsoptaas_File_newfile_template2);
 }
-*/
 //
 </script>
 
