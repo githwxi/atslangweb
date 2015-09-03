@@ -103,6 +103,20 @@ overload << with asl_int0_int1 of 110
 overload >> with asr_int0_int1 of 110
 //
 (* ****** ****** *)
+
+fun lnot_int0 : (int) -> int = "mac#%"
+fun lor_int0_int0 : (int, int) -> int = "mac#%"
+fun lxor_int0_int0 : (int, int) -> int = "mac#%"
+fun land_int0_int0 : (int, int) -> int = "mac#%"
+
+(* ****** ****** *)
+//
+overload lnot with lnot_int0 of 100
+overload lor with lor_int0_int0 of 100
+overload lxor with lxor_int0_int0 of 100
+overload land with land_int0_int0 of 100
+//
+(* ****** ****** *)
 //
 fun lt_int0_int0: (int, int) -> bool = "mac#%"
 fun lte_int0_int0: (int, int) -> bool = "mac#%"
