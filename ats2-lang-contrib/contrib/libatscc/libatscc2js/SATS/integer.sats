@@ -193,6 +193,20 @@ overload mod with mod_uint0_uint0 of 100
 //
 (* ****** ****** *)
 //
+fun
+lsl_uint0_int1
+  : (uint, intGte(0)) -> int = "mac#%"
+fun
+lsr_uint0_int1
+  : (uint, intGte(0)) -> int = "mac#%"
+//
+(* ****** ****** *)
+//
+overload << with lsl_uint0_int1 of 110
+overload >> with lsr_uint0_int1 of 110
+//
+(* ****** ****** *)
+//
 fun lnot_uint0 : (uint) -> uint = "mac#%"
 fun lor_uint0_uint0 : (uint, uint) -> uint = "mac#%"
 fun lxor_uint0_uint0 : (uint, uint) -> uint = "mac#%"

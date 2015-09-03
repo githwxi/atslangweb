@@ -1,6 +1,6 @@
 /*
 Time of Generation:
-Thu Sep  3 17:39:51 EDT 2015
+Thu Sep  3 17:54:07 EDT 2015
 */
 
 /*
@@ -323,6 +323,13 @@ function
 ats2jspre_div_uint0_uint0(x, y) { return Math.floor(x/y); }
 function
 ats2jspre_mod_uint0_uint0(x, y) { return (x % y); }
+
+/* ****** ****** */
+
+function
+ats2jspre_lsl_uint0_int1(x, y) { return (x << y); }
+function
+ats2jspre_lsr_uint0_int1(x, y) { return (x >>> y); }
 
 /* ****** ****** */
 
