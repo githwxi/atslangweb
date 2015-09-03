@@ -46,6 +46,24 @@ ats2jspre_print_int(x)
 /* ****** ****** */
 
 function
+ats2jspre_print_uint(x)
+{
+  ats2jspre_the_print_store.push(String(x));
+  return;
+}
+
+/* ****** ****** */
+
+function
+ats2jspre_print_bool(x)
+{
+  ats2jspre_the_print_store.push(String(x));
+  return;
+}
+
+/* ****** ****** */
+
+function
 ats2jspre_print_double(x)
 {
   ats2jspre_the_print_store.push(String(x));
