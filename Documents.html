@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.command_line {
+  width:96%;
+  margin:auto;
+  padding:10px;
+  color: #000000;
+  background-color: #D0D0D0;
+  border-radius:6px
+}
+#thePageLeft {
+/*
+parent: thePage
+children: 
+*/
+height: 100%;
+} /* thePageLeft */
+
+#thePageRHeaderTop {
+/*
+parent: thePageRHeader
+children: 
+*/
+} /* thePageRHeaderTop */
+
+#thePageRHeaderSep {
+/*
+parent: thePageRHeader
+children: 
+*/
+background-color: rgb(143,2,34);
+} /* thePageRHeaderSep */
+
+#thePageRHeader {
+/*
+parent: thePageRight
+children: thePageRHeaderTop, thePageRHeaderSep
+*/
+} /* thePageRHeader */
+
+#thePageRBodyLHeader {
+/*
+parent: thePageRBodyLeft
+children: 
+*/
+} /* thePageRBodyLHeader */
+
+#thePageRBodyLContent {
+/*
+parent: thePageRBodyLeft
+children: 
+*/
+} /* thePageRBodyLContent */
+
+#thePageRBodyLeft {
+/*
+parent: thePageRBody
+children: thePageRBodyLHeader, thePageRBodyLContent
+*/
+height: 100%;
+} /* thePageRBodyLeft */
+
+#thePageRBodyRight {
+/*
+parent: thePageRBody
+children: 
+*/
+height: 100%;
+} /* thePageRBodyRight */
+
+#thePageRBody {
+/*
+parent: thePageRight
+children: thePageRBodyLeft, thePageRBodyRight
+*/
+} /* thePageRBody */
+
+#thePageRFooterSep {
+/*
+parent: thePageRFooter
+children: 
+*/
+background-color: #8f0222;
+} /* thePageRFooterSep */
+
+#thePageRFooterRest {
+/*
+parent: thePageRFooter
+children: 
+*/
+} /* thePageRFooterRest */
+
+#thePageRFooter {
+/*
+parent: thePageRight
+children: thePageRFooterSep, thePageRFooterRest
+*/
+} /* thePageRFooter */
+
+#thePageRight {
+/*
+parent: thePage
+children: thePageRHeader, thePageRBody, thePageRFooter
+*/
+height: 100%;
+} /* thePageRight */
+
+#thePage {
+/*
+parent: theBodyProp
+children: thePageLeft, thePageRight
+*/
+height: 100%;
+background-color: #ffffff;
+} /* thePage */
+
+#theBodyProp {
+/*
+parent: 
+children: thePage
+*/
+height: 100%;
+} /* theBodyProp */
+
+body {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #213449; /* dark blue */
+}
+
+#thePageRHeader {
+  text-align: center;
+}
+
+#thePageRFooter {
+  text-align: center;
+}
+
+#thePageLeft {
+/*
+  background-color: #1e5799;
+  background-image: linear-gradient(to right, #1e5799, #7db9e8);
+*/
+  background-color: rgba(30, 87, 153, 0.750);
+}
+
+#thePageRBodyRight
+{
+  font-size: 88%;
+  background: #d1d360;
+  border-top-left-radius:12px;
+  border-bottom-left-radius:12px;
+}
+
+.thePageRBodyLContent
+{
+  margin-left: 8px;
+  margin-right: 8px;
+  padding-top: 12px;
+}
+</style>
+<link
+ rel="icon" type="image/gif"
+ href="./MYDATA/favicon_animated.gif">
+</link>
+<script
+ src="./SCRIPT/jquery-2.1.1.min.js">
+</script>
+<script
+ src="./CLIENT/MYCODE/libatscc2js_all.js">
+</script>
+<script
+ src="./CLIENT/MYCODE/libatscc2js_print_store.js">
+</script>
+<script
+ src="./CLIENT/MYCODE/atslangweb_utils_dats.js">
+</script>
+
+
+
+
+
+</head>
+<body>
+<div id="theBodyProp">
+<div id="thePage">
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+<tr height="100%">
+<td style="vertical-align:top;width:14%;">
+<div id="thePageLeft">
+<style>
+#thePageLeft
+{
+  color: #483D8B;
+/*
+  color: rgba(72,61,140,0.750);
+*/
+}
+#thePageLeft
+{
+  position: fixed;
+  min-width: 14%;
+}
+#thePageLeft td.self
+{
+  font-weight: bold;
+}
+#thePageLeft td.other
+{
+  font-weight: normal;
+}
+.thePageLeft_menu
+{
+  width: 88%;
+  margin: auto;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: rgba(255,255,240,0.375);
+}
+</style>
+
+<table
+ width="100%"
+>
+<tr>
+<td height="156px" align="center">
+<img src="./MYDATA/theLogo.png" alt="ATSlogo" style="height:72%"></img>
+</td>
+</tr>
+<tr>
+<td>
+<table
+ class="thePageLeft_menu"
+>
+<tr><td name="Home" class="other"><a href="Home.html">Home(<a href="http://ats-lang.sourceforge.net">old</a>)</a></td></tr>
+<tr><td name="Downloads" class="other"><a href="Downloads.html">Downloads</a></td></tr>
+<tr><td name="Documents" class="self">Documents</td></tr>
+<tr><td name="Libraries" class="other"><a href="Libraries.html">Libraries</a></td></tr>
+<tr><td name="Community" class="other"><a href="Community.html">Community</a></td></tr>
+<tr><td name="Papers" class="other"><a href="Papers.html">Papers</a></td></tr>
+<tr><td name="Examples" class="other"><a href="Examples.html">Examples</a></td></tr>
+<tr><td name="Resources" class="other"><a href="Resources.html">Resources</a></td></tr>
+<tr><td name="Implements" class="other"><a href="Implements.html">Implements</a></td></tr>
+<tr><td><a href="https://groups.google.com/forum/#!forum/ats-lang-users">ats-lang-users</a></td></tr>
+<tr><td><a href="https://groups.google.com/forum/#!forum/ats-lang-devel">ats-lang-devel</a></td></tr>
+<tr><td><a href="#" onclick="Home_tryatsnow_onclick()">Try ATS on-line</input></td></tr>
+</table>
+</td>
+</tr>
+</table>
+
+<!--php-->
+
+</div><!--thePageLeft-->
+</td>
+
+<td style="vertical-align:top;width:86%;">
+<div id="thePageRight">
+<div id="thePageRHeader">
+<div id="thePageRHeaderTop">
+<style>
+#theHeaderLine1 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 48px;
+  padding-bottom: 2px;
+  font-size: 250%;
+  font-weight: bold;
+}
+#theHeaderLine2 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 2px;
+  padding-bottom: 32px;
+  font-size: 160%;
+  font-weight: bold;
+}
+</style>
+<div id="theHeaderLine1">The ATS Programming Language</div>
+<div id="theHeaderLine2">Unleashing the Potentials of Types and Templates!</div>
+</div><!--thePageRHeaderTop-->
+
+<div id="thePageRHeaderSep">
+<style>
+#thePageRHeaderSep
+{
+  color: #FFFFF0;
+}
+
+#thePageRHeaderSepL
+{
+  text-align: left;
+  padding-left: 2px;
+}
+
+#thePageRHeaderSepL ul
+{
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+#thePageRHeaderSepL ul li
+{
+  float: left;
+/*
+  display: inline;
+*/
+  border-width: 1px;
+  border-color: #ffffff;
+  border-right-style: double;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#thePageRHeaderSepL li.self
+{
+  font-weight: bold;
+}
+#thePageRHeaderSepL li.other
+{
+  font-weight: normal;
+}
+
+#thePageRHeaderSepL a:link
+{
+  color: #FFFFFF;
+}
+#thePageRHeaderSepL a:visited
+{
+  color: #80C0C0;
+}
+#thePageRHeaderSepL a:hover
+{
+  color: #C0E0E0;
+}
+#thePageRHeaderSepL a:active
+{
+  color: #C0C0C0;
+}
+
+.thePageRHeaderSepL_submenu
+{
+  display: none;
+  position: absolute;
+  padding: 6px;
+  border-radius: 12px;
+  background-color: rgba(160,20,50,0.875);
+}
+
+#thePageRHeaderSepR
+{
+  float: right;
+}
+#thePageRHeaderSepR_input
+{
+  height: 100%;
+  padding: 6px;
+  font-size: 11pt;
+  border-radius: 8px;
+  background: #FFFFF0 url(//www.google.com/coop/intl/en/images/google_custom_search_watermark.gif) left no-repeat;
+}
+</style>
+
+<script>
+//
+var
+theTopmenuTable = 0;
+var
+theTopmenuTimeout = 0;
+//
+function
+theTopmenuTable_hide()
+{
+  if(theTopmenuTable)
+  {
+    theTopmenuTable.css({display:'none'});
+  }
+}
+function
+theTopmenuTimeout_clear()
+{
+  if(theTopmenuTimeout)
+  {
+    clearTimeout(theTopmenuTimeout); theTopmenuTimeout = 0;
+  }
+}
+//
+function
+topmenu_mouseout()
+{
+  topmenu_mouseout2(500); return;
+}
+function
+topmenu_mouseout2(msec)
+{
+//
+  if(theTopmenuTimeout) clearTimeout(theTopmenuTimeout); 
+  theTopmenuTimeout =
+  setTimeout (function(){theTopmenuTimeout=0;theTopmenuTable_hide();}, msec);
+//
+}
+//
+function
+topmenu_mouseover(x0)
+{
+  var jqi = jQuery(x0);
+  theTopmenuTable_hide();
+  theTopmenuTimeout_clear();
+  theTopmenuTable = jqi.next('table');
+  theTopmenuTable.css({display:'table'});
+  theTopmenuTable.css (
+    {top:jqi.position().top+jqi.outerHeight(true)+10}
+  ) ; // end of [theTopmenuTable.css]
+  theTopmenuTable.css({left:jqi.position().left});
+  return;
+}
+//
+function
+submenu_table_mouseout() { topmenu_mouseout(); }
+function
+submenu_table_mouseover() { theTopmenuTimeout_clear(); }
+//
+</script>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+
+<td width="75%">
+<div
+ id="thePageRHeaderSepL"
+>
+<ul>
+<li name="Home" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)"><a href="Home.html">Home</a></li>
+<table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
+<tr><td><a href="Home.html#What_is_ATS">What is ATS?<a></td></tr>
+<tr><td><a href="Home.html#What_is_ATS_good_for">What is ATS good for?<a></td></tr>
+<tr><td><a href="Home.html#Suggestion_on_learning_ATS">Suggestion on learning ATS<a></td></tr>
+<tr><td><a href="Home.html#Acknowledgments">Acknowledgments</a></td></tr>
+</table>
+<li name="Downloads" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)"><a href="Downloads.html">Downloads</a></li>
+<table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
+<tr><td><a href="Downloads.html#ATS_packages">ATS packages</a></td></tr>
+<tr><td><a href="Downloads.html#Uninstall_for_ATS">Uninstallation for ATS</a></td></tr>
+<tr><td><a href="Downloads.html#Requirements_install">Requirements for installation</a></td></tr>
+<tr><td><a href="Downloads.html#Precompiledpack_install">Precompiled packages for installation</a></td></tr>
+<tr><td><a href="Downloads.html#Install_source_compile">Installation through source compilation</a></td></tr>
+<tr><td><a href="Downloads.html#Install_of_ATS2_contrib">Installation of ATS2-contrib</a></td></tr>
+<tr><td><a href="Downloads.html#Install_of_ATS2_include">Installation of ATS2-include</a></td></tr>
+<tr><td><a href="Downloads.html#Scripts_for_installing_ATS2_ATS2_contrib">Scripts for installing ATS2/ATS2-contrib</a></td></tr>
+</table>
+<li name="Documents" class="self" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)">Documents</li>
+<table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
+<tr><td><a href="#INT2PROGINATS">Introduction to Programming in ATS</a></td></tr>
+<tr><td><a href="#ATS2TUTORIAL0">A Tutorial on Programming Features in ATS</a></td></tr>
+<tr><td><a href="#EFF2ATSPROGEX">Effective ATS Programming through Examples</a></td></tr>
+</table>
+<li name="Libraries" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)"><a href="Libraries.html">Libraries</a></li>
+<li name="Community" class="other" onmouseout="topmenu_mouseout()" onmouseover="topmenu_mouseover(this)"><a href="Community.html">Community</a></li>
+<table class="thePageRHeaderSepL_submenu" onmouseout="submenu_table_mouseout()" onmouseover="submenu_table_mouseover()">
+<tr><td><a href="Community.html#ATS_wikipage">Wiki for ATS users</a></td></tr>
+<tr><td><a href="Community.html#ATS_subreddit">ATS news links at reddit</a></td></tr>
+<tr><td><a href="Community.html#ATS_IRC_channel">IRC channel for ATS users</a></td></tr>
+<tr><td><a href="Community.html#ATS_QandA_forum">Q&amp;A forum for ATS users</a></td></tr>
+<tr><td><a href="Community.html#ATS_devel_forum">Discussion forum for ATS developers</a></td></tr>
+<tr><td><a href="Community.html#ATS_mailing_list">Mailing-list for ATS users</a></td></tr>
+<tr><td><a href="Community.html#JATS_user_group">JATS-UG: Japan ATS User Group</a></td></tr>
+</table>
+</ul>
+</div>
+</td>
+
+<td width="25%">
+<div
+ id="thePageRHeaderSepR"
+ style="margin-top:6px;margin-bottom:6px;"
+>
+<form
+ id="search-form"
+ action="https://www.google.com/cse"
+>
+<table>
+<tr>
+<td>
+<input
+ id="thePageRHeaderSepR_input"
+ type="text" name="q" size="22"
+ onblur="if (/^\s*$/.test(this.value)) this.style.background='#FFFFF0 url(//www.google.com/coop/intl/en/images/google_custom_search_watermark.gif) left no-repeat'"
+ onfocus="this.style.background='#FFFFF0'"
+/>
+</td>
+<td>
+<input type="hidden" name="ie" value="UTF-8" />
+<input type="hidden" name="cx" value="007881927213964201908:gqahxj364ly" />
+<!--
+<input class="button" type="submit" name="sa" value="Search" />
+-->
+</td>
+</tr>
+</table>
+</form>
+</div>
+</td>
+
+</tr>
+</table>
+
+
+</div><!--thePageRHeaderSep-->
+</div><!--thePageRHeader-->
+
+<div id="thePageRBody">
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+<tr height="100%">
+<td style="vertical-align:top;width:68%;">
+<div id="thePageRBodyLeft">
+<div id="thePageRBodyLHeader">
+<div
+style="margin-left:8px;"
+>
+
+<h1>Documentation</h1>
+
+<ul name="Documents">
+<li><a href="#INT2PROGINATS">Introduction to Programming in ATS</a></li>
+<li><a href="#ATS2TUTORIAL0">A Tutorial on Programming Features in ATS</a></li>
+<li><a href="#EFF2ATSPROGEX">Effective ATS Programming through Examples</a></li>
+</ul>
+
+</div>
+
+</div><!--thePageRBodyLHeader-->
+
+<div id="thePageRBodyLContent">
+<div
+class="thePageRBodyLContent"
+><!--div-->
+
+<hr></hr>
+
+<h2><a id="INT2PROGINATS">Introduction to Programming in ATS</a></h2>
+
+<table>
+<tr>
+<td>
+This book starts from the core of ATS, a statically typed call-by-value
+functional programming language, gradually introducing the reader to
+dependent types, linear types and the paradigm of programming with
+theorem-proving. It assumes no familiarity of the reader with functional
+programming but it does expect the reader to have already acquired
+basic understanding of programming and possibly some programming skills.
+</td>
+</tr>
+<tr><td>
+Links:
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/PDF/main.pdf">pdf</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/book1.html">html</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/HTMLTOC/book1.html">htmltoc</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/INT2PROGINATS-BOOK-onechunk.html">htmlone</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/PDF/main_epub.pdf">e-pdf</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/CODE/INT2PROGINATS-CODE.html">code</a>
+</td></tr>
+<tr><td>
+Backup Links:
+<a href="http://ats-lang.github.io/DOCUMENT/INT2PROGINATS/PDF/main.pdf">pdf</a>
+<a href="http://ats-lang.github.io/DOCUMENT/INT2PROGINATS/HTML/book1.html">html</a>
+<a href="http://ats-lang.github.io/DOCUMENT/INT2PROGINATS/HTML/HTMLTOC/book1.html">htmltoc</a>
+<a href="http://ats-lang.github.io/DOCUMENT/INT2PROGINATS/HTML/INT2PROGINATS-BOOK-onechunk.html">htmlone</a>
+<a href="http://ats-lang.github.io/DOCUMENT/INT2PROGINATS/PDF/main_epub.pdf">e-pdf</a>
+<a href="http://ats-lang.github.io/DOCUMENT/INT2PROGINATS/CODE/INT2PROGINATS-CODE.html">code</a>
+</td></tr>
+<tr height="8px"><td></td></tr>
+</table>
+
+<hr></hr>
+
+<h2><a id="ATS2TUTORIAL0">A Tutorial on Programming Features in ATS</a></h2>
+
+<table>
+<tr><td>
+The primary purpose of this tutorial is to bring deep insights into a rich
+set of programming features in ATS and also demonstrate through concrete
+examples that these features can be made of effective use in the
+construction of high-quality programs. For someone familiar with both ML
+and C, it is possible to learn programming in ATS by simply studying the
+tutorial. However, a coherent and systematic view of ATS is diffcult to be
+gained from the tutorial alone.
+</td></tr>
+<tr><td>
+Links:
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/PDF/main.pdf">pdf</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/HTML/book1.html">html</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/HTML/HTMLTOC/book1.html">htmltoc</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/HTML/ATS2TUTORIAL-BOOK-onechunk.html">htmlone</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/PDF/main_epub.pdf">e-pdf</a>
+<a href="http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/CODE/ATS2TUTORIAL-CODE.html">code</a>
+</td></tr>
+<tr><td>
+Backup Links:
+<a href="http://ats-lang.github.io/DOCUMENT/ATS2TUTORIAL/PDF/main.pdf">pdf</a>
+<a href="http://ats-lang.github.io/DOCUMENT/ATS2TUTORIAL/HTML/book1.html">html</a>
+<a href="http://ats-lang.github.io/DOCUMENT/ATS2TUTORIAL/HTML/HTMLTOC/book1.html">htmltoc</a>
+<a href="http://ats-lang.github.io/DOCUMENT/ATS2TUTORIAL/HTML/ATS2TUTORIAL-BOOK-onechunk.html">htmlone</a>
+<a href="http://ats-lang.github.io/DOCUMENT/ATS2TUTORIAL/PDF/main_epub.pdf">e-pdf</a>
+<a href="http://ats-lang.github.io/DOCUMENT/ATS2TUTORIAL/CODE/ATS2TUTORIAL-CODE.html">code</a>
+</td></tr>
+<tr height="8px"><td></td></tr>
+</table>
+
+<hr></hr>
+
+<h2><a id="EFF2ATSPROGEX">Effective ATS Programming through Examples</a></h2>
+
+<p>
+Please find
+<a href="http://ats-lang.sourceforge.net/EXAMPLE/EFFECTIVATS/">on-line</a>
+(<a href="http://ats-lang.github.io/EXAMPLE/EFFECTIVATS/">backup</a>)
+various (short) programs in ATS plus detailed explanation that are written
+for the purpose of advocating effective programming in ATS.
+</p>
+
+<hr></hr>
+
+</div>
+
+</div><!--thePageRBodyLContent-->
+</div><!--thePageRBodyLeft-->
+</td>
+
+<td style="vertical-align:top;width:32%;">
+<div id="thePageRBodyRight">
+<div
+style="margin-top:8px;padding:8px;"
+><!--div-->
+
+<h2 style="display:inline;">What is new?</h2>
+
+<hr></hr>
+
+ATS-2015-12-13:<br>
+<a
+ href="https://groups.google.com/forum/#!topic/ats-lang-users/GoCw5--amAM"
+>ATS2TUTORIAL</a>:
+<br>
+Chapter "Linearly Typed Lists" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+ATS-2015-12-09:<br>
+<a
+ href="https://groups.google.com/forum/#!topic/ats-lang-users/wH4IZnOkZow"
+>Session Combinators</a><br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+  
+ATS-2015-11-24:<br>
+<a
+ href="https://groups.google.com/forum/#!topic/ats-lang-users/BpMDJrD22ck"
+>Session-Typed Channels</a><br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+  
+ATS-2015-10-29:<br>
+<a
+ href="https://groups.google.com/forum/#!topic/ats-lang-users/ppvsAqwe2Ag"
+>ATS books in pdf format</a><br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-09-20:<br>
+<a
+ href="https://groups.google.com/forum/#!topic/ats-lang-users/RGsACNPKvL4"
+>Using codegen2-directives</a><br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-03-31:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/HTML/HTMLTOC/ATS2TUTORIAL-BOOK.html>ATS2TUTORIAL</a>:
+<br>
+Chapter "Linearly Typed Lists" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-03-19:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/HTML/HTMLTOC/ATS2TUTORIAL-BOOK.html>ATS2TUTORIAL</a>:
+<br>
+Chapter "Functional Sets and Maps" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-03-12:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/HTML/HTMLTOC/ATS2TUTORIAL-BOOK.html>ATS2TUTORIAL</a>:
+<br>
+Chapter "Persistent Hashtables" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-03-11:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/HTMLTOC/INT2PROGINATS-BOOK.html>INT2PROGINATS</a>:
+<br>
+Chapter "From genericity to late-binding" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-03-11:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/HTMLTOC/INT2PROGINATS-BOOK.html>INT2PROGINATS</a>:
+<br>
+Section "Template-based support for late-binding" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+<!--
+
+ATS-2015-03-07:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/HTMLTOC/INT2PROGINATS-BOOK.html>INT2PROGINATS</a>:
+<br>
+Section "Genericity of template implementations" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-02-10:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/HTMLTOC/INT2PROGINATS-BOOK.html>INT2PROGINATS</a>:
+<br>
+Section "Programmer-centric theorem-proving" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+<!--
+
+ATS-2015-01-20:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/HTMLTOC/INT2PROGINATS-BOOK.html>INT2PROGINATS</a>:
+<br>
+Section "Linear channels for IPC" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-01-16:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/HTMLTOC/INT2PROGINATS-BOOK.html>INT2PROGINATS</a>:
+<br>
+Section on locking and unlocking is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-01-11:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/HTML/HTMLTOC/ATS2TUTORIAL-BOOK.html>ATS2TUTORIAL</a>:
+<br>
+Chapter "Datatypes" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+ATS-2015-01-07:<br>
+<a
+ href=http://ats-lang.sourceforge.net/DOCUMENT/ATS2TUTORIAL/HTML/HTMLTOC/ATS2TUTORIAL-BOOK.html>ATS2TUTORIAL</a>:
+<br>
+Chapter "Recursion" is added.<br>
+by <a href="http://www.cs.bu.edu/~hwxi">Hongwei Xi</a>
+
+<hr></hr>
+
+-->
+
+</div>
+
+</div><!--thePageRBodyRight-->
+</td>
+</tr>
+</table>
+</div><!--thePageRBody-->
+
+<div id="thePageRFooter">
+<div id="thePageRFooterSep">
+[thePageRFooterSep]
+</div><!--thePageRFooterSep-->
+
+<div id="thePageRFooterRest">
+<div>
+
+<table
+width=100%
+><!--table-->
+
+<tr>
+<td>
+This page is created by
+<a
+href="http://www.cs.bu.edu/~hwxi/"
+>Hongwei Xi</a>
+<br>
+with tools including ATS/weboxy, atscc2js and atscc2php.
+
+<!--
+<ul>
+<li>
+weboxy: A small package in ATS for doing webpage layout.
+</li>
+<li>
+atscc2js: A compiler for translating into JS the C code generated from ATS source.
+</li>
+<li>
+atscc2php: A compiler for translating into PHP the C code generated from ATS source.
+</li>
+</ul>
+-->
+
+</td>
+</tr>
+
+</table>
+
+</div>
+
+
+</div><!--thePageRFooterRest-->
+</div><!--thePageRFooter-->
+</div><!--thePageRight-->
+</td>
+</tr>
+</table>
+</div><!--thePage-->
+</div><!--theBodyProp-->
+</body>
+</html>
