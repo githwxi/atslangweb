@@ -305,11 +305,13 @@ lemma_stropt_param
 // end of [lemma_stropt_param]
 
 (* ****** ****** *)
-
-dataprop SGN (int, int) =
-  | SGNzero (0, 0) | {i:neg} SGNneg (i, ~1) | {i:pos} SGNpos (i,  1)
+//
+dataprop
+SGN (int, int) =
+  | SGNzero (0, 0)
+  | {i:neg} SGNneg (i, ~1) | {i:pos} SGNpos (i,  1)
 // end of [SGN] // end of [dataprop]
-
+//
 (* ****** ****** *)
 //
 // HX-2012-06:
@@ -344,6 +346,7 @@ praxi __vfree_exn (x: exn):<> void // for freeing nullary exception-con
 datatype unit = unit of ()
 dataprop unit_p = unit_p of ()
 dataview unit_v = unit_v of ()
+//
 prfun unit_v_elim (pf: unit_v): void
 //
 (* ****** ****** *)
@@ -394,11 +397,13 @@ stadef arrszref = arrszref_vt0ype_type
 //
 (* ****** ****** *)
 //
-datatype // t@ype+: covariant
-list_t0ype_int_type (a:t@ype+, int) =
+datatype
+// t@ype+: covariant
+list_t0ype_int_type
+  (a:t@ype+, int) =
+  | list_nil(a, 0) of ()
   | {n:int | n >= 0}
-    list_cons (a, n+1) of (a, list_t0ype_int_type (a, n))
-  | list_nil (a, 0) of ()
+    list_cons(a, n+1) of (a, list_t0ype_int_type (a, n))
 // end of [datatype]
 stadef list = list_t0ype_int_type
 typedef
@@ -422,11 +427,13 @@ typedef listBtwe
 //
 (* ****** ****** *)
 //
-datavtype // vt@ype+: covariant
-list_vt0ype_int_vtype (a:vt@ype+, int) =
+datavtype
+// vt@ype+: covariant
+list_vt0ype_int_vtype
+  (a:vt@ype+, int) =
+  | list_vt_nil (a, 0) of ()
   | {n:int | n >= 0}
     list_vt_cons (a, n+1) of (a, list_vt0ype_int_vtype (a, n))
-  | list_vt_nil (a, 0) of ()
 // end of [list_vt0ype_int_vtype]
 stadef list_vt = list_vt0ype_int_vtype
 vtypedef
@@ -450,16 +457,40 @@ vtypedef listBtwe_vt
 //
 (* ****** ****** *)
 //
-datatype // t@ype+: covariant
+datatype
+stream_con(a:t@ype+) =
+  | stream_nil of ((*void*))
+  | stream_cons of (a, stream(a))
+//
+where stream (a:t@ype) = lazy (stream_con(a))
+//
+datavtype
+stream_vt_con
+  (a:vt@ype+) =
+  | stream_vt_nil of ((*void*))
+  | stream_vt_cons of (a, stream_vt(a))
+//
+where
+stream_vt(a:vt@ype) = lazy_vt(stream_vt_con(a))
+//
+(* ****** ****** *)
+//
+datatype
+// t@ype+: covariant
 option_t0ype_bool_type
-  (a:t@ype+, bool) = Some (a, true) of (a) | None (a, false)
+(
+  a:t@ype+, bool
+) = Some(a, true) of (a) | None(a, false)
 // end of [datatype]
 stadef option = option_t0ype_bool_type
 typedef Option (a:t0p) = [b:bool] option (a, b)
 //
-datavtype // vt@ype+: covariant
+datavtype
+// vt@ype+: covariant
 option_vt0ype_bool_vtype
-  (a:vt@ype+, bool) = Some_vt (a, true) of (a) | None_vt (a, false)
+(
+  a:vt@ype+, bool
+) = Some_vt(a, true) of (a) | None_vt(a, false)
 // end of [option_vt0ype_bool_vtype]
 stadef option_vt = option_vt0ype_bool_vtype
 vtypedef Option_vt (a:vt0p) = [b:bool] option_vt (a, b)
@@ -589,37 +620,43 @@ overload main with main_argc_argv_int
 overload main with main_argc_argv_envp_int
 //
 (* ****** ****** *)
-
-fun exit
-  (ecode: int):<!exn> {a:t0p}(a) = "mac#%"
-fun exit_errmsg
+//
+fun
+exit(ecode: int):<!exn> {a:t0p}(a) = "mac#%"
+fun
+exit_errmsg
   (ecode: int, msg: string):<!exn> {a:t0p}(a) = "mac#%"
+//
 (*
 fun exit_fprintf{ts:types}
 (
   ecode: int, out: FILEref, fmt: printf_c ts, args: ts
 ) :<!exn> {a:vt0p}(a) = "mac#%" // end of [exit_fprintf]
 *)
-
+//
 (* *****p* ****** *)
 //
-fun exit_void
+fun
+exit_void
   (ecode: int):<!exn> void = "mac#%"
-fun exit_errmsg_void
+fun
+exit_errmsg_void
   (ecode: int, msg: string):<!exn> void = "mac#%"
 //
 (* ****** ****** *)
-
-fun assert_bool0
+//
+fun
+assert_bool0
   (x: bool):<!exn> void = "mac#%"
-fun assert_bool1
+fun
+assert_bool1
   {b:bool} (x: bool (b)):<!exn> [b] void = "mac#%"
 //
 overload assert with assert_bool0 of 0
 overload assert with assert_bool1 of 10
 //
 (* ****** ****** *)
-
+//
 fun{}
 assertexn_bool0 (x: bool):<!exn> void
 fun{}
@@ -631,21 +668,22 @@ overload assertexn with assertexn_bool1 of 10
 //
 (* ****** ****** *)
 //
-symintr assert_errmsg
-//
 fun assert_errmsg_bool0
   (x: bool, msg: string):<!exn> void = "mac#%"
 fun assert_errmsg_bool1
   {b:bool} (x: bool b, msg: string):<!exn> [b] void = "mac#%"
 //
+symintr assert_errmsg
 overload assert_errmsg with assert_errmsg_bool0 of 0
 overload assert_errmsg with assert_errmsg_bool1 of 10
 //
 (* ****** ****** *)
-
-fun assert_errmsg2_bool0
+//
+fun
+assert_errmsg2_bool0
   (x: bool, msg1: string, msg2: string):<!exn> void = "mac#%"
-fun assert_errmsg2_bool1{b:bool}
+fun
+assert_errmsg2_bool1{b:bool}
   (x: bool b, msg1: string, msg2: string):<!exn> [b] void = "mac#%"
 //
 symintr assert_errmsg2
@@ -653,14 +691,14 @@ overload assert_errmsg2 with assert_errmsg2_bool0 of 0
 overload assert_errmsg2 with assert_errmsg2_bool1 of 10
 //
 (* ****** ****** *)
-
+//
 datasort
 file_mode =
   | file_mode_r (* read *)
   | file_mode_w (* write *)
   | file_mode_rw (* read and write *)
 // end of [file_mode]
-
+//
 (* ****** ****** *)
 
 local
@@ -721,9 +759,9 @@ typedef FILEref = FILEref_type
 (* ****** ****** *)
 //
 typedef
-fprint_type (a: t0p) = (FILEref, a) -> void
+fprint_type(a: t0p) = (FILEref, a) -> void
 typedef
-fprint_vtype (a: vt0p) = (FILEref, !a) -> void
+fprint_vtype(a: vt0p) = (FILEref, !a) -> void
 //
 (* ****** ****** *)
 

@@ -16,6 +16,8 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 #include
 "share/atspre_define.hats"
 //
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/basics.sats"
 //
 (* ****** ****** *)
@@ -30,13 +32,13 @@ abstype JSobj // generic
 //
 abstype JSdate // new Date()
 //
-abstype JSarray(a:t@ype)
+abstype JSarray(a:vt@ype)
 //
 abstype JSregexp // new RegExp()
 //
 (* ****** ****** *)
 
-abstype JSfile // HX: this is nominal!
+abstype JSfilr // HX: this is nominal!
 
 (* ****** ****** *)
 //
@@ -72,8 +74,14 @@ fun typeof{a:t@ype}(a): string = "mac#%"
 // HX-2014-09:
 // it returns obj.toString()
 //
-fun toString{a:t@ype}(obj: a): string = "mac#%"
+fun
+toString{a:t@ype}(obj: a): string = "mac#%"
 //
+(* ****** ****** *)
+
+fun
+console_log{a:t@ype}(obj: a): void = "mac#%"
+
 (* ****** ****** *)
 //
 fun

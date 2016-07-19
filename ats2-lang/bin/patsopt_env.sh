@@ -7,7 +7,7 @@
 #
 
 PACKAGE_TARNAME=ats2-postiats
-PACKAGE_VERSION=0.1.2
+PACKAGE_VERSION=0.2.9
 prefix=/usr/local
 
 if [ ! "$PATSHOME" ] ; then

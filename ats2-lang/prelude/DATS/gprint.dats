@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gprint.atxt
-** Time of generation: Sat Jun 27 21:39:43 2015
+** Time of generation: Sun Jul  3 11:13:28 2016
 *)
 
 (* ****** ****** *)
@@ -41,11 +41,14 @@
 
 (* ****** ****** *)
 
-implement{} gprint$out () = stdout_ref
+implement
+{}(*tmp*)
+gprint$out () = stdout_ref
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 gprint_newline () = let
   val out = gprint$out () in fprint_newline (out)
 end // end of [gprint_newline]
@@ -96,19 +99,20 @@ implement gprint_val<double> (x) = gprint_double (x)
 implement gprint_val<string> (x) = gprint_string (x)
 //
 (* ****** ****** *)
-
+//
 implement{}
 gprint_list$beg () = gprint_string "("
 implement{}
 gprint_list$end () = gprint_string ")"
 implement{}
 gprint_list$sep () = gprint_string ", "
-
+//
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-gprint_list (xs) = let
+gprint_list
+  (xs) = let
 //
 typedef tenv = int
 //
@@ -131,25 +135,28 @@ in
   // nothing
 end // end of [gprint_list]
 
-implement(a)
+implement
+(a)(*tmp*)
 gprint_val<List(a)> (xs) = gprint_list<a> (xs)
 
 (* ****** ****** *)
-
+//
 implement{}
 gprint_listlist$beg1 () = gprint_string "("
 implement{}
 gprint_listlist$end1 () = gprint_string ")"
 implement{}
 gprint_listlist$sep1 () = gprint_string ", "
-
+//
 implement{}
 gprint_listlist$beg2 () = gprint_string "("
 implement{}
 gprint_listlist$end2 () = gprint_string ")"
 implement{}
 gprint_listlist$sep2 () = gprint_string ", "
-
+//
+(* ****** ****** *)
+//
 implement
 {a}(*tmp*)
 gprint_listlist
@@ -175,25 +182,27 @@ implement gprint_list$sep<> () = gprint_listlist$sep1 ()
 in
   gprint_list<xs> (xss)
 end // end of [gprint_listlist]
-
+//
 (* ****** ****** *)
-
+//
 implement{}
 gprint_array$beg () = gprint_string "("
 implement{}
 gprint_array$end () = gprint_string ")"
 implement{}
 gprint_array$sep () = gprint_string ", "
-
+//
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-gprint_array (A, n) = let
+gprint_array
+  (A, n) = let
 //
 typedef tenv = size_t
 //
-implement(env)
+implement
+(env)(*tmp*)
 array_iforeach$fwork<a><env>
   (i, x, env) = let
   val () = if i > 0 then gprint_array$sep ()

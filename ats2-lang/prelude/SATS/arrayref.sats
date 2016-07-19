@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Sat Jun 27 21:39:13 2015
+** Time of generation: Sun Jul  3 11:13:18 2016
 *)
 
 (* ****** ****** *)
@@ -147,10 +147,10 @@ arrayref_make_rlist{n:int}
 //
 fun{a:t0p}
 arrayref_head
-  {n:pos} (A: arrayref (a, n)):<!ref> (a) // A[0]
+  {n:pos} (A: arrayref(a, n)):<!ref> (a) // A[0]
 fun{a:t0p}
 arrayref_tail
-  {n:pos} (A: arrayref (a, n)):<!ref> arrayref (a, n-1)
+  {n:pos} (A: arrayref(a, n)):<!ref> arrayref(a, n-1)
 //
 (* ****** ****** *)
 //
@@ -159,7 +159,7 @@ a:t0p}{tk:tk
 } arrayref_get_at_gint
   {n:int}{i:nat | i < n}
 (
-  A: arrayref (a, n), i: g1int (tk, i)
+  A: arrayref(a, n), i: g1int(tk, i)
 ) :<!ref> a // end of [arrayref_get_at_gint]
 //
 fun{
@@ -167,7 +167,7 @@ a:t0p}{tk:tk
 } arrayref_get_at_guint
   {n:int}{i:nat | i < n}
 (
-  A: arrayref (a, n), i: g1uint (tk, i)
+  A: arrayref(a, n), i: g1uint(tk, i)
 ) :<!ref> a // end of [arrayref_get_at_guint]
 //
 symintr arrayref_get_at

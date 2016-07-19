@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gprint.atxt
-** Time of generation: Sat Jun 27 21:39:15 2015
+** Time of generation: Sun Jul  3 11:13:19 2016
 *)
 
 (* ****** ****** *)
@@ -41,8 +41,6 @@
 
 (* ****** ****** *)
 
-vtypedef
-RD(a:vt0p) = a // for commenting: read-only
 #define NSH (x) x // for commenting: no sharing
 #define SHR (x) x // for commenting: it is shared
 
@@ -65,7 +63,7 @@ gprint_newline(): void
 fun{a:t0p}
 gprint_val (x: a): void
 fun{a:vt0p}
-gprint_ref (x: &RD(a)): void
+gprint_ref (x: &INV(a)): void
 
 (* ****** ****** *)
 
@@ -111,7 +109,7 @@ fun{} gprint_array$sep(): void
 fun{a:t0p}
 gprint_array
   {n:int}
-  (A: &RD(@[INV(a)][n]), n: size_t(n)): void
+  (A: &(@[INV(a)][n]), n: size_t(n)): void
 // end of [gprint_array]
 fun{a:t0p}
 gprint_arrayptr

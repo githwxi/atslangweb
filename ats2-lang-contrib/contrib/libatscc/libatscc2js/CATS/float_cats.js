@@ -67,6 +67,20 @@ ats2jspre_div_double_int(x, y) { return (x / y); }
 /* ****** ****** */
 
 function
+ats2jspre_pow_double_int1(x, y)
+{
+  var res = 1;
+  while(y >= 2)
+  {
+    if (y%2 > 0) res *= x;
+    x = x * x; y = Math.floor(y/2);
+  }
+  return (y > 0) ? (x * res) : res;
+}
+
+/* ****** ****** */
+
+function
 ats2jspre_add_double_double(x, y) { return (x + y); }
 function
 ats2jspre_sub_double_double(x, y) { return (x - y); }
@@ -111,6 +125,14 @@ function
 ats2jspre_eq_double_double(x, y) { return (x === y); }
 function
 ats2jspre_neq_double_double(x, y) { return (x !== y); }
+
+/* ****** ****** */
+
+function
+ats2jspre_compare_double_double(x, y)
+{
+  if (x < y) return -1; else if (x > y) return 1; else return 0;
+}
 
 /* ****** ****** */
 

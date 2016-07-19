@@ -15,6 +15,21 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 implement
+{}(*tmp*)
+list_is_nil(xs) =
+(
+case+ xs of list_nil() => true | _ =>> false
+)
+implement
+{}(*tmp*)
+list_is_cons(xs) =
+(
+case+ xs of list_cons _ => true | _ =>> false
+)
+//
+(* ****** ****** *)
+//
+implement
 list_make_intrange_2
   (l, r) = list_make_intrange_3 (l, r, 1)
 //
@@ -123,13 +138,52 @@ loop{i,j:int}
 ) : int(i+j) =
 (
 case+ xs of
-| list_nil () => j | list_cons (_, xs) => loop (xs, j+1)
-)
+| list_nil () => j
+| list_cons (_, xs) => loop (xs, j+1)
+) (* end of [loop] *)
 //
 in
   loop (xs, 0)
 end // end of [list_length]
 
+(* ****** ****** *)
+
+implement
+list_last(xs) = let
+  val+list_cons(x, xs) = xs
+in
+  case+ xs of
+  | list_nil() => x | list_cons _ =>> list_last(xs)
+end // end of [list_last]
+
+(* ****** ****** *)
+
+implement
+list_get_at
+  {a}(xs, i) = (
+//
+if
+(i = 0)
+then let
+  val+list_cons(x, xs) = xs in x
+end // end of [then]
+else let
+  val+list_cons(_, xs) = xs in list_get_at(xs, i-1)
+end // end of [else]
+//
+) (* end of [list_get_at] *)
+
+(* ****** ****** *)
+//
+implement
+list_snoc
+  (xs, x0) =
+  list_append(xs, list_sing(x0))
+implement
+list_extend
+  (xs, x0) =
+  list_append(xs, list_sing(x0))
+//
 (* ****** ****** *)
 
 implement
@@ -182,27 +236,242 @@ in
 end // end of [list_reverse_append]
 
 (* ****** ****** *)
-//
+
 implement
-list_app (xs, f) = list_foreach (xs, f)
-//
-implement
-list_foreach (xs, f) =
+list_take(xs, i) =
 (
+//
+if
+i > 0
+then let
+  val+list_cons(x, xs) = xs
+in
+  list_cons(x, list_take(xs, i-1))
+end // end of [then]
+else list_nil() // end of [else]
+//
+) (* end of [list_take] *)
+
+implement
+list_drop(xs, i) =
+(
+//
+if
+i > 0
+then let
+  val+list_cons(_, xs) = xs in list_drop(xs, i-1)
+end // end of [then]
+else xs // end of [else]
+//
+) (* end of [list_drop] *)
+
+(* ****** ****** *)
+
+implement
+list_split_at
+  (xs, i) =
+(
+  $tup(list_take(xs, i), list_drop(xs, i))
+) (* end of [list_split_at] *)
+
+(* ****** ****** *)
+
+implement
+list_insert_at
+  (xs, i, x0) = (
+//
+if
+(i > 0)
+then let
+  val+list_cons (x, xs) = xs
+in
+  list_cons (x, list_insert_at (xs, i-1, x0))
+end // end of [then]
+else list_cons (x0, xs)
+//
+) (* end of [list_insert_at] *)
+  
+(* ****** ****** *)
+
+implement
+list_remove_at
+  (xs, i) = let
+//
+val+list_cons(x, xs) = xs
+//
+in
+//
+if
+(i > 0)
+then
+list_cons
+  (x, list_remove_at(xs, i-1))
+// end of [then]
+else xs // end of [else]
+//
+end (* end of [list_remove_at] *)
+
+(* ****** ****** *)
+
+implement
+list_takeout_at
+  (xs, i) = let
+//
+val+list_cons (x, xs) = xs
+//
+in
+//
+if
+(i > 0)
+then let
+//
+val $tup(x_rem, xs) =
+  list_takeout_at (xs, i-1)
+//
+in
+  $tup(x_rem, list_cons(x, xs))
+end // end of [then]
+else $tup(x, xs) // end of [else]
+//
+end (* end of [list_takeout_at] *)
+
+(* ****** ****** *)
+//
+implement
+list_app(xs, f) = list_foreach(xs, f)
+//
+implement
+list_foreach
+  (xs, f) = (
+//
 case+ xs of
-| list_nil () => ()
-| list_cons (x, xs) => (f(x); list_foreach (xs, f))
+| list_nil() => ()
+| list_cons(x, xs) => (f(x); list_foreach(xs, f))
+//
 ) (* end of [list_foreach] *)
+//
+(* ****** ****** *)
+//
+implement
+list_iforeach
+  {a}(xs, f) = let
+//
+fun
+aux
+(
+  i: int, xs: List(a)
+) : void =
+//
+case+ xs of
+| list_nil() => ()
+| list_cons(x, xs) => (f(i, x); aux(i+1, xs))
+//
+in
+  aux(0, xs)
+end (* end of [list_iforeach] *)
+//
+(* ****** ****** *)
+//
+implement
+list_rforeach
+  (xs, f) = (
+//
+case+ xs of
+| list_nil() => ()
+| list_cons(x, xs) => (list_rforeach(xs, f); f(x))
+//
+) (* end of [list_rforeach] *)
 //
 (* ****** ****** *)
 
 implement
-list_map (xs, f) =
+list_filter
+  {a}(xs, p) = aux(xs) where
+{
+//
+fun
+aux{n:int}
+(
+  xs: list(a, n)
+) : listLte(a, n) =
+  case+ xs of
+  | list_nil() => list_nil()
+  | list_cons(x, xs) =>
+      if p(x) then list_cons(x, aux(xs)) else aux(xs)
+    // end of [list_cons]
+//
+} (* end of [list_filter] *)
+
+(* ****** ****** *)
+
+implement
+list_map
+  {a}{b}
+(
+  xs, fopr
+) = aux(xs) where
+{
+//
+fun
+aux
+{n:nat} .<n>.
+(
+xs: list(a, n)
+) : list(b, n) =
 (
 case+ xs of
-| list_nil () => list_nil ()
-| list_cons (x, xs) => list_cons (f(x), list_map (xs, f))
-) (* end of [list_map] *)
+| list_nil() => list_nil()
+| list_cons(x, xs) => list_cons(fopr(x), aux(xs))
+) (* end of [aux] *)
+//
+prval () = lemma_list_param(xs)
+//
+} (* end of [list_map] *)
+
+(* ****** ****** *)
+
+implement
+list_foldleft
+  {res}{a}
+  (xs, init, fopr) = let
+//
+fun
+loop
+(
+   res: res, xs: List(a)
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => loop(fopr(res, x), xs)
+)
+//
+in
+  loop(init, xs)
+end // end of [list_foldleft]
+
+(* ****** ****** *)
+
+implement
+list_foldright
+  {a}{res}
+(
+  xs, fopr, sink
+) = aux(xs, sink) where
+{
+//
+fun
+aux
+(
+  xs: List(a), res: res
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => fopr(x, aux(xs, res))
+)
+//
+} (* end of [list_foldright] *)
 
 (* ****** ****** *)
 

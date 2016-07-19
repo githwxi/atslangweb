@@ -30,15 +30,8 @@ staload "./../SATS/reference.sats"
 //
 (* ****** ****** *)
 //
-(*
-assume
-ref_vt0ype_type(a:t@ype) = PYlist(a)
-*)
-//
-(* ****** ****** *)
-//
 implement
-ref (x) = ref_make_elt (x)
+ref{a}(x) = ref_make_elt{a}(x)
 //
 implement
 ref_make_elt{a}(x) = $UN.cast{ref(a)}(PHPref_new(x))

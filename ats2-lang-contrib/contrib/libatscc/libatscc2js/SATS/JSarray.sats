@@ -18,49 +18,58 @@ staload "./../basics_js.sats"
 (* ****** ****** *)
 //
 fun
-JSarray_nil{a:t0p}(): JSarray(a) = "mac#%"
+JSarray_nil{a:vt0p}(): JSarray(a) = "mac#%"
 fun
-JSarray_sing{a:t0p}(a): JSarray(a) = "mac#%"
+JSarray_sing{a:vt0p}(a): JSarray(a) = "mac#%"
 fun
-JSarray_pair{a:t0p}(a, a): JSarray(a) = "mac#%"
+JSarray_pair{a:vt0p}(a, a): JSarray(a) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 JSarray_get_at
-  {a:t@ype}(JSarray(a), int): a = "mac#%"
+  {a:t0p}(JSarray(a), int): a = "mac#%"
 fun
 JSarray_set_at
-  {a:t@ype}(JSarray(a), int, a): void = "mac#%"
+  {a:t0p}(JSarray(a), int, a): void = "mac#%"
+//
+fun
+JSarray_exch_at
+  {a:vt0p}(JSarray(a), int, x0: a): (a) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-JSarray_length{a:t@ype}(JSarray(a)): int = "mac#%"
+JSarray_length{a:vt0p}(JSarray(a)): int = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-JSarray_pop{a:t@ype}(A: JSarray(a)): a = "mac#%"
+JSarray_pop{a:vt0p}(A: JSarray(a)): a = "mac#%"
 fun
-JSarray_push{a:t@ype}(A: JSarray(a), x: a): int = "mac#%"
+JSarray_push{a:vt0p}(A: JSarray(a), x: a): int = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-JSarray_shift{a:t@ype}(A: JSarray(a)): a = "mac#%"
+JSarray_shift{a:vt0p}(A: JSarray(a)): (a) = "mac#%"
 fun
-JSarray_unshift{a:t@ype}(A: JSarray(a), x: a): int = "mac#%"
+JSarray_unshift{a:vt0p}(A: JSarray(a), x0: a): int = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-JSarray_reverse{a:t@ype}(A: JSarray(a)): void = "mac#%"
+JSarray_reverse{a:vt0p}(A: JSarray(a)): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 JSarray_copy{a:t@ype}(JSarray(a)): JSarray(a) = "mac#%"
+//
+fun
+JSarray_copy_arrayref
+  {a:t@ype}{n:int}
+  (A: arrayref(a, n), asz: int(n)): JSarray(a) = "mac#"
 //
 (* ****** ****** *)
 //
@@ -74,14 +83,15 @@ JSarray_concat{a:t@ype}
 //
 fun
 JSarray_insert_at
-  {a:t@ype}(JSarray(a), int, a): void = "mac#%"
+  {a:vt0p}(JSarray(a), int, a): void = "mac#%"
+//
+fun
+JSarray_takeout_at
+  {a:vt0p}(JSarray(a), ofs: int): (a) = "mac#%"
 //
 fun
 JSarray_remove_at
-  {a:t@ype}(JSarray(a), ofs: int): void = "mac#%"
-fun
-JSarray_takeout_at
-  {a:t@ype}(JSarray(a), ofs: int): ( a ) = "mac#%"
+  {a:t@ype}(A: JSarray(a), ofs: int): void = "mac#%"
 //
 (* ****** ****** *)
 //

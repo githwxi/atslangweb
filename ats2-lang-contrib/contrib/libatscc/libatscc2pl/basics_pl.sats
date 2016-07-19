@@ -16,6 +16,8 @@ ATS_EXTERN_PREFIX "ats2plpre_"
 #include
 "share/atspre_define.hats"
 //
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/basics.sats"
 //
 (* ****** ****** *)
@@ -24,7 +26,7 @@ abstype PLfilr
 
 (* ****** ****** *)
 
-abstype PLarray(a:t@ype)
+abstype PLarray(a:vt@ype)
 
 (* ****** ****** *)
 //
