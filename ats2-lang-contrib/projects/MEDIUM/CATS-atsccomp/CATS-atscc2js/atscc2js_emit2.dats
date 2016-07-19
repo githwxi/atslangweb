@@ -187,7 +187,7 @@ implement
 funlab_get_index
   (fl0) = let
 //
-val n0 = fl0.i0de_sym
+val n0 = fl0.i0dex_sym
 //
 fun
 auxlst
@@ -203,7 +203,7 @@ case+ xs of
     | ATSfunbodyseq _ => let
         val fl = funbodyseq_get_funlab (x)
       in
-        if n0 = fl.i0de_sym then i else auxlst (xs, i+1)
+        if n0 = fl.i0dex_sym then i else auxlst (xs, i+1)
       end // end of [ATSfunbodyseq]
     | _ (*non-ATSfunbody*) => auxlst (xs, i)
   ) (* end of [list_cons] *)
@@ -220,7 +220,7 @@ implement
 tmplab_get_index
   (lab0) = let
 //
-val n0 = lab0.i0de_sym
+val n0 = lab0.i0dex_sym
 //
 fun
 auxlst
@@ -231,7 +231,7 @@ auxlst
 case+ xs of
 | list_nil () => ~1(*error*)
 | list_cons (x, xs) =>
-    if n0 = x.i0de_sym then i else auxlst (xs, i+1)
+    if n0 = x.i0dex_sym then i else auxlst (xs, i+1)
   // end of [list_cons]
 )
 //
@@ -345,7 +345,7 @@ ins0.instr_node of
 | ATSifthen (d0e, inss) =>
   {
 //
-    val-list_cons (ins, _) = inss
+    val-list_sing(ins) = inss
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "if(")
@@ -357,7 +357,7 @@ ins0.instr_node of
 | ATSifnthen (d0e, inss) =>
   {
 //
-    val-list_cons (ins, _) = inss
+    val-list_sing(ins) = inss
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "if(!")
@@ -868,12 +868,11 @@ val () = emit_nspc (out, ind)
 val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
 //
-val () = emit_LBRACKET (out)
 val () =
 (
-  emit_int (out, 0); emit_text (out, ", "); emit_d0exp (out, thunk)
+  emit_text(out, "ATSPMVlazyval(");
+  emit_d0exp (out, thunk); emit_RPAREN(out)
 ) (* end of [val] *)
-val () = emit_RBRACKET (out)
 //
 in
   // nothing
@@ -890,15 +889,15 @@ ATSINSmove_lazyeval
   (tmp, s0e, lazyval) = ins0.instr_node
 //
 val () = emit_nspc (out, ind)
-val () = emit_text (out, "ATSPMVlazyval_eval")
-val () = emit_text (out, "(")
-val () = emit_d0exp (out, lazyval)
-val () = emit_text (out, "); ")
-val () = emit_tmpvar (out, tmp)
-val () = emit_text (out, " = ")
-val () = emit_d0exp (out, lazyval)
 val () =
-(
+  emit_text (out, "ATSPMVlazyval_eval(")
+val () = (
+  emit_d0exp(out, lazyval); emit_text(out, "); ")
+) (* end of [val] *)
+val () =
+  (emit_tmpvar (out, tmp); emit_text (out, " = "))
+val () = (
+  emit_d0exp (out, lazyval);
   emit_text (out, "["); emit_int (out, 1); emit_text (out, "];")
 ) (* end of [val] *)
 //
@@ -929,7 +928,7 @@ d0c.d0ecl_node of
 | D0Cifndef _ => ()
 //
 | D0Ctypedef (id, def) =>
-    typedef_insert (id.i0de_sym, def)
+    typedef_insert (id.i0dex_sym, def)
   // end of [D0Ctypedef]
 //
 | D0Cassume (id) =>
@@ -994,17 +993,32 @@ d0c.d0ecl_node of
     val () = emit_closurerize (out, fl, env, arg, res)
   }
 //
-| D0Cdynloadflag_init(flag) => (
+| D0Cdynloadflag_init
+    (flag) => (
 //
 // HX-2015-05-22:
 // it is skipped as JS does not have a link-time!
 //
   ) (* end of [D0Cdynloadflag_init] *)
 //
-| D0Cdynloadflag_minit(flag) => (
+| D0Cdynloadflag_minit
+    (flag) => (
     emit_text (out, "// dynloadflag_minit\n");
     emit_text (out, "var "); emit_tmpvar (out, flag); emit_text (out, " = 0;\n")
   ) (* end of [D0Cdynloadflag_minit] *)
+//
+| D0Cdynexn_dec(idexn) =>
+  (
+    emit_text(out, "// dynexn_dec("); emit_i0de(out, idexn); emit_text(out, ")\n")
+  ) (* end of [D0Cdynexn_dec] *)
+| D0Cdynexn_extdec(idexn) =>
+  (
+    emit_text(out, "// dynexn_extdec("); emit_i0de(out, idexn); emit_text(out, ")\n")
+  ) (* end of [D0Cdynexn_extdec] *)
+| D0Cdynexn_initize(idexn, fullname) =>
+  (
+    emit_text(out, "// dynexn_initize("); emit_i0de(out, idexn); emit_text(out, ")\n")
+  ) (* end of [D0Cdynexn_initize] *)
 //
 end // end of [emit_d0ecl]
 
@@ -1081,7 +1095,9 @@ fhd.f0head_node of
     (fid, f0ma, res) =>
   {
 //
-    val () = emit_i0de (out, fid)
+    val () =
+      emit_i0de(out, fid)
+    // end of [val]
 //
     val () = emit_LPAREN (out)
     val () = emit_f0marg (out, f0ma)

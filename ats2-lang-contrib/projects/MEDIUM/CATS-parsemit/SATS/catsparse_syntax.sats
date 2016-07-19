@@ -37,9 +37,9 @@ fun synent_isnot_null {a:type} (x: a):<> bool
 (* ****** ****** *)
 //
 fun
-i0de_make_sym (loc: loc_t, sym: symbol): i0de
+i0dex_make_sym (loc: loc_t, sym: symbol): i0de
 fun
-i0de_make_string (loc: loc_t, name: string): i0de
+i0dex_make_string (loc: loc_t, name: string): i0de
 //
 (* ****** ****** *)
 
@@ -200,6 +200,12 @@ ATSCKpat_bool_make
 ) : d0exp // end-of-fun
 //
 fun
+ATSCKpat_string_make
+(
+  tok_kwd: token, d0e: d0exp, bool: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
+fun
 ATSCKpat_con0_make
 (
   tok_kwd: token, d0e: d0exp, tag: signed, tok_end: token
@@ -326,8 +332,11 @@ fun tmpvar_is_apy (tmp: symbol): bool
 fun tmpvar_is_env (tmp: symbol): bool
 fun tmpvar_is_tmp (tmp: symbol): bool
 fun tmpvar_is_tmpret (tmp: symbol): bool
-fun tmpvar_is_a2rg (tmp: symbol): bool
-fun tmpvar_is_a2py (tmp: symbol): bool
+//
+(* ****** ****** *)
+//
+fun tmpvar_is_axrg (tmp: symbol): bool
+fun tmpvar_is_axpy (tmp: symbol): bool
 //
 fun tmpvar_is_local (tmp: symbol): bool
 //
@@ -738,6 +747,20 @@ d0ecl_dynloadflag_init
 fun
 d0ecl_dynloadflag_minit
   (tok_kwd: token, flag: i0de, tok_end: token): d0ecl
+//
+(* ****** ****** *)
+//
+fun
+d0ecl_dynexn_dec
+  (tok_kwd: token, idexn: i0de, tok_end: token): d0ecl
+fun
+d0ecl_dynexn_extdec
+  (tok_kwd: token, idexn: i0de, tok_end: token): d0ecl
+fun
+d0ecl_dynexn_initize
+(
+  tok_kwd: token, idexn: i0de, fullname: s0tring, tok_end: token
+) : d0ecl // end of [d0ecl_dynexn_initize]
 //
 (* ****** ****** *)
 

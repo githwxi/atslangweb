@@ -165,6 +165,8 @@ val-~None_vt() = kwordins ("ATSCKptrisnull", ATSCKptrisnull)
 //
 val-~None_vt() = kwordins ("ATSCKpat_int", ATSCKpat_int)
 val-~None_vt() = kwordins ("ATSCKpat_bool", ATSCKpat_bool)
+val-~None_vt() = kwordins ("ATSCKpat_string", ATSCKpat_string)
+//
 val-~None_vt() = kwordins ("ATSCKpat_con0", ATSCKpat_con0)
 val-~None_vt() = kwordins ("ATSCKpat_con1", ATSCKpat_con1)
 //
@@ -234,6 +236,10 @@ val-~None_vt() = kwordins ("ATSdynloadflag_minit", ATSdynloadflag_minit)
 val-~None_vt() = kwordins ("ATSclosurerize_beg", ATSclosurerize_beg)
 val-~None_vt() = kwordins ("ATSclosurerize_end", ATSclosurerize_end)
 //
+val-~None_vt() = kwordins ("ATSdynexn_dec", ATSdynexn_dec)
+val-~None_vt() = kwordins ("ATSdynexn_extdec", ATSdynexn_extdec)
+val-~None_vt() = kwordins ("ATSdynexn_initize", ATSdynexn_initize)
+//
 } (* end of [val] *)
 
 (* ****** ****** *)
@@ -287,13 +293,14 @@ staload "./../SATS/catsparse_parsing.sats"
 //
 typedef T = parerr
 //
-#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
+#include
+"{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
 //
 implement
-the_parerrlst_insert (x) = push (x)
+the_parerrlst_insert(x) = push(x)
 //
 implement
-the_parerrlst_pop_all () = pop_all ()
+the_parerrlst_pop_all() = pop_all()
 //
 } (* end of [staload] *)
 

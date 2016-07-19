@@ -160,6 +160,8 @@ case+ x of
 //
 | ATSCKpat_int () => pr "ATSCKpat_int"
 | ATSCKpat_bool () => pr "ATSCKpat_bool"
+| ATSCKpat_string () => pr "ATSCKpat_string"
+//
 | ATSCKpat_con0 () => pr "ATSCKpat_con0"
 | ATSCKpat_con1 () => pr "ATSCKpat_con1"
 //
@@ -222,6 +224,10 @@ case+ x of
 //
 | ATSclosurerize_beg () => pr "ATSclosurerize_beg"
 | ATSclosurerize_end () => pr "ATSclosurerize_end"
+//
+| ATSdynexn_dec () => pr "ATSdynexn_dec"
+| ATSdynexn_extdec () => pr "ATSdynexn_extdec"
+| ATSdynexn_initize () => pr "ATSdynexn_initize"
 //
 | KWORDnone () => pr "KWORDnone"
 //
@@ -311,17 +317,16 @@ fprint_token
 } (* end of [fprint_token] *)
 //
 (* ****** ****** *)
-
+//
 implement
-print_i0de (x) = fprint (stdout_ref, x)
+print_i0de(x) = fprint(stdout_ref, x)
 implement
-prerr_i0de (x) = fprint (stderr_ref, x)
-
-(* ****** ****** *)
-
+prerr_i0de(x) = fprint(stderr_ref, x)
+//
 implement
-fprint_i0de (out, x) = fprint (out, x.i0de_sym)
-
+fprint_i0de
+  (out, x) = fprint (out, x.i0dex_sym)
+//
 (* ****** ****** *)
 
 implement
@@ -427,6 +432,9 @@ d0e.d0exp_node of
     fprint! (out, "ATSCKpat_int(", d0e, int, ")")
 | ATSCKpat_bool (d0e, bool) =>
     fprint! (out, "ATSCKpat_bool(", d0e, bool, ")")
+| ATSCKpat_string (d0e, string) =>
+    fprint! (out, "ATSCKpat_string(", d0e, string, ")")
+//
 | ATSCKpat_con0 (d0e, ctag) =>
     fprint! (out, "ATSCKpat_con0(", d0e, ctag, ")")
 | ATSCKpat_con1 (d0e, ctag) =>
@@ -711,6 +719,13 @@ x.d0ecl_node of
     fprint! (out, "D0Cdynloadflag_init(", flag, ")")
 | D0Cdynloadflag_minit (flag) =>
     fprint! (out, "D0Cdynloadflag_minit(", flag, ")")
+//
+| D0Cdynexn_dec (idexn) =>
+    fprint! (out, "D0Cdynexn_dec(", idexn, ")")
+| D0Cdynexn_extdec (idexn) =>
+    fprint! (out, "D0Cdynexn_extdec(", idexn, ")")
+| D0Cdynexn_initize (idexn, fullname) =>
+    fprint! (out, "D0Cdynexn_initize(", idexn, fullname, ")")
 //
 end // end of [fprint_d0ecl]
 //

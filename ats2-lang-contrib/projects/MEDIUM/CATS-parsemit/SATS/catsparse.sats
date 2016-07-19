@@ -33,9 +33,10 @@ THE SOFTWARE.
 // HX-2014-07-02: start
 //
 (* ****** ****** *)
-
-#define ATS_PACKNAME "CATSPARSE"
-
+//
+#define
+ATS_PACKNAME "CATSPARSE"
+//
 (* ****** ****** *)
 //
 #include
@@ -50,30 +51,40 @@ fprint_type
 (* ****** ****** *)
 //
 staload
-SBF =
-"libats/SATS/stringbuf.sats"
-//
-stadef stringbuf = $SBF.stringbuf
-//
-(* ****** ****** *)
-//
-staload
 DA =
-"libats/SATS/dynarray.sats"
+"libats\
+/SATS/dynarray.sats"
 //
-stadef dynarray = $DA.dynarray
+stadef
+dynarray = $DA.dynarray
 //
 (* ****** ****** *)
 //
 staload
-CS = "{$LIBATSHWXI}/cstream/SATS/cstream.sats"
-stadef cstream = $CS.cstream
+SBF =
+"libats\
+/SATS/stringbuf.sats"
+//
+stadef
+stringbuf = $SBF.stringbuf
 //
 (* ****** ****** *)
-
+//
+staload
+CS0 =
+"{$LIBATSHWXI}\
+/cstream/SATS/cstream.sats"
+//
+stadef cstream = $CS0.cstream
+//
+(* ****** ****** *)
+//
 exception FatalErrorExn
+//
+(* ****** ****** *)
+//
 fun abort ((*void*)):<!exn> void
-
+//
 (* ****** ****** *)
 //
 abstype
@@ -277,6 +288,8 @@ keyword =
 //
   | ATSCKpat_int of ()
   | ATSCKpat_bool of ()
+  | ATSCKpat_string of ()
+//
   | ATSCKpat_con0 of ()
   | ATSCKpat_con1 of ()
 //
@@ -344,6 +357,10 @@ keyword =
 //
   | ATSclosurerize_beg of ()
   | ATSclosurerize_end of ()
+//
+  | ATSdynexn_dec of ()
+  | ATSdynexn_extdec of ()
+  | ATSdynexn_initize of ()
 //
   | KWORDnone of () // for indicating a non-keyword
 //
@@ -594,7 +611,7 @@ vtypedef
 _tokbuf_vt0ype =
 @{
 //
-  tokbuf_tkbf = dynarray (token)
+  tokbuf_tkbf= dynarray(token)
 , tokbuf_ntok= size_t, tokbuf_lxbf= lexbuf
 //
 } (* end of [_tokbuf_vt0ype] *)
@@ -696,7 +713,7 @@ signed = SIGNED of (loc_t, int)
 
 typedef
 i0de = '{
-  i0de_loc= loc_t, i0de_sym= symbol
+  i0dex_loc= loc_t, i0dex_sym= symbol
 } (* end of [i0de] *)
 
 (* ****** ****** *)
@@ -799,6 +816,8 @@ d0exp_node =
 //
   | ATSCKpat_int of (d0exp, d0exp)
   | ATSCKpat_bool of (d0exp, d0exp)
+  | ATSCKpat_string of (d0exp, d0exp)
+//
   | ATSCKpat_con0 of (d0exp, int(*tag*))
   | ATSCKpat_con1 of (d0exp, int(*tag*))
 //
@@ -1003,6 +1022,10 @@ instr_node =
   | ATSdynloadflag_init of (i0de)
   | ATSdynloadflag_minit of (i0de)
 //
+  | ATSdynexn_dec of (i0de)
+  | ATSdynexn_extdec of (i0de)
+  | ATSdynexn_initize of (i0de, string(*fullname*))
+//
 // end of [instr_node]
 //
 where
@@ -1087,6 +1110,10 @@ d0ecl_node =
 //
   | D0Cdynloadflag_init of (i0de)
   | D0Cdynloadflag_minit of (i0de)
+//
+  | D0Cdynexn_dec of (i0de(*exn*))
+  | D0Cdynexn_extdec of (i0de(*exn*))
+  | D0Cdynexn_initize of (i0de(*exn*), s0tring(*fullname*))
 //
 // end of [d0ecl_node]
 
