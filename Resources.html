@@ -647,28 +647,28 @@ There is an on-line service of the name <u>pats2xhtmlization</u> for syntax-hili
 In HTML, one can use the tags
 <u>sats2xhtml</u> and <u>dats2xhtml</u> for syntax-hiliting static and dynamic ATS code, respectively:
 <pre>
-<sats2xhtml>
+&lt;sats2xhtml&gt;
 fun // static interface
 factorial : (int) -> int
-</sats2xhtml>
+&lt;/sats2xhtml&gt;
 </pre>
-<pre><code>
-<dats2xhtml>
+<pre>
+&lt;dats2xhtml&gt;
 implement // dynamic implementation
 factorial(n) = if n > 0 then n*factorial(n-1) else 1
-</dats2xhtml>
-</code></pre>
+&lt;/dats2xhtml&gt;
+</pre>
 
 In order to suppose the pats2xhtmlization service,
 one needs to load in the following JS code (in addition to jQuery):
-<pre><code>
-<script
- src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js">
-</script>
-<script
- src="https://ats-lang.github.io/LIBRARY/ats2langweb/pats2xhtmlize_dats.js">
-</script>
-</code></pre>
+<pre>
+&lt;script
+ src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js"&gt;
+&lt;/script&gt;
+&lt;script
+ src="https://ats-lang.github.io/LIBRARY/ats2langweb/pats2xhtmlize_dats.js"&gt;
+&lt;/script&gt;
+</pre>
 and then executes the following line in the HTML file
 where pats2xhtmlization is to take place:
 <pre>
