@@ -36,7 +36,7 @@ atslangweb_pats2xhtml_eval_code_0_($stadyn, $mycode);
 header(
 "Access-Control-Allow-Origin: *"
 ); /* header */
-echo json_encode("stadyn = $stadyn");
+echo ("stadyn = $stadyn");
 //
 /* end of [atslangweb_pats2xhtml_eval_0_.php] */
 //
