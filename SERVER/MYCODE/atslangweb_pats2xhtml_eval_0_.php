@@ -28,15 +28,17 @@ putenv("PATH=$PATH:$PATSHOME/bin");
 //
 $stadyn =
 rawurldecode($_REQUEST["stadyn"]);
+$stadyn = intval($stadyn);
+//
 $mycode =
 rawurldecode($_REQUEST["mycode"]);
 $mycode_res =
-atslangweb_pats2xhtml_eval_code_0_(intval($stadyn), $mycode);
+atslangweb_pats2xhtml_eval_code_0_($stadyn, $mycode);
 //
 header(
 "Access-Control-Allow-Origin: *"
 ); /* header */
-echo ("stadyn = $stadyn");
+echo json_encode($mycode_res);
 //
 /* end of [atslangweb_pats2xhtml_eval_0_.php] */
 //
