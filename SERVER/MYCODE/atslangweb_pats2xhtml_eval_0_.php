@@ -31,7 +31,7 @@ rawurldecode($_REQUEST["stadyn"]);
 $mycode =
 rawurldecode($_REQUEST["mycode"]);
 $mycode_res =
-atslangweb_pats2xhtml_eval_code_0_(0, $mycode);
+atslangweb_pats2xhtml_eval_code_0_($stadyn, $mycode);
 //
 header(
 "Access-Control-Allow-Origin: *"
