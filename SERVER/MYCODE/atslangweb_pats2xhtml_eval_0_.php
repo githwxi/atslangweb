@@ -28,7 +28,8 @@ putenv("PATH=$PATH:$PATSHOME/bin");
 //
 $stadyn =
 rawurldecode($_REQUEST["stadyn"]);
-$stadyn = intval($stadyn);
+//
+$stadyn = intval($stadyn); // HX: FIXED!!!
 //
 $mycode =
 rawurldecode($_REQUEST["mycode"]);
