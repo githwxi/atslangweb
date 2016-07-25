@@ -2,6 +2,13 @@
 //
 // HX-2014-09:
 // It is for local use
+// HX-2016-07:
+// For instance, the code in Example.php
+// is syntax-hilited by calling the following:
+//
+// atslangweb_pats2xhtmlize_static
+// atslangweb_pats2xhtmlize_dynamic
+//
 //
 $MYPHPDIR = "SERVER/MYCODE";
 //
