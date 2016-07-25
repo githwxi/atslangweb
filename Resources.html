@@ -652,23 +652,23 @@ fun // static interface
 factorial : (int) -> int
 </sats2xhtml>
 </pre>
-<pre>
-<sats2xhtml>
+<pre><code>
+<dats2xhtml>
 implement // dynamic implementation
 factorial(n) = if n > 0 then n*factorial(n-1) else 1
-</sats2xhtml>
-</pre>
+</dats2xhtml>
+</code></pre>
 
 In order to suppose the pats2xhtmlization service,
 one needs to load in the following JS code (in addition to jQuery):
-<pre>
+<pre><code>
 <script
  src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js">
 </script>
 <script
  src="https://ats-lang.github.io/LIBRARY/ats2langweb/pats2xhtmlize_dats.js">
 </script>
-</pre>
+</code></pre>
 and then executes the following line in the HTML file
 where pats2xhtmlization is to take place:
 <pre>
