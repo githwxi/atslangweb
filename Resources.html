@@ -648,14 +648,18 @@ In HTML, one can use the tags
 <u>sats2xhtml</u> and <u>dats2xhtml</u> for syntax-hiliting static and dynamic ATS code, respectively:
 <pre>
 &lt;sats2xhtml&gt;
-fun // static interface
-factorial : (int) -> int
+//
+// static interface
+//
+fun factorial (n: int): int
 &lt;/sats2xhtml&gt;
 </pre>
 <pre>
 &lt;dats2xhtml&gt;
-implement // dynamic implementation
-factorial(n) = if n > 0 then n*factorial(n-1) else 1
+//
+// dynamic implementation
+//
+implement factorial(n) = if n > 0 then n*factorial(n-1) else 1
 &lt;/dats2xhtml&gt;
 </pre>
 
@@ -672,11 +676,11 @@ one needs to load in the following JS code (in addition to jQuery):
 and then executes the following line in the HTML file
 where pats2xhtmlization is to take place:
 <pre>
-<script>
+&lt;script&gt;
 $(document).ready(function(){pats2xhtmlize_process_all();return;});
-</script>
+&lt;/script&gt;
 </pre>
-Please visit the link to see a woring example.
+Please visit the link to see a working example.
 
 <hr></hr>
 
