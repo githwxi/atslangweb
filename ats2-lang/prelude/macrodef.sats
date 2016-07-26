@@ -58,6 +58,11 @@ ifval(test, v_then, v_else) =
 //
 (* ****** ****** *)
 
+macdef delay(exp) = $delay(,(exp))
+macdef raise(exn) = $raise(,(exn))
+
+(* ****** ****** *)
+
 macdef assign(lv, rv) = ,(lv) := ,(rv)
 
 (* ****** ****** *)
