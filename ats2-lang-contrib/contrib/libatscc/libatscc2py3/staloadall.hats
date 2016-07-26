@@ -23,13 +23,16 @@ staload "./SATS/float.sats"
 staload "./SATS/string.sats"
 //
 (* ****** ****** *)
-
+//
 staload "./SATS/print.sats"
+staload "./SATS/filebas.sats"
+//
 staload _ = "./DATS/print.dats"
-
+//
 (* ****** ****** *)
 
-staload "./SATS/filebas.sats"
+staload "./SATS/gprint.sats"
+staload _ = "./DATS/gprint.dats"
 
 (* ****** ****** *)
 
