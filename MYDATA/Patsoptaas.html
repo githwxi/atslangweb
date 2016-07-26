@@ -100,7 +100,7 @@ body {
  src="./CLIENT/MYCODE/libatscc2js_canvas2d_all.js">
 </script>
 <script
- src="./CLIENT/MYCODE/libatscc2js_print_store_cats.js">
+ src="./CLIENT/MYCODE/libatscc2js_print_store.js">
 </script>
 <script
  src="./CLIENT/MYCODE/atslangweb_utils_dats.js">
