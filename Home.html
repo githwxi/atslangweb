@@ -924,6 +924,58 @@ println! ("3^10 = ", power(3,10))
 
 <hr></hr>
 
+<p>
+With a functional core of ML-style and certain ad-hoc support for
+overloading (of function symbols), ATS can readily accommodate a
+typical combinator-based style of coding that is often considered a
+prominent signature of functional programming.  </p>
+
+<div
+width=98% margin=auto
+><!--div-->
+
+<table>
+<tr>
+<td width="10%">
+</td>
+<td align="right">
+<textarea
+ id="listsub_dats" rows="11" cols="36"
+>
+//
+// Yes, you can edit
+//
+(* Print solutions to the Queen Puzzle *)
+//
+(* ****** ****** *)
+
+#define N 8 // HX: it can be changed
+#define NSOL // HX: it can be changed 
+
+(* ****** ****** *)
+
+macdef sing = stream_make_sing
+macdef intrange = list0_make_intrange
+
+(* ****** ****** *)
+
+val () =
+(((fix qsolve(n: int): stream(list0(int)) => if(n > 0)then((qsolve(n-1)*intrange(0,N)).map(TYPE{list0(int)})(lam($tup(xs,x))=>cons0(x,xs))).filter()(lam(xs)=>let val-cons0(x0,xs) = xs in xs.iforall()(lam(i, x)=>((x0)!=x)&&(abs(x0-x)!=i+1)) end)else(sing(nil0())))(N)).takeLte(NSOL)).iforeach()(lam(i, xs)=>(println!("Solution#", i+1, ":"); xs.rforeach()(lam(x) => ((N).foreach()(lam(i)=>(print_string(ifval(i=x," Q", " ."))));println!()));println!()))
+//
+</textarea>
+<button
+ ID="queenpuzzle_button"
+ type="button" onclick="Home_queenpuzzle_onclick()"
+>Try-it-yourself</button>
+</td>
+<td width="10%"></td>
+</tr>
+</table>
+
+</div>
+
+<hr></hr>
+
 </div>
 </div><!--thePageRBodyRight-->
 </td>
