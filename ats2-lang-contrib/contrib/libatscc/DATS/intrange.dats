@@ -240,17 +240,23 @@ intrange_foldleft_method
 
 implement
 intrange2_exists_cloref
-  (l1, r1, l2, r2, pred) = let
+  (l1_, r1_, l2_, r2_, pred) = let
+//
+// HX-2016-07-26:
+// loop1 and loop2 need to have
+// the same number of arguments
+// in order to support atscc2clj
 //
 fnx
 loop1
 (
   l1: int, r1: int
+, l2: int, r2: int
 , f: cfun2 (int, int, bool)
 ) : bool = (
 //
 if l1 < r1
-  then loop2 (l1, r1, l2, r2, pred) else false
+  then loop2(l1, r1, l2, r2, pred) else false
 //
 ) (* end of [loop1] *)
 //
@@ -265,27 +271,36 @@ loop2
 if (
 l2 < r2
 ) then (
-  if pred (l1, l2)
-    then true else loop2 (l1, r1, l2+1, r2, pred)
-  // end of [if]
-) else loop1 (l1+1, r1, pred)
+//
+if (
+pred(l1, l2)
+) then true
+  else loop2(l1, r1, l2+1, r2, pred)
+// end of [if]
+) else loop1(l1+1, r1, l2_, r2_, pred)
 //
 ) (* end of [loop2] *)
 //
 in
-  loop1 (l1, r1, pred)
+  loop1(l1_, r1_, l2_, r2_, pred)
 end // end of [intrange2_exists_cloref]
 
 (* ****** ****** *)
 
 implement
 intrange2_forall_cloref
-  (l1, r1, l2, r2, pred) = let
+  (l1_, r1_, l2_, r2_, pred) = let
+//
+// HX-2016-07-26:
+// loop1 and loop2 need to have
+// the same number of arguments
+// in order to support atscc2clj
 //
 fnx
 loop1
 (
   l1: int, r1: int
+, l2: int, r2: int
 , pred: cfun2 (int, int, bool)
 ) : bool = (
 //
@@ -306,32 +321,40 @@ if (
 l2 < r2
 ) then
 (
-  if pred (l1, l2)
-    then loop2 (l1, r1, l2+1, r2, pred) else false
-  // end of [if]
-) else loop1 (l1+1, r1, pred)
+if (
+pred(l1, l2)
+) then loop2(l1, r1, l2+1, r2, pred)
+  else false
+// end of [if]
+) else loop1(l1+1, r1, l2_, r2_, pred)
 //
 ) (* end of [loop2] *)
 //
 in
-  loop1 (l1, r1, pred)
+  loop1 (l1_, r1_, l2_, r2_, pred)
 end // end of [intrange2_forall_cloref]
 
 (* ****** ****** *)
 
 implement
 intrange2_foreach_cloref
-  (l1, r1, l2, r2, fwork) = let
+  (l1_, r1_, l2_, r2_, fwork) = let
+//
+// HX-2016-07-26:
+// loop1 and loop2 need to have
+// the same number of arguments
+// in order to support atscc2clj
 //
 fnx
 loop1
 (
   l1: int, r1: int
+, l2: int, r2: int
 , fwork: cfun2 (int, int, void)
 ) : void = (
 //
 if l1 < r1
-  then loop2 (l1, r1, l2, r2, fwork)
+  then loop2(l1, r1, l2, r2, fwork)
   else ((*void*))
 //
 ) (* end of [loop1] *)
@@ -348,15 +371,17 @@ if (
 l2 < r2
 ) then (
 //
-fwork (l1, l2);
-loop2 (l1, r1, l2+1, r2, fwork)
+fwork(l1, l2);
+loop2(l1, r1, l2+1, r2, fwork)
 //
-) else loop1 (succ(l1), r1, fwork)
+) else (
+  loop1(succ(l1), r1, l2_, r2_, fwork)
+) (* end of [else] *)
 //
 ) (* end of [loop2] *)
 //
 in
-  loop1 (l1, r1, fwork)
+  loop1 (l1_, r1_, l2_, r2_, fwork)
 end // end of [intrange2_foreach_cloref]
 
 (* ****** ****** *)

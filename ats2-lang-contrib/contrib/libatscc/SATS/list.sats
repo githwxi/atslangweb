@@ -324,6 +324,23 @@ overload .foldleft with list_foldleft_method
 (* ****** ****** *)
 //
 fun
+list_ifoldleft
+  {res:vt0p}{a:t0p}
+(
+  List(INV(a)), init: res, fopr: (Nat, res, a) -<cloref1> res
+) : res = "mac#%" // end of [list_foldleft]
+fun
+list_ifoldleft_method
+  {res:t@ype}{a:t0p}
+(
+  xs: List(INV(a)), init: res)(fopr: (Nat, res, a) -<cloref1> res
+) : res = "mac#%" // end of [list_foldleft_method]
+//
+overload .ifoldleft with list_ifoldleft_method
+//
+(* ****** ****** *)
+//
+fun
 list_foldright
   {a:t0p}{res:vt0p}
 (
@@ -338,6 +355,24 @@ list_foldright_method
 ) : res = "mac#%" // end of [list_foldright]
 //
 overload .foldright with list_foldright_method
+//
+(* ****** ****** *)
+//
+fun
+list_ifoldright
+  {a:t0p}{res:vt0p}
+(
+  List(INV(a)), fopr: (Nat, a, res) -<cloref1> res, sink: res
+) : res = "mac#%" // end of [list_foldright]
+//
+fun
+list_ifoldright_method
+  {a:t0p}{res:t@ype}
+(
+  xs: List(INV(a)), sink: res)(fopr: (Nat, a, res) -<cloref1> res
+) : res = "mac#%" // end of [list_foldright]
+//
+overload .ifoldright with list_ifoldright_method
 //
 (* ****** ****** *)
 

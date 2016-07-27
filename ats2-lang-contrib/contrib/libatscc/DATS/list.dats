@@ -569,6 +569,40 @@ list_foldleft_method
 (* ****** ****** *)
 
 implement
+list_ifoldleft
+  {res}{a}
+  (xs, init, fopr) = let
+//
+fun
+loop
+(
+  i: Nat, res: res, xs: List(a)
+) : res =
+(
+case+ xs of
+| list_nil
+    () => res
+  // list_nil
+| list_cons
+    (x, xs) =>
+    loop(i+1, fopr(i, res, x), xs)
+  // list_cons
+)
+//
+in
+  loop(0(*index*), init, xs)
+end // end of [list_ifoldleft]
+//
+implement
+list_ifoldleft_method
+  {a}(xs, init) =
+(
+  lam(fopr) => list_ifoldleft{a}(xs, init, fopr)
+) (* list_ifoldleft_method *)
+//
+(* ****** ****** *)
+
+implement
 list_foldright
   {a}{res}
 (
@@ -593,6 +627,34 @@ implement
 list_foldright_method
   {a}{res}(xs, sink) =
   lam(fopr) => list_foldright{a}{res}(xs, fopr, sink)
+//
+(* ****** ****** *)
+
+implement
+list_ifoldright
+  {a}{res}
+(
+  xs, fopr, sink
+) = aux(0, xs, sink) where
+{
+//
+fun
+aux
+(
+  i: Nat, xs: List(a), res: res
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => fopr(i, x, aux(i+1, xs, res))
+)
+//
+} (* end of [list_foldright] *)
+//
+implement
+list_ifoldright_method
+  {a}{res}(xs, sink) =
+  lam(fopr) => list_ifoldright{a}{res}(xs, fopr, sink)
 //
 (* ****** ****** *)
 

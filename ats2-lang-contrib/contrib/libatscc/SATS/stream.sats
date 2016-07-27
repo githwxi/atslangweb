@@ -115,6 +115,23 @@ overload .foreach with stream_foreach_method
 (* ****** ****** *)
 //
 fun
+stream_iforeach_cloref
+  {a:t0p}
+(
+  xs: stream(INV(a)), fwork: (Nat, a) -<cloref1> void
+) : void = "mac#%" // end-of-function
+fun
+stream_iforeach_method
+  {a:t0p}
+(
+  xs: stream(INV(a)))(fwork: (Nat, a) -<cloref1> void
+) : void = "mac#%" // end-of-function
+//
+overload .iforeach with stream_iforeach_method
+//
+(* ****** ****** *)
+//
+fun
 stream_tabulate_cloref
   {a:t0p}
   (fopr: intGte(0) -<cloref1> a): stream(a) = "mac#%"
