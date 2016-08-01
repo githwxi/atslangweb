@@ -775,10 +775,17 @@ following tiny ATS program is written in a style of functional programming:
 width=98% margin=auto
 ><!--div-->
 
-<table>
+<table
+ style="border-spacing: 0px;">
+
 <tr>
-<td width="10%">
-</td>
+<th width="10%"></th>
+<th></th>
+<th width="10%"></th>
+</tr>
+
+<tr>
+<td></td>
 <td align="right">
 <textarea
  id="hello_dats"
@@ -795,13 +802,21 @@ val () = 3*delay(print"Hello!")
 val () = print_newline((*void*))
 //
 </textarea>
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+<td>
 <button
  ID="hello_button"
  type="button" onclick="Home_hello_onclick()"
 >Try-it-yourself</button>
 </td>
-<td width="10%"></td>
+<td></td>
 </tr>
+
 </table>
 
 </div>
