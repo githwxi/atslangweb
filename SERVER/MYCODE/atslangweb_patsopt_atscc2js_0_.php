@@ -29,7 +29,7 @@ header(
 "Access-Control-Allow-Origin: *"
 ); /* header */
 //
-echo rawurldecode(json_encode($mycode_res));
+echo rawurlencode(json_encode($mycode_res));
 //
 /* end of [atslangweb_patsopt_atscc2js_0_.php] */
 //
