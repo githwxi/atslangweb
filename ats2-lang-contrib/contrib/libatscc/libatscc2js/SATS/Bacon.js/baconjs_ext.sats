@@ -20,37 +20,67 @@
 *)
 
 (* ****** ****** *)
-(*
-** API in ATS for HTML5/WebGL
-*)
-(* ****** ****** *)
+
 (*
 ** Author: Hongwei Xi
 ** Authoremail: gmhwxi AT gmail DOT com
-** Start Time: November, 2014
+** Start Time: October, 2015
 *)
+
 (* ****** ****** *)
 
 #define
 ATS_STALOADFLAG 0 // no staloading at run-time
 #define
-ATS_EXTERN_PREFIX "ats2js_HTML5_" // prefix for external names
+ATS_EXTERN_PREFIX "ats2js_bacon_ext_" // prefix for external names
 
 (* ****** ****** *)
 //
-abstype canvas_type
-typedef canvas = canvas_type
+staload
+"./../../basics_js.sats"
 //
-abstype canvasgl_type
-typedef canvasgl = canvasgl_type
+(* ****** ****** *)
+//
+staload "./baconjs.sats"
+//
+(* ****** ****** *)
+//
+abstype
+EValue(a:t@ype) = ptr // updated by EStream
 //
 (* ****** ****** *)
 //
 fun
-canvas_getById (id: string): canvas = "mac#%"
+EStream_scan_stream_opt
+  {a,b,c:t0p}
+(
+  xs: EStream(b)
+, ini: a, ys: stream(c)
+, fopr: cfun(a, b, c, Option_vt(a))
+) : Property(a) = "mac#%" // end-of-function
+//
+overload scan with EStream_scan_stream_opt
+overload .scan with EStream_scan_stream_opt
+//
+(* ****** ****** *)
+//
 fun
-canvasgl_getById (id: string): canvasgl = "mac#%"
+EValue_get_elt
+  {a:t0p}
+  (x: EValue(a)): (a) = "mac#%"
+//
+overload [] with EValue_get_elt
+//
+fun
+EValue_make_property
+  {a:t0p}(Property(a)): EValue(a) = "mac#%"
+fun
+EValue_make_estream_scan
+  {a,b:t0p}
+(
+  x0: a, ys: EStream(b), fopr: cfun(a, b, a)
+) : EValue(a) = "mac#%" // EValue_make_estream_scan
 //
 (* ****** ****** *)
 
-(* end of [WebGL.sats] *)
+(* end of [baconjs_ext.sats] *)

@@ -20,37 +20,27 @@
 *)
 
 (* ****** ****** *)
-(*
-** API in ATS for HTML5/WebGL
-*)
-(* ****** ****** *)
+
 (*
 ** Author: Hongwei Xi
 ** Authoremail: gmhwxi AT gmail DOT com
-** Start Time: November, 2014
+** Start Time: September, 2014
 *)
+
 (* ****** ****** *)
 
 #define
 ATS_STALOADFLAG 0 // no staloading at run-time
 #define
-ATS_EXTERN_PREFIX "ats2js_HTML5_" // prefix for external names
+ATS_EXTERN_PREFIX "ats2js_XMLDOC_" // prefix for external names
 
 (* ****** ****** *)
 //
-abstype canvas_type
-typedef canvas = canvas_type
+abstype XMLDOC_type
 //
-abstype canvasgl_type
-typedef canvasgl = canvasgl_type
-//
-(* ****** ****** *)
-//
-fun
-canvas_getById (id: string): canvas = "mac#%"
-fun
-canvasgl_getById (id: string): canvasgl = "mac#%"
+typedef xmldoc = XMLDOC_type
+typedef XMLDOC = XMLDOC_type
 //
 (* ****** ****** *)
 
-(* end of [WebGL.sats] *)
+(* end of [XMLDOC.sats] *)

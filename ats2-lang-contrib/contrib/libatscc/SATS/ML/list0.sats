@@ -25,6 +25,24 @@ list0_is_cons
   {a:t0p}(xs: list0(INV(a))): bool
 //
 (* ****** ****** *)
+
+overload iseqz with list0_is_nil
+overload isneqz with list0_is_cons
+
+(* ****** ****** *)
+//
+fun
+list0_head_exn
+  {a:t0p}(list0(INV(a))):<!exn> (a)
+//
+fun
+list0_tail_exn
+  {a:t0p}(list0(INV(a))):<!exn> list0(a)
+//
+overload .head with list0_head_exn
+overload .tail with list0_tail_exn
+//
+(* ****** ****** *)
 //
 fun
 list0_length

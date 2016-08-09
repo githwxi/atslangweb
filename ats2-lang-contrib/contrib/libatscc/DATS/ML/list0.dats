@@ -19,13 +19,15 @@ implement
 {}(*tmp*)
 list0_is_nil(xs) =
 (
-case+ xs of list0_nil() => true | _ =>> false
+case+ xs of
+| list0_nil() => true | _ =>> false
 )
 implement
 {}(*tmp*)
 list0_is_cons(xs) =
 (
-case+ xs of list0_cons _ => true | _ =>> false
+case+ xs of
+| list0_cons _ => true | _ =>> false
 )
 //
 (* ****** ****** *)
