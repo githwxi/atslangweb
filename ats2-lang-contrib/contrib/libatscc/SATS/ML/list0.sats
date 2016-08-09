@@ -33,13 +33,26 @@ overload isneqz with list0_is_cons
 //
 fun
 list0_head_exn
-  {a:t0p}(list0(INV(a))):<!exn> (a)
+  {a:t0p}
+  (list0(INV(a))):<!exn> (a) = "mac#%"
+fun
+list0_head_opt
+  {a:t0p}
+  (list0(INV(a))):<!exn> Option_vt(a) = "mac#%"
+//
+overload .head with list0_head_exn
+//
+(* ****** ****** *)
 //
 fun
 list0_tail_exn
-  {a:t0p}(list0(INV(a))):<!exn> list0(a)
+  {a:t0p}
+  (list0(INV(a))):<!exn> list0(a) = "mac#%"
+fun
+list0_tail_opt
+  {a:t0p}
+  (list0(INV(a))):<!exn> Option_vt(list0(a)) = "mac#%"
 //
-overload .head with list0_head_exn
 overload .tail with list0_tail_exn
 //
 (* ****** ****** *)

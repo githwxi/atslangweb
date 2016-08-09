@@ -33,6 +33,27 @@ case+ xs of
 (* ****** ****** *)
 //
 implement
+list0_head_opt
+  {a}(xs) =
+(
+case+ xs of
+| list0_nil() => None_vt()
+| list0_cons(x, _) => Some_vt(x)
+) (* end of [list0_head_opt] *)
+//
+(* ****** ****** *)
+implement
+list0_tail_opt
+  {a}(xs) =
+(
+case+ xs of
+| list0_nil() => None_vt()
+| list0_cons(_, xs) => Some_vt(xs)
+) (* end of [list0_tail_opt] *)
+//
+(* ****** ****** *)
+//
+implement
 list0_length{a}(xs) =
   list_length{a}($UN.cast{List0(a)}(xs))
 //
