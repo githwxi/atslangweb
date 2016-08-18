@@ -177,8 +177,12 @@ Patsoptaas_thePage2_initize2
 //
 if(mycode !== '')
 {
-File_source_load(mycode); return;
-}
+//
+File_source_load
+  (decodeURIComponent(mycode));
+//
+return;
+} /* end of [if] */
 //
 if(mycode_fil==='hello')
 {
