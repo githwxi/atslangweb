@@ -2,13 +2,11 @@
 header(
 "Access-Control-Allow-Origin: *"
 ); /* header */
-><!--php-->
-
+?><!--php-->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-
 <base
  href="http://www.ats-lang.org">
 </base>
