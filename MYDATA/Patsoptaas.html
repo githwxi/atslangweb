@@ -1,6 +1,9 @@
-echo <<<EOT
+<?php
+header(
+"Access-Control-Allow-Origin: *"
+); /* header */
+?>
 <!--php-->
-EOT;
 
 <!DOCTYPE html>
 <html>
