@@ -1,4 +1,6 @@
+echo <<<EOT
 <!--php-->
+EOT;
 
 <!DOCTYPE html>
 <html>
