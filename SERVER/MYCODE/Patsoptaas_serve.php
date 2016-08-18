@@ -127,7 +127,6 @@ body {
 <div id="thePage2">
 
 <?php $mycode = $_REQUEST["mycode"]; ?>
-<?php $mycode = rawurldecode($mycode); ?>
 <?php $mycode_fil = $_REQUEST["mycode_fil"]; ?>
 <?php $mycode_url = $_REQUEST["mycode_url"]; ?>
 <!--php-->
