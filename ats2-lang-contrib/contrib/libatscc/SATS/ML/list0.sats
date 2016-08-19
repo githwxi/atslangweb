@@ -41,6 +41,7 @@ list0_head_opt
   (list0(INV(a))):<!exn> Option_vt(a) = "mac#%"
 //
 overload .head with list0_head_exn
+overload .head_opt with list0_head_opt
 //
 (* ****** ****** *)
 //
@@ -54,6 +55,7 @@ list0_tail_opt
   (list0(INV(a))):<!exn> Option_vt(list0(a)) = "mac#%"
 //
 overload .tail with list0_tail_exn
+overload .tail_opt with list0_tail_opt
 //
 (* ****** ****** *)
 //
