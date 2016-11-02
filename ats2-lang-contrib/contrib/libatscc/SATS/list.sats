@@ -237,7 +237,8 @@ fun
 list_foreach
   {a:t0p}
 (
-  xs: List(INV(a)), fwork: cfun(a, void)
+  xs: List(INV(a))
+, fwork: cfun(a, void)
 ) : void = "mac#%" // end-of-function
 //
 fun
@@ -255,13 +256,14 @@ fun
 list_iforeach
   {a:t0p}
 (
-  xs: List(INV(a)), fwork: cfun(int, a, void)
+  xs: List(INV(a))
+, fwork: cfun(Nat, a, void)
 ) : void = "mac#%" // end-of-function
 fun
 list_iforeach_method
   {a:t0p}
 (
-  xs: List(INV(a)))(fwork: cfun(int, a, void)
+  xs: List(INV(a)))(fwork: cfun(Nat, a, void)
 ) : void = "mac#%" // end-of-function
 //
 overload .iforeach with list_iforeach_method

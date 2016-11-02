@@ -175,7 +175,8 @@ fun
 stream_foreach_cloref
   {a:t0p}
 (
-  xs: stream(INV(a)), fwork: (a) -<cloref1> void
+  xs: stream(INV(a))
+, fwork: (a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 fun
 stream_foreach_method
@@ -192,7 +193,8 @@ fun
 stream_iforeach_cloref
   {a:t0p}
 (
-  xs: stream(INV(a)), fwork: (Nat, a) -<cloref1> void
+  xs: stream(INV(a))
+, fwork: (Nat, a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 fun
 stream_iforeach_method
