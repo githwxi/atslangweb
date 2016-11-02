@@ -1,6 +1,6 @@
 (***********************************************************************)
 (*                                                                     *)
-(*                       ATS/contrib/libats-hwxi                       *)
+(*                         ATS/contrib/atshwxi                         *)
 (*                                                                     *)
 (***********************************************************************)
 
@@ -29,100 +29,75 @@
 (* ****** ****** *)
 
 (*
-** stream of characters
+absvtype objptr(l:addr) = ptr(l)
 *)
 
 (* ****** ****** *)
+
+vtypedef objptr0 = [l:addr] objptr(l)
+vtypedef objptr1 = [l:addr | l > null] objptr(l)
+
+(* ****** ****** *)
 //
-staload
-UN =
-"prelude/SATS/unsafe.sats"
+extern fun initset {l:agz} (x: objptr (l)): void
 //
-staload
-STDIO =
-"libats/libc/SATS/stdio.sats"
+extern fun takeout ((*void*)): [l:addr] objptr(l)
+extern fun vtakeout ((*void*)): [l:addr] vttakeout0 (objptr(l))
+//
+extern fun exchange {l:addr} (x: objptr(l)): [l:addr] objptr(l)
 //
 (* ****** ****** *)
 
-staload "./../SATS/cstream.sats"
+local
+//
+var obj: objptr0 =
+  $UNSAFE.castvwtp0{objptr(null)}(0)
+//
+val p_obj = addr@(obj)
+prval pf_obj = view@(obj)
+//
+val r_obj = ref_make_viewptr{objptr0}(pf_obj | p_obj)
+
+in (* in of [local] *)
 
 (* ****** ****** *)
 
-typedef
-cstruct = @{
-  getc= (ptr) -> int
-, free= (ptr) -> void
-, data= FILEref
-} (* end of [cstruct] *)
-
-(* ****** ****** *)
-
-datavtype cstream = CS of cstruct
-
-(* ****** ****** *)
-
-#define NUL '\000'
-
-(* ****** ****** *)
-
-fun cstream_getc
-  (p: ptr): int = ret where
+implement
+initset (x_init) =
 {
-//
-typedef data = FILEref
-//
-val (pf, fpf | p) = $UN.ptr0_vtake{data}(p)
-//
-val ret = $STDIO.fgetc0 (!p)
-//
-prval () = fpf (pf)
-//
-} (* end of [cstream_getc] *)
+  val (vbox pf | p) = ref_get_viewptr (r_obj)
+  val x_null = !p; val ((*void*)) = !p := x_init
+  val () = assertloc ($UNSAFE.castvwtp0{ptr}(x_null) = the_null_ptr)
+} (* end of [initset] *)
 
-(* ****** ****** *)
-
-fun cstream_free (p: ptr): void = ()
+implement
+takeout () = x_current where
+{
+  val (vbox pf | p) = ref_get_viewptr (r_obj)
+  val x_null = $UNSAFE.castvwtp0{objptr(null)}(0)
+  val x_current = !p; val ((*void*)) = !p := x_null
+} (* end of [where] *) // end of [takeout]
 
 (* ****** ****** *)
 
 implement
-cstream_make_fileref
-  (inp) = let
-//
-val cs0 = CS (_)
-val+CS(cstruct) = cs0
-//
-val () =
-cstruct.getc := cstream_getc
-//
-val () =
-cstruct.free := cstream_free
-//
-val () = cstruct.data := inp
-//
-in
-  $UN.castvwtp0{cstream(TKfileref)}((view@cstruct | cs0))
-end // end of [cstream_make_fileref]
+vtakeout () = let
+  val (vbox pf | p) = ref_get_viewptr (r_obj) in $UNSAFE.castvwtp1(!p)
+end // end of [let] // end [vtakeout]
 
 (* ****** ****** *)
 
 implement
-cstream_getv_char<TKfileref>
-  {n} (cs0, A, n) = let
-//
-val cs0 =
-$UN.castvwtp1{cstream}(cs0)
-//
-val+CS(cstruct) = cs0
-//
-val n2 = $STDIO.fread0 (A, i2sz(1), i2sz(n), cstruct.data)
-//
-prval () = $UN.cast2void (cs0)
-//
-in
-  sz2i(n2)
-end // end of [cstream_getv_char]
+exchange (x_new) = x_current where
+{
+  val (vbox pf | p) = ref_get_viewptr (r_obj)
+  val x_current = !p; val ((*void*)) = !p := x_new
+} // end of [where] (* end of [initset] *)
 
 (* ****** ****** *)
 
-(* end of [cstream_fileref.dats] *)
+end // end of [local]
+
+(* ****** ****** *)
+
+(* end of [gobjptr.hats] *)
