@@ -29,38 +29,22 @@
 //
 // Author: Hongwei Xi
 // Authoremail: gmhwxi AT gmail DOT com
-// Start Time: January, 2013
+// Start Time: August, 2013
 //
 (* ****** ****** *)
 
-staload "./pats_dynexp2.sats"
+#include "prelude/DATS/pointer.dats"
+#include "prelude/DATS/reference.dats"
 
 (* ****** ****** *)
 
-abstype d2cstref_type = ptr
-typedef d2cstref = d2cstref_type
+#include "prelude/DATS/list.dats"
+#include "prelude/DATS/list_vt.dats"
+#include "prelude/DATS/array.dats"
+#include "prelude/DATS/option.dats"
+#include "prelude/DATS/option_vt.dats"
 
 (* ****** ****** *)
 
-fun d2cstref_make (name: string): d2cstref
+(* end of [pats_atspre.dats] *)
 
-(* ****** ****** *)
-
-fun d2cstref_get_cst (r: d2cstref): d2cst
-fun d2cstref_equ_cst (r: d2cstref, d2c: d2cst): bool
-
-(* ****** ****** *)
-
-val the_sizeof_vt0ype_size : d2cstref
-
-(* ****** ****** *)
-
-fun d2cst_is_sizeof (d2c: d2cst): bool // sizeof-template
-
-(* ****** ****** *)
-
-fun dyncst2_initialize ((*void*)): void
-
-(* ****** ****** *)
-
-(* end of [pats_stacst2.sats] *)

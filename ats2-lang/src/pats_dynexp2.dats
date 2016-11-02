@@ -34,24 +34,26 @@
 (* ****** ****** *)
 //
 staload
-ATSPRE = "./pats_atspre.dats"
+ATSPRE =
+"./pats_atspre.dats"
+//
+(* ****** ****** *)
+//
+staload
+UNSAFE =
+"prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+staload
+LOC = "./pats_location.sats"
+//
+macdef
+location_combine = $LOC.location_combine
 //
 (* ****** ****** *)
 
-staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
 staload UT = "./pats_utils.sats"
-
-(* ****** ****** *)
-
-staload LOC = "./pats_location.sats"
-macdef location_combine = $LOC.location_combine
-
-(* ****** ****** *)
-
 staload LEX = "./pats_lexing.sats"
 
 (* ****** ****** *)
@@ -64,10 +66,13 @@ staload "./pats_dynexp2.sats"
 #include "./pats_basics.hats"
 
 (* ****** ****** *)
-
+//
+macdef
+list_sing(x) =
+list_cons(,(x), list_nil)
+//
 #define l2l list_of_list_vt
-macdef list_sing (x) = list_cons (,(x), list_nil)
-
+//
 (* ****** ****** *)
 
 implement
@@ -268,8 +273,8 @@ p2at_rec
       | list_nil () => list_vt_nil ()
     // end of [aux]
   } // end of [val]
-  val svs = p2atlst_svs_union ($UN.castvwtp1(p2ts))
-  val dvs = p2atlst_dvs_union ($UN.castvwtp1(p2ts))
+  val svs = p2atlst_svs_union ($UNSAFE.castvwtp1(p2ts))
+  val dvs = p2atlst_dvs_union ($UNSAFE.castvwtp1(p2ts))
   val () = list_vt_free (p2ts)
 in
   p2at_make_node (loc, svs, dvs, P2Trec (knd, npf, lp2ts))
@@ -696,19 +701,20 @@ end // end of [d2exp_seq2]
 
 implement
 d2exp_deref
-  (loc, _lval) = d2exp_make_node (loc, D2Ederef (_lval))
+  (loc, d2s, lval) =
+  d2exp_make_node(loc, D2Ederef(d2s, lval))
 // end of [d2exp_assgn]  
 
 implement
 d2exp_assgn (
   loc, _left, _right
-) = d2exp_make_node (loc, D2Eassgn (_left, _right))
+) = d2exp_make_node(loc, D2Eassgn(_left, _right))
 // end of [d2exp_assgn]  
 
 implement
 d2exp_xchng (
   loc, _left, _right
-) = d2exp_make_node (loc, D2Exchng (_left, _right))
+) = d2exp_make_node(loc, D2Exchng(_left, _right))
 // end of [d2exp_xchng]  
 
 (* ****** ****** *)
@@ -751,11 +757,11 @@ d2exp_sel_dot
 
 implement
 d2exp_sel_ptr
-  (loc, d2e, d2l) = let
+  (loc, d2s, d2e, d2l) = let
   val loc2 = d2e.d2exp_loc
-  val d2e_deref = d2exp_deref (loc2, d2e)
+  val d2e_deref = d2exp_deref(loc2, d2s, d2e)
 in
-  d2exp_selab (loc, d2e_deref, list_sing (d2l))
+  d2exp_selab(loc, d2e_deref, list_sing(d2l))
 end // end of [d2exp_sel_ptr]
 
 (* ****** ****** *)
@@ -1267,25 +1273,26 @@ d2ecl_extcode (loc, knd, pos, code) =
 (* ****** ****** *)
 //
 implement
-d2ecl_datdecs (loc, knd, s2cs) =
-  d2ecl_make_node (loc, D2Cdatdecs (knd, s2cs))
-//
-implement
 d2ecl_exndecs (loc, d2cs) =
  d2ecl_make_node (loc, D2Cexndecs (d2cs))
 //
-(* ****** ****** *)
-
 implement
-d2ecl_dcstdecs (loc, knd, dck, d2cs) =
-  d2ecl_make_node (loc, D2Cdcstdecs (knd, dck, d2cs))
-
+d2ecl_datdecs (loc, knd, s2cs) =
+  d2ecl_make_node (loc, D2Cdatdecs (knd, s2cs))
+//
 (* ****** ****** *)
-
+//
+implement
+d2ecl_dcstdecs
+  (loc, knd, dck, d2cs) =
+  d2ecl_make_node (loc, D2Cdcstdecs (knd, dck, d2cs))
+//
+(* ****** ****** *)
+//
 implement
 d2ecl_fundecs (loc, knd, decarg, f2ds) =
   d2ecl_make_node (loc, D2Cfundecs (knd, decarg, f2ds))
-
+//
 (* ****** ****** *)
 
 implement

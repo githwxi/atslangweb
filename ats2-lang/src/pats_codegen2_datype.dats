@@ -86,10 +86,11 @@ fun
 auxerr_cons
 (
   out: FILEref
-, d2c0: d2ecl, x: e1xp
+, d2c0: d2ecl, x0: e1xp
 ) : void =  {
 //
-val loc0 = d2c0.d2ecl_loc
+val
+loc0 = d2c0.d2ecl_loc
 //
 val () = fprint! (out, "(*\n")
 //
@@ -120,7 +121,7 @@ val sym = s2cst_get_sym(s2dat)
 val name = $SYM.symbol_get_name(sym)
 //
 in
-  fprint! (out, "datcon_", name)
+  fprint! (out, "datcon_", name, "_")
 end // end of [auxfun0]
 //
 fun
@@ -133,9 +134,9 @@ case+
 x0.e1xp_node
 of // case+
 | $S1E.E1XPide(sym) =>
-    $SYM.fprint_symbol (out, sym)
+    $SYM.fprint_symbol(out, sym)
   // end of [E1XPide]
-| $S1E.E1XPstring(name) => fprint (out, name)
+| $S1E.E1XPstring(name) => fprint(out, name)
 | _(*rest-of-e1xp*) => auxfun0((*void*))
 )
 //
@@ -305,7 +306,7 @@ val sym = s2cst_get_sym(s2dat)
 val name = $SYM.symbol_get_name(sym)
 //
 in
-  fprint! (out, "datcontag_", name)
+  fprint! (out, "datcontag_", name, "_")
 end // end of [auxfun0]
 //
 fun

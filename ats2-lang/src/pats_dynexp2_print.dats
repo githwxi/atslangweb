@@ -677,18 +677,18 @@ d2e0.d2exp_node of
 | D2Etempenver (d2vs) =>
     fprint! (out, "D2Etempenver(", d2vs, ")")
 //
-| D2Eselab (d2e, d2ls) =>
+| D2Eselab(d2e, d2ls) =>
     fprint! (out, "D2Eselab(", d2e, "; ", d2ls, ")")
 //
-| D2Eptrof (d2e) => fprint! (out, "D2Eptrof(", d2e, ")")
+| D2Eptrof(d2e) => fprint! (out, "D2Eptrof(", d2e, ")")
 //
-| D2Eviewat (d2e) => fprint! (out, "D2Eviewat(", d2e, ")")
+| D2Eviewat(d2e) => fprint! (out, "D2Eviewat(", d2e, ")")
 //
-| D2Ederef (d2e) => fprint! (out, "D2Ederef(", d2e, ")")
+| D2Ederef(_(*!*), d2e) => fprint! (out, "D2Ederef(", d2e, ")")
 //
-| D2Eassgn (d2e_l, d2e_r) =>
+| D2Eassgn(d2e_l, d2e_r) =>
     fprint! (out, "D2Eassgn(", d2e_l, " := ", d2e_r, ")")
-| D2Exchng (d2e_l, d2e_r) =>
+| D2Exchng(d2e_l, d2e_r) =>
     fprint! (out, "D2Exchng(", d2e_l, " :=: ", d2e_r, ")")
 //
 | D2Earrsub _ => {
@@ -1161,6 +1161,12 @@ of // case+
     val () = $UT.fprintlst (out, d2cs, ", ", fprint_d2cst)
     val () = prstr ")"
   } // end of [D2Cdcstdecs]
+//
+| D2Cimpdec _ => {
+    val () = prstr "D2Cimpdec(\n"
+    val () = prstr "..."
+    val () = prstr "\n)"
+  } // end of [D2Cimpdec]
 //
 | D2Cfundecs _ => {
     val () = prstr "D2Cfundecs(\n"

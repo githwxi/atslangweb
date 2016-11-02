@@ -346,17 +346,25 @@ fun s2rt_is_dat (x: s2rt): bool
 //
 fun s2rt_is_fun (x: s2rt): bool
 fun s2rt_is_prf (x: s2rt): bool // is proof?
+//
 fun s2rt_is_lin (x: s2rt): bool
 fun s2rt_is_nonlin (x: s2rt): bool
+//
 fun s2rt_is_flat (x: s2rt): bool // is flat?
 fun s2rt_is_boxed (x: s2rt): bool // is boxed?
-fun s2rt_is_prgm (x: s2rt): bool // is program?
-fun s2rt_is_impred (x: s2rt): bool // is impredicative?
+//
 fun s2rt_is_tkind (x: s2rt): bool // is tkind?
 //
+fun s2rt_is_prgm (x: s2rt): bool // is program?
+fun s2rt_is_impred (x: s2rt): bool // is impredicative?
+//
 fun s2rt_is_lin_fun (x: s2rt): bool // is (... ->) linear?
+fun s2rt_is_flat_fun (x: s2rt): bool // is (... ->) flat?
 fun s2rt_is_boxed_fun (x: s2rt): bool // is (... ->) boxed?
 fun s2rt_is_tkind_fun (x: s2rt): bool // is (... ->) tkind?
+//
+fun s2rt_is_prgm_fun (x: s2rt): bool // is (... ->) program?
+fun s2rt_is_impred_fun (x: s2rt): bool // is (... ->) impred?
 //
 (* ****** ****** *)
 
@@ -536,7 +544,7 @@ s2exp_node =
 //
   | S2Ewthtype of (s2exp, wths2explst) // the result part of a fun type
 //
-  | S2Eerrexp of () // HX: placeholder for indicating error or something else
+  | S2Eerrexp of ((*void*)) // HX: placeholder for indicating error or something else
 //
 // end of [s2exp_node]
 
@@ -553,7 +561,7 @@ and s2eff =
 and s2rtext = (* extended sort *)
   | S2TEsrt of s2rt
   | S2TEsub of (s2var, s2rt, s2explst)
-  | S2TEerr of ()
+  | S2TEerr of ((*void*))
 // end of [s2rtext]
 
 and labs2exp = SLABELED of (label, Option(string), s2exp)
@@ -710,9 +718,12 @@ overload compare with compare_s2cst_s2cst
 
 (* ****** ****** *)
 //
+fun s2cst_is_def(x: s2cst): bool
+//
 fun s2cst_is_abstr (x: s2cst): bool
 fun s2cst_is_tkind (x: s2cst): bool
 //
+fun s2cst_is_tydef (s2c: s2cst): bool
 fun s2cst_is_datype (s2c: s2cst): bool
 //
 fun s2cst_is_tagless (x: s2cst): bool
