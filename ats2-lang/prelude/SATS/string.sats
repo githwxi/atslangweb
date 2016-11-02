@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Fri Oct 28 10:33:55 2016
+** Time of generation: Mon Sep  5 21:48:32 2016
 *)
 
 (* ****** ****** *)
@@ -261,58 +261,29 @@ fun{
 
 fun{}
 string_make_list
-  {n:int}
-  (cs: list(charNZ, n)):<!wrt> strnptr(n)
+  {n:int} (cs: list(charNZ, n)):<!wrt> strnptr (n)
 fun{}
 string_make_listlen
-  {n:int}
-  (cs: list(charNZ, n), n: int(n)):<!wrt> strnptr(n)
+  {n:int} (cs: list(charNZ, n), n: int n):<!wrt> strnptr (n)
 
 (* ****** ****** *)
 
 fun{}
 string_make_rlist
-  {n:int}
-  (cs: list(charNZ, n)):<!wrt> strnptr(n)
+  {n:int} (cs: list(charNZ, n)):<!wrt> strnptr (n)
 // end of [string_make_rlist]
 
 fun{}
 string_make_rlistlen
-  {n:int}
-  (cs: list(charNZ, n), n: int(n)):<!wrt> strnptr(n)
+  {n:int} (cs: list(charNZ, n), n: int n):<!wrt> strnptr (n)
 // end of [string_make_rlistlen]
 
-(* ****** ****** *)
-//
-fun{}
-string_make_list_vt
-  {n:int}
-  (cs: list_vt(charNZ, n)):<!wrt> strnptr(n)
-//
-fun{}
-string_make_listlen_vt
-  {n:int}
-  (cs: list_vt(charNZ, n), n: int(n)):<!wrt> strnptr(n)
-//
-(* ****** ****** *)
-//
-fun{}
-string_make_stream
-  {n:int}(cs: stream(charNZ)):<!wrt> Strptr1
-fun{}
-string_make_stream_vt
-  {n:int}(cs: stream_vt(charNZ)):<!wrt> Strptr1
-//
-fun{}
-string_make_stream$bufsize
-   ((*void*)):<> intGte(1) // HX: the default = 16
-//
 (* ****** ****** *)
 
 fun{}
 string_make_substring
   {n:int}{st,ln:nat | st+ln <= n}
-  (str: string(n), st: size_t st, ln: size_t ln):<!wrt> strnptr(ln)
+  (str: string (n), st: size_t st, ln: size_t ln):<!wrt> strnptr (ln)
 // end of [string_make_substring]
 
 (* ****** ****** *)
@@ -548,10 +519,10 @@ overload stropt_some with stropt1_some of 10
 //
 (* ****** ****** *)
 
-fun{}
-stropt_is_none{n:int} (stropt(n)):<> bool (n < 0)
-fun{}
-stropt_is_some{n:int} (stropt(n)):<> bool (n >= 0)
+fun{
+} stropt_is_none{n:int} (stropt(n)):<> bool (n < 0)
+fun{
+} stropt_is_some{n:int} (stropt(n)):<> bool (n >= 0)
 
 (* ****** ****** *)
 

@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Tue Nov  1 23:17:47 2016
+** Time of generation: Thu Oct 20 23:42:49 2016
 *)
 
 (* ****** ****** *)
@@ -72,12 +72,6 @@ $ldelay(
   stream_vt_cons(x, xs), $effmask_wrt(~xs)
 )(*$ldelay*)
 //
-(* ****** ****** *)
-//
-implement
-{a}(*tmp*)
-stream_vt_sing(x) =
-stream_vt_cons{a}(x, stream_vt_make_nil())
 implement
 {a}(*tmp*)
 stream_vt_make_sing(x) =
@@ -210,69 +204,46 @@ stream_vt_con_free
 
 implement
 {a}(*tmp*)
-stream_vt_takeLte
+stream_vt_take
   (xs, n) = let
 //
 fun
-auxmain
+loop
 (
-xs:
-stream_vt(a), n: intGte(0)
-) : stream_vt(a) = $ldelay(
-if
-(n > 0)
-then let
-  val xs_con = !xs
-in
-//
-case+ xs_con of
-| ~stream_vt_nil
-    () => stream_vt_nil()
-| @stream_vt_cons
-    (x, xs) => let
-    val ((*void*)) =
-      xs := auxmain(xs, n-1)
-    // end of [val]
-  in
-    fold@(xs_con); xs_con
-  end // end of [stream_vt_cons]
-//
-end // end of [then]
-else (~xs; stream_vt_nil())
-,
-(~xs) // for freeing the stream!
-)
-//
-in
-  auxmain(xs, n)
-end // end of [stream_vt_takeLte]
-
-(* ****** ****** *)
-
-(*
-implement
-{a}(*tmp*)
-stream_vt_dropLte
-  (xs, n) = let
-//
-fun aux
-  : $d2ctype(stream_vt_dropLte<a>) =
-lam (xs, n) =>
+  xs: stream_vt(a)
+, rem: int, res: &ptr? >> List0_vt(a)
+) : void =
 (
 if
-n > 0
+(rem > 0)
 then (
 case+ !xs of
 | ~stream_vt_nil
-    ((*void*)) => stream_vt_make_nil()
-| ~stream_vt_cons(_, xs) => aux(xs, n-1)
-) else (xs)
-) (* end of [lam] *)
+    () =>
+  (
+    res := list_vt_nil()
+  )
+| ~stream_vt_cons
+    (x, xs) => () where
+  {
+    val () =
+    res :=
+    list_vt_cons{a}{0}(x, _)
+    val+
+    list_vt_cons(_, res1) = res
+    val () = loop(xs, rem-1, res1)
+//
+    prval ((*folded*)) = fold@(res)
+//
+  } (* end of [stream_vt_cons] *)
+) else (
+  stream_vt_free(xs); res := list_vt_nil()
+) (* end of [if] *)
+) (* end of [loop] *)
 //
 in
-  aux (xs, n)
-end // end of [stream_vt_dropLte]
-*)
+  let var res: ptr in loop(xs, n, res); res end
+end // end of [stream_vt_take]
 
 (* ****** ****** *)
 //
@@ -685,70 +656,6 @@ end // end of [let]
 
 implement
 {a}(*tmp*)
-stream_vt_ifilter_cloptr
-(
-  xs, pred
-) = auxmain(xs, 0, pred) where
-{
-//
-fun
-auxmain
-(
-//
-xs: stream_vt(a),
-i0: intGte(0), pred: (intGte(0), &a) -<cloptr> bool
-//
-) : stream_vt(a) = $ldelay
-(
-//
-let
-  val xs_con = !xs
-in
-//
-case+ xs_con of
-| ~stream_vt_nil
-    ((*_*)) => let
-    val () =
-    cloptr_free
-      ($UN.castvwtp0{cloptr0}(pred))
-    // end of [val]
-  in
-    stream_vt_nil(*void*)
-  end // end of [stream_vt_nil]
-| @stream_vt_cons
-    (x, xs1) => let
-    val test = pred(i0, x)
-  in
-    if test
-      then let
-        val () =
-        xs1 :=
-        auxmain(xs1, i0+1, pred)
-      in
-        fold@{a}(xs_con); xs_con
-      end // end of [then]
-      else let
-        val xs1 = xs1
-      in
-        free@{a}(xs_con); !(auxmain(xs1, i0+1, pred))
-      end // end of [else]
-    // end of [if]
-  end // end of [stream_vt_cons]
-//
-end // end of [let]
-//
-,
-//
-(~xs; cloptr_free($UN.castvwtp0{cloptr0}(pred)))
-//
-) (* end of auxmain *)
-//
-} (* end of [stream_vt_ifilter_cloptr] *)
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
 stream_vt_filterlin
   (xs) = auxmain(xs) where
 {
@@ -1021,78 +928,21 @@ end // end of [stream_vt_map2_fun]
 (* ****** ****** *)
 
 implement
-{res}{a}
-stream_vt_scan_cloptr
-  (xs, ini, fopr) = let
-//
-fun
-auxmain:
-$d2ctype
-(
-stream_vt_scan_cloptr<res><a>
-) =
-lam
-(
-  xs, ini, fopr
-) => $ldelay
-(
-let
-  val xs_con = !xs
-in
-//
-case+ xs_con of
-| ~stream_vt_nil
-    () => let
-  //
-    val () =
-    cloptr_free
-    (
-      $UN.castvwtp0{cloptr0}(fopr)
-    )
-  //
-  in
-    stream_vt_nil()
-  end // end of [stream_vt_nil]
-| @stream_vt_cons
-    (x, xs) => let
-    val xs = xs
-    val ini = fopr(ini, x)
-    val ((*freed*)) = free@(xs_con)
-  in
-    stream_vt_cons(ini, auxmain(xs, ini, fopr))
-  end // end of [stream_vt_cons]
-end // end of [let]
-,
-(~xs; cloptr_free($UN.castvwtp0{cloptr0}(fopr)))
-) (* end of [auxmain] *)
-//
-in
-  auxmain(xs, ini, fopr)
-end // end of [stream_vt_scan_cloptr]
-
-(* ****** ****** *)
-
-implement
 {a}(*tmp*)
 stream_vt_tabulate
 (
 // argumentless
-) = auxmain(0) where
+) = aux (0) where
 {
 //
-fun
-auxmain
+fun aux
 (
 i : intGte(0)
 ) : stream_vt(a) =
 (
-$ldelay
-(
-stream_vt_cons
-(
-  stream_vt_tabulate$fopr<a>(i), auxmain(i+1)
-)
-) (* $ldelay *)
+  $ldelay(
+    stream_vt_cons{a}(stream_vt_tabulate$fopr<a>(i), aux(i+1))
+  ) (* $ldelay *)
 ) (* end of [aux] *)
 //
 } (* end of [stream_vt_tabulate] *)
@@ -1108,8 +958,7 @@ vtypedef ia = @(intGte(0), a)
 fun
 auxmain
 (
-  i0: intGte(0)
-, xs: stream_vt(a)
+  i: intGte(0), xs: stream_vt(a)
 ) : stream_vt(ia) = $ldelay
 (
 (
@@ -1119,7 +968,7 @@ case+ !xs of
   // end of [stream_vt_nil]
 | ~stream_vt_cons
     (x, xs) =>
-    stream_vt_cons((i0, x), auxmain(i0+1, xs))
+    stream_vt_cons((i, x), auxmain(i+1, xs))
   // end of [stream_vt_cons]
 )
 ,
@@ -1142,7 +991,7 @@ stream_vt_foreach
 var env: void = ((*void*))
 //
 in
-  stream_vt_foreach_env<a><void>(xs, env)
+  stream_vt_foreach_env<a><void> (xs, env)
 end // end of [stream_vt_foreach]
 
 implement

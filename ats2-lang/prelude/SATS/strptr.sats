@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Sun Oct 23 09:48:51 2016
+** Time of generation: Mon Sep  5 21:48:32 2016
 *)
 
 (* ****** ****** *)
@@ -325,21 +325,20 @@ strnptr_copy
 (* ****** ****** *)
 //
 fun{}
-strptr_append
-  (x1: !Strptr0, x2: !Strptr0):<!wrt> Strptr0
+strptr_append (x1: !Strptr0, x2: !Strptr0):<!wrt> Strptr0
 fun{}
-strnptr_append{n1,n2:nat}
-  (x1: !strnptr n1, x2: !strnptr n2):<!wrt> strnptr(n1+n2)
+strnptr_append {n1,n2:nat}
+  (x1: !strnptr n1, x2: !strnptr n2):<!wrt> strnptr (n1+n2)
 //
 (* ****** ****** *)
 
 fun{}
-strptrlst_free (xs: List_vt(Strptr0)):<!wrt> void
+strptrlst_free (xs: List_vt (Strptr0)):<!wrt> void
 
 (* ****** ****** *)
 
 fun{}
-strptrlst_concat (xs: List_vt(Strptr0)):<!wrt> Strptr0
+strptrlst_concat (xs: List_vt (Strptr0)):<!wrt> Strptr0
 
 (* ****** ****** *)
 

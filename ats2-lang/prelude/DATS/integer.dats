@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Sat Oct 22 17:10:47 2016
+** Time of generation: Sun Oct  2 10:33:52 2016
 *)
 
 (* ****** ****** *)
@@ -281,28 +281,19 @@ implement
 g1int_ndiv2
   {i,j}(x, y) = let
 //
-val
-[q:int] q = g1int_div(x, y)
+val [q:int] q = g1int_div (x, y)
 //
 prval
 [q2:int,r:int]
 pf_istot = divmod_istot{i,j}()
 //
 prval
-EQINT((*void*)) =
-  $UN.castview0{EQINT(q,q2)}(0)
+EQINT((*void*)) = $UN.castview0{EQINT(q,q2)}(0)
 //
 in
   (pf_istot | q(*quotient*))
 end // end of [let] // end of [g1int_ndiv2]
 
-(* ****** ****** *)
-//
-implement
-{tk}(*tmp*)
-ndiv_g1int_int1
-  (x, y) = g1i2i(g1int_ndiv(x, g1i2i(y)))
-//
 (* ****** ****** *)
 
 implement
@@ -310,15 +301,14 @@ implement
 g1int_nmod2
   {i,j}(x, y) = let
 //
-val r = g1int_nmod(x, y)
+val r = g1int_nmod (x, y)
 //
 prval
 [q:int,r2:int]
 pf_istot = divmod_istot{i,j}()
 //
 prval
-EQINT((*void*)) =
-  $UN.castview0{EQINT(i%j,r2)}(0)
+EQINT((*void*)) = $UN.castview0{EQINT(i%j,r2)}(0)
 //
 in
   (pf_istot | r(*remainder*))
@@ -327,9 +317,8 @@ end // end of [let] // end of [g1int_nmod2]
 (* ****** ****** *)
 //
 implement
-{tk}(*tmp*)
-nmod_g1int_int1
-  (x, y) = g1i2i(g1int_nmod(x, g1i2i(y)))
+nmod_g1int_int1<intknd>
+  (x, y) = g1i2i(g1int_nmod (x, g1i2i(y)))
 //
 (* ****** ****** *)
 

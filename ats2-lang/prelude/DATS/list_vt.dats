@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Sat Oct 22 23:15:09 2016
+** Time of generation: Sun Oct  2 10:33:58 2016
 *)
 
 (* ****** ****** *)
@@ -1274,38 +1274,6 @@ list_vt_free(xs)
 in
   $effmask_all(auxmain(xs))
 end (* end of [streamize_list_vt_elt] *)
-
-(* ****** ****** *)
-
-implement
-{tk}(*tmp*)
-listize_g0int_rep
-  (i0, base) = let
-//
-fun
-loop{i:int}
-(
-i0: g1int(tk, i), res: List0_vt(int)
-) : List0_vt(int) =
-(
-if
-isgtz(i0)
-then
-loop
-( ndiv_g1int_int1(i0, base)
-, list_vt_cons(nmod_g1int_int1(i0, base), res)
-) (* end of [then] *)
-else res // end-of-else
-)
-//
-in
-//
-$UN.castvwtp0
-(
-$effmask_all(loop(g1ofg0_int(i0), list_vt_nil(*void*)))
-) (* $UN.castvwtp0 *)
-//
-end // end of [listize_g0int_rep]
 
 (* ****** ****** *)
 

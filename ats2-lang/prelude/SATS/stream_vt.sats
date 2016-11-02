@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Tue Nov  1 23:17:47 2016
+** Time of generation: Wed Oct  5 14:07:42 2016
 *)
 
 (* ****** ****** *)
@@ -80,14 +80,8 @@ fun{a:t0p}
 stream_vt_make_cons
   (a, stream_vt(INV(a))):<> stream_vt(a)
 //
-(* ****** ****** *)
-//
-fun{a:t0p}
-stream_vt_sing(a):<> stream_vt_con(a)
 fun{a:t0p}
 stream_vt_make_sing(x: a):<> stream_vt(a)
-//
-(* ****** ****** *)
 //
 fun{a:t0p}
 stream_vt_make_con
@@ -120,9 +114,9 @@ stream_vt_con_free (xs: stream_vt_con(a)):<!wrt> void
 (* ****** ****** *)
 
 fun{a:t0p}
-stream_vt_takeLte
-  (xs: stream_vt(INV(a)), n: intGte(0)): stream_vt(a)
-// end of [stream_vt_takeLte]
+stream_vt_take
+  (xs: stream_vt(INV(a)), n: intGte(0)): List0_vt(a)
+// end of [stream_vt_take]
 
 (* ****** ****** *)
 //
@@ -188,17 +182,11 @@ stream_vt_filter_fun
 (
   xs: stream_vt(INV(a)), pred: (&a) -<fun> bool
 ) : stream_vt (a) // end of [stream_vt_filter_fun]
-//
 fun{a:t0p}
 stream_vt_filter_cloptr
 (
   xs: stream_vt(INV(a)), pred: (&a) -<cloptr> bool
 ) : stream_vt (a) // end of [stream_vt_filter_cloptr]
-fun{a:t0p}
-stream_vt_ifilter_cloptr
-(
-  xs: stream_vt(INV(a)), pred: (intGte(0), &a) -<cloptr> bool
-) : stream_vt (a) // end of [stream_vt_ifilter_cloptr]
 //
 fun{a:vt0p}
 stream_vt_filterlin
@@ -242,11 +230,10 @@ a1,a2:t0p}{b:vt0p
   (x1: &a1 >> _, x2: &a2 >> _): b
 fun{
 a1,a2:t0p}{b:vt0p
-} stream_vt_map2
-(
-  xs1: stream_vt(INV(a1))
-, xs2: stream_vt(INV(a2))
-) : stream_vt(b) // end of [stream_vt_map2]
+} stream_vt_map2 (
+  xs1: stream_vt (INV(a1))
+, xs2: stream_vt (INV(a2))
+) : stream_vt (b) // end of [stream_vt_map2]
 //
 fun{
 a1,a2:t0p}{b:vt0p
@@ -264,17 +251,6 @@ a1,a2:t0p}{b:vt0p
 , xs2: stream_vt(INV(a2))
 , fopr: (&a1 >> _, &a2 >> _) -<cloptr1> b
 ) : stream_vt(b) // end of [stream_vt_map2_cloptr]
-//
-(* ****** ****** *)
-//
-fun{
-res:t0p
-}{a:vt0p}
-stream_vt_scan_cloptr
-(
-  xs: stream_vt(INV(a))
-, ini: res, fopr: (res, &a >> a?!) -<cloptr1> res
-) : stream_vt(res) // end of [stream_vt_scan_cloptr]
 //
 (* ****** ****** *)
 
@@ -330,7 +306,7 @@ res:vt0p
 }{a:vt0p}
 stream_vt_foldleft_cloptr
 (
-  xs: stream_vt(INV(a)), init: res, fopr: (res, &a >> a?!) -<cloptr1> res
+  xs: stream_vt(a), init: res, fopr: (res, &a >> a?!) -<cloptr1> res
 ) : res // end of [stream_vt_foldleft_cloptr]
 //
 (* ****** ****** *)

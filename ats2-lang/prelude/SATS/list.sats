@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Fri Oct 28 09:25:13 2016
+** Time of generation: Mon Oct 17 22:01:13 2016
 *)
 
 (* ****** ****** *)
@@ -919,7 +919,7 @@ a:t0p
   (xs: list(INV(a), n)) :<!wrt> list_vt(a, n)
 //
 fun{a:t0p}
-list_mergesort$cmp(x1: a, x2: a):<> int (* sign *)
+list_mergesort$cmp (x1: a, x2: a):<> int (* sign *)
 //
 (* ****** ****** *)
 
@@ -945,7 +945,7 @@ a:t0p
   (xs: list(INV(a), n)) :<!wrt> list_vt(a, n)
 //
 fun{a:t0p}
-list_quicksort$cmp(x1: a, x2: a):<> int (* sign *)
+list_quicksort$cmp (x1: a, x2: a):<> int (* sign *)
 //
 (* ****** ****** *)
 

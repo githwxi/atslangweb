@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/tostring.atxt
-** Time of generation: Tue Oct 25 00:23:04 2016
+** Time of generation: Mon Sep  5 21:48:37 2016
 *)
 
 (* ****** ****** *)
@@ -78,13 +78,6 @@ fun{}
 tostring_char(char):<> string
 fun{}
 tostrptr_char(char):<!wrt> Strptr1
-
-(* ****** ****** *)
-
-fun{}
-tostring_double(double):<> string
-fun{}
-tostrptr_double(double):<!wrt> Strptr1
 
 (* ****** ****** *)
 //

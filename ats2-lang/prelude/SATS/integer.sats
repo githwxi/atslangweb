@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Sat Oct 22 17:13:48 2016
+** Time of generation: Mon Sep  5 21:48:30 2016
 *)
 
 (* ****** ****** *)
@@ -528,21 +528,19 @@ g1int_ndiv_type
   (tk:tk) =
   {i,j:int | i >= 0; j > 0}
 (
-  g1int(tk, i), g1int(tk, j)
+  g1int (tk, i), g1int (tk, j)
 ) -<fun0> g1int (tk, ndiv_int_int(i,j))
 //
-fun
-{tk:tk}
+fun{tk:tk}
 g1int_ndiv : g1int_ndiv_type(tk)
-//
+
 (* ****** ****** *)
 
-fun
-{tk:tk}
+fun{tk:tk}
 g1int_ndiv2
   {i,j:int | i >= 0; j > 0}
 (
-  x: g1int(tk, i), y: g1int(tk, j)
+  x: g1int (tk, i), y: g1int (tk, j)
 ) :<>
 [
   q,r:int | 0 <= r; r < j
@@ -551,21 +549,10 @@ g1int_ndiv2
 ) (* end of [g1int_ndiv2] *)
 
 (* ****** ****** *)
-//
-fun{tk:tk}
-ndiv_g1int_int1
-  {i,j:int | i >= 0; j > 0}
-(
-  g1int(tk, i), int(j)
-) :<> g1int(tk, ndiv_int_int(i,j))
-//
-(* ****** ****** *)
-//
+
 overload / with g1int_div of 20
-//
 overload ndiv with g1int_ndiv of 20
-overload ndiv with ndiv_g1int_int1 of 21
-//
+
 (* ****** ****** *)
 
 (*
@@ -579,8 +566,8 @@ g1int_nmod_type
   (tk:tk) =
   {i,j:int | i >= 0; j > 0}
 (
-  g1int(tk, i), g1int(tk, j)
-) -<fun0> g1int(tk, nmod_int_int(i, j))
+  g1int (tk, i), g1int (tk, j)
+) -<fun0> g1int (tk, nmod_int_int(i, j))
 // end of [g1int_nmod_type]
 
 fun{tk:tk}
@@ -592,10 +579,10 @@ fun{tk:tk}
 g1int_nmod2
   {i,j:int | i >= 0; j > 0}
 (
-  x: g1int(tk, i), y: g1int(tk, j)
+  x: g1int (tk, i), y: g1int (tk, j)
 ) :<> [q,r:nat | r < j]
 (
-  DIVMOD(i, j, q, r) | g1int(tk, r)
+  DIVMOD (i, j, q, r) | g1int (tk, r)
 ) (* end of [g1int_nmod2] *)
 
 (* ****** ****** *)
@@ -603,14 +590,14 @@ g1int_nmod2
 fun{tk:tk}
 nmod_g1int_int1
   {i,j:int | i >= 0; j > 0}
-  (x: g1int(tk, i), y: int(j)):<> int(i%j)
+  (x: g1int (tk, i), y: int (j)):<> int(i%j)
 //
 fun{tk:tk}
 nmod2_g1int_int1
   {i,j:int | i >= 0; j > 0}
 (
-  x: g1int(tk, i), y: int(j)
-) :<> [q,r:nat | r < j] (DIVMOD(i, j, q, r) | int(r))
+  x: g1int (tk, i), y: int (j)
+) :<> [q,r:nat | r < j] (DIVMOD (i, j, q, r) | int (r))
 //
 (* ****** ****** *)
 
@@ -1705,20 +1692,6 @@ macdef g1u2i(x) = g1uint2int(,(x))
 //
 macdef g0u2u(x) = g0uint2uint(,(x))
 macdef g1u2u(x) = g1uint2uint(,(x))
-//
-(* ****** ****** *)
-//
-// HX: implemented in [list_vt.dats]
-//
-fun{tk:tk}
-listize_g0int_rep
-  {b:int | b >= 2}
-  (g0int(tk), int(b)):<!wrt> List0_vt(intBtw(0, b))
-//
-fun{tk:tk}
-listize_g0uint_rep
-  {b:int | b >= 2}
-  (g0uint(tk), int(b)):<!wrt> List0_vt(intBtw(0, b))
 //
 (* ****** ****** *)
 

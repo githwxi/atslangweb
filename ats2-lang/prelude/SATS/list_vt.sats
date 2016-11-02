@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Fri Oct 28 09:25:13 2016
+** Time of generation: Mon Sep  5 21:48:35 2016
 *)
 
 (* ****** ****** *)
@@ -487,7 +487,7 @@ a:vt0p
   {n:int} (xs: list_vt(INV(a), n)):<!wrt> list_vt(a, n)
 fun{
 a:vt0p
-} list_vt_mergesort$cmp(x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
+} list_vt_mergesort$cmp (x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
 //
 fun{
 a:vt0p
@@ -504,7 +504,7 @@ a:vt0p
   {n:int} (xs: list_vt(INV(a), n)):<!wrt> list_vt(a, n)
 fun{
 a:vt0p
-} list_vt_quicksort$cmp(x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
+} list_vt_quicksort$cmp (x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
 //
 fun{
 a:vt0p
@@ -516,7 +516,7 @@ a:vt0p
 (* ****** ****** *)
 //
 fun{a:t0p}
-streamize_list_vt_elt(List_vt(INV(a))):<!wrt> stream_vt(a)
+streamize_list_vt_elt(List_vt(a)):<!wrt> stream_vt(a)
 //
 (* ****** ****** *)
 //

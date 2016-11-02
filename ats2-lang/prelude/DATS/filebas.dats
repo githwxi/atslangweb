@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Wed Oct 26 08:55:03 2016
+** Time of generation: Sun Oct  2 10:33:56 2016
 *)
 
 (* ****** ****** *)
@@ -994,7 +994,7 @@ in
     then let
 (*
       val () =
-        fileref_close(inp) // HX: FILEref is not freed!
+        fileref_close(inp)
       // end of [val]
 *)
     in

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Fri Oct 28 10:36:30 2016
+** Time of generation: Sun Oct  2 10:33:54 2016
 *)
 
 (* ****** ****** *)
@@ -60,13 +60,12 @@ overload + with add_ptr_bsz
 macdef castvwtp_trans = $UN.castvwtp0 // former name
 
 (* ****** ****** *)
-//
+
 extern
-fun
-memcpy
+fun memcpy
   (d:ptr, s:ptr, n:size_t):<!wrt> ptr = "mac#atspre_string_memcpy"
 // end of [memcpy]
-//
+
 (* ****** ****** *)
 //
 implement
@@ -382,47 +381,20 @@ end // end of [loop]
 //
 val n1 = n + 1
 //
-val
-(pf, pfgc | p0) =
-$effmask_wrt(malloc_gc(i2sz(n1)))
+val (pf, pfgc | p0) =
+  $effmask_wrt (malloc_gc(i2sz(n1)))
 //
 val p1 = ptr_add<char>(p0, n)
-val () =
-$effmask_wrt
-  ($UN.ptr0_set<char>(p1, CNUL))
 //
-val p0 = $effmask_wrt(loop(cs, n, p1))
+val () =
+  $effmask_wrt ($UN.ptr0_set<char>(p1, CNUL))
+//
+val p0 = $effmask_wrt (loop (cs, n, p1))
 //
 in
   castvwtp_trans{strnptr(n)}((pf, pfgc | p0))
 end // end of [string_make_rlistlen]
 
-(* ****** ****** *)
-//
-implement
-{}(*tmp*)
-string_make_list_vt
-  (cs) = str where
-{
-//
-  val cs2 = $UN.list_vt2t(cs)
-  val str = string_make_list(cs2)
-  val ((*freed*)) = list_vt_free<char>(cs)
-//
-} (* end of [string_make_list_vt] *)
-//
-implement
-{}(*tmp*)
-string_make_listlen_vt
-  (cs, n) = str where
-{
-//
-  val cs2 = $UN.list_vt2t(cs)
-  val str = string_make_listlen(cs2, n)
-  val ((*freed*)) = list_vt_free<char>(cs)
-//
-} (* end of [string_make_listlen_vt] *)
-//
 (* ****** ****** *)
 
 implement
@@ -444,123 +416,6 @@ val () = $UN.ptr0_set<char>(p_dst + ln, CNUL)
 in
   castvwtp_trans{strnptr(ln)}((pf, pfgc | p_dst))
 end // end of [string_make_substring]
-
-(* ****** ****** *)
-//
-implement
-string_make_stream$bufsize<> ((*void*)) = 16
-//
-(* ****** ****** *)
-
-implement
-{}(*tmp*)
-string_make_stream
-  (cs) = let
-//
-fun
-loop
-{l:addr}
-{n:int}
-{i:nat | i <= n}
-(
-  pf: b0ytes(n)@l, fpf: mfree_gc_v(l)
-| cs: stream(charNZ), p0: ptr(l), pi: ptr, n: size_t(n), i: size_t(i)
-) : Strptr1 = (
-if
-(i < n)
-then
-(
-case+ !cs of
-| stream_nil() => let
-    val () =
-    $UN.ptr0_set<char>(pi, CNUL)
-  in
-    $UN.castvwtp0((pf, fpf | p0))
-  end // end of [stream_nil]
-| stream_cons(c, cs) => let
-    val () = $UN.ptr0_set<char>(pi, c)
-  in
-    loop(pf, fpf | cs, p0, ptr_succ<char>(pi), n, succ(i))
-  end // end of [stream_cons]
-)
-else let
-//
-  val n2 = n + n
-  val (pf2, fpf2 | p02) = malloc_gc(n2)
-//
-  val _(*p02*) = memcpy(p02, p0, i)
-  val ((*freed*)) = mfree_gc(pf, fpf | p0)
-//
-in
-  loop(pf2, fpf2 | cs, p02, ptr_add<char>(p02, i), n2, i)
-end // end of [
-) (* end of [loop] *)
-//
-val n0 =
-string_make_stream$bufsize<>()
-//
-val n0 = i2sz(n0)
-val (pf, fpf | p0) = malloc_gc(n0)
-//
-in
-  $effmask_all(loop(pf, fpf | cs, p0, p0, n0, i2sz(0)))
-end // end of [string_make_stream]
-
-(* ****** ****** *)
-
-implement
-{}(*tmp*)
-string_make_stream_vt
-  (cs) = let
-//
-fun
-loop
-{l:addr}
-{n:int}
-{i:nat | i <= n}
-(
-  pf: b0ytes(n)@l, fpf: mfree_gc_v(l)
-| cs: stream_vt(charNZ), p0: ptr(l), pi: ptr, n: size_t(n), i: size_t(i)
-) : Strptr1 = (
-if
-(i < n)
-then
-(
-case+ !cs of
-| ~stream_vt_nil() => let
-    val () =
-    $UN.ptr0_set<char>(pi, CNUL)
-  in
-    $UN.castvwtp0((pf, fpf | p0))
-  end // end of [stream_nil]
-| ~stream_vt_cons(c, cs) => let
-    val () = $UN.ptr0_set<char>(pi, c)
-  in
-    loop(pf, fpf | cs, p0, ptr_succ<char>(pi), n, succ(i))
-  end // end of [stream_cons]
-)
-else let
-//
-  val n2 = n + n
-  val (pf2, fpf2 | p02) = malloc_gc(n2)
-//
-  val _(*p02*) = memcpy(p02, p0, i)
-  val ((*freed*)) = mfree_gc(pf, fpf | p0)
-//
-in
-  loop(pf2, fpf2 | cs, p02, ptr_add<char>(p02, i), n2, i)
-end // end of [
-) (* end of [loop] *)
-//
-val n0 =
-string_make_stream$bufsize<>()
-//
-val n0 = i2sz(n0)
-val (pf, fpf | p0) = malloc_gc(n0)
-//
-in
-  $effmask_all(loop(pf, fpf | cs, p0, p0, n0, i2sz(0)))
-end // end of [string_make_stream_vt]
 
 (* ****** ****** *)
 //
