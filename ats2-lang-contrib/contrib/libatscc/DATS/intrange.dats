@@ -103,7 +103,8 @@ aux
 //
 if
 (i < n0)
-then list_cons(fopr(i), aux(i+1)) else list_nil()
+then list_cons(fopr(i), aux(i+1))
+else list_nil()
 // end of [if]
 )
 //
@@ -114,8 +115,125 @@ end // end of [int_list_map_cloref]
 implement
 int_list_map_method
   {a}{n}(n0, tres) =
-  lam(fopr) => int_list_map_cloref{a}{n}(n0, fopr)
+(
 //
+lam(fopr) =>
+  int_list_map_cloref{a}{n}(n0, fopr)
+//
+) (* end of [int_list_map_method] *)
+//
+(* ****** ****** *)
+//
+implement
+int_list0_map_cloref
+  {a}(n0, fopr) = let
+//
+val n0 = g1ofg0(n0)
+//
+in
+//
+if
+(n0 >= 0)
+then
+g0ofg1
+(
+  int_list_map_cloref(n0, fopr)
+) (* g0ofg1 *)
+else list0_nil(*void*)
+//
+end // end of [int_list0_map_cloref]
+//
+implement
+int_list0_map_method
+  {a}(n0, tres) =
+(
+//
+lam(fopr) =>
+  int_list0_map_cloref{a}(n0, fopr)
+//
+) (* end of [int_list0_map_method] *)
+//
+(* ****** ****** *)
+
+#if
+defined(ATSCC_STREAM)
+//
+implement
+int_stream_map_cloref
+  {a}(n0, fopr) = let
+//
+fun
+aux
+{i:nat}
+(
+  i: int(i)
+) : stream(a) = $delay(
+//
+if
+(i < n0)
+then (
+  stream_cons(fopr(i), aux(i+1))
+) else stream_nil()
+// end of [if]
+)
+//
+in
+  aux(0)
+end // end of [aux]
+//
+implement
+int_stream_map_method
+  {a}(n0, tres) =
+(
+//
+lam(fopr) =>
+  int_stream_map_cloref{a}(n0, fopr)
+//
+) (* end of [int_stream_map_method] *)
+//
+#endif // ATSCC_STREAM
+
+(* ****** ****** *)
+
+#if
+defined(ATSCC_STREAM_VT)
+//
+implement
+int_stream_vt_map_cloref
+  {a}(n0, fopr) = let
+//
+fun
+aux
+{i:nat}
+(
+  i: int(i)
+) : stream_vt(a) = $ldelay
+(
+//
+if
+(i < n0)
+then (
+  stream_vt_cons(fopr(i), aux(i+1))
+) else stream_vt_nil((*void*))
+// end of [if]
+) : stream_vt_con(a) // [aux]
+//
+in
+  aux(0)
+end // end of [aux]
+//
+implement
+int_stream_vt_map_method
+  {a}(n0, tres) =
+(
+//
+llam(fopr) =>
+  int_stream_vt_map_cloref{a}(n0, fopr)
+//
+) (* end of [int_stream_vt_map_method] *)
+//
+#endif // ATSCC_STREAM_VT
+
 (* ****** ****** *)
 //
 implement

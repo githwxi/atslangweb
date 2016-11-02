@@ -17,6 +17,11 @@ staload "./../../basics.sats"
 (* ****** ****** *)
 //
 fun{}
+list0_sing{a:t0p}(x: a): list0(a)
+//
+(* ****** ****** *)
+//
+fun{}
 list0_is_nil
   {a:t0p}(xs: list0(INV(a))): bool
 //
@@ -32,29 +37,19 @@ overload isneqz with list0_is_cons
 (* ****** ****** *)
 //
 fun
-list0_head_exn
-  {a:t0p}
-  (list0(INV(a))):<!exn> (a) = "mac#%"
-fun
 list0_head_opt
   {a:t0p}
-  (list0(INV(a))):<!exn> Option_vt(a) = "mac#%"
+  (list0(INV(a))): Option_vt(a) = "mac#%"
 //
-overload .head with list0_head_exn
 overload .head_opt with list0_head_opt
 //
 (* ****** ****** *)
 //
 fun
-list0_tail_exn
-  {a:t0p}
-  (list0(INV(a))):<!exn> list0(a) = "mac#%"
-fun
 list0_tail_opt
   {a:t0p}
-  (list0(INV(a))):<!exn> Option_vt(list0(a)) = "mac#%"
+  (list0(INV(a))): Option_vt(list0(a)) = "mac#%"
 //
-overload .tail with list0_tail_exn
 overload .tail_opt with list0_tail_opt
 //
 (* ****** ****** *)
@@ -97,10 +92,12 @@ list0_make_intrange with list0_make_intrange_3
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 print_list0
   (xs: list0(INV(a))): void = "mac#%"
-fun{a:t0p}
+fun
+{a:t0p}
 print_list0_sep
   (xs: list0(INV(a)), sep: string): void = "mac#%"
 //
@@ -143,6 +140,13 @@ list0_reverse_append
 //
 overload reverse with list0_reverse of 100
 overload revappend with list0_reverse_append of 100
+//
+(* ****** ****** *)
+//
+fun
+list0_remove_at_opt
+  {a:t0p}
+  (list0(INV(a)), i: intGte(0)): Option(list0(a)) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -284,20 +288,101 @@ list0_map_method
 overload .map with list0_map_method
 //
 (* ****** ****** *)
+//
+fun
+list0_zip
+  {a1,a2:t0p}
+(
+  xs: list0(INV(a1)), ys: list0(INV(a2))
+) :<> list0($tup(a1, a2)) = "mac#%" // end-of-fun
+//
+fun
+list0_zipwith
+  {a1,a2:t0p}{b:t0p}
+(
+  xs: list0(INV(a1)), ys: list0(INV(a2)), fopr: cfun(a1, a2, b)
+) :<1> list0(b) = "mac#%" // end of [list0_zipwith]
+//
+fun
+list0_zipwith_method
+  {a1,a2:t0p}{b:t0p}
+(
+  xs: list0(INV(a1)), ys: list0(INV(a2)))(fopr: cfun(a1, a2, b)
+) :<1> list0(b) = "mac#%" // end of [list0_zipwith_method]
+//
+overload .map2 with list0_zipwith_method
+overload .zipwith with list0_zipwith_method
+//
+(* ****** ****** *)
 
 fun
 list0_foldleft
   {res:t0p}{a:t0p}
 (
-  xs: list0(INV(a)), init: res, fopr: cfun(res, a, res)
+  list0(INV(a)), init: res, fopr: cfun(res, a, res)
 ) : res = "mac#%" // end-of-function
 fun
 list0_foldright
   {a:t0p}{res:t0p}
 (
-  xs: list0(INV(a)), fopr: cfun(a, res, res), sink: res
+  list0(INV(a)), fopr: cfun(a, res, res), sink: res
 ) : res = "mac#%" // end-of-function
 
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+list0_sort_1
+  (list0(INV(a))): list0(a) = "mac#%"
+//
+fun
+list0_sort_2
+  {a:t0p}
+(
+  list0(INV(a)), cmp: (a, a) -<cloref1> int
+) : list0(a) = "mac#%"
+//
+symintr list0_sort
+overload list0_sort with list0_sort_1 of 100
+overload list0_sort with list0_sort_2 of 100
+//
+(* ****** ****** *)
+//
+fun
+streamize_list0_zip
+  {a,b:t0p}
+(
+  xs: list0(INV(a))
+, ys: list0(INV(b))
+) :<>
+  stream_vt($tup(a,b)) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+streamize_list0_cross
+  {a,b:t0p}
+(
+  xs: list0(INV(a))
+, ys: list0(INV(b))
+) :<>
+  stream_vt($tup(a,b)) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+streamize_list0_nchoose
+  {a:t0p}
+(
+  xs: list0(INV(a)), n: intGte(0)
+) :<> stream_vt(list0(a)) = "mac#%" // end-of-fun
+fun
+streamize_list0_nchoose_rest
+  {a:t0p}
+(
+  xs: list0(INV(a)), n: intGte(0)
+) :<> stream_vt($tup(list0(a), list0(a))) = "mac#%"
+//
 (* ****** ****** *)
 
 (* end of [list0.sats] *)

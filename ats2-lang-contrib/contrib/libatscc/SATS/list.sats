@@ -10,6 +10,15 @@ staload "./../basics.sats"
 
 (* ****** ****** *)
 //
+macdef
+list_sing(x) =
+  list_cons(,(x), list_nil)
+macdef
+list_pair(x1, x2) =
+  list_cons(,(x1), list_cons(,(x2), list_nil))
+//
+(* ****** ****** *)
+//
 fun{}
 list_is_nil
   {a:t0p}{n:int}(list(a, n)): bool(n==0)
@@ -38,15 +47,16 @@ list_make_intrange with list_make_intrange_3
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 print_list
   (List(INV(a))): void = "mac#%"
-fun{a:t0p}
+fun
+{a:t0p}
 print_list_sep
   (List(INV(a)), sep: string): void = "mac#%"
 //
-overload
-print with print_list of 100
+overload print with print_list of 100
 //
 (* ****** ****** *)
 //
@@ -379,7 +389,8 @@ overload .ifoldright with list_ifoldright_method
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 list_sort_1
   {n:int}
   (list(INV(a), n)): list(a, n) = "mac#%"
@@ -394,6 +405,24 @@ list_sort_2
 symintr list_sort
 overload list_sort with list_sort_1 of 100
 overload list_sort with list_sort_2 of 100
+//
+(* ****** ****** *)
+//
+fun
+streamize_list_zip
+  {a,b:t0p}
+(
+  List(INV(a))
+, List(INV(b))
+) :<> stream_vt($tup(a,b)) = "mac#%" // end-of-fun
+//
+fun
+streamize_list_cross
+  {a,b:t0p}
+(
+  xs: List(INV(a))
+, ys: List(INV(b))
+) :<> stream_vt($tup(a,b)) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 

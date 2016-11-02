@@ -83,6 +83,46 @@ overload .list_map with int_list_map_method
 //
 (* ****** ****** *)
 //
+fun
+int_list0_map_cloref
+  {a:t0p}
+  (n: int, fopr: cfun(int, a)): list0(a) = "mac#%"
+fun
+int_list0_map_method
+  {a:t0p}
+  (n: int, TYPE(a))(fopr: cfun(int, a)): list0(a) = "mac#%"
+//
+overload .list0_map with int_list0_map_method
+//
+(* ****** ****** *)
+//
+fun
+int_stream_map_cloref
+  {a:t0p}
+  (n: intGte(0), fopr: cfun(int, a)): stream(a) = "mac#%"
+fun
+int_stream_map_method
+  {a:t0p}
+  (n: intGte(0), TYPE(a))(fopr: cfun(int, a)): stream(a) = "mac#%"
+//
+overload .stream_map with int_stream_map_method
+//
+(* ****** ****** *)
+//
+fun
+int_stream_vt_map_cloref
+  {a:vt0p}
+  (n: intGte(0), fopr: cfun(int, a)): stream_vt(a) = "mac#%"
+fun
+int_stream_vt_map_method
+  {a:vt0p}
+  (n: intGte(0), TYPE(a))
+: (cfun(int, a)) -<lincloptr1> stream_vt(a) = "mac#%"
+//
+overload .stream_vt_map with int_stream_vt_map_method
+//
+(* ****** ****** *)
+//
 // HX-2016-07-27:
 // no overloading for these int2-functions
 //

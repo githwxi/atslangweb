@@ -45,8 +45,23 @@ staload "./../SATS/filebas.sats"
 //
 staload "./../SATS/list.sats"
 //
+(* ****** ****** *)
+//
+staload "./../SATS/stream.sats"
+staload _ = "./../DATS/stream.dats"
+//
+staload "./../SATS/stream_vt.sats"
+staload _ = "./../DATS/stream_vt.dats"
+//
+(* ****** ****** *)
+//
 staload "./../SATS/JSarray.sats"
 //
+(* ****** ****** *)
+
+#define ATSCC_STREAM 1
+#define ATSCC_STREAM_VT 1
+
 (* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"
@@ -59,7 +74,8 @@ print_list$sep (): void
 //
 implement
 {}(*tmp*)
-print_list$sep () = print_string (", ")
+print_list$sep
+  ((*void*)) = print_string (", ")
 //
 implement
 {a}(*tmp*)

@@ -63,14 +63,17 @@ ATSINSdeadcode_fail()
 //
 /* ****** ****** */
 
-function ATSPMVempty() { return; }
+function
+ATSPMVempty() { return; }
 
 /* ****** ****** */
 
-/*
 function
-ATSPMVlazyval_make (thunk) { return [0, thunk]; }
-*/
+ATSPMVlazyval
+  ($thunk)
+{
+  return array(0, $thunk);
+}
 
 /* ****** ****** */
 
@@ -84,16 +87,30 @@ ATSPMVlazyval_eval
   if($flag===0)
   {
     $lazyval[0] = 1;
-    $thunk = $lazyval[1];
-    $lazyval[1] = $thunk[0]($thunk);
+    $mythunk = $lazyval[1];
+    $lazyval[1] = $mythunk[0]($mythunk);
   } else {
     $lazyval[0] = $flag + 1;
   } // end of [if]
 //
-  return;
+  return ($lazyval[1]);
 //
 } // end of [ATSPMVlazyval_eval]
 
+/* ****** ****** */
+//
+function
+ATSPMVllazyval($thunk){ return $thunk; }
+//
+/* ****** ****** */
+//
+function
+ATSPMVllazyval_eval($llazyval)
+  { return $llazyval[0]($llazyval, TRUE); }
+function
+atspre_lazy_vt_free($llazyval)
+  { return $llazyval[0]($llazyval, FALSE); }
+//
 /* ****** ****** */
 
 function

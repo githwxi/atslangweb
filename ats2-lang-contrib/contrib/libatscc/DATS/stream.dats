@@ -17,12 +17,38 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 implement
+{}(*tmp*)
+stream_sing(x) =
+  stream_cons(x, stream_make_nil())
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
 stream_make_nil() =
   $delay(stream_nil())
 //
 implement
+{}(*tmp*)
 stream_make_sing(x0) =
-  $delay(stream_cons(x0, stream_make_nil()))
+  $delay(
+    stream_cons(x0, stream_make_nil())
+  )(*$delay*)
+//
+(* ****** ****** *)
+//
+implement
+stream_make_list(xs) = $delay
+(
+case+ xs of
+| list_nil() => stream_nil()
+| list_cons(x, xs) =>
+    stream_cons(x, stream_make_list(xs))
+) (* end of [stream_make_list] *)
+//
+implement
+stream_make_list0(xs) =
+  stream_make_list(g1ofg0_list(xs))
 //
 (* ****** ****** *)
 
@@ -54,10 +80,58 @@ in
 end // end of [stream_nth_opt]
 
 (* ****** ****** *)
+
+implement
+stream_length
+  {a}(xs) = loop(xs, 0) where
+{
+//
+fun
+loop
+(
+  xs: stream(a), res: intGte(0)
+) : intGte(0) =
+(
+  case+ !xs of
+  | stream_nil() => res
+  | stream_cons(_, xs) => loop(xs, res+1)
+)
+//
+} (* end of [stream_length] *)
+
+(* ****** ****** *)
+//
+implement
+stream2list
+  {a}(xs) =
+(
+  list_reverse(stream2list_rev(xs))
+)
+//
+implement
+stream2list_rev
+  {a}(xs) =
+  loop(xs, list_nil) where
+{
+//
+fun
+loop
+(
+  xs: stream(a), ys: List0(a)
+) : List0(a) =
+(
+case+ !xs of
+| stream_nil() => ys
+| stream_cons(x, xs) => loop(xs, list_cons(x, ys))
+)
+//
+} (* end of [stream2list_rev] *)
+//
+(* ****** ****** *)
 //
 implement
 stream_takeLte
-  (xs, n) = $delay
+  (xs, n) = $ldelay
 (
 //
 if
@@ -65,33 +139,15 @@ if
 then (
 case+ !xs of
 | stream_nil() =>
-    stream_nil(*void*)
+    stream_vt_nil(*void*)
   // end of [stream_nil]
 | stream_cons(x, xs) =>
-    stream_cons(x, stream_takeLte(xs, n-1))
+    stream_vt_cons(x, stream_takeLte(xs, n-1))
   // end of [stream_cons]
 ) (* end of [then] *)
-else stream_nil() // else
+else stream_vt_nil() // else
 //
 ) (* end of [stream_takeLte] *)
-//
-(* ****** ****** *)
-//
-implement
-stream_dropLte
-  (xs, n) = $delay
-(
-//
-if
-(n > 0)
-then (
-case+ !xs of
-| stream_nil() => stream_nil(*void*)
-| stream_cons(x, xs) => !(stream_dropLte(xs, n-1))
-) (* end of [then] *)
-else (!xs) // end of [else]
-//
-) (* end of [stream_dropLte] *)
 //
 (* ****** ****** *)
 
@@ -152,6 +208,32 @@ in
 end // end of [stream_drop_opt]
 
 (* ****** ****** *)
+
+implement
+stream_append
+  (xs, ys) = $delay
+(
+  case+ !xs of
+  | stream_nil() => !ys
+  | stream_cons(x, xs) =>
+      stream_cons(x, stream_append(xs, ys))
+    // end of [stream_cons]
+) (* end of [stream_append] *)
+
+(* ****** ****** *)
+
+implement
+stream_concat
+  (xss) = $delay
+(
+//
+case+ !xss of
+| stream_nil() => stream_nil()
+| stream_cons(xs, xss) => !(stream_append(xs, stream_concat(xss)))
+//
+) (* end of [stream_concat] *)
+
+(* ****** ****** *)
 //
 implement
 stream_map_cloref
@@ -187,13 +269,13 @@ case+ !xs of
 | stream_cons
     (x, xs) =>
   (
-    if pred(x)
-      then
-      stream_cons (
-        x, stream_filter_cloref(xs, pred)
-      ) (* end of [then] *)
-      else !(stream_filter_cloref(xs, pred))
-    // end of [if]
+  if pred(x)
+    then
+    stream_cons (
+      x, stream_filter_cloref(xs, pred)
+    ) (* end of [then] *)
+    else !(stream_filter_cloref(xs, pred))
+  // end of [if]
   ) (* end of [stream_cons] *)
 //
 ) (* end of [stream_filter_cloref] *)
@@ -204,6 +286,58 @@ stream_filter_method
 (
 lam(pred) => stream_filter_cloref{a}(xs, pred)
 ) (* end of [stream_filter_method] *)
+//
+(* ****** ****** *)
+//
+implement
+stream_forall_cloref
+  {a}(xs, pred) =
+(
+//
+case+ !xs of
+| stream_nil() => true
+| stream_cons(x, xs) =>
+  (
+    if pred(x)
+      then stream_forall_cloref{a}(xs, pred)
+      else false
+    // end of [if]
+  ) (* end of [stream_cons] *)
+//
+) (* end of [stream_forall_cloref] *)
+//
+implement
+stream_forall_method
+  {a}(xs) =
+(
+lam(pred) => stream_forall_cloref{a}(xs, pred)
+) (* end of [stream_forall_method] *)
+//
+(* ****** ****** *)
+//
+implement
+stream_exists_cloref
+  {a}(xs, pred) =
+(
+//
+case+ !xs of
+| stream_nil() => false
+| stream_cons(x, xs) =>
+  (
+    if pred(x)
+      then (true)
+      else stream_exists_cloref{a}(xs, pred)
+    // end of [if]
+  ) (* end of [stream_cons] *)
+//
+) (* end of [stream_exists_cloref] *)
+//
+implement
+stream_exists_method
+  {a}(xs) =
+(
+lam(pred) => stream_exists_cloref{a}(xs, pred)
+) (* end of [stream_exists_method] *)
 //
 (* ****** ****** *)
 //
@@ -267,10 +401,10 @@ stream_tabulate_cloref
 fun
 auxmain
 (
-  n: intGte(0)
+n0: intGte(0)
 ) : stream(a) =
 (
-  $delay(stream_cons(fopr(n), auxmain(n+1)))
+  $delay(stream_cons(fopr(n0), auxmain(n0+1)))
 ) (* end of [auxmain] *)
 //
 } (* end of [stream_tabulate_cloref] *)
@@ -383,6 +517,99 @@ in
 end // end of [lam]
 //
 end // end of [stream2cloref]
+
+(* ****** ****** *)
+
+implement
+stream_take_while_cloref
+  {a}(xs, pred) = let
+//
+val $tup(xs, ys) =
+  stream_rtake_while_cloref{a}(xs, pred)
+//
+in
+//
+  $tup(xs, list_reverse(ys))
+//
+end // end of [stream_take_while_cloref]
+
+(* ****** ****** *)
+
+implement
+stream_rtake_while_cloref
+  {a}(xs, pred) = let
+//
+fun
+loop
+(
+  xs: stream(a)
+, i0: intGte(0), res: List0(a)
+) : $tup(stream(a), List0(a)) =
+(
+//
+case+ !xs of
+| stream_nil() =>
+    $tup(xs, res)
+| stream_cons(x, xs2) =>
+    if pred(i0, x)
+      then loop(xs2, i0+1, list_cons(x, res)) else $tup(xs, res)
+    // end of [if]
+//
+) (* end of [loop] *)
+//
+in
+//
+  loop(xs, 0, list_nil((*void*)))
+//
+end // end of [stream_take_while_cloref]
+
+(* ****** ****** *)
+//
+implement
+stream_take_until_cloref
+  {a}(xs, pred) =
+(
+stream_take_while_cloref(xs, lam(i, x) => ~pred(i, x))
+) (* end of [stream_take_until_cloref] *)
+//
+implement
+stream_rtake_until_cloref
+  {a}(xs, pred) =
+(
+stream_rtake_while_cloref(xs, lam(i, x) => ~pred(i, x))
+) (* end of [stream_take_until_cloref] *)
+//
+(* ****** ****** *)
+
+implement
+stream_list_xprod2
+  {a,b}
+(
+  xs, ys
+) = auxlst(xs, ys) where
+{
+//
+fun
+aux
+(
+  x: a, ys: List0(b)
+) : stream($tup(a, b)) = $delay
+(
+  case+ ys of
+  | list_nil() => stream_nil()
+  | list_cons(y, ys) => stream_cons($tup(x, y), aux(x, ys))
+)
+fun
+auxlst
+(
+  xs: List0(a), ys: List0(b)
+): stream($tup(a, b)) = $delay
+(
+  case+ xs of
+  | list_nil() => stream_nil()
+  | list_cons(x, xs) => !(stream_append(aux(x, ys), auxlst(xs, ys)))
+)
+} (* end of [stream_list_xprod2] *)
 
 (* ****** ****** *)
 

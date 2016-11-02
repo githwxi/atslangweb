@@ -10,12 +10,29 @@ staload "./../basics.sats"
 
 (* ****** ****** *)
 //
-fun
+fun{}
 stream_make_nil
   {a:t0p}(): stream(a) = "mac#%"
-fun
+//
+(* ****** ****** *)
+//
+fun{}
+stream_sing
+  {a:t0p}(a): stream_con(a) = "mac#%"
+fun{}
 stream_make_sing
   {a:t0p}(x0: a): stream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+stream_make_list
+  {a:t0p}
+  (xs: List0(a)): stream(a) = "mac#%"
+fun
+stream_make_list0
+  {a:t0p}
+  (xs: list0(a)): stream(a) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -29,20 +46,29 @@ stream_nth_opt
 (* ****** ****** *)
 //
 fun
+stream_length
+  {a:t0p}
+  (stream(INV(a))): intGte(0) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+stream2list
+  {a:t0p}(stream(INV(a))): List0(a) = "mac#%"
+fun
+stream2list_rev
+  {a:t0p}(stream(INV(a))): List0(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_takeLte
   {a:t0p}
 (
   xs: stream(INV(a)), n0: intGte(0)
-) : stream(a) = "mac#%" // end-of-fun
-fun
-stream_dropLte
-  {a:t0p}
-(
-  xs: stream(INV(a)), n0: intGte(0)
-) : stream(a) = "mac#%" // end-of-fun
+) : stream_vt(a) = "mac#%" // end-of-fun
 //
 overload .takeLte with stream_takeLte
-overload .dropLte with stream_dropLte
 //
 (* ****** ****** *)
 //
@@ -59,6 +85,20 @@ stream_drop_opt
 (
   xs: stream(INV(a)), n: int(n)
 ) : Option_vt(stream(a)) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+stream_append
+  {a:t0p}
+  (stream(INV(a)), stream(a)): stream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+stream_concat
+  {a:t0p}
+  (xss: stream(stream(INV(a)))): stream(a) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -94,6 +134,40 @@ stream_filter_method
 ) : stream(a) = "mac#%" // end-of-function
 //
 overload .filter with stream_filter_method
+//
+(* ****** ****** *)
+//
+fun
+stream_forall_cloref
+  {a:t0p}
+(
+  xs: stream(INV(a)), pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+fun
+stream_forall_method
+  {a:t0p}
+(
+  xs: stream(INV(a)))(pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+//
+overload .forall with stream_forall_method
+//
+(* ****** ****** *)
+//
+fun
+stream_exists_cloref
+  {a:t0p}
+(
+  xs: stream(INV(a)), pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+fun
+stream_exists_method
+  {a:t0p}
+(
+  xs: stream(INV(a)))(pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+//
+overload .exists with stream_exists_method
 //
 (* ****** ****** *)
 //
@@ -167,6 +241,41 @@ stream2cloref_opt
 fun
 stream2cloref_last
   {a:t0p}(xs: stream(INV(a)), last: a): cfun(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+stream_take_while_cloref
+  {a:t0p}
+(
+xs: stream(INV(a)), pred: (intGte(0), a) -<cloref1> bool
+) : $tup(stream(a), List0(a)) = "mac#%" // end-of-fun
+fun
+stream_rtake_while_cloref
+  {a:t0p}
+(
+xs: stream(INV(a)), pred: (intGte(0), a) -<cloref1> bool
+) : $tup(stream(a), List0(a)) = "mac#%" // end-of-fun
+//
+fun
+stream_take_until_cloref
+  {a:t0p}
+(
+xs: stream(INV(a)), pred: (intGte(0), a) -<cloref1> bool
+) : $tup(stream(a), List0(a)) = "mac#%" // end-of-fun
+fun
+stream_rtake_until_cloref
+  {a:t0p}
+(
+xs: stream(INV(a)), pred: (intGte(0), a) -<cloref1> bool
+) : $tup(stream(a), List0(a)) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+stream_list_xprod2
+  {a,b:t0p}
+  (List0(INV(a)), List0(INV(b))): stream($tup(a, b)) = "mac#%"
 //
 (* ****** ****** *)
 

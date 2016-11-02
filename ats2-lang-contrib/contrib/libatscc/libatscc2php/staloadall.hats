@@ -40,6 +40,9 @@ staload _ = "./DATS/list.dats"
 staload "./SATS/stream.sats"
 staload _ = "./DATS/stream.dats"
 //
+staload "./SATS/stream_vt.sats"
+staload _ = "./DATS/stream_vt.dats"
+//
 (* ****** ****** *)
 //
 staload "./SATS/intrange.sats"
@@ -51,6 +54,11 @@ staload "./SATS/PHPref.sats"
 staload "./SATS/PHParray.sats"
 staload "./SATS/PHParref.sats"
 //
+(* ****** ****** *)
+
+staload "./SATS/ML/list0.sats" // un-indexed list
+staload "./SATS/ML/array0.sats" // un-indexed array
+
 (* ****** ****** *)
 
 (* end of [staloadall.hats] *)

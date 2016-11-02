@@ -67,17 +67,10 @@ function
 ATSPMVempty() { return; }
 
 /* ****** ****** */
-
-/*
-function
-ATSPMVlazyval_make (thunk) { return [0, thunk]; }
-*/
-
-/* ****** ****** */
 //
 function
 ATSPMVlazyval(thunk)
-  { return [0, thunk] ; }
+  { return [0, thunk]; }
 //
 /* ****** ****** */
 
@@ -86,23 +79,37 @@ ATSPMVlazyval_eval(lazyval)
 {
 //
   var
-  flag, thunk;
+  flag, mythunk;
 //
   flag = lazyval[0];
 //
   if(flag===0)
   {
     lazyval[0] = 1;
-    thunk = lazyval[1];
-    lazyval[1] = thunk[0](thunk);
+    mythunk = lazyval[1];
+    lazyval[1] = mythunk[0](mythunk);
   } else {
     lazyval[0] = flag + 1;
   } // end of [if]
 //
-  return;
+  return (lazyval[1]);
 //
 } // end of [ATSPMVlazyval_eval]
 
+/* ****** ****** */
+//
+function
+ATSPMVllazyval(thunk){ return thunk; }
+//
+/* ****** ****** */
+//
+function
+ATSPMVllazyval_eval(llazyval)
+  { return llazyval[0](llazyval, true); }
+function
+atspre_lazy_vt_free(llazyval)
+  { return llazyval[0](llazyval, false); }
+//
 /* ****** ****** */
 
 function
