@@ -26,21 +26,59 @@
 *)
 
 (* ****** ****** *)
-
-(* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: May, 2012 *)
-
+//
+// Author: Hongwei Xi (gmhwxi AT gmail DOT com)
+// Start Time: May, 2012
+//
 (* ****** ****** *)
 //
 #define
-ATS_PACKNAME
-"ATSLIB.libats.funralist_nested"
+ATS_PACKNAME "ATSLIB.libats.libc"
+#define ATS_DYNLOADFLAG 0 // no need for dynloading at run-time
+#define ATS_EXTERN_PREFIX "atslib_libc_" // prefix for external names
 //
 (* ****** ****** *)
 
-#include "./SHARE/funralist.hats"
+%{^
+//
+#include "share/H/pats_atslib.h"
+//
+%} // end of [%{^]
+
+(* ****** ****** *)
+//
+staload "libats/libc/SATS/stdlib.sats"
+//
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+getenv_gc
+  (name) = let
+  val fpfstr = getenv (name)
+  val str2 = strptr0_copy (fpfstr.1)
+  prval () = fpfstr.0 (fpfstr.1)
+in
+  str2
+end // end of [getenv_gc]
 
 (* ****** ****** *)
 
-(* end of [funralist_nested.sats] *)
+%{$
+extern
+atstype_ptr
+atslib_libc_malloc_libc_exn
+  (atstype_size bsz)
+{
+  void *p ;
+  p = atslib_libc_malloc_libc(bsz) ;
+  if (!p) {
+    fprintf(stderr, "exit(ATSLIB): [malloc] failed\n") ; exit(1) ;
+  } // end of [if]
+  return p ;
+} /* end of [atslib_libc_malloc_libc_exn] */
+%}
+
+(* ****** ****** *)
+
+(* end of [stdlib.dats] *)

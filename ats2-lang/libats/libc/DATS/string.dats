@@ -26,21 +26,56 @@
 *)
 
 (* ****** ****** *)
-
-(* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: May, 2012 *)
-
+//
+// Author: Hongwei Xi (gmhwxi AT gmail DOT com)
+// Start Time: March, 2013
+//
 (* ****** ****** *)
 //
 #define
-ATS_PACKNAME
-"ATSLIB.libats.funralist_nested"
+ATS_PACKNAME "ATSLIB.libats.libc"
+#define
+ATS_DYNLOADFLAG 0 // no need for dynloading at run-time
+#define
+ATS_EXTERN_PREFIX "atslib_libc_" // prefix for external names
+//
+(* ****** ****** *)
+//
+staload
+"libats/libc/SATS/string.sats"
 //
 (* ****** ****** *)
 
-#include "./SHARE/funralist.hats"
+%{$
+extern
+atstype_ptr
+atslib_libc_strerror_r_gc
+(
+  atstype_int errnum
+) {
+  char *p_err ;
+  int bsz ;
+  int err, myeno ;
+//
+// HX: [64] is chosen nearly randomly
+//
+  bsz = 64 ;
+  p_err = (char*)0 ;
+//
+  while (1)
+  {
+    p_err = atspre_malloc_gc(bsz) ;
+    err = atslib_libc_strerror_r(errnum, p_err, bsz) ; myeno = errno ;
+    if (err==0) return p_err ;
+    if (myeno != ERANGE) break ;
+    atspre_mfree_gc(p_err) ; bsz = 2 * bsz ;
+  }
+//
+  return p_err ;
+//
+} /* end of [atslib_libc_strerror_r_gc] */
+%}
 
 (* ****** ****** *)
 
-(* end of [funralist_nested.sats] *)
+(* end of [string.dats] *)

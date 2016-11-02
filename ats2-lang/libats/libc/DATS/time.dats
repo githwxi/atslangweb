@@ -26,21 +26,56 @@
 *)
 
 (* ****** ****** *)
-
-(* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: May, 2012 *)
-
+//
+// Author: Hongwei Xi (gmhwxi AT gmail DOT com)
+// Start Time: May, 2012
+//
 (* ****** ****** *)
 //
 #define
-ATS_PACKNAME
-"ATSLIB.libats.funralist_nested"
+ATS_PACKNAME "ATSLIB.libats.libc"
+#define
+ATS_DYNLOADFLAG 0 // no need for dynloading at run-time
+#define
+ATS_EXTERN_PREFIX "atslib_libc_" // prefix for external names
+//
+(* ****** ****** *)
+//
+staload
+UN =
+"prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+staload
+"libats/libc/SATS/time.sats"
 //
 (* ****** ****** *)
 
-#include "./SHARE/funralist.hats"
+implement
+{}(*tmp*)
+ctime_r_gc (tval) = let
+//
+val bsz = g1i2u(CTIME_BUFSZ)
+val (pf, pfgc | p) = malloc_gc (bsz)
+//
+val p1 = ctime_r (pf | tval, p)
+//
+in
+//
+if p1 > 0 then let
+  prval ctime_v_succ (pf) = pf
+in
+  $UN.castvwtp0{Strptr1}((pf, pfgc | p))
+end else let
+  prval ctime_v_fail (pf) = pf
+  val () = mfree_gc (pf, pfgc | p)
+in
+  strptr_null ()
+end // end of [if]
+//
+end // end of [ctime_r_gc]
 
 (* ****** ****** *)
 
-(* end of [funralist_nested.sats] *)
+(* end of [stdlib.dats] *)

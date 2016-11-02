@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2014 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -26,21 +26,68 @@
 *)
 
 (* ****** ****** *)
-
-(* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: May, 2012 *)
-
-(* ****** ****** *)
 //
-#define
-ATS_PACKNAME
-"ATSLIB.libats.funralist_nested"
+// Author: Hongwei Xi
+// Authoremail: gmhwxiATgmailDOTcom
+// Start Time: May, 2014
 //
 (* ****** ****** *)
+//
+#define ATS_PACKNAME "ATSLIB.libats.libc"
+#define ATS_DYNLOADFLAG 0 // no need for dynloading at run-time
+#define ATS_EXTERN_PREFIX "atslib_libc_" // prefix for external names
+//
+(* ****** ****** *)
+//
+staload
+"libats/libc/SATS/alloca.sats"
+//
+(* ****** ****** *)
 
-#include "./SHARE/funralist.hats"
+staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-(* end of [funralist_nested.sats] *)
+(*
+implement
+ptr_alloca_tsz
+  {a}{dummy}
+  (pf | tsz) = let
+//
+val [l:addr]
+  (pfat, fpfat | p) = alloca (pf | tsz)
+//
+prval pfat =
+  $UN.castview0{(a?)@l}(pfat)
+prval fpfat =
+  $UN.castview0{(a?)@l->void@dummy}(fpfat)
+//
+in
+  (pfat, fpfat | p)
+end // end of [ptr_alloca_tsz]
+*)
+
+(* ****** ****** *)
+
+(*
+implement
+array_ptr_alloca_tsz
+  {a}{dummy}{n}
+  (pf | asz, tsz) = let
+//
+val [l:addr]
+  (pfat, fpfat | p) = alloca (pf | asz*tsz)
+//
+prval pfat =
+  $UN.castview0{array(a?,n)@l}(pfat)
+prval fpfat =
+  $UN.castview0{array(a?,n)@l->void@dummy}(fpfat)
+//
+in
+  (pfat, fpfat | p)
+end // end of [array_ptr_alloca_tsz]
+*)
+
+(* ****** ****** *)
+
+(* end of [alloca.dats] *)

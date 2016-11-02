@@ -28,19 +28,17 @@
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: May, 2012 *)
-
-(* ****** ****** *)
-//
-#define
-ATS_PACKNAME
-"ATSLIB.libats.funralist_nested"
-//
-(* ****** ****** *)
-
-#include "./SHARE/funralist.hats"
+(* Authoremail: hwxi AT cs DOT bu DOT edu *)
+(* Start time: November, 2011 *)
 
 (* ****** ****** *)
 
-(* end of [funralist_nested.sats] *)
+#define ATS_PACKNAME "ATSLIB.libats.linheap_fibonacci"
+
+(* ****** ****** *)
+
+#include "./SHARE/linheap.hats"
+
+(* ****** ****** *)
+
+(* end of [linheap_fibonacci.sats] *)

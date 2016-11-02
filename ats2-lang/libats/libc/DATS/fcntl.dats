@@ -26,21 +26,40 @@
 *)
 
 (* ****** ****** *)
-
-(* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: May, 2012 *)
-
+//
+// Author: Hongwei Xi
+// Authoremail: gmhwxiATgmailDOTcom
+// Start Time: March, 2013
+//
 (* ****** ****** *)
 //
 #define
-ATS_PACKNAME
-"ATSLIB.libats.funralist_nested"
+ATS_PACKNAME "ATSLIB.libats.libc"
+#define
+ATS_DYNLOADFLAG 0 // no need for dynloading at run-time
+#define
+ATS_EXTERN_PREFIX "atslib_libc_" // prefix for external names
 //
 (* ****** ****** *)
 
-#include "./SHARE/funralist.hats"
+staload "libats/libc/SATS/fcntl.sats"
 
 (* ****** ****** *)
 
-(* end of [funralist_nested.sats] *)
+%{$
+extern
+atstype_int
+atslib_libc_fildes_iget_int
+(
+  atstype_int fd
+) {
+  int flags ;
+  flags = fcntl (fd, F_GETFD) ;
+  if (flags < 0) return -1 ; // [fd2] not in use
+  return fd ;
+} // end of [atslib_libc_fildes_iget_int]
+%}
+
+(* ****** ****** *)
+
+(* end of [fcntl.dats] *)

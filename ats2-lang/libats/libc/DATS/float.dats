@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2014 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -26,21 +26,24 @@
 *)
 
 (* ****** ****** *)
-
-(* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: May, 2012 *)
-
-(* ****** ****** *)
 //
+// Author: Hongwei Xi
+// Authoremail: gmhwxiATgmailDOTcom
+// Start Time: October, 2014
+//
+(* ****** ****** *)
+
 #define
-ATS_PACKNAME
-"ATSLIB.libats.funralist_nested"
+ATS_PACKNAME "ATSLIB.libats.libc"
+#define
+ATS_DYNLOADFLAG 0 // no need for dynloading at run-time
+#define
+ATS_EXTERN_PREFIX "atslib_libc_" // prefix for external names
+
+(* ****** ****** *)
+//
+staload "libats/libc/SATS/float.sats"
 //
 (* ****** ****** *)
 
-#include "./SHARE/funralist.hats"
-
-(* ****** ****** *)
-
-(* end of [funralist_nested.sats] *)
+(* end of [float.dats] *)

@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2014 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -26,21 +26,34 @@
 *)
 
 (* ****** ****** *)
+//
+// Author: Hongwei Xi
+// Authoremail: gmhwxiATgmailDOTcom
+// Start Time: October, 2014
+//
+(* ****** ****** *)
 
-(* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: May, 2012 *)
+%{#
+#include \
+"libats/libc/CATS/float.cats"
+%} // end of [%{#]
 
 (* ****** ****** *)
 //
 #define
-ATS_PACKNAME
-"ATSLIB.libats.funralist_nested"
+ATS_PACKNAME "ATSLIB.libats.libc"
+//
+// HX: prefix for external names
+//
+#define ATS_EXTERN_PREFIX "atslib_libc_"
 //
 (* ****** ****** *)
 
-#include "./SHARE/funralist.hats"
+macdef
+FLT_EPSILON = $extval (float, "FLT_EPSILON")
+macdef
+DBL_EPSILON = $extval (double, "DBL_EPSILON")
 
 (* ****** ****** *)
 
-(* end of [funralist_nested.sats] *)
+(* end of [float.sats] *)

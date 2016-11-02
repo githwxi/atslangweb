@@ -26,21 +26,28 @@
 *)
 
 (* ****** ****** *)
-
-(* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: May, 2012 *)
-
-(* ****** ****** *)
 //
+// Author: Hongwei Xi (gmhwxi AT gmail DOT com)
+// Start Time: March, 2013
+//
+(* ****** ****** *)
+
 #define
-ATS_PACKNAME
-"ATSLIB.libats.funralist_nested"
+ATS_PACKNAME "ATSLIB.libats.libc"
+#define
+ATS_DYNLOADFLAG 0 // no need for dynloading at run-time
+#define
+ATS_EXTERN_PREFIX "atslib_libc_" // prefix for external names
+
+(* ****** ****** *)
+//
+staload
+"libats/libc/SATS/strings.sats"
+//
+(* ****** ****** *)
+//
+// HX-2013-03: it is still empty
 //
 (* ****** ****** *)
 
-#include "./SHARE/funralist.hats"
-
-(* ****** ****** *)
-
-(* end of [funralist_nested.sats] *)
+(* end of [strings.dats] *)
