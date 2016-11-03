@@ -17,6 +17,13 @@ staload UN = "prelude/SATS/unsafe.sats"
 //
 implement
 {}(*tmp*)
+list0_sing(x) =
+  list0_cons(x, list0_nil())
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
 list0_is_nil(xs) =
 (
 case+ xs of
