@@ -182,6 +182,11 @@ list0_reverse_append{a}(xs, ys) =
   $UN.cast(list_reverse_append{a}($UN.cast(xs), $UN.cast(ys)))
 //
 (* ****** ****** *)
+//
+implement
+list0_concat{a}(xss) = $UN.cast(list_concat{a}($UN.cast(xss)))
+//
+(* ****** ****** *)
 
 implement
 list0_remove_at_opt
