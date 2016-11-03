@@ -1,581 +1,210 @@
 (*
-** libatscc-common
+** For writing ATS code
+** that translates into JavaScript
 *)
 
 (* ****** ****** *)
 
-(*
+#define ATS_DYNLOADFLAG 0
+
+(* ****** ****** *)
+//
+// HX-2014-08:
+// prefix for external names
+//
+#define
+ATS_EXTERN_PREFIX "ats2jspre_ML_"
+#define
+ATS_STATIC_PREFIX "_ats2jspre_ML_list0_"
+//
+(* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
 //
 staload
-"./../../SATS/ML/list0.sats"
+UN = "prelude/SATS/unsafe.sats"
 //
-staload UN = "prelude/SATS/unsafe.sats"
-//
-*)
-
 (* ****** ****** *)
+//
+staload "./../../basics_js.sats"
+//
+(* ****** ****** *)
+//
+staload "./../../SATS/integer.sats"
+//
+(* ****** ****** *)
+//
+staload "./../../SATS/print.sats"
+staload "./../../SATS/filebas.sats"
+//
+(* ****** ****** *)
+//
+staload "./../../SATS/list.sats"
+//
+(* ****** ****** *)
+//
+staload "./../../SATS/stream.sats"
+//
+staload "./../../SATS/stream_vt.sats"
+staload _ = "./../../DATS/stream_vt.dats"
+//
+(* ****** ****** *)
+//
+staload "./../../SATS/ML/list0.sats"
+//
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/ML/list0.dats"
+//
+(* ****** ****** *)
+//
+local
+//
+staload "./../list.dats"
+//
+in (* in-of-local *)
+//
+extern
+fun{}
+print_list0$sep (): void
 //
 implement
 {}(*tmp*)
-list0_sing(x) =
-  list0_cons(x, list0_nil())
-//
-(* ****** ****** *)
-//
-implement
-{}(*tmp*)
-list0_is_nil(xs) =
-(
-case+ xs of
-| list0_nil() => true | _ =>> false
-)
-implement
-{}(*tmp*)
-list0_is_cons(xs) =
-(
-case+ xs of
-| list0_cons _ => true | _ =>> false
-)
-//
-(* ****** ****** *)
-//
-implement
-list0_head_opt
-  {a}(xs) =
-(
-case+ xs of
-| list0_nil() => None_vt()
-| list0_cons(x, _) => Some_vt(x)
-) (* end of [list0_head_opt] *)
-//
-(* ****** ****** *)
-implement
-list0_tail_opt
-  {a}(xs) =
-(
-case+ xs of
-| list0_nil() => None_vt()
-| list0_cons(_, xs) => Some_vt(xs)
-) (* end of [list0_tail_opt] *)
-//
-(* ****** ****** *)
-//
-implement
-list0_length{a}(xs) =
-  list_length{a}($UN.cast{List0(a)}(xs))
-//
-(* ****** ****** *)
-
-implement
-list0_last_opt
-  {a}(xs) = let
-//
-fun
-loop
-(
-  x0: a, xs: list0(a)
-) : a =
-(
-case+ xs of
-| list0_nil() => x0
-| list0_cons(x1, xs) => loop(x1, xs)
-)
-//
-in
-  case+ xs of
-  | list0_nil() => None()
-  | list0_cons(x, xs) => Some(loop(x, xs))
-end // end of [list0_last_opt]
-
-(* ****** ****** *)
-//
-implement
-list0_get_at_opt
-  (xs, n) =
-(
-  case+ xs of
-  | list0_nil() => None()
-  | list0_cons(x, xs) =>
-      if n > 0 then list0_get_at_opt(xs, n-1) else Some(x)
-    // end of [list0_cons]
-) (* end of [list0_get_at_opt] *)
-//
-(* ****** ****** *)
-//
-implement
-list0_make_intrange_2
-  (l, r) = $UN.cast(list_make_intrange_2(l, r))
-implement
-list0_make_intrange_3
-  (l, r, d) = $UN.cast(list_make_intrange_3(l, r, d))
-//
-(* ****** ****** *)
+print_list0$sep
+  ((*void*)) = print_string (", ")
 //
 implement
 {a}(*tmp*)
-fprint_list0
-  (out, xs) = let
+print_list0(xs) = let
 //
-fun
-loop
-(
-  xs: list0(a), i: int
-) : void =
-(
+implement
+print_list$sep<> = print_list0$sep<>
 //
+in
+  print_list<a>(g1ofg0(xs))
+end // end of [print_list0]
+//
+implement
+{a}(*tmp*)
+print_list0_sep(xs, sep) = let
+//
+in
+  print_list_sep<a>(g1ofg0(xs), sep)
+end // end of [print_list0_sep]
+//
+end // end of [local]
+//
+(* ****** ****** *)
+//
+implement
+list0_head_exn
+  {a}(xs) =
+(
 case+ xs of
-| list0_nil () => ()
-| list0_cons (x, xs) =>
+| list0_cons
+    (x, _) => (x)
+  // list0_cons
+| list0_nil() =>
   (
-    if i > 0
-      then fprint_list0$sep<> (out);
-    // end of [if]
-    fprint_val<a> (out, x); loop (xs, i+1)
-  ) (* end of [list0_cons] *)
-//
-) (* end of [loop] *)
-//
-in
-  loop (xs, 0)
-end // end of [fprint_list0]
+    $extfcall(a, "ats2jspre_ListSubscriptExn_throw")
+  ) (* list0_nil *)
+) (* end of [list0_head_exn] *)
 //
 (* ****** ****** *)
 //
 implement
-{}(*tmp*)
-fprint_list0$sep
-  (out) =
+list0_tail_exn
+  {a}(xs) =
 (
-  fprint_string (out, ", ")
-)
+case+ xs of
+| list0_cons
+    (_, xs) => (xs)
+  // list0_cons
+| list0_nil() =>
+  (
+    $extfcall
+      (list0(a), "ats2jspre_ListSubscriptExn_throw")
+    // $extfcall
+  ) (* list0_nil *)
+) (* end of [list0_tail_exn] *)
 //
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
-fprint_list0_sep
-  (out, xs, sep) = let
-//
-implement
-fprint_list0$sep<>
-  (out) = fprint_string (out, ", ")
-//
-in
-  fprint_list0<a> (out, xs)
-end // end of [fprint_list0_sep]
-
-(* ****** ****** *)
-//
-implement
-list0_snoc{a}(xs, x0) =
-  $UN.cast(list_snoc{a}($UN.cast(xs), x0))
-implement
-list0_extend{a}(xs, x0) =
-  $UN.cast(list_extend{a}($UN.cast(xs), x0))
-//
-(* ****** ****** *)
-//
-implement
-list0_append{a}(xs, ys) =
-  $UN.cast(list_append{a}($UN.cast(xs), $UN.cast(ys)))
-//
-(* ****** ****** *)
-//
-implement
-list0_reverse{a}(xs) =
-  $UN.cast(list_reverse{a}($UN.cast(xs)))
-implement
-list0_reverse_append{a}(xs, ys) =
-  $UN.cast(list_reverse_append{a}($UN.cast(xs), $UN.cast(ys)))
-//
-(* ****** ****** *)
-//
-implement
-list0_concat{a}(xss) = $UN.cast(list_concat{a}($UN.cast(xss)))
+list0_get_at_exn
+  {a}(xs, n) =
+(
+  case+ xs of
+  | list0_nil() =>
+    (
+      $extfcall(a, "ats2jspre_ListSubscriptExn_throw")
+    ) (* list0_nil *)
+  | list0_cons(x, xs) =>
+      if n > 0 then list0_get_at_exn(xs, n-1) else (x)
+    // end of [list0_cons]
+) (* end of [list0_get_at_exn] *)
 //
 (* ****** ****** *)
 
 implement
-list0_remove_at_opt
+list0_insert_at_exn
   {a}
 (
-  xs, i0
-) = aux(xs, 0) where
+  xs, i0, x0
+) = aux(xs, i0) where
 {
 //
 fun
 aux
 (
   xs: list0(a), i0: intGte(0)
-) : Option(list0(a)) =
+) : list0(a) =
+(
+if
+i0 > 0
+then
 (
 case+ xs of
-| list0_nil() => None()
-| list0_cons(x, xs) =>
-  if i0 > 0
-    then let
-      val opt = aux(xs, i0-1)
-    in
-      case+ opt of
-      | None() => None()
-      | Some(xs) => Some(list0_cons(x, xs))
-    end // end of [then]
-    else Some(xs) // end of [else]
-  // end of [if]
+| list0_nil() =>
+  $extfcall
+    (list0(a), "ats2jspre_ListSubscriptExn_throw")
+  // (* list0_nil *)
+| list0_cons(x, xs) => list0_cons(x, aux(xs, i0-1))
 )
-//
-} (* end of [list0_remove_at_opt] *)
-
-(* ****** ****** *)
-//
-implement
-list0_exists
-  (xs, pred) = list_exists($UN.cast(xs), pred)
-//
-implement
-list0_exists_method
-  {a}(xs) = lam(pred) => list0_exists{a}(xs, pred)
-//
-(* ****** ****** *)
-//
-implement
-list0_iexists
-  (xs, pred) = list_iexists($UN.cast(xs), pred)
-//
-implement
-list0_iexists_method
-  {a}(xs) = lam(pred) => list0_iexists{a}(xs, pred)
-//
-(* ****** ****** *)
-//
-implement
-list0_forall
-  (xs, pred) = list_forall($UN.cast(xs), pred)
-//
-implement
-list0_forall_method
-  {a}(xs) = lam(pred) => list0_forall{a}(xs, pred)
-//
-(* ****** ****** *)
-//
-implement
-list0_iforall
-  (xs, pred) = list_iforall($UN.cast(xs), pred)
-//
-implement
-list0_iforall_method
-  {a}(xs) = lam(pred) => list0_iforall{a}(xs, pred)
-//
-(* ****** ****** *)
-//
-implement
-list0_app{a}
-  (xs, fwork) = list0_foreach{a}(xs, fwork)
-implement
-list0_foreach{a}
-  (xs, fwork) = list_foreach{a}($UN.cast(xs), fwork)
-//
-implement
-list0_foreach_method
-  {a}(xs) = lam(fwork) => list0_foreach{a}(xs, fwork)
-//
-(* ****** ****** *)
-//
-implement
-list0_iforeach{a}
-  (xs, fwork) = list_iforeach{a}($UN.cast(xs), fwork)
-//
-implement
-list0_iforeach_method
-  {a}(xs) = lam(fwork) => list0_iforeach{a}(xs, fwork)
-//
-(* ****** ****** *)
-//
-implement
-list0_rforeach{a}
-  (xs, fwork) = list_rforeach{a}($UN.cast(xs), fwork)
-//
-implement
-list0_rforeach_method
-  {a}(xs) = lam(fwork) => list0_rforeach{a}(xs, fwork)
-//
-(* ****** ****** *)
-//
-implement
-list0_filter
-  {a}(xs, pred) =
-  $UN.cast(list_filter($UN.cast(xs), pred))
-//
-implement
-list0_filter_method
-  {a}(xs) = lam(pred) => list0_filter{a}(xs, pred)
-//
-(* ****** ****** *)
-//
-implement
-list0_map
-  {a}{b}
-  (xs, fopr) = $UN.cast(list_map($UN.cast(xs), fopr))
-//
-implement
-list0_map_method
-  {a}{b}(xs, _) = lam(fopr) => list0_map{a}{b}(xs, fopr)
-//
-(* ****** ****** *)
-
-implement
-list0_zip
-  {a,b}
-  (xs, ys) = let
-//
-fun
-aux :
-$d2ctype
-(list0_zip) =
-lam(xs, ys) =>
-(
-case+ xs of
-| nil0() => nil0()
-| cons0(x, xs) =>
-  (
-    case+ ys of
-    | nil0() => nil0()
-    | cons0(y, ys) => cons0($tup(x, y), aux(xs, ys))
-  ) (* end of [cons0] *)
-)
-//
-in
-  aux{a,b}(xs, ys)
-end // end of [list0_zip]
-
-(* ****** ****** *)
-
-implement
-list0_zipwith
-  {a1,a2}{b}
-  (xs, ys, fopr) = let
-//
-fun
-aux :
-$d2ctype
-(list0_zipwith) =
-lam(xs, ys, fopr) =>
-(
-case+ xs of
-| nil0() => nil0()
-| cons0(x, xs) =>
-  (
-    case+ ys of
-    | nil0() => nil0()
-    | cons0(y, ys) =>
-      cons0(fopr(x, y), aux(xs, ys, fopr))
-  ) (* end of [cons0] *)
-)
-//
-in
-  aux{a1,a2}{b}(xs, ys, fopr)
-end // end of [list0_zipwith]
-
-implement
-list0_zipwith_method
-  {a1,a2}{b}(xs, ys) =
-(
-  lam(fopr) => list0_zipwith{a1,a2}{b}(xs, ys, fopr)
-) (* end of [list0_zipwith_method] *)
-
-(* ****** ****** *)
-
-implement
-list0_foldleft
-  {res}{a}
-  (xs, init, fopr) = let
-//
-fun
-aux
-(
-  res: res, xs: list0(a)
-) : res =
-  case+ xs of
-  | list0_nil() => res
-  | list0_cons(x, xs) => aux(fopr(res, x), xs)
-//
-in
-  aux(init, xs)
-end // end of [list0_foldleft]
-
-(* ****** ****** *)
-
-implement
-list0_foldright
-  {a}{res}
-  (xs, fopr, sink) = let
-//
-fun
-aux
-(
-  xs: list0(a), res: res
-) : res =
-(
-case+ xs of
-| list0_nil() => res
-| list0_cons(x, xs) => fopr(x, aux(xs, sink))
+else list0_cons(x0, xs)
 ) (* end of [aux] *)
 //
-in
-  aux(xs, sink)
-end // end of [list0_foldright]
+} (* end of [list0_insert_at_exn] *)
 
 (* ****** ****** *)
-//
-implement
-{a}(*tmp*)
-list0_sort_1(xs) = let
-//
-val ys = list_sort_1<a>(g1ofg0(xs)) in g0ofg1(ys)
-//
-end // end of [list0_sort_1]
-//
-implement
-list0_sort_2(xs, cmp) = let
-//
-val ys =
-  list_sort_2(g1ofg0(xs), $UN.cast(cmp)) in g0ofg1(ys)
-//
-end // end of [list0_sort_2]
-//
-(* ****** ****** *)
-//
-implement
-streamize_list0_zip
-  {a,b}(xs, ys) =
-(
-  streamize_list_zip{a,b}(g1ofg0(xs), g1ofg0(ys))
-)
-implement
-streamize_list0_cross
-  {a,b}(xs, ys) =
-(
-  streamize_list_cross{a,b}(g1ofg0(xs), g1ofg0(ys))
-)
-//
-(* ****** ****** *)
 
-#if
-defined(ATSCC_STREAM_VT)
-#then
-//
 implement
-streamize_list0_nchoose
-  {a}(xs, n) = let
+list0_remove_at_exn
+  {a}
+(
+  xs, i0
+) = aux(xs, i0) where
+{
 //
 fun
-auxmain
+aux
 (
-xs: list0(a), n: intGte(0)
-) : stream_vt(list0(a)) = $ldelay
-(
-//
-if
-(n > 0)
-then
+  xs: list0(a), i0: intGte(0)
+) : list0(a) =
 (
 case+ xs of
 | list0_nil() =>
-    stream_vt_nil()
-  // list0_nil
-| list0_cons(x0, xs1) => let
-    val res1 =
-      auxmain(xs1, n-1)
-    // end of [val]
-    val res2 = auxmain(xs1, n)
-  in
-    !(
-      // lazy_vt_force
-      stream_vt_append
-      (
-        stream_vt_map_cloref
-          {list0(a)}{list0(a)}
-          (res1, lam(ys) => list0_cons(x0, ys)), res2
-      ) // stream_vt_append
-    ) (* lazy_vt_force *)
-  end // end of [list0_cons]
-) (* end of [then] *)
-else
-(
-  stream_vt_cons(list0_nil, stream_vt_make_nil((*void*)))
-) (* end of [else] *)
+  $extfcall
+    (list0(a), "ats2jspre_ListSubscriptExn_throw")
+  // (* list0_nil *)
+| list0_cons(x, xs) =>
+  if i0 > 0 then list0_cons(x, aux(xs, i0-1)) else xs
+)
 //
-) : stream_vt_con(list0(a)) // auxmain
-//
-in
-  $effmask_all(auxmain(xs, n))
-end (* end of [streamize_list0_nchoose] *)
-//
-#endif // ATSCC_STREAM_VT
-
-(* ****** ****** *)
-
-#if
-defined(ATSCC_STREAM_VT)
-#then
-//
-implement
-streamize_list0_nchoose_rest
-  {a}(xs, n) = let
-//
-typedef
-tuplist =
-$tup(list0(a), list0(a))
-//
-fun
-auxmain
-(
-xs: list0(a), n: intGte(0)
-) : stream_vt(tuplist) = $ldelay
-(
-//
-if
-(n > 0)
-then
-(
-case+ xs of
-| list0_nil() =>
-    stream_vt_nil()
-  // list0_nil
-| list0_cons(x0, xs1) => let
-    val res1 =
-      auxmain(xs1, n-1)
-    // end of [val]
-    val res2 = auxmain(xs1, n)
-  in
-    !(
-      // lazy_vt_force
-      stream_vt_append
-      ( stream_vt_map_cloref
-          {tuplist}{tuplist}
-        (
-          res1
-        , lam(ysys) => $tup(list0_cons(x0, ysys.0), ysys.1)
-        )
-      , stream_vt_map_cloref
-          {tuplist}{tuplist}
-        (
-          res2
-        , lam(ysys) => $tup(ysys.0, list0_cons(x0, ysys.1))
-        )
-      ) // stream_vt_append
-    ) (* lazy_vt_force *)
-  end // end of [list0_cons]
-) (* end of [then] *)
-else stream_vt_cons($tup(list0_nil, xs), stream_vt_make_nil())
-//
-) : stream_vt_con(tuplist) // auxmain
-//
-in
-  $effmask_all(auxmain(xs, n))
-end (* end of [streamize_list0_nchoose_rest] *)
-//
-#endif // ATSCC_STREAM_VT
+} (* end of [list0_remove_at_exn] *)
 
 (* ****** ****** *)
 
