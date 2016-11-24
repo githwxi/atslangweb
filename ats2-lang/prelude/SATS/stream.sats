@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Sun Jul 10 22:40:20 2016
+** Time of generation: Mon Oct  3 09:01:09 2016
 *)
 
 (* ****** ****** *)
@@ -70,6 +70,15 @@ fun isStreamSubscriptExn (x: !exn):<> bool = "mac#isStreamSubscriptExn"
 //
 fun{a:t0p}
 stream_sing(a):<> stream_con(a)
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+stream_is_nil(xs: stream(a)): bool
+fun
+{a:t0p}
+stream_is_cons(xs: stream(a)): bool
 //
 (* ****** ****** *)
 
@@ -158,7 +167,7 @@ stream_filter_cloref
 ) :<!laz> stream(a) // end-of-function
 //
 (* ****** ****** *)
-
+//
 fun{
 a:t0p}{b:t0p
 } stream_map
@@ -229,7 +238,6 @@ a1,a2:t0p}{b:t0p
 ) :<!laz> stream(b) // end-of-fun
 //
 (* ****** ****** *)
-
 //
 fun{
 res:t0p}{x:t0p
@@ -256,18 +264,21 @@ res:t0p}{x:t0p
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 stream_merge
   (stream(INV(a)), stream(a)) :<!laz> stream(a)
 //
 fun{a:t0p} stream_merge$cmp (x1: a, x2: a):<> int
 //
-fun{a:t0p}
+fun
+{a:t0p}
 stream_merge_fun
 (
   xs1: stream(INV(a)), xs2: stream(a), (a, a) -<fun> int
 ) :<!laz> stream(a) // end of [stream_merge_fun]
-fun{a:t0p}
+fun
+{a:t0p}
 stream_merge_cloref
 (
   xs1: stream(INV(a)), xs2: stream(a), (a, a) -<cloref> int
@@ -294,34 +305,47 @@ stream_mergeq_cloref
 //
 (* ****** ****** *)
 //
-fun{
-a:t0p
-} stream_tabulate (): stream(a)
-fun{
-a:t0p
-} stream_tabulate$fopr (i: intGte(0)): (a)
+fun
+{a:t0p}
+stream_tabulate(): stream(a)
+fun
+{a:t0p}
+stream_tabulate$fopr(i: intGte(0)): (a)
 //
-fun{
-a:t0p
-} stream_tabulate_fun (f: intGte(0) -> a): stream(a)
-fun{
-a:t0p
-} stream_tabulate_cloref (f: intGte(0) -> a): stream(a)
+fun
+{a:t0p}
+stream_tabulate_fun
+  (fopr: intGte(0) -> a): stream(a)
+fun
+{a:t0p}
+stream_tabulate_cloref
+  (fopr: intGte(0) -<cloref1> a): stream(a)
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 stream_foreach (xs: stream(a)): void
-fun{
-a:t0p}{env:vt0p
-} stream_foreach_env (xs: stream(a), &env >> _): void
+fun
+{a:t0p}
+{env:vt0p}
+stream_foreach_env(xs: stream(a), &env >> _): void
 //
-fun{
-a:t0p}{env:vt0p
-} stream_foreach$cont (x: a, env: &env): bool
-fun{
-a:t0p}{env:vt0p
-} stream_foreach$fwork (x: a, env: &env): void
+fun
+{a:t0p}
+{env:vt0p}
+stream_foreach$cont(x: a, env: &env): bool
+fun
+{a:t0p}
+{env:vt0p}
+stream_foreach$fwork(x: a, env: &env): void
+//
+fun{a:t0p}
+stream_foreach_fun
+  (xs: stream(a), fwork: (a) -<fun1> void): void
+fun{a:t0p}
+stream_foreach_cloref
+  (xs: stream(a), fwork: (a) -<cloref1> void): void
 //
 (* ****** ****** *)
 //
@@ -341,10 +365,17 @@ overload [] with stream_nth_exn
 
 (* ****** ****** *)
 //
-overload .head with stream_head_exn
-overload .tail with stream_tail_exn
+overload iseqz with stream_is_nil
+overload isneqz with stream_is_cons
+//
+(* ****** ****** *)
 //
 overload length with stream_length
+//
+(* ****** ****** *)
+//
+overload .head with stream_head_exn
+overload .tail with stream_tail_exn
 //
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Mon Jul 18 22:45:08 2016
+** Time of generation: Mon Sep  5 21:48:35 2016
 *)
 
 (* ****** ****** *)
@@ -337,20 +337,20 @@ fun{x:vt0p}
 list_vt_separate$pred (x: &RD(x)): bool
 
 (* ****** ****** *)
-
+//
 fun{x:t0p}
 list_vt_filter{n:int}
-  (x: list_vt(INV(x), n)):<!wrt> listLte_vt(x, n)
+  (list_vt(INV(x), n)):<!wrt> listLte_vt(x, n)
 // end of [list_vt_filter]
-
+//
 fun{x:t0p}
 list_vt_filter$pred (x: &RD(x)):<> bool
-
+//
 (* ****** ****** *)
 //
 fun{x:vt0p}
-list_vt_filterlin
-  {n:int} (list_vt(INV(x), n)):<!wrt> listLte_vt(x, n)
+list_vt_filterlin{n:int}
+  (list_vt(INV(x), n)):<!wrt> listLte_vt(x, n)
 //
 fun{x:vt0p}
 list_vt_filterlin$pred (x: &RD(x)):<> bool
@@ -512,6 +512,11 @@ a:vt0p
   {n:int} (
   xs: list_vt(INV(a), n), cmp: cmpref (a)
 ) :<!wrt> list_vt(a, n) // end of [list_vt_quicksort_fun]
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+streamize_list_vt_elt(List_vt(a)):<!wrt> stream_vt(a)
 //
 (* ****** ****** *)
 //

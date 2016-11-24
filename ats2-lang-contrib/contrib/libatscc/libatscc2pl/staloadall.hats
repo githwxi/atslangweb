@@ -47,7 +47,10 @@ staload _ = "./DATS/option.dats"
 (* ****** ****** *)
 //
 staload "./SATS/stream.sats"
+staload "./SATS/stream_vt.sats"
+//
 staload _ = "./DATS/stream.dats"
+staload _ = "./DATS/stream_vt.dats"
 //
 (* ****** ****** *)
 //
@@ -56,6 +59,10 @@ staload "./SATS/intrange.sats"
 (* ****** ****** *)
 
 staload "./SATS/reference.sats"
+
+(* ****** ****** *)
+
+staload "./SATS/ML/list0.sats" // un-indexed list
 
 (* ****** ****** *)
 

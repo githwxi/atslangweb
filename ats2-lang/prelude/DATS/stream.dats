@@ -27,17 +27,17 @@
 
 (* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Jul 17 10:25:14 2016
-*)
-
-(* ****** ****** *)
-
 (* Author: Hongwei Xi *)
 (* Authoremail: gmhwxiATgmailDOTcom *)
 (* Start time: July, 2012 *)
+
+(* ****** ****** *)
+
+(*
+** Source:
+** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
+** Time of generation: Thu Oct 20 23:42:49 2016
+*)
 
 (* ****** ****** *)
 
@@ -49,6 +49,19 @@ implement
 {a}(*tmp*)
 stream_sing(x) =
   stream_cons{a}(x, $delay(stream_nil))
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stream_is_nil(xs) =
+(
+case+ !xs of
+| stream_nil _ => true | stream_cons _ => false
+)
+implement
+{a}(*tmp*)
+stream_is_cons(xs) = not(stream_is_nil<a>(xs))
 //
 (* ****** ****** *)
 //
@@ -70,7 +83,8 @@ stream2list (xs) = let
 //
 fun loop
 (
-  xs: stream (a), res: &ptr? >> List0_vt (a)
+  xs: stream(a)
+, res: &ptr? >> List0_vt(a)
 ) : void = let
 in
   case+ !xs of
@@ -83,7 +97,7 @@ in
     in
       fold@ (res)
     end // end of [stream_cons]
-  | stream_nil () => res := list_vt_nil ()
+  | stream_nil() => res := list_vt_nil(*void*)
 end // end of [loop]
 var res: ptr // uninitialized
 val () = $effmask_all (loop (xs, res))
@@ -107,7 +121,8 @@ loop
 ) :<!laz> intGte(0) =
 (
 case+ !xs of
-| stream_nil() => j | stream_cons(_, xs) => loop(xs, j+1)
+| stream_nil() => j
+| stream_cons(_, xs) => loop(xs, j+1)
 )
 //
 } (* end of [stream_length] *)
@@ -120,7 +135,9 @@ stream_head_exn(xs) =
 (
 //
 case+ !xs of
-| stream_cons(x, _) => x
+| stream_cons
+    (x, _) => x
+  // stream_cons
 | stream_nil() => $raise StreamSubscriptExn()
 //
 ) // end of [stream_head_exn]
@@ -131,7 +148,9 @@ stream_tail_exn(xs) =
 (
 //
 case+ !xs of
-| stream_cons(_, xs) => xs
+| stream_cons
+    (_, xs) => xs
+  // stream_cons
 | stream_nil() => $raise StreamSubscriptExn()
 //
 ) // end of [stream_tail_exn]
@@ -148,11 +167,11 @@ in
       (x, xs) =>
     (
       if n > 0
-        then stream_nth_exn<a> (xs, pred(n))
+        then stream_nth_exn<a>(xs, pred(n))
         else (x)
       // end of [if]
     ) (* stream_cons *)
-  | stream_nil () => $raise StreamSubscriptExn()
+  | stream_nil() => $raise StreamSubscriptExn()
 end // end of [stream_nth_exn]
 
 (* ****** ****** *)
@@ -181,28 +200,37 @@ implement
 stream_take_exn
   (xs, n) = let
 //
-fun loop{n:nat}
+fun
+loop{n:nat}
 (
-  xs: stream a, res: &ptr? >> list_vt (a, n-k), n: int n
+  xs: stream(a)
+, res: &ptr? >> list_vt(a, n-k), n: int(n)
 ) : #[k:nat | k <= n] int k =
-  if n > 0 then (
-    case+ !xs of
-    | stream_cons
-        (x, xs) => let
-        val () =
-        res := list_vt_cons{a}{0}(x, _)
-        val+list_vt_cons (_, res1) = res
-        val k = loop (xs, res1, pred(n))
-        prval () = fold@ (res)
-      in
-        k
-      end // end of [stream_cons]
-    | stream_nil () => let
-        val () = res := list_vt_nil () in n
-      end // end of [stream_nil]
-  ) else let
-    val () = res := list_vt_nil () in n
-  end // end of [if]
+(
+//
+if
+(n > 0)
+then (
+  case+ !xs of
+  | stream_cons
+      (x, xs) => k where
+    {
+      val () =
+      res := list_vt_cons{a}{0}(x, _)
+      val+list_vt_cons (_, res1) = res
+      val k = loop (xs, res1, pred(n))
+      prval () = fold@ (res)
+    } (* end of [stream_cons] *)
+  | stream_nil() => let
+      val () =
+        res := list_vt_nil() in n
+      // end of [val]
+    end // end of [stream_nil]
+) else (
+  let val () = res := list_vt_nil() in n end
+) (* end of [if] *)
+//
+) (* end of [loop] *)
 //
 var res: ptr // uninitialized
 val k = $effmask_all (loop (xs, res, n))
@@ -230,7 +258,7 @@ if n > 0 then
   case+ !xs of
   | stream_cons
       (_, xs) => stream_drop_exn (xs, pred(n))
-  | stream_nil () => $raise StreamSubscriptExn()
+  | stream_nil() => $raise StreamSubscriptExn()
 ) else (xs) // end of [if]
 //
 end // end of [stream_drop_exn]
@@ -248,12 +276,12 @@ fun aux
 , ys: stream(a)
 ) : stream_con(a) =
   case+ !xs of
-  | stream_nil () => !ys
-  | stream_cons (x, xs) => stream_cons (x, $delay (aux (xs, ys)))
+  | stream_nil() => !ys
+  | stream_cons(x, xs) => stream_cons(x, $delay(aux(xs, ys)))
 //
 in
 //
-  $delay (aux (xs, ys))
+  $delay(aux(xs, ys))
 //
 end // end of [stream_append]
 
@@ -261,7 +289,8 @@ end // end of [stream_append]
 
 implement
 {a}(*tmp*)
-stream_concat (xss) = let
+stream_concat
+  (xss) = let
 //
 fun aux1
 (
@@ -269,19 +298,19 @@ fun aux1
 ) : stream_con(a) =
 (
   case+ !xss of
-  | stream_nil () => stream_nil ()
-  | stream_cons (xs, xss) => aux2 (xs, xss)
+  | stream_nil() => stream_nil()
+  | stream_cons(xs, xss) => aux2(xs, xss)
 )
 and aux2
 (
   xs: stream(a), xss: stream(stream(a))
 ) : stream_con(a) =
   case+ !xs of
-  | stream_nil () => aux1 (xss)
-  | stream_cons (x, xs) => stream_cons (x, $delay (aux2 (xs, xss)))
+  | stream_nil() => aux1 (xss)
+  | stream_cons(x, xs) => stream_cons (x, $delay(aux2(xs, xss)))
 //
 in
-  $delay (aux1 (xss))
+  $delay(aux1(xss))
 end // end of [stream_concat]
 
 (* ****** ****** *)
@@ -290,18 +319,20 @@ local
 
 fun{a:t0p}
 stream_filter_con
-  (xs: stream a): stream_con(a) = let
+(
+xs: stream(a)
+) : stream_con(a) = let
 in
 //
 case+ !xs of
 | stream_cons
     (x, xs) =>
   (
-    if stream_filter$pred<a> (x)
-      then stream_cons{a}(x, stream_filter<a> (xs)) else stream_filter_con<a> (xs)
+    if stream_filter$pred<a>(x)
+      then stream_cons{a}(x, stream_filter<a>(xs)) else stream_filter_con<a>(xs)
     // end of [if]
   ) // end of [stream_cons]
-| stream_nil () => stream_nil ()
+| stream_nil() => stream_nil()
 //
 end // end of [stream_filter_con]
 
@@ -310,7 +341,7 @@ in (* in of [local] *)
 implement
 {a}(*tmp*)
 stream_filter (xs) =
-  $delay (stream_filter_con<a> (xs))
+  $delay(stream_filter_con<a>(xs))
 // end of [stream_filter]
 
 implement
@@ -351,9 +382,9 @@ fun aux
 ) :<!laz> stream (b) = $delay
 (
 case+ !xs of
-| stream_nil () => stream_nil ()
-| stream_cons (x, xs) =>
-    stream_cons{b}(stream_map$fopr<a><b> (x), aux (xs))
+| stream_nil() => stream_nil()
+| stream_cons(x, xs) =>
+    stream_cons{b}(stream_map$fopr<a><b>(x), aux(xs))
   // end of [stream_cons]
 ) : stream_con (b) // end of [$delay]
 //
@@ -371,7 +402,7 @@ implement
 stream_map$fopr (x) = $UN.cast{b2}(f($UN.cast{a}(x)))
 //
 in
-  stream_map<a><b> (xs)
+  stream_map<a><b>(xs)
 end // end of [stream_map_fun]
 
 implement
@@ -384,7 +415,7 @@ implement
 stream_map$fopr (x) = $UN.cast{b2}(f($UN.cast{a}(x)))
 //
 in
-  stream_map<a><b> (xs)
+  stream_map<a><b>(xs)
 end // end of [stream_map_cloref]
 
 (* ****** ****** *)
@@ -400,14 +431,14 @@ fun aux
 ) :<!laz> stream (b) = $delay
 (
 case+ !xs of
-| stream_nil () => stream_nil ()
+| stream_nil() => stream_nil()
 | stream_cons
     (x, xs) => let
     val y =
-      stream_imap$fopr<a><b> (i, x)
+      stream_imap$fopr<a><b>(i, x)
     // end of [val]
   in
-    stream_cons{b}(y, aux (succ (i), xs))
+    stream_cons{b}(y, aux(succ(i), xs))
   end // end of [stream_cons]
 ) : stream_con (b) // end of [$delay]
 //
@@ -426,7 +457,7 @@ stream_imap$fopr
   (i, x) = $UN.cast{b2}(f(i, $UN.cast{a}(x)))
 //
 in
-  stream_imap<a><b> (xs)
+  stream_imap<a><b>(xs)
 end // end of [stream_imap_fun]
 
 implement
@@ -440,7 +471,7 @@ stream_imap$fopr
   (i, x) = $UN.cast{b2}(f(i, $UN.cast{a}(x)))
 //
 in
-  stream_imap<a><b> (xs)
+  stream_imap<a><b>(xs)
 end // end of [stream_imap_cloref]
 
 (* ****** ****** *)
@@ -459,18 +490,19 @@ stream_map2
 ) = $delay (
 (
 case+ !xs1 of
-| x1 :: xs1 => (
+| x1 :: xs1 =>
+  (
   case+ !xs2 of
   | x2 :: xs2 => let
       val y =
-        stream_map2$fopr<a1,a2><b> (x1, x2)
+        stream_map2$fopr<a1,a2><b>(x1, x2)
       // end of [val]
     in
-      stream_cons{b}(y, stream_map2<a1,a2><b> (xs1, xs2))
+      stream_cons{b}(y, stream_map2<a1,a2><b>(xs1, xs2))
     end // end of [::]
-  | stream_nil () => stream_nil ()
+  | stream_nil() => stream_nil()
   ) // end of [::]
-| stream_nil () => stream_nil ()
+| stream_nil() => stream_nil()
 ) : stream_con (b)
 ) // end of [stream_map2]
 
@@ -487,7 +519,7 @@ stream_map2$fopr (x1, x2) =
   $UN.cast{b2}(f($UN.cast{a1}(x1), $UN.cast{a2}(x2)))
 //
 in
-  stream_map2<a1,a2><b> (xs1, xs2)
+  stream_map2<a1,a2><b>(xs1, xs2)
 end // end of [stream_map2_fun]
 
 implement
@@ -501,7 +533,7 @@ stream_map2$fopr (x1, x2) =
   $UN.cast{b2}(f($UN.cast{a1}(x1), $UN.cast{a2}(x2)))
 //
 in
-  stream_map2<a1,a2><b> (xs1, xs2)
+  stream_map2<a1,a2><b>(xs1, xs2)
 end // end of [stream_map2_cloref]
 
 (* ****** ****** *)
@@ -514,17 +546,18 @@ stream_scan
 fun aux
 (
   xs: stream(x), ini: res
-) :<!laz> stream (res) = $delay
+) :<!laz> stream(res) = $delay
 (
 case+ !xs of
 | stream_nil
-    () => stream_nil ()
+    () => stream_nil()
   // end of [stream_nil]
-| stream_cons(x, xs) =>
+| stream_cons
+    (x, xs) =>
   stream_cons{res}
-    (stream_scan$fopr<res><x> (ini, x), aux (xs, ini))
+    (stream_scan$fopr<res><x>(ini, x), aux(xs, ini))
   // end of [stream_cons]
-) : stream_con(res) // end of [$delay]
+) // end of [$delay] // end of [aux]
 //
 in
   aux (xs, ini)
@@ -544,7 +577,7 @@ stream_scan$fopr
   $UN.cast{res2}(f($UN.cast{res}(ini), $UN.cast{x}(x)))
 //
 in
-  stream_scan<res><x> (xs, ini)
+  stream_scan<res><x>(xs, ini)
 end // end of [stream_scan_fun]
 
 implement
@@ -559,7 +592,7 @@ stream_scan$fopr
   $UN.cast{res2}(f($UN.cast{res}(ini), $UN.cast{x}(x)))
 //
 in
-  stream_scan<res><x> (xs, ini)
+  stream_scan<res><x>(xs, ini)
 end // end of [stream_scan_cloref]
 
 (* ****** ****** *)
@@ -577,11 +610,12 @@ stream_merge
 (
 (
 case+ !xs10 of
-| x1 :: xs1 => (
+| x1 :: xs1 =>
+  (
   case+ !xs20 of
   | x2 :: xs2 => let
       val sgn =
-        stream_merge$cmp<a> (x1, x2)
+        stream_merge$cmp<a>(x1, x2)
       // end of [val]
     in
       if sgn <= 0 then
@@ -590,9 +624,9 @@ case+ !xs10 of
         stream_cons{a}(x2, stream_merge (xs10, xs2))
       // end of [if]
     end // end of [::]
-  | stream_nil () => stream_cons{a}(x1, xs1)
+  | stream_nil() => stream_cons{a}(x1, xs1)
   ) (* end of [::] *)
-| stream_nil () => !xs20
+| stream_nil() => !xs20
 ) : stream_con (a)
 ) // end of [stream_merge]
 
@@ -629,7 +663,7 @@ end // end of [stream_merge_cloref]
 implement
 {a}(*tmp*)
 stream_merge$cmp
-  (x1, x2) = gcompare_val_val<a> (x1, x2)
+  (x1, x2) = gcompare_val_val<a>(x1, x2)
 //
 (* ****** ****** *)
 
@@ -644,13 +678,13 @@ implement
 stream_mergeq
   (xs10, xs20) = $delay
 (
-(
 case+ !xs10 of
-| x1 :: xs1 => (
+| x1 :: xs1 =>
+  (
   case+ !xs20 of
   | x2 :: xs2 => let
       val sgn =
-        stream_mergeq$cmp<a> (x1, x2)
+        stream_mergeq$cmp<a>(x1, x2)
       // end of [val]
     in
       if sgn < 0 then
@@ -661,10 +695,9 @@ case+ !xs10 of
         stream_cons{a}(x1(*=x2*), stream_mergeq (xs1, xs2))
       // end of [if]
     end // end of [::]
-  | stream_nil () => stream_cons{a}(x1, xs1)
+  | stream_nil() => stream_cons{a}(x1, xs1)
   ) (* end of [::] *)
-| stream_nil () => !xs20
-) : stream_con (a)
+| stream_nil() => !xs20
 ) // end of [stream_mergeq]
 
 end // end of [local]
@@ -700,13 +733,16 @@ end // end of [stream_mergeq_cloref]
 implement
 {a}(*tmp*)
 stream_mergeq$cmp
-  (x1, x2) = gcompare_val_val<a> (x1, x2)
+  (x1, x2) = gcompare_val_val<a>(x1, x2)
 //
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-stream_tabulate () = let
+stream_tabulate
+  ((*void*)) =
+  aux(0) where
+{
 //
 fun
 aux{n:nat}
@@ -714,22 +750,23 @@ aux{n:nat}
   n: int(n)
 ) : stream(a) = $delay
 (
-  stream_cons{a}(stream_tabulate$fopr<a> (n), aux (n+1))
-)
+stream_cons{a}
+  (stream_tabulate$fopr<a>(n), aux(n+1))
+) (* end of [aux] *)
 //
-in
-  aux (0)
-end // end of [stream_tabulate]
+} (* end of [stream_tabulate] *)
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-stream_tabulate_fun (f) = let
+stream_tabulate_fun
+  (fopr) = let
 //
 implement
 {a2}(*tmp*)
-stream_tabulate$fopr (n) = $UN.cast{a2}(f(n))
+stream_tabulate$fopr
+  (n) = $UN.cast{a2}(fopr(n))
 //
 in
   stream_tabulate ()
@@ -737,11 +774,13 @@ end // end of [stream_tabulate_fun]
 
 implement
 {a}(*tmp*)
-stream_tabulate_cloref (f) = let
+stream_tabulate_cloref
+  (fopr) = let
 //
 implement
 {a2}(*tmp*)
-stream_tabulate$fopr (n) = $UN.cast{a2}(f(n))
+stream_tabulate$fopr
+  (n) = $UN.cast{a2}(fopr(n))
 //
 in
   stream_tabulate ()
@@ -770,16 +809,16 @@ fun loop
 (
 //
 case+ !xs of
-| stream_nil () => ()
-| stream_cons (x, xs) => let
+| stream_nil() => ()
+| stream_cons(x, xs) => let
     val test =
-      stream_foreach$cont<a><env> (x, env)
+      stream_foreach$cont<a><env>(x, env)
     // end of [val]
   in
     if test
       then let
         val () =
-          stream_foreach$fwork<a><env> (x, env)
+          stream_foreach$fwork<a><env>(x, env)
         // end of [val]
       in
         loop (xs, env)
@@ -801,6 +840,42 @@ stream_foreach$cont<a><env>(x0, env) = true(*cont*)
 
 implement
 {a}(*tmp*)
+stream_foreach_fun
+  (xs, fwork) =
+  loop(xs) where
+{
+//
+fun
+loop(xs: stream(a)): void =
+(
+  case+ !xs of
+  | stream_nil() => ()
+  | stream_cons(x, xs) => (fwork(x); loop(xs))
+)
+//
+} (* end of [stream_foreach_fun] *)
+
+implement
+{a}(*tmp*)
+stream_foreach_cloref
+  (xs, fwork) =
+  loop(xs) where
+{
+//
+fun
+loop(xs: stream(a)): void =
+(
+  case+ !xs of
+  | stream_nil() => ()
+  | stream_cons(x, xs) => (fwork(x); loop(xs))
+)
+//
+} (* end of [stream_foreach_cloref] *)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
 fprint_stream
   (out, xs, n) = let
 //
@@ -817,14 +892,14 @@ stream_foreach$fwork<a><tenv>
 {
   val () =
   if env > 0
-    then fprint_stream$sep<> (out)
+    then fprint_stream$sep<>(out)
   // end of [if]
   val () = env := env + 1
-  val () = fprint_val<a> (out, x)
+  val () = fprint_val<a>(out, x)
 } (* end of [stream_foreach$fwork] *)
 //
 in
-  stream_foreach_env<a><tenv> (xs, env)
+  stream_foreach_env<a><tenv>(xs, env)
 end // end of [fprint_stream]
 
 implement{}

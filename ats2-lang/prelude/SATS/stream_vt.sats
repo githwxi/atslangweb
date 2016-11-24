@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Mon Jul 18 00:50:24 2016
+** Time of generation: Wed Oct  5 14:07:42 2016
 *)
 
 (* ****** ****** *)
@@ -65,13 +65,27 @@ streamopt_vt(a:vt0p) = Option_vt(stream_vt(a))
 (* ****** ****** *)
 //
 fun
+{a:t0p}
+stream_vt_is_nil(stream_vt(a)): bool
+fun
+{a:t0p}
+stream_vt_is_cons(stream_vt(a)): bool
+//
+(* ****** ****** *)
+//
+fun
 {a:vt0p}
 stream_vt_make_nil():<> stream_vt(a)
+fun{a:t0p}
+stream_vt_make_cons
+  (a, stream_vt(INV(a))):<> stream_vt(a)
+//
 fun{a:t0p}
 stream_vt_make_sing(x: a):<> stream_vt(a)
 //
 fun{a:t0p}
-stream_vt_make_con(stream_vt_con(a)):<> stream_vt(a)
+stream_vt_make_con
+  (xs_con: stream_vt_con(INV(a))):<> stream_vt(a)
 //
 (* ****** ****** *)
 //
@@ -98,6 +112,13 @@ fun{a:t0p}
 stream_vt_con_free (xs: stream_vt_con(a)):<!wrt> void
 
 (* ****** ****** *)
+
+fun{a:t0p}
+stream_vt_take
+  (xs: stream_vt(INV(a)), n: intGte(0)): List0_vt(a)
+// end of [stream_vt_take]
+
+(* ****** ****** *)
 //
 fun{a:t0p}
 stream_vt_drop_exn
@@ -112,24 +133,24 @@ stream_vt_drop_opt
 (* ****** ****** *)
 //
 fun{a:t0p}
-stream_vt_head
-  (stream_vt(INV(a))):<!exnwrt> (a)
-fun{a:t0p}
-stream_vt_tail
-  (stream_vt(INV(a))):<!exnwrt> stream_vt(a)
-//
-fun{a:vt0p}
-stream_vt_uncons
-  (xs: &stream_vt(INV(a)) >> _):<!exnwrt> (a)
-fun{a:vt0p}
-stream_vt_uncons_opt
-  (xs: &stream_vt(INV(a)) >> _):<!exnwrt> Option_vt(a)
+stream_vt_length
+  (xs: stream_vt(INV(a))):<!wrt> intGte(0)
 //
 (* ****** ****** *)
 //
 fun{a:t0p}
-stream_vt_length
-  (xs: stream_vt(INV(a))):<!wrt> intGte(0)
+stream_vt_head_exn
+  (stream_vt(INV(a))):<!exnwrt> (a)
+fun{a:t0p}
+stream_vt_tail_exn
+  (stream_vt(INV(a))):<!exnwrt> stream_vt(a)
+//
+fun{a:vt0p}
+stream_vt_uncons_exn
+  (xs: &stream_vt(INV(a)) >> _):<!exnwrt> (a)
+fun{a:vt0p}
+stream_vt_uncons_opt
+  (xs: &stream_vt(INV(a)) >> _):<!exnwrt> Option_vt(a)
 //
 (* ****** ****** *)
 //
@@ -149,31 +170,6 @@ stream_vt_append
 fun{a:vt0p}
 stream_vt_concat
   (xss: stream_vt(stream_vt(INV(a)))): stream_vt(a)
-//
-(* ****** ****** *)
-//
-fun{a:vt0p}
-stream_vt_foreach
-  (stream_vt(INV(a))): stream_vt_con(a)
-fun{
-a:vt0p}{env:vt0p
-} stream_vt_foreach_env
-  (stream_vt(INV(a)), env: &env >> _): stream_vt_con(a)
-//
-fun{
-a:vt0p}{env:vt0p
-} stream_vt_foreach$cont
-  (x: &a, env: &env >> _): bool
-fun{
-a:vt0p}{env:vt0p
-} stream_vt_foreach$fwork
-  (x: &a >> a?!, env: &env >> _): void // lin-cleared
-//
-fun{a:vt0p}
-stream_vt_foreach_cloptr
-(
-  stream_vt(INV(a)), fwork: (&a >> a?!) -<cloptr1> void
-) : void // end of [stream_vt_foreach_cloptr]
 //
 (* ****** ****** *)
 //
@@ -273,6 +269,47 @@ stream_vt_labelize
   (stream_vt(INV(a))): stream_vt(@(intGte(0), a))
 //
 (* ****** ****** *)
+//
+fun{a:vt0p}
+stream_vt_foreach
+  (stream_vt(INV(a))): stream_vt_con(a)
+fun{
+a:vt0p}{env:vt0p
+} stream_vt_foreach_env
+  (stream_vt(INV(a)), env: &env >> _): stream_vt_con(a)
+//
+fun{
+a:vt0p}{env:vt0p
+} stream_vt_foreach$cont
+  (x: &a, env: &env >> _): bool
+fun{
+a:vt0p}{env:vt0p
+} stream_vt_foreach$fwork
+  (x: &a >> a?!, env: &env >> _): void // lin-cleared
+//
+fun{a:vt0p}
+stream_vt_foreach_cloptr
+(
+  stream_vt(INV(a)), fwork: (&a >> a?!) -<cloptr1> void
+) : void // end of [stream_vt_foreach_cloptr]
+//
+fun{a:vt0p}
+stream_vt_iforeach_cloptr
+(
+  stream_vt(INV(a)), fwork: (intGte(0), &a >> a?!) -<cloptr1> void
+) : void // end of [stream_vt_iforeach_cloptr]
+//
+(* ****** ****** *)
+//
+fun{
+res:vt0p
+}{a:vt0p}
+stream_vt_foldleft_cloptr
+(
+  xs: stream_vt(a), init: res, fopr: (res, &a >> a?!) -<cloptr1> res
+) : res // end of [stream_vt_foldleft_cloptr]
+//
+(* ****** ****** *)
 
 fun
 {env:t0p}{a:t0p}
@@ -303,6 +340,9 @@ cross_stream_vt_list_vt
 //
 // HX-2016-07-01:
 // [stream_vt_fprint] calls [fprint_val]
+//
+// HX-2016-09-12:
+// Note that (n < 0) means to print all the values
 //
 fun{}
 stream_vt_fprint$beg(out: FILEref): void
@@ -350,8 +390,17 @@ overload [] with streamer_vt_eval_exn
 
 (* ****** ****** *)
 
-overload .head with stream_vt_head
-overload .tail with stream_vt_tail
+overload iseqz with stream_vt_is_nil
+overload isneqz with stream_vt_is_cons
+
+(* ****** ****** *)
+//
+overload length with stream_vt_length
+//
+(* ****** ****** *)
+
+overload .head with stream_vt_head_exn
+overload .tail with stream_vt_tail_exn
 
 (* ****** ****** *)
 

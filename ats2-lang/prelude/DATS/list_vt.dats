@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Mon Jul 11 10:26:14 2016
+** Time of generation: Sun Oct  2 10:33:58 2016
 *)
 
 (* ****** ****** *)
@@ -1242,6 +1242,38 @@ list_vt_iforeach$cont (i, x, env) = true
 
 #include "./SHARE/list_vt_mergesort.dats"
 #include "./SHARE/list_vt_quicksort.dats"
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+streamize_list_vt_elt
+  (xs) = let
+//
+fun
+auxmain
+(
+  xs: List_vt(a)
+) : stream_vt(a) = $ldelay
+(
+//
+(
+case+ xs of
+| ~list_vt_nil
+    () => stream_vt_nil()
+| ~list_vt_cons
+    (x, xs) =>
+    stream_vt_cons(x, auxmain(xs))
+) : stream_vt_con(a)
+//
+,
+//
+list_vt_free(xs)
+) (* end of [auxmain] *)
+//
+in
+  $effmask_all(auxmain(xs))
+end (* end of [streamize_list_vt_elt] *)
 
 (* ****** ****** *)
 

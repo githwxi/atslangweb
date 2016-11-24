@@ -27,17 +27,17 @@
 
 (* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sat Jul 16 23:33:54 2016
-*)
+(* Author: Hongwei Xi *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: February, 2012 *)
 
 (* ****** ****** *)
 
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: February, 2012 *)
+(*
+** Source:
+** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
+** Time of generation: Mon Oct 17 22:01:13 2016
+*)
 
 (* ****** ****** *)
 
@@ -490,8 +490,10 @@ list_equal_cloref
 //
 fun{
 x:t0p
-} list_find
-  (List(INV(x)), x: &(x)? >> opt(x, b)):<> #[b:bool] bool(b)
+} list_find{n:int}
+(
+  xs: list(INV(x), n), x0: &(x)? >> opt(x, i >= 0)
+) :<!wrt> #[i:int | i < n] int(i) // end-of-function
 //
 fun{x:t0p} list_find$pred (x):<> bool
 //
@@ -957,10 +959,24 @@ a:t0p
 (* ****** ****** *)
 //
 fun{a:t0p}
-streamize_list_elt(List(a)):<!wrt> stream_vt(a)
+streamize_list_elt
+  (xs: List(INV(a))):<!wrt> stream_vt(a)
 //
 fun{a:t0p}
-streamize_list_choose2(List(a)):<!wrt> stream_vt(@(a, a))
+streamize_list_choose2
+  (xs: List(INV(a))):<!wrt> stream_vt(@(a, a))
+//
+(* ****** ****** *)
+//
+fun
+{a,b:t0p}
+streamize_list_zip
+  (List(INV(a)), List(INV(b))):<!wrt> stream_vt(@(a, b))
+//
+fun
+{a,b:t0p}
+streamize_list_cross
+  (List(INV(a)), List(INV(b))):<!wrt> stream_vt(@(a, b))
 //
 (* ****** ****** *)
 //

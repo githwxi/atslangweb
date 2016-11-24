@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sat Jul 16 23:38:26 2016
+** Time of generation: Tue Oct 18 18:01:04 2016
 *)
 
 (* ****** ****** *)
@@ -53,13 +53,26 @@ List0_(a:t@ype+) = List0(a)
 
 (* ****** ****** *)
 
-implement
-{x}(*tmp*)
-list_make_sing (x) = list_vt_cons{x}(x, list_vt_nil)
-implement
-{x}(*tmp*)
-list_make_pair (x1, x2) = list_vt_cons{x}(x1, list_vt_cons{x}(x2, list_vt_nil))
+primplmnt
+lemma_list_param(xs) =
+(
+//
+case+ xs of
+| list_nil _ => () | list_cons _ => ()
+//
+) (* lemma_list_param *)
 
+(* ****** ****** *)
+//
+implement
+{x}(*tmp*)
+list_make_sing(x) =
+  list_vt_cons{x}(x, list_vt_nil)
+implement
+{x}(*tmp*)
+list_make_pair(x1, x2) =
+  list_vt_cons{x}(x1, list_vt_cons{x}(x2, list_vt_nil))
+//
 (* ****** ****** *)
 
 implement
@@ -88,9 +101,12 @@ implement
 list_make_intrange
   {l0,r} (l0, r) = let
 //
-typedef elt = intBtw (l0, r)
-vtypedef res (l:int) = list_vt (elt, r-l)
-fun loop {
+typedef elt = intBtw(l0, r)
+vtypedef res(l:int) = list_vt(elt, r-l)
+//
+fun
+loop
+{
   l:int | l0 <= l; l <= r
 } .<r-l>. (
   l: int l, r: int r, res: &ptr? >> res (l)
@@ -1107,6 +1123,42 @@ implement{y}
 list_equal$eqfn(x1, x2) = eqfn($UN.cast(x1), $UN.cast(x2))
 //
 } (* end of [list_equal_cloref] *)
+
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
+list_find
+  {n}(xs, x0) = let
+//
+prval() = lemma_list_param(xs)
+//
+fun
+loop
+{ i:nat
+| i <= n
+} .<n-i>.
+(
+  xs: list(x, n-i)
+, i: int(i), x0: &x? >> opt(x, i >= 0)
+) :<!wrt> #[i:int | i < n] int(i) =
+(
+case+ xs of
+| list_nil() =>
+  (
+    opt_none(x0); ~1
+  ) (* list_nil *)
+| list_cons(x, xs) =>
+  (
+    if list_find$pred<x>(x)
+      then (x0 := x; opt_some(x0); i) else loop(xs, i+1, x0)
+    // end of [if]
+  ) (* list_cons *)
+) (* end of [loop] *)
+//
+in
+  loop(xs, 0, x0)
+end // end of [list_find]
 
 (* ****** ****** *)
 
@@ -2477,6 +2529,77 @@ auxmain2
 in
   $effmask_all(auxmain(xs))
 end // end of [streamize_list_choose2]
+
+(* ****** ****** *)
+
+implement
+{a,b}(*tmp*)
+streamize_list_zip
+  (xs, ys) = let
+//
+fun
+auxmain
+(
+  xs: List(a)
+, ys: List(b)
+) : stream_vt(@(a, b)) = $ldelay
+(
+case+ xs of
+| list_nil() =>
+    stream_vt_nil()
+  // end of [list_nil]
+| list_cons(x, xs) =>
+  (
+    case+ ys of
+    | list_nil() => stream_vt_nil()
+    | list_cons(y, ys) => stream_vt_cons((x, y), auxmain(xs, ys))
+  ) (* end of [list_cons] *)
+) : stream_vt_con(@(a, b)) // auxmain
+//
+in
+  $effmask_all(auxmain(xs, ys))
+end // end of [streamize_list_zip]
+
+(* ****** ****** *)
+
+implement
+{a,b}(*tmp*)
+streamize_list_cross
+  (xs, ys) = let
+//
+fun
+auxone
+(
+  x0: a
+, ys: List(b)
+) : stream_vt(@(a, b)) = $ldelay
+(
+case+ ys of
+| list_nil() =>
+    stream_vt_nil()
+  // end of [list_nil]
+| list_cons(y, ys) =>
+    stream_vt_cons((x0, y), auxone(x0, ys))
+) : stream_vt_con(@(a, b))
+//
+fun
+auxmain
+(
+  xs: List(a)
+, ys: List(b)
+) : stream_vt(@(a, b)) = $ldelay
+(
+case+ xs of
+| list_nil() =>
+    stream_vt_nil()
+  // end of [list_nil]
+| list_cons(x0, xs) =>
+    !(stream_vt_append(auxone(x0, ys), auxmain(xs, ys)))
+) : stream_vt_con(@(a, b))
+//
+in
+  $effmask_all(auxmain(xs, ys))
+end // end of [streamize_list_cross]
 
 (* ****** ****** *)
 

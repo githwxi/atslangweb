@@ -58,14 +58,12 @@ ATSINSdeadcode_fail()
 ############################################
 #
 sub
-ATSPMVempty() { return; }
+ATSPMVempty(){ return; }
 #
 ############################################
 
-=for comment
 sub
-ATSPMVlazyval_make($) { return [0, $_[0]]; }
-=cut
+ATSPMVlazyval($){ return [0, $_[0]]; }
 
 ############################################
 
@@ -74,23 +72,44 @@ ATSPMVlazyval_eval($)
 {
 #
   my($lazyval) = @_;
-  my $flag;
-  my $thunk;
+  my($flag);
+  my($mythunk);
 #
   $flag = $lazyval->[0];
 #
   if($flag==0)
   {
     $lazyval->[0] = 1;
-    $thunk = $lazyval->[1];
-    $lazyval->[1] = &{$thunk->[0]}($thunk);
+    $mythunk = $lazyval->[1];
+    $lazyval->[1] = &{$mythunk->[0]}($mythunk);
   } else {
     $lazyval->[0] = $flag + 1;
   } #end-of-[if]
-  return;
+  return ($lazyval->[1]);
 #
 } #end-of-[ATSPMVlazyval_eval]
 
+############################################
+
+sub
+ATSPMVllazyval($){ return $_[0]; }
+
+############################################
+#
+sub
+ATSPMVllazyval_eval($)
+{
+  my($lazyval) = @_;
+  return &{$lazyval->[0]}($lazyval, 1);
+}
+#
+sub
+atspre_lazy_vt_free($)
+{
+  my($lazyval) = @_;
+  return &{$lazyval->[0]}($lazyval, 0);
+}
+#
 ############################################
 
 sub

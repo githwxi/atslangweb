@@ -238,6 +238,38 @@ end // end of [list_reverse_append]
 (* ****** ****** *)
 
 implement
+list_concat
+  {a}(xss) =
+  auxlst(xss) where
+{
+//
+fun
+auxlst
+(
+  xss: List(List(a))
+) : List0(a) =
+(
+//
+case+ xss of
+| list_nil() =>
+  list_nil()
+| list_cons
+    (xs, xss) =>
+  list_append
+  (
+    xs, auxlst(xss)
+  ) where
+  {
+    prval () = lemma_list_param(xs)
+  } (* end of [list_cons] *)
+//
+)
+//
+} (* end of [list_concat] *)
+
+(* ****** ****** *)
+
+implement
 list_take(xs, i) =
 (
 //
@@ -336,6 +368,98 @@ else $tup(x, xs) // end of [else]
 end (* end of [list_takeout_at] *)
 
 (* ****** ****** *)
+//  
+implement
+list_exists
+  (xs, pred) =
+(
+  case+ xs of
+  | list_nil() => false
+  | list_cons(x, xs) =>
+      if pred(x)
+        then true else list_exists(xs, pred)
+      // end of [if[
+    // end of [list_cons]
+) (* end of [list_exists] *)
+//
+implement
+list_exists_method
+  {a}(xs) = lam(pred) => list_exists{a}(xs, pred)
+//  
+(* ****** ****** *)
+//
+implement
+list_iexists
+  {a}
+(
+  xs, pred
+) = loop(0, xs) where
+{
+//
+fun loop
+(
+  i: intGte(0), xs: List(a)
+) : bool =
+(
+  case+ xs of
+  | list_nil() => false
+  | list_cons(x, xs) =>
+      if pred(i, x) then true else loop(i+1, xs)
+    // end of [list_cons]
+)
+} (* end of [list_iexists] *)
+//
+implement
+list_iexists_method
+  {a}(xs) = lam(pred) => list_iexists{a}(xs, pred)
+//  
+(* ****** ****** *)
+//
+implement
+list_forall
+  (xs, pred) =
+(
+  case+ xs of
+  | list_nil() => (true)
+  | list_cons(x, xs) =>
+      if pred(x)
+        then list_forall(xs, pred) else false
+      // end of [if[
+    // end of [list_cons]
+) (* end of [list_forall] *)
+//
+implement
+list_forall_method
+  {a}(xs) = lam(pred) => list_forall{a}(xs, pred)
+//
+(* ****** ****** *)
+//
+implement
+list_iforall
+  {a}
+(
+  xs, pred
+) = loop(0, xs) where
+{
+//
+fun loop
+(
+  i: intGte(0), xs: List(a)
+) : bool =
+(
+  case+ xs of
+  | list_nil() => (true)
+  | list_cons(x, xs) =>
+      if pred(i, x) then loop(i+1, xs) else false
+    // end of [list_cons]
+)
+} (* end of [list_iforall] *)
+//
+implement
+list_iforall_method
+  {a}(xs) = lam(pred) => list_iforall{a}(xs, pred)
+//  
+(* ****** ****** *)
 //
 implement
 list_app(xs, f) = list_foreach(xs, f)
@@ -350,26 +474,34 @@ case+ xs of
 //
 ) (* end of [list_foreach] *)
 //
+implement
+list_foreach_method
+  {a}(xs) = lam(fwork) => list_foreach{a}(xs, fwork)
+//  
 (* ****** ****** *)
 //
 implement
 list_iforeach
-  {a}(xs, f) = let
+  {a}(xs, fwork) = let
 //
 fun
 aux
 (
-  i: int, xs: List(a)
+  i: Nat, xs: List(a)
 ) : void =
 //
 case+ xs of
 | list_nil() => ()
-| list_cons(x, xs) => (f(i, x); aux(i+1, xs))
+| list_cons(x, xs) => (fwork(i, x); aux(i+1, xs))
 //
 in
   aux(0, xs)
 end (* end of [list_iforeach] *)
 //
+implement
+list_iforeach_method
+  {a}(xs) = lam(fwork) => list_iforeach{a}(xs, fwork)
+//  
 (* ****** ****** *)
 //
 implement
@@ -382,6 +514,10 @@ case+ xs of
 //
 ) (* end of [list_rforeach] *)
 //
+implement
+list_rforeach_method
+  {a}(xs) = lam(fwork) => list_rforeach{a}(xs, fwork)
+//  
 (* ****** ****** *)
 
 implement
@@ -401,9 +537,13 @@ aux{n:int}
     // end of [list_cons]
 //
 } (* end of [list_filter] *)
-
+//
+implement
+list_filter_method
+  {a}(xs) = lam(pred) => list_filter{a}(xs, pred)
+//  
 (* ****** ****** *)
-
+//
 implement
 list_map
   {a}{b}
@@ -427,7 +567,11 @@ case+ xs of
 prval () = lemma_list_param(xs)
 //
 } (* end of [list_map] *)
-
+//
+implement
+list_map_method
+  {a}(xs, _) = lam(fopr) => list_map{a}(xs, fopr)
+//
 (* ****** ****** *)
 
 implement
@@ -449,7 +593,45 @@ case+ xs of
 in
   loop(init, xs)
 end // end of [list_foldleft]
+//
+implement
+list_foldleft_method
+  {a}(xs, init) = lam(fopr) => list_foldleft{a}(xs, init, fopr)
+//
+(* ****** ****** *)
 
+implement
+list_ifoldleft
+  {res}{a}
+  (xs, init, fopr) = let
+//
+fun
+loop
+(
+  i: Nat, res: res, xs: List(a)
+) : res =
+(
+case+ xs of
+| list_nil
+    () => res
+  // list_nil
+| list_cons
+    (x, xs) =>
+    loop(i+1, fopr(i, res, x), xs)
+  // list_cons
+)
+//
+in
+  loop(0(*index*), init, xs)
+end // end of [list_ifoldleft]
+//
+implement
+list_ifoldleft_method
+  {a}(xs, init) =
+(
+  lam(fopr) => list_ifoldleft{a}(xs, init, fopr)
+) (* list_ifoldleft_method *)
+//
 (* ****** ****** *)
 
 implement
@@ -472,6 +654,131 @@ case+ xs of
 )
 //
 } (* end of [list_foldright] *)
+//
+implement
+list_foldright_method
+  {a}{res}(xs, sink) =
+  lam(fopr) => list_foldright{a}{res}(xs, fopr, sink)
+//
+(* ****** ****** *)
+
+implement
+list_ifoldright
+  {a}{res}
+(
+  xs, fopr, sink
+) = aux(0, xs, sink) where
+{
+//
+fun
+aux
+(
+  i: Nat, xs: List(a), res: res
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => fopr(i, x, aux(i+1, xs, res))
+)
+//
+} (* end of [list_foldright] *)
+//
+implement
+list_ifoldright_method
+  {a}{res}(xs, sink) =
+(
+lam(fopr) => list_ifoldright{a}{res}(xs, fopr, sink)
+)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+list_sort_1(xs) =
+(
+  list_sort_2{a}
+    (xs, lam(x1, x2) => gcompare_val_val<a>(x1, x2))
+  // end of [list_sort_2]
+) (* list_sort_1 *)
+//
+(* ****** ****** *)
+
+#if
+defined(ATSCC_STREAM_VT)
+#then
+//
+implement
+streamize_list_zip
+  {a,b}(xs, ys) = let
+//
+fun
+auxmain
+(
+  xs: List(a), ys: List(b)
+) : stream_vt($tup(a, b)) = $ldelay
+(
+  case+ xs of
+  | list_nil() =>
+    stream_vt_nil()
+  | list_cons(x, xs) =>
+    (
+      case+ ys of
+      | list_nil() =>
+        stream_vt_nil()
+      | list_cons(y, ys) =>
+        stream_vt_cons($tup(x, y), auxmain(xs, ys))
+    ) (* end of [list_cons] *)
+) : stream_vt_con($tup(a, b)) // auxmain
+//
+in
+  $effmask_all(auxmain(xs, ys))
+end // end of [streamize_list_zip]
+//
+#endif // ATSCC_STREAM_VT
+
+(* ****** ****** *)
+
+#if
+defined(ATSCC_STREAM_VT)
+#then
+//
+implement
+streamize_list_cross
+  {a,b}(xs, ys) = let
+//
+fun
+auxone
+(
+  x0: a, ys: List(b)
+) : stream_vt($tup(a, b)) = $ldelay
+(
+case+ ys of
+| list_nil() =>
+  stream_vt_nil()
+| list_cons(y, ys) =>
+  stream_vt_cons($tup(x0, y), auxone(x0, ys))
+) : stream_vt_con($tup(a, b))
+//
+fun
+auxmain
+(
+  xs: List(a), ys: List(b)
+) : stream_vt($tup(a, b)) = $ldelay
+(
+  case+ xs of
+  | list_nil() =>
+      stream_vt_nil()
+    // end of [list_nil]
+  | list_cons(x0, xs) =>
+      !(stream_vt_append(auxone(x0, ys), auxmain(xs, ys)))
+    // end of [list_cons]
+) : stream_vt_con($tup(a, b)) // auxmain
+//
+in
+  $effmask_all(auxmain(xs, ys))
+end // end of [streamize_list_cross]
+//
+#endif // ATSCC_STREAM_VT
 
 (* ****** ****** *)
 

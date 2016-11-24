@@ -34,6 +34,8 @@ THE SOFTWARE.
 // prefix for external names
 //
 #define
+ATS_PACKNAME "ATSCC2PY"
+#define
 ATS_EXTERN_PREFIX "ats2pypre_"
 //
 (* ****** ****** *)
@@ -64,6 +66,15 @@ abstype PYlist(a:vt@ype) // mutable datastructure!
 abstype PYset  (a:t@ype)
 abstype PYdict (a:t@ype)
 *)
+//
+(* ****** ****** *)
+//
+fun
+lazy2cloref
+  {a:t0p}
+(
+  lazyval: lazy(a)
+) : ((*void*)) -<cloref1> (a) = "mac#%"
 //
 (* ****** ****** *)
 //

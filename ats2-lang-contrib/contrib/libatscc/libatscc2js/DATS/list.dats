@@ -47,6 +47,23 @@ staload "./../SATS/list.sats"
 //
 (* ****** ****** *)
 //
+staload "./../SATS/stream.sats"
+staload _ = "./../DATS/stream.dats"
+//
+staload "./../SATS/stream_vt.sats"
+staload _ = "./../DATS/stream_vt.dats"
+//
+(* ****** ****** *)
+//
+staload "./../SATS/JSarray.sats"
+//
+(* ****** ****** *)
+
+#define ATSCC_STREAM 1
+#define ATSCC_STREAM_VT 1
+
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/DATS/list.dats"
 //
 (* ****** ****** *)
@@ -57,7 +74,8 @@ print_list$sep (): void
 //
 implement
 {}(*tmp*)
-print_list$sep () = print_string (", ")
+print_list$sep
+  ((*void*)) = print_string (", ")
 //
 implement
 {a}(*tmp*)
@@ -90,6 +108,38 @@ in
   fprint_list<a> (STDOUT, xs)
 end // end of [print_list_sep]
 //
+(* ****** ****** *)
+
+implement
+list_sort_2
+  {a}{n}(xs, cmp) = let
+//
+val A =
+  JSarray_make_list(xs)
+val () =
+  JSarray_sort_2(A, cmp)
+//
+val asz = JSarray_length(A)
+//
+fun
+loop (
+  i0: int, res: List0(a)
+) : List0(a) =
+(
+//
+if
+(i0 < asz)
+then (
+  loop(i0+1, list_cons(A.pop(), res))
+) else res
+// end of [if]
+//
+) (* end of [loop] *)
+//
+in
+  $UN.cast{list(a,n)}(loop(0, list_nil(*void*)))
+end // end of [list_sort_2]
+
 (* ****** ****** *)
 
 (* end of [list.dats] *)

@@ -99,6 +99,9 @@ prelude_string_iforall = string_iforall
 macdef
 prelude_string_foreach = string_foreach
 //
+macdef
+prelude_streamize_string_char = streamize_string_char
+//
 (* ****** ****** *)
 
 staload "libats/ML/SATS/basis.sats"
@@ -423,32 +426,74 @@ in
 end // end of [string_iforall]
 
 (* ****** ****** *)
+//
+implement{}
+string_forall_method
+  (cs) = lam(f) => string_forall(cs, f)
+implement{}
+string_iforall_method
+  (cs) = lam(f) => string_iforall(cs, f)
+//
+(* ****** ****** *)
 
 implement
 string_foreach
-  (str, f) = let
+  (cs, f) = let
 //
-val str = g1ofg0_string(str)
+fun
+loop
+(
+p0: ptr
+) : void = let
+  val c = $UN.ptr0_get<char>(p0)
+in
 //
-implement(env)
-string_foreach$cont<env> (c, env) = true
-implement(env)
-string_foreach$fwork<env> (c, env) = f(c)
+if isneqz(c)
+  then (f(c); loop(ptr_succ<char>(p0))) else ()
 //
-val _(*nchar*) = prelude_string_foreach (str)
+end // end of [loop]
 //
 in
-  // nothing
+  loop(string2ptr(cs))
 end // end of [string_foreach]
+
+(* ****** ****** *)
+
+implement
+string_iforeach
+  (cs, f) = let
+//
+fun
+loop
+(
+  i: intGte(0), p0: ptr
+) : void = let
+  val c = $UN.ptr0_get<char>(p0)
+in
+//
+if isneqz(c)
+  then (f(i, c); loop(i, ptr_succ<char>(p0))) else ()
+//
+end // end of [loop]
+//
+in
+  loop(0, string2ptr(cs))
+end // end of [string_iforeach]
 
 (* ****** ****** *)
 //
 implement{}
-string_forall_method(x) = lam(f) => string_forall (x, f)
+string_foreach_method
+  (cs) = lam(f) => string_foreach(cs, f)
 implement{}
-string_iforall_method(x) = lam(f) => string_iforall (x, f)
+string_iforeach_method
+  (cs) = lam(f) => string_iforeach(cs, f)
+//
+(* ****** ****** *)
+//
 implement{}
-string_foreach_method(x) = lam(f) => string_foreach (x, f)
+streamize_string_char
+  (cs) = prelude_streamize_string_char(cs)
 //
 (* ****** ****** *)
 

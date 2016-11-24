@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Sun Jul  3 11:13:18 2016
+** Time of generation: Mon Sep  5 21:48:36 2016
 *)
 
 (* ****** ****** *)
@@ -275,33 +275,45 @@ array_foreach$cont (x: &a, env: &env): void
 fun{a:vt0p}{env:vt0p}
 array_foreach$fwork (x: &a >> a, env: &(env) >> _): void
 *)
-fun{
-a:vt0p
-} arrayref_foreach{n:int} (
-  A: arrayref (a, n), asz: size_t (n)
+fun
+{a:vt0p}
+arrayref_foreach{n:int}
+(
+  A: arrayref(a, n), asz: size_t(n)
 ) : sizeLte(n) // end of [arrayref_foreach]
-fun{
-a:vt0p}{env:vt0p
-} arrayref_foreach_env{n:int} (
-  A: arrayref (a, n), asz: size_t (n), env: &(env)>>env
+fun
+{a:vt0p}
+{env:vt0p}
+arrayref_foreach_env{n:int}
+(
+  A: arrayref(a, n), asz: size_t(n), env: &env >> _
 ) : sizeLte(n) // end of [arrayref_foreach_env]
 
 (* ****** ****** *)
 
 (*
-fun{a:vt0p}{env:vt0p}
-array_iforeach$cont (i: size_t, x: &a, env: &env): void
-fun{a:vt0p}{env:vt0p}
-array_iforeach$fwork (i: size_t, x: &a >> a, env: &(env) >> _): void
+fun
+{a:vt0p}
+{env:vt0p}
+array_iforeach$cont
+  (i: size_t, x: &a, env: &env): void
+fun
+{a:vt0p}
+{env:vt0p}
+array_iforeach$fwork
+  (i: size_t, x: &a >> a, env: &(env) >> _): void
 *)
-fun{
-a:vt0p
-} arrayref_iforeach{n:int} (
+fun
+{a:vt0p}
+arrayref_iforeach{n:int}
+(
   A: arrayref (INV(a), n), asz: size_t (n)
 ) : sizeLte(n) // end of [arrayref_iforeach]
-fun{
-a:vt0p}{env:vt0p
-} arrayref_iforeach_env{n:int} (
+fun
+{a:vt0p}
+{env:vt0p}
+arrayref_iforeach_env{n:int}
+(
   A: arrayref (INV(a), n), asz: size_t (n), env: &(env)>>env
 ) : sizeLte(n) // end of [arrayref_iforeach_env]
 

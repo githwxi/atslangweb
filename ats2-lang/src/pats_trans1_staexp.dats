@@ -588,19 +588,29 @@ of (* case+ *)
       FXITMatm (s1e_lam)
     end // end of [S0Elam]
   | S0Eimp tags => let
-      val (ofc, lin, prf, efc) = e0fftaglst_tr (tags)
-      val fc = (case+ ofc of
-        | Some fc => fc | None => FUNCLOfun () // default is [function]
+      val
+      (
+        ofc, lin, prf, efc
+      ) = e0fftaglst_tr (tags)
+//
+      val fc =
+      (
+        case+ ofc of
+        | Some(fc) => fc | None() => FUNCLOfun () // default is [function]
       ) : funclo // end of [val]
 (*
       val () = begin
         print "s0exp_tr: S0Eimp: efc = "; print_effcst efc; print_newline ()
       end // end of [val]
 *)
-      val-~Some_vt (f) = the_fxtyenv_find (MINUSGT)
-      val s1e_imp = s1exp_imp (loc0, fc, lin, prf, Some efc)
+//
+      val-
+      ~Some_vt(f) =
+      the_fxtyenv_find(MINUSGT)
+      val s1e_imp = s1exp_imp(loc0, fc, lin, prf, Some efc)
+//
     in
-      s1exp_make_opr (s1e_imp, f)
+      s1exp_make_opr(s1e_imp, f)
     end // end of [S0Eimp]
 //
   | S0Elist (s0es) => let
@@ -640,8 +650,8 @@ of (* case+ *)
       fn f (
         body: s1exp
       ) :<cloref1> s1expitm = let
-        val loc = loc0 + body.s1exp_loc in
-        FXITMatm (s1exp_uni (loc, s1qs, body))
+        val loc1 = loc0 + body.s1exp_loc in
+        FXITMatm (s1exp_uni (loc1, s1qs, body))
       end // end of [f]
     in
       FXITMopr (loc0, FXOPRpre (uni_prec_sta, f))
@@ -654,8 +664,8 @@ of (* case+ *)
       fn f (
         body: s1exp
       ) :<cloref1> s1expitm = let
-        val loc = loc0 + body.s1exp_loc in
-        FXITMatm (s1exp_exi (loc0, knd, s1qs, body))
+        val loc1 = loc0 + body.s1exp_loc in
+        FXITMatm (s1exp_exi (loc1, knd, s1qs, body))
       end // end of [f]
     in
       FXITMopr (loc0, FXOPRpre (exi_prec_sta, f))

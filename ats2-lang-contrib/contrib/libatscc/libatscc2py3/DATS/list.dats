@@ -24,7 +24,10 @@ ATS_STATIC_PREFIX "_ats2pypre_list_"
 from ats2pypre_basics_cats import *
 ######
 from ats2pypre_integer_cats import *
+######
 from ats2pypre_bool_cats import *
+######
+from ats2pypre_PYlist_cats import *
 ######
 %} // end of [%{^]
 
@@ -52,10 +55,26 @@ staload "./../SATS/print.sats"
 staload "./../SATS/filebas.sats"
 //
 (* ****** ****** *)
-
+//
 staload "./../SATS/list.sats"
+//
+(* ****** ****** *)
+//
+staload "./../SATS/stream.sats"
+staload _ = "./../DATS/stream.dats"
+//
+staload "./../SATS/stream_vt.sats"
+staload _ = "./../DATS/stream_vt.dats"
+//
+(* ****** ****** *)
+//
 staload "./../SATS/PYlist.sats"
-
+//
+(* ****** ****** *)
+//
+#define ATSCC_STREAM 1
+#define ATSCC_STREAM_VT 1
+//
 (* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"
@@ -64,7 +83,7 @@ staload "./../SATS/PYlist.sats"
 //
 implement
 {a}(*tmp*)
-print_list (xs) = fprint_list<a> (stdout, xs)
+print_list(xs) = fprint_list<a> (stdout, xs)
 implement
 {a}(*tmp*)
 print_list_sep
@@ -73,13 +92,12 @@ print_list_sep
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 PYlist_oflist{a}(xs) = let
 //
 fun
 aux
 (
-  xs: List0(a), res: PYlist(a)
+  xs: List(a), res: PYlist(a)
 ) : PYlist(a) =
   case+ xs of
   | list_nil() => res
@@ -92,14 +110,15 @@ in
   aux(xs, PYlist_nil())
 end // end of [PYlist_oflist]
 
+(* ****** ****** *)
+
 implement
-{}(*tmp*)
 PYlist_oflist_rev{a}(xs) = let
 //
 fun
 aux
 (
-  xs: List0(a), res: PYlist(a)
+  xs: List(a), res: PYlist(a)
 ) : PYlist(a) =
   case+ xs of
   | list_nil() => res
@@ -110,6 +129,38 @@ aux
 in
   aux(xs, PYlist_nil())
 end // end of [PYlist_oflist_rev]
+
+(* ****** ****** *)
+
+implement
+list_sort_2
+  {a}{n}(xs, cmp) = let
+//
+val xs =
+  PYlist_oflist{a}(xs)
+val () =
+  PYlist_sort_2(xs, cmp)
+//
+val asz = PYlist_length(xs)
+//
+fun
+loop (
+  i0: int, res: List0(a)
+) : List0(a) =
+(
+//
+if
+(i0 < asz)
+then (
+  loop(i0+1, list_cons(xs.pop(), res))
+) else res
+// end of [if]
+//
+) (* end of [loop] *)
+//
+in
+  $UN.cast{list(a,n)}(loop(0, list_nil(*void*)))
+end // end of [list_sort_2]
 
 (* ****** ****** *)
 
