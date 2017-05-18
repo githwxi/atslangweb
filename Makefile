@@ -3,13 +3,6 @@
 # Makefile for atslangweb
 #
 ######
-
-###### beg of [Makefile] ######
-#
-SOURCE=\
-${PATSHOME}/doc/PROJECT/MEDIUM/ats2langweb
-#
-######
 #
 CPF=cp -f
 RMF=rm -f
@@ -20,6 +13,11 @@ MAKE=make
 all:: ; \
 $(MAKE) -C ${SOURCE}
 
+######
+#
+SOURCE=\
+${PATSHOME}/doc/PROJECT/MEDIUM/ats2langweb
+#
 ######
 
 all:: Home
