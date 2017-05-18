@@ -1,19 +1,24 @@
+######
 #
 # Makefile for atslangweb
 #
+######
 
 ###### beg of [Makefile] ######
-
-SOURCE=${PATSHOME}/doc/PROJECT/MEDIUM/ats2langweb
-
+#
+SOURCE=\
+${PATSHOME}/doc/PROJECT/MEDIUM/ats2langweb
+#
 ######
-
+#
 CPF=cp -f
 RMF=rm -f
-
+MAKE=make
+#
 ######
 
-all:: ; make -C ${SOURCE}
+all:: ; \
+$(MAKE) -C ${SOURCE}
 
 ######
 
