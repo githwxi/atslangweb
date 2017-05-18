@@ -514,11 +514,19 @@ d1exp_s0tring (loc, x) = d1exp_make (loc, D1Es0tring (x))
 //
 implement
 d1exp_cstsp
-  (loc, x) = d1exp_make (loc, D1Ecstsp (x))
+  (loc, x) = d1exp_make(loc, D1Ecstsp(x))
+//
+(* ****** ****** *)
+//
+implement
+d1exp_tyrep
+  (loc, s1e) = d1exp_make(loc, D1Etyrep(s1e))
+//
+(* ****** ****** *)
 //
 implement
 d1exp_literal
-  (loc, x) = d1exp_make (loc, D1Eliteral (x))
+  (loc, lit) = d1exp_make(loc, D1Eliteral(lit))
 //
 (* ****** ****** *)
 //
@@ -1244,22 +1252,29 @@ implement
 d1ecl_sexpdefs(loc, knd, xs) =
   d1ecl_make_node(loc, D1Csexpdefs (knd, xs))
 //
+(* ****** ****** *)
+//
 implement
 d1ecl_saspdec(loc, x) =
-  d1ecl_make_node (loc, D1Csaspdec (x))
+  d1ecl_make_node(loc, D1Csaspdec(x))
+//
+//
+implement
+d1ecl_reassume(loc, x) =
+  d1ecl_make_node(loc, D1Creassume(x))
 //
 (* ****** ****** *)
+//
+implement
+d1ecl_exndecs(loc, d1cs) =
+  d1ecl_make_node(loc, D1Cexndecs(d1cs))
+// end of [d1ecl_exndecs]
 //
 implement
 d1ecl_datdecs
   (loc, knd, _datdec, _sexpdef) =
   d1ecl_make_node(loc, D1Cdatdecs(knd, _datdec, _sexpdef))
 // end of [d1ecl_datdec]
-//
-implement
-d1ecl_exndecs(loc, d1cs) =
-  d1ecl_make_node (loc, D1Cexndecs(d1cs))
-// end of [d1ecl_exndecs]
 //
 (* ****** ****** *)
 //

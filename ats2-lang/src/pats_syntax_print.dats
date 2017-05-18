@@ -150,10 +150,17 @@ fprint_s0taq (out, x) =
       val () = fprint_symbol (out, sym)
       val () = fprint_string (out, ".")
     }
-  | S0TAQsymcolon (sym) => {
+(*
+//
+// HX-2017-01-24:
+// it is never in use
+//
+  | S0TAQsymcolon(sym) =>
+    {
       val () = fprint_symbol (out, sym)
       val () = fprint_string (out, ":")
     }
+*)
 // end of [fprint_s0taq]
 
 implement print_s0taq (x) = fprint_s0taq (stdout_ref, x)
@@ -168,46 +175,74 @@ fprint_sqi0de (out, x) = {
 (* ****** ****** *)
 
 implement
-fprint_d0ynq (out, x) =
-  case+ x.d0ynq_node of
-  | D0YNQnone () => ()
-  | D0YNQsymdot (sym) => {
-      val () = fprint_symbol (out, sym)
-      val () = fprint_string (out, ".")
-    }
-  | D0YNQsymcolon (sym) => {
-      val () = fprint_symbol (out, sym)
-      val () = fprint_string (out, ":")
-    }
-  | D0YNQsymdotcolon (sym1, sym2) => {
-      val () = fprint_symbol (out, sym1)
-      val () = fprint_symbol (out, sym2)
-      val () = fprint_string (out, ":")
-    }
-// end of [fprint_d0ynq]
-
-implement print_d0ynq (x) = fprint_d0ynq (stdout_ref, x)
-implement prerr_d0ynq (x) = fprint_d0ynq (stderr_ref, x)
-
+fprint_d0ynq
+  (out, x) =
+(
+case+
+x.d0ynq_node
+of // case+
+| D0YNQnone() => ()
+| D0YNQsymdot(sym) =>
+  {
+    val () = fprint_symbol(out, sym)
+    val () = fprint_string(out, ".")
+  }
+(*
+//
+// HX-2017-01-24:
+// removed due to no use
+//
+| D0YNQsymcolon
+    (sym) =>
+  {
+    val () = fprint_symbol (out, sym)
+    val () = fprint_string (out, ":")
+  }
+| D0YNQsymdotcolon
+    (sym1, sym2) =>
+  {
+    val () = fprint_symbol (out, sym1)
+    val () = fprint_symbol (out, sym2)
+    val () = fprint_string (out, ":")
+  }
+*)
+) (* end of [fprint_d0ynq] *)
+//
 implement
-fprint_dqi0de (out, x) = {
-  val () = fprint_d0ynq (out, x.dqi0de_qua)
-  val () = fprint_symbol (out, x.dqi0de_sym)
+print_d0ynq(x) = fprint_d0ynq(stdout_ref, x)
+implement
+prerr_d0ynq(x) = fprint_d0ynq(stderr_ref, x)
+//
+(* ****** ****** *)
+//
+implement
+fprint_dqi0de(out, x) =
+{
+  val () = fprint_d0ynq(out, x.dqi0de_qua)
+  val () = fprint_symbol(out, x.dqi0de_sym)
 } // end of [fprint_dqi0de]
-
-implement print_dqi0de (x) = fprint_dqi0de (stdout_ref, x)
-implement prerr_dqi0de (x) = fprint_dqi0de (stderr_ref, x)
-
+//
+implement
+print_dqi0de(x) = fprint_dqi0de(stdout_ref, x)
+implement
+prerr_dqi0de(x) = fprint_dqi0de(stderr_ref, x)
+//
 (* ****** ****** *)
 
 implement
-fprint_p0rec (out, x) = let
-  macdef prstr (str) = fprint_string (out, ,(str))
+fprint_p0rec
+  (out, p0rec) = let
+//
+macdef
+prstr(x) = fprint_string(out, ,(x))
+//
 in
-  case+ x of
-  | P0RECint int => prstr "P0RECint(...)"
-  | P0RECi0de (id) => prstr "P0RECi0de(...)"
-  | P0RECi0de_adj _ => prstr "P0RECi0de_adj(...)" 
+//
+case+ p0rec of
+| P0RECint(i0) => prstr "P0RECint(...)"
+| P0RECi0de(id) => prstr "P0RECi0de(...)"
+| P0RECi0de_adj _ => prstr "P0RECi0de_adj(...)" 
+//
 end // end of [fprint_p0rec]
 
 (* ****** ****** *)
@@ -901,11 +936,21 @@ case+ x.d0exp_node of
     val () = fprint_s0tring (out, x)
     val () = prstr ")"
   }
+//
+(*
+| D0Etop () => prstr "D0Etop()"
+*)
 | D0Eempty () => prstr "D0Eempty()"
 //
 | D0Ecstsp (x) => {
     val () = prstr "D0Ecstsp("
     val () = fprint_cstsp (out, x)
+    val () = prstr ")"
+  }
+//
+| D0Etyrep (x) => {
+    val () = prstr "D0Etyrep("
+    val () = fprint_s0exp (out, x)
     val () = prstr ")"
   }
 //
@@ -915,23 +960,14 @@ case+ x.d0exp_node of
     val () = prstr ")"
   }
 //
-| D0Elet _ => {
-    val () = prstr "D0Elet("
-    val () = prstr "..."
-    val () = prstr ")"
-  }
-| D0Edeclseq _ => {
-    val () = prstr "D0Edeclseq("
-    val () = prstr "..."
-    val () = prstr ")"
-  }
-| D0Ewhere _ => {
-    val () = prstr "D0Ewhere("
-    val () = prstr "..."
-    val () = prstr ")"
-  }
+| D0Elet _ => prstr "D0Elet(...)"
+| D0Ewhere _ => prstr "D0Ewhere(...)"
+| D0Edeclseq _ => prstr "D0Edeclseq(...)"
 //
-| D0Eapp (_fun, _arg) => {
+| D0Eapp
+  (
+    _fun, _arg
+  ) => {
     val () = prstr "D0Eapp("
     val () = fprint_d0exp (out, _fun)
     val () = prstr "; "
@@ -939,7 +975,10 @@ case+ x.d0exp_node of
     val () = prstr ")"
   }
 //
-| D0Elist (npf, d0es) => {
+| D0Elist
+  (
+    npf, d0es
+  ) => {
     val () = prstr "D0Elist("
     val () = fprint_int (out, npf)
     val () = prstr "; "
@@ -1360,18 +1399,31 @@ of // case+
 *)
 | D0Ctkindef(x) =>
   {
-    val () = prstr "D0Ctkindef(...)"
+    val () =
+      prstr "D0Ctkindef(...)"
+    // end of [val]
   }
 | D0Csexpdefs
-    (knd, xs) => {
-    val () = prstr "D0Csexpdefs("
-    val () = fprint! (out, knd, "; ", "...")
+    (knd, xs) =>
+  {
+    val () =
+      prstr "D0Csexpdefs("
+    // end of [val]
+    val () =
+      fprint! (out, knd, "; ", "...")
+    // end of [val]
     val ((*closing*)) = prstr ")"
   }
+//
 | D0Csaspdec(x) =>
   {
     val () = prstr "D0Csaspdec(...)"
   }
+| D0Creassume(x) =>
+  {
+    val () = prstr "D0Creassume(...)"
+  }
+//
 | D0Cexndecs(xs) =>
   {
     val () = prstr "D0Cexndecs(...)"

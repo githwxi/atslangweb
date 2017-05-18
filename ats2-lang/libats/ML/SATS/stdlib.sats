@@ -28,8 +28,8 @@
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
 (* Start time: June, 2013 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
 
 (* ****** ****** *)
 
@@ -57,16 +57,38 @@ getenv_opt (name: NSH(string)): option0 (string)
 //
 fun{}
 setenv_exn
-  (name: NSH(string), value: NSH(string), overwrite: int): void
+(
+  name: NSH(string), value: NSH(string), overwrite: int
+) : void // end of [setenv_exn]
 //
 fun{}
 setenv_err
-  (name: NSH(string), value: NSH(string), overwrite: int): int(*err*)
+(
+  name: NSH(string), value: NSH(string), overwrite: int
+) : int(*err*) // end of [setenv_err]
+//
+(* ****** ****** *)
+//
+// HX:
+// Default implementation
+// is based on STDLIB.random
+//
+fun{}
+randint{n:pos}(n: int(n)): natLt(n)
 //
 (* ****** ****** *)
 //
 fun{}
-randint{n:pos}(n: int(n)): [r:nat | r < n] int(r)
+streamize_random((*void*)): stream_vt(intGte(0))
+fun{}
+streamize_randint{n:pos}(int(n)): stream_vt(natLt(n))
+//
+(* ****** ****** *)
+//
+(*
+fun{}
+streamize_random_r(seed: uint): stream_vt(intGte(0))
+*)
 //
 (* ****** ****** *)
 

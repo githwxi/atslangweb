@@ -46,6 +46,7 @@
 #define atsbool_false 0
 //
 #define atsptr_null ((void*)0)
+#define the_atsptr_null ((void*)0)
 //
 /* ****** ****** */
 //

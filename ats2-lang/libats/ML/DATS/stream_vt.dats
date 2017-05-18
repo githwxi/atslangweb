@@ -75,6 +75,14 @@ stream_vt_foreach_method
 llam(fwork) => stream_vt_foreach_cloptr<a>(xs, fwork)
 )
 //
+implement
+{a}(*tmp*)
+stream_vt_rforeach_method
+  (xs) =
+(
+llam(fwork) => stream_vt_rforeach_cloptr<a>(xs, fwork)
+)
+//
 (* ****** ****** *)
 //
 implement
@@ -83,6 +91,24 @@ stream_vt_iforeach_method
   (xs) =
 (
 llam(fwork) => stream_vt_iforeach_cloptr<a>(xs, fwork)
+)
+//
+(* ****** ****** *)
+//
+implement
+{res}{a}
+stream_vt_foldleft_method
+  (xs, _(*TYPE*)) =
+(
+llam(ini, fwork) => stream_vt_foldleft_cloptr<res><a>(xs, ini, fwork)
+)
+//
+implement
+{res}{a}
+stream_vt_ifoldleft_method
+  (xs, _(*TYPE*)) =
+(
+llam(ini, fwork) => stream_vt_ifoldleft_cloptr<res><a>(xs, ini, fwork)
 )
 //
 (* ****** ****** *)

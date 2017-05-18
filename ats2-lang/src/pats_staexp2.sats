@@ -632,7 +632,7 @@ s2cst_make
 , isabs: Option(s2expopt)
 , iscon: bool
 , isrec: bool
-, isasp: bool
+, isasp: s2expopt
 , islst: Option@(d2con(*nil*), d2con(*cons*))
 , argsrtss: List(syms2rtlst) // HX: containing info on arg variances
 , s2cstdef: s2expopt
@@ -662,17 +662,25 @@ fun s2cst_set_def (x: s2cst, def: s2expopt): void
 
 fun s2cst_get_pack (x: s2cst): Stropt
 
-fun s2cst_get_isabs (x: s2cst): Option (s2expopt)
+fun s2cst_get_isabs (x: s2cst): Option(s2expopt)
+(*
+//
+// HX-2017-02-01:
+// This one is for internal use!
+//
+fun s2cst_set_isabs (x: s2cst, opt: s2expopt): void
+//
+*)
 
 fun s2cst_get_iscon (x: s2cst): bool
 
 fun s2cst_get_isrec (x: s2cst): bool
 
-fun s2cst_get_isasp (x: s2cst): bool
-fun s2cst_set_isasp (x: s2cst, asp: bool): void
+fun s2cst_get_isasp (x: s2cst): s2expopt
+fun s2cst_set_isasp (x: s2cst, opt: s2expopt): void
 
 fun s2cst_get_iscpy (x: s2cst): s2cstopt
-fun s2cst_set_iscpy (x: s2cst, cpy: s2cstopt): void
+fun s2cst_set_iscpy (x: s2cst, opt: s2cstopt): void
 
 fun s2cst_get_islst (x: s2cst): Option @(d2con, d2con)
 fun s2cst_set_islst (x: s2cst, lst: Option @(d2con, d2con)): void
@@ -923,12 +931,19 @@ fun s2Var_set_ubs (s2V: s2Var, ubs: s2VarBoundlst): void
 fun s2Var_get_stamp (s2V: s2Var):<> stamp
 
 (* ****** ****** *)
-
+//
 fun s2VarBound_make
   (loc: location, s2f: s2exp): s2VarBound
 fun s2VarBound_get_loc (x: s2VarBound): location
 fun s2VarBound_get_val (x: s2VarBound): s2exp
-
+//
+(* ****** ****** *)
+//
+fun s2Var_lb_insert
+  (loc: location, s2V: s2Var, s2e: s2exp): void
+fun s2Var_ub_insert
+  (loc: location, s2V: s2Var, s2e: s2exp): void
+//
 (* ****** ****** *)
 
 fun lt_s2Var_s2Var (x1: s2Var, x2: s2Var):<> bool
@@ -1111,28 +1126,35 @@ fun s2exp_var (x: s2var): s2exp // HX: static variable
 fun s2exp_Var (x: s2Var): s2exp // HX: static existential variable
 fun s2exp_hole (x: s2hole): s2exp // HX: static context hole
 
+(* ****** ****** *)
 (*
 ** HX: please be cautious!
 *)
 fun s2exp_var_srt (s2t: s2rt, s2v: s2var): s2exp
 
-fun s2exp_extype_srt
+(* ****** ****** *)
+//
+fun
+s2exp_extype_srt
   (s2t: s2rt, name: string, arg: s2explstlst): s2exp
 // end of [s2exp_extype_srt]
-fun s2exp_extkind_srt
+fun
+s2exp_extkind_srt
   (s2t: s2rt, name: string, arg: s2explstlst): s2exp
 // end of [s2exp_extkind_srt]
 
 (* ****** ****** *)
-
-fun s2exp_at
+//
+fun
+s2exp_at
   (s2e1: s2exp, s2e2: s2exp): s2exp
 // end of [s2exp_at]
-
+//
 (* ****** ****** *)
-
-fun s2exp_sizeof (s2e_type: s2exp): s2exp
-
+//
+fun
+s2exp_sizeof (s2e_type: s2exp): s2exp
+//
 (* ****** ****** *)
 
 fun s2exp_eff (s2fe: s2eff): s2exp

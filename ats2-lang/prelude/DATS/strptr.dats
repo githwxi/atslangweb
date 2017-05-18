@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/strptr.atxt
-** Time of generation: Sun Oct  2 10:33:54 2016
+** Time of generation: Wed May  3 17:36:18 2017
 *)
 
 (* ****** ****** *)
@@ -40,9 +40,11 @@
 (* Start time: April, 2012 *)
 
 (* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0 // no dynloading at run-time
-
+//
+// HX:
+#define // there is no need
+ATS_DYNLOADFLAG 0 // for dynloading
+//
 (* ****** ****** *)
 
 staload UN = "prelude/SATS/unsafe.sats"

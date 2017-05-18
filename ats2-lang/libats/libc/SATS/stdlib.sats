@@ -47,7 +47,8 @@ ATS_PACKNAME "ATSLIB.libats.libc"
 //
 // HX: prefix for external names
 //
-#define ATS_EXTERN_PREFIX "atslib_libc_"
+#define
+ATS_EXTERN_PREFIX "atslib_libats_libc_"
 //
 (* ****** ****** *)
 
@@ -66,8 +67,8 @@ typedef wchar_t = $STDDEF.wchar_t
 //
 (* ****** ****** *)
 
-macdef EXIT_FAILURE = $extval (int, "EXIT_FAILURE")
-macdef EXIT_SUCCESS = $extval (int, "EXIT_SUCCESS")
+macdef EXIT_FAILURE = $extval(int, "EXIT_FAILURE")
+macdef EXIT_SUCCESS = $extval(int, "EXIT_SUCCESS")
 
 (* ****** ****** *)
 
@@ -93,52 +94,53 @@ fun atexit
 /*
 void abort(void);
 */
-fun abort ((*void*)): void = "mac#%"
+fun abort((*void*)): void = "mac#%"
 
 (* ****** ****** *)
 
 /*
-int abs (int)
+int abs(int)
 */
-fun abs (int):<> int = "mac#%"
+fun abs(int):<> int = "mac#%"
 /*
 long int labs(long int j);
 */
-fun labs (lint):<> lint = "mac#%"
+fun labs(lint):<> lint = "mac#%"
 /*
 long long int llabs(long long int j);
 */
-fun llabs (lint):<> llint = "mac#%"
+fun llabs(lint):<> llint = "mac#%"
 
 (* ****** ****** *)
 
 /*
 div_t div(int, int);
 */
-fun div (int, int):<> div_t
+fun div(int, int):<> div_t
 /*
 ldiv_t ldiv(long, long);
 */
-fun ldiv (lint, lint):<> ldiv_t
+fun ldiv(lint, lint):<> ldiv_t
 /*
 lldiv_t lldiv(long long, long long);                              
 */
-fun lldiv (llint, llint):<> lldiv_t
+fun lldiv(llint, llint):<> lldiv_t
 
 (* ****** ****** *)
 
 /*
 long a64l(const char *);
 */
-fun a64l (x: NSH(string)):<> lint = "mac#%"
+fun a64l(x: NSH(string)):<> lint = "mac#%"
 
 /*
 char *l64a(long value); // not defined for a negative value
 */
 fun l64a
-  {i:nat} (
+  {i:nat}
+(
   x: lint i
-) :<!refwrt> [l:agz] vttakeout0 (strptr l) = "mac#%"
+) :<!refwrt> [l:agz] vttakeout0(strptr(l)) = "mac#%"
 // end of [l64a]
 
 (* ****** ****** *)
@@ -146,120 +148,152 @@ fun l64a
 /*
 int atoi(const char *);
 */
-fun atoi (x: NSH(string)):<> int = "mac#%"
+fun atoi(x: NSH(string)):<> int = "mac#%"
 
 /*
 long atol(const char *);
 */
-fun atol (x: NSH(string)):<> lint = "mac#%"
+fun atol(x: NSH(string)):<> lint = "mac#%"
 
 /*
 long long atoll(const char *);
 */
-fun atoll (x: NSH(string)):<> llint = "mac#%"
+fun atoll(x: NSH(string)):<> llint = "mac#%"
                                           
+(* ****** ****** *)
+
 /*
 double atof(const char *);
 */
-fun atof (x: NSH(string)):<> double = "mac#%"
+fun atof(x: NSH(string)):<> double = "mac#%"
 
 (* ****** ****** *)
-
+//
 /*
-long int strtol(const char *nptr, char **endptr, int base);
+long int
+strtol(const char *nptr, char **endptr, int base);
 */
-symintr strtol
 fun strtol0
-  (nptr: string, base: intBtwe (2, 36)):<!wrt> lint = "mac#%"
-overload strtol with strtol0
+  (nptr: string, base: intBtwe(2, 36)):<!wrt> lint = "mac#%"
 fun strtol1
-  (nptr: string, endptr: &ptr? >> _, base: intBtwe (2, 36)):<!wrt> lint = "mac#%"
-overload strtol with strtol1
+  (nptr: string, endptr: &ptr? >> _, base: intBtwe(2, 36)):<!wrt> lint = "mac#%"
 fun strtol_unsafe
   (nptr: string, endptr: ptr, base: int):<!wrt> lint = "mac#%"
 // end of [strtol_unsafe]
+//
+symintr strtol
+overload strtol with strtol0
+overload strtol with strtol1
+//
 /*
-long long int strtoll(const char *nptr, char **endptr, int base);
+long long int
+strtoll(const char *nptr, char **endptr, int base);
 */
-symintr strtoll
 fun strtoll0
-  (nptr: string, base: intBtwe (2, 36)):<!wrt> llint
-overload strtoll with strtoll0
+  (nptr: string, base: intBtwe(2, 36)):<!wrt> llint
 fun strtoll1
-  (nptr: string, endptr: &ptr? >> _, base: intBtwe (2, 36)):<!wrt> llint
-overload strtoll with strtoll1
+  (nptr: string, endptr: &ptr? >> _, base: intBtwe(2, 36)):<!wrt> llint
 fun strtoll_unsafe
   (nptr: string, endptr: ptr, base: int):<!wrt> llint
 // end of [strtoll_unsafe]
-
+//
+symintr strtoll
+overload strtoll with strtoll0
+overload strtoll with strtoll1
+//
 (* ****** ****** *)
-
+//
 /*
-unsigned long strtoul(const char *nptr, char **endptr, int base);
+unsigned long
+strtoul(const char *nptr, char **endptr, int base);
 */
-symintr strtoul
 fun strtoul0
-  (nptr: string, base: intBtwe (2, 36)):<!wrt> ulint
-overload strtoul with strtoul0
+  (nptr: string, base: intBtwe(2, 36)):<!wrt> ulint
 fun strtoul1
-  (nptr: string, endptr: &ptr? >> _, base: intBtwe (2, 36)):<!wrt> ulint
-overload strtoul with strtoul1
+  (nptr: string, endptr: &ptr? >> _, base: intBtwe(2, 36)):<!wrt> ulint
 fun strtoul_unsafe
   (nptr: string, endptr: ptr, base: int):<!wrt> ulint
 // end of [strtoul_unsafe]
+//
+symintr strtoul
+overload strtoul with strtoul0
+overload strtoul with strtoul1
+//
 /*
-unsigned long long strtoull(const char *nptr, char **endptr, int base);
+unsigned long long
+strtoull(const char *nptr, char **endptr, int base);
 */
-symintr strtoull
 fun strtoull0
-  (nptr: string, base: intBtwe (2, 36)):<!wrt> ullint
-overload strtoull with strtoull0
+  (nptr: string, base: intBtwe(2, 36)):<!wrt> ullint
 fun strtoull1
-  (nptr: string, endptr: &ptr? >> _, base: intBtwe (2, 36)):<!wrt> ullint
-overload strtoull with strtoull1
+  (nptr: string, endptr: &ptr? >> _, base: intBtwe(2, 36)):<!wrt> ullint
 fun strtoull_unsafe
   (nptr: string, endptr: ptr, base: int):<!wrt> ullint
 // end of [strtoull_unsafe]
-
+//
+symintr strtoull
+overload strtoull with strtoull0
+overload strtoull with strtoull1
+//
 (* ****** ****** *)
-
 /*
-float strtof(const char *nptr, char **endptr);
+float
+strtof(const char *nptr, char **endptr);
 */
-symintr strtof
-fun strtof0 (nptr: string):<!wrt> float = "mac#%"
-overload strtof with strtof0
-fun strtof1
+fun
+strtof0
+  (nptr: string):<!wrt> float = "mac#%"
+fun
+strtof1
   (nptr: string, endptr: &ptr? >> _):<!wrt> float = "mac#%"
-overload strtof with strtof1
 fun strtof_unsafe
   (nptr: string, endptr: ptr):<!wrt> float = "mac#%"
 // end of [strtof_unsafe]
+//
+symintr strtof
+overload strtof with strtof0
+overload strtof with strtof1
+//
+(* ****** ****** *)
 /*
-double strtod(const char *nptr, char **endptr);
+double
+strtod(const char *nptr, char **endptr);
 */
-symintr strtod
-fun strtod0 (nptr: string):<!wrt> double = "mac#%"
-overload strtod with strtod0
-fun strtod1
+fun
+strtod0
+  (nptr: string):<!wrt> double = "mac#%"
+fun
+strtod1
   (nptr: string, endptr: &ptr? >> _):<!wrt> double = "mac#%"
-overload strtod with strtod1
-fun strtod_unsafe
+fun
+strtod_unsafe
   (nptr: string, endptr: ptr):<!wrt> double = "mac#%"
 // end of [strtod_unsafe]
+//
+symintr strtod
+overload strtod with strtod0
+overload strtod with strtod1
+//
+(* ****** ****** *)
 /*
-long double strtold(const char *nptr, char **endptr);
+long double
+strtold(const char *nptr, char **endptr);
 */
-symintr strtold
-fun strtold0 (nptr: string):<!wrt> ldouble = "mac#%"
-overload strtold with strtold0
-fun strtold1
+fun
+strtold0
+  (nptr: string):<!wrt> ldouble = "mac#%"
+fun
+strtold1
   (nptr: string, endptr: &ptr? >> _):<!wrt> ldouble = "mac#%"
-overload strtold with strtold1
-fun strtold_unsafe
+fun
+strtold_unsafe
   (nptr: string, endptr: ptr):<!wrt> ldouble = "mac#%"
 // end of [strtold_unsafe]
-
+//
+symintr strtold
+overload strtold with strtold0
+overload strtold with strtold1
+//
 (* ****** ****** *)
 
 (*
@@ -276,9 +310,9 @@ char *getenv(char *);
 fun getenv
 (
   name: NSH(string)
-) :<!ref> [l:addr] vttakeout0 (strptr l) = "mac#%"
+) :<!ref> [l:addr] vttakeout0(strptr(l)) = "mac#%"
 
-fun{} getenv_gc (name: NSH(string)):<!refwrt> Strptr0
+fun{} getenv_gc(name: NSH(string)):<!refwrt> Strptr0
 
 (* ****** ****** *)
 
@@ -330,16 +364,17 @@ fun srand (seed: uint):<!refwrt> void = "mac#%"
 fun rand_r (seed: &uint >> _):<> int = "mac#%"
 
 (* ****** ****** *)
+//
 /*
 long int random(void);
 */
 fun random((*void*)):<!refwrt> lint = "mac#%"
-
+//
 /*
 void srandom(unsigned int seed);
 */
 fun srandom(seed: uint):<!refwrt> void = "mac#%"
-
+//
 /*
 char
 *initstate
@@ -347,19 +382,20 @@ char
   unsigned int seed, char *state, size_t n
 ) ;
 */
-fun initstate_unsafe
+fun
+initstate_unsafe
 (
-  seed: uint, state: cPtr1 (char), n: sizeGte(8)
-) : cPtr0 (char) = "mac#%"
+  seed: uint, state: cPtr1(char), n: sizeGte(8)
+) : cPtr0(char) = "mac#%"
 // end of [initstate_unsafe]
-
+//
 /*
 char *setstate(char *state);
 */
 fun setstate_unsafe
-  (state: cPtr1 (char)):<!ref> cPtr0 (char) = "mac#%"
+  (state: cPtr1(char)):<!ref> cPtr0(char) = "mac#%"
 // end of [setstate_unsafe]
-
+//
 (* ****** ****** *)
 /*
 double drand48(void); // obsolete
@@ -448,64 +484,75 @@ fun qsort
 
 (* ****** ****** *)
 /*
-int mblen(const char *s, size_t n);
+int mblen(const char *s, size_t);
 */
-fun mblen_unsafe
-  (s: cPtr0 (char), n: size_t):<!refwrt> int = "mac#%"
+fun
+mblen_unsafe
+  (s: cPtr0(char), n: size_t):<!refwrt> int = "mac#%"
 // end of [mblen_unsafe]
 
 /*
 int wctomb(char *s, wchar_t wc);
 */
-fun wctomb_unsafe
-  (s: cPtr0 (char), wc: wchar_t):<!refwrt> int = "mac#%"
+fun
+wctomb_unsafe
+  (s: cPtr0(char), wc: wchar_t):<!refwrt> int = "mac#%"
 // end of [wctomb_unsafe]
 
 /*
-size_t wcstombs
-(
-  char *dest, const wchar_t *src, size_t n
-) ;
+size_t
+wcstombs(char *dest, const wchar_t *src, size_t);
 */
-fun wcstombs_unsafe
+fun
+wcstombs_unsafe
 (
-  dest: cPtr0 (char), src: cPtr1 (wchar_t), n: size_t
+  dest: cPtr0(char), src: cPtr1(wchar_t), n: size_t
 ) :<!refwrt> ssize_t = "mac#%" // endfun
 
 (* ****** ****** *)
 /*
 void setkey(const char *key);
 */
-fun setkey_unsafe (key: cPtr1 (char)):<!ref> void = "mac#%"
+fun setkey_unsafe (key: cPtr1(char)):<!ref> void = "mac#%"
 
 (* ****** ****** *)
 /*
 int mkstemp(char *template);
 */
-fun mkstemp {n:int | n >= 6}
-  (template: !strnptr (n)): int = "mac#%"
+fun
+mkstemp
+{n:int | n >= 6}
+  (template: !strnptr(n)): int = "mac#%"
 // end of [mkstemp] // endfun
-
+//
 /*
-int mkostemp (char *template, int flags);
+int mkostemp(char *template, int flags);
 */
-fun mkostemp {n:int | n >= 6}
-  (template: !strnptr (n), flags: int): int = "mac#%"
+fun
+mkostemp
+{n:int | n >= 6}
+  (template: !strnptr(n), flags: int): int = "mac#%"
 // end of [mkostemp] // endfun
-
+//
 (* ****** ****** *)
 /*
 int grantpt(int fd);
 */
 fun grantpt (fd: int): int = "mac#%"
-
+//
 (* ****** ****** *)
 
 dataview
-malloc_libc_v (addr, int) =
+malloc_libc_v
+  (addr, int) =
+  | {n:int}
+    malloc_libc_v_fail
+      (null, n)
+    // malloc_libc_v_fail
   | {l:agz}{n:int}
-    malloc_libc_v_succ (l, n) of (b0ytes (n) @ l, mfree_libc_v (l))
-  | {n:int} malloc_libc_v_fail (null, n)
+    malloc_libc_v_succ
+      (l(*addr*), n) of (b0ytes(n) @ l, mfree_libc_v(l))
+    // malloc_libc_v_succ
 // end of [malloc_libc_v]
 
 (* ****** ****** *)
@@ -519,34 +566,36 @@ malloc_libc
 [
   l:addr
 ] (
-  malloc_libc_v (l, n) | ptr l
+  malloc_libc_v(l, n) | ptr(l)
 ) = "mac#%" // end of [malloc]
 
 fun
 malloc_libc_exn
   {n:int}
 (
-  bsz: size_t n
+  bsz: size_t(n)
 ) :<!wrt>
 [
   l:addr | l > null
 ] (
-  b0ytes(n) @ l, mfree_libc_v l | ptr l
+  b0ytes(n)@l, mfree_libc_v(l) | ptr(l)
 ) = "mac#%" // end of [malloc_exn]
+
+(* ****** ****** *)
 
 fun mfree_libc
   {l:addr}{n:int}
 (
-  b0ytes(n) @ l, mfree_libc_v l | ptr l
-) :<!wrt> void = "mac#%" // endfun
+  b0ytes(n)@l, mfree_libc_v(l) | ptr(l)
+) :<!wrt> void = "mac#%" // end-of-fun
 
 (* ****** ****** *)
-
+//
 /*
 int system(const char *command);
 */
-fun system (command: NSH(string)): int = "mac#%"
-
+fun system(command: NSH(string)): int = "mac#%"
+//
 (* ****** ****** *)
 
 (* end of [stdlib.sats] *)

@@ -68,6 +68,13 @@ prelude_fileref_get_lines_stringlst = fileref_get_lines_stringlst
 
 (* ****** ****** *)
 
+macdef
+prelude_streamize_fileref_char = streamize_fileref_char
+macdef
+prelude_streamize_fileref_line = streamize_fileref_line
+
+(* ****** ****** *)
+
 staload "libats/ML/SATS/basis.sats"
 staload "libats/ML/SATS/list0.sats"
 staload "libats/ML/SATS/option0.sats"
@@ -91,14 +98,20 @@ end // end of [fileref_open_opt]
 (* ****** ****** *)
 
 implement
-fileref_get_line_charlst (filr) =
-  list0_of_list_vt (prelude_fileref_get_line_charlst (filr))
-// end of [fileref_get_line_charlst]
+fileref_get_line_charlst
+  (filr) =
+(
+list0_of_list_vt
+  (prelude_fileref_get_line_charlst (filr))
+) // end of [fileref_get_line_charlst]
 
 implement
-fileref_get_lines_charlstlst (filr) =
-  $UN.castvwtp0{list0(charlst0)} (prelude_fileref_get_lines_charlstlst (filr))
-// end of [fileref_get_lines_charlstlst]
+fileref_get_lines_charlstlst
+  (filr) =
+(
+$UN.castvwtp0{list0(charlst0)}
+  (prelude_fileref_get_lines_charlstlst (filr))
+) // end of [fileref_get_lines_charlstlst]
 
 (* ****** ****** *)
 
@@ -109,16 +122,80 @@ staload _(*anon*) = "prelude/DATS/strptr.dats"
 in (* in of [local] *)
 
 implement
-fileref_get_line_string (filr) =
-  strptr2string (prelude_fileref_get_line_string (filr))
-// end of [fileref_get_line_string]
+fileref_get_line_string
+  (filr) =
+(
+strptr2string
+  (prelude_fileref_get_line_string(filr))
+) // end of [fileref_get_line_string]
 
 implement
-fileref_get_lines_stringlst (filr) =
-  $UN.castvwtp0{list0(string)}(prelude_fileref_get_lines_stringlst (filr))
-// end of [fileref_get_lines_stringlst]
+fileref_get_lines_stringlst
+  (filr) =
+(
+$UN.castvwtp0{list0(string)}
+  (prelude_fileref_get_lines_stringlst(filr))
+) // end of [fileref_get_lines_stringlst]
 
 end // end of [local]
+
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+streamize_fileref_char
+  (filr) =
+  prelude_streamize_fileref_char(filr)
+//
+implement
+{}(*tmp*)
+streamize_fileref_line
+  (filr) =
+(
+$UN.castvwtp0{stream_vt(string)}
+  (prelude_streamize_fileref_line(filr))
+) // end of [streamize_fileref_line]
+//
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+streamize_fileref_word
+  (filr) =
+  auxmain(filr) where
+{
+//
+fun
+auxmain
+(
+  filr: FILEref
+) :
+stream_vt(string) =
+$ldelay (
+//
+let
+//
+  val
+  word =
+  fileref_get_word<>(filr)
+  val test = strptr_is_null(word)
+//
+  prval () = lemma_strptr_param(word)
+//
+in
+  if test
+    then let
+    prval () =
+      strptr_free_null(word) in stream_vt_nil()
+    // end of [prval]
+    end // end of [then]
+    else stream_vt_cons(strptr2string(word), auxmain(filr))
+  // end of [if]
+end // end of [let]
+//
+) (* end of [auxmain] *)
+//
+} (* end of [streamize_fileref_word] *)
 
 (* ****** ****** *)
 

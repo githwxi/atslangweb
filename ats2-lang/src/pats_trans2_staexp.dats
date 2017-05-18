@@ -60,41 +60,43 @@ staload "./pats_errmsg.sats"
 staload _(*anon*) = "./pats_errmsg.dats"
 //
 implement
-prerr_FILENAME<> () = prerr "pats_trans2_staexp"
+prerr_FILENAME<>
+(
+// argumentless
+) = prerr("pats_trans2_staexp")
 //
 (* ****** ****** *)
-
+//
 staload
 LOC = "./pats_location.sats"
-overload + with $LOC.location_combine
-
-(* ****** ****** *)
-
 staload
 LEX = "./pats_lexing.sats"
-typedef token = $LEX.token
-
-(* ****** ****** *)
-
+//
 staload
 SYM = "./pats_symbol.sats"
+//
+typedef token = $LEX.token
 typedef symbol = $SYM.symbol
+//
+overload + with $LOC.location_combine
 overload = with $SYM.eq_symbol_symbol
 overload print with $SYM.print_symbol
 overload prerr with $SYM.prerr_symbol
-
-
+//
+(* ****** ****** *)
+//
 staload
 SYN = "./pats_syntax.sats"
+//
 typedef s0taq = $SYN.s0taq
 typedef d0ynq = $SYN.d0ynq
 typedef i0delst = $SYN.i0delst
-
+//
 macdef
 prerr_sqid (sq, id) =
   ($SYN.prerr_s0taq ,(sq); $SYM.prerr_symbol ,(id))
 // end of [prerr_sqid]
-
+//
 (* ****** ****** *)
 
 staload "./pats_staexp1.sats"
@@ -113,32 +115,51 @@ staload "./pats_trans2_env.sats"
 #include "./pats_basics.hats"
 
 (* ****** ****** *)
-
+//
+macdef
+list_sing (x) =
+list_cons (,(x), list_nil)
+//
 #define :: list_cons
 #define l2l list_of_list_vt
-macdef list_sing (x) = list_cons (,(x), list_nil)
-
+//
 (* ****** ****** *)
-
+//
+overload fprint with fprint_s1arg
+overload fprint with fprint_s1var
+//
+(* ****** ****** *)
+//
 (*
 ** HX: static special identifier
 *)
-datatype staspecid = SPSIDarrow | SPSIDnone
-
-fun staspecid_of_sqid
-  (sq: s0taq, id: symbol): staspecid = begin
+datatype
+staspecid = SPSIDarrow | SPSIDnone
 //
-case+ sq.s0taq_node of
+fun
+staspecid_of_sqid
+(
+sq: s0taq, id: symbol
+) : staspecid =
+(
+//
+case+
+sq.s0taq_node
+of (* case *)
 | $SYN.S0TAQnone () =>
-    if id = $SYM.symbol_MINUSGT then SPSIDarrow () else SPSIDnone ()
-  // end of [S0TAQnone]
-| _ => SPSIDnone ()
+  (
+    if id = $SYM.symbol_MINUSGT
+      then SPSIDarrow(*void*) else SPSIDnone(*void*)
+    // end of [if]
+  ) // end of [S0TAQnone]
+| _ (*non-S0TAQnone*) => SPSIDnone(*void*)
 //
-end // end of [staspecid_of_sqid]
-
+) (* end of [staspecid_of_sqid] *)
+//
 (* ****** ****** *)
 
-fun effvar_tr
+fun
+effvar_tr
   (efv: effvar): s2exp = let
 //
 val loc = efv.i0de_loc
@@ -209,30 +230,45 @@ end // end of [effcst_tr]
 (* ****** ****** *)
 
 implement
-s1arg_trup (s1a) = let
+s1arg_trup(s1a) = let
 //
-val s2t = (
-  case+ s1a.s1arg_srt of
-  | Some s1t => s1rt_tr (s1t)
-  | None (
-    ) => S2RTVar (s2rtVar_make (s1a.s1arg_loc))
+val s2t =
+(
+case+
+s1a.s1arg_srt
+of // case+
+| Some (s1t) => s1rt_tr(s1t)
+| None ((*void*)) =>
+    S2RTVar(s2rtVar_make(s1a.s1arg_loc))
+  // end of [None]
 ) : s2rt // end of [val]
 //
 in
-  s2var_make_id_srt (s1a.s1arg_sym, s2t)
+  s2var_make_id_srt(s1a.s1arg_sym, s2t)
 end // end of [s1arg_trup]
 
 implement
 s1arglst_trup
-  (s1as) = l2l (list_map_fun (s1as, s1arg_trup))
+  (s1as) = l2l(list_map_fun(s1as, s1arg_trup))
 // end of [s1arglst_trup]
 
 (* ****** ****** *)
 
 implement
-s1arg_trdn (s1a, s2t0) = let
+s1arg_trdn
+  (s1a, s2t0) = let
 //
-fun auxerr
+(*
+val () =
+fprintln!
+  (stdout_ref, "s1a = ", s1a)
+val () =
+fprintln!
+  (stdout_ref, "s2t0 = ", s2t0)
+*)
+//
+fun
+auxerr
 (
   s1a: s1arg, s2t: s2rt, s2t0: s2rt
 ) : void = let
@@ -240,7 +276,9 @@ fun auxerr
 val () =
   prerr_error2_loc (s1a.s1arg_loc)
 //
-val () = filprerr_ifdebug "s1arg_trdn"
+val () =
+filprerr_ifdebug "s1arg_trdn"
+//
 val () = prerr! (": the argument is assigned the sort [", s2t)
 val () = prerrln! ("] but it is expected to accept a static term of the sort [", s2t0, "].")
 //
@@ -249,15 +287,19 @@ in
 end (* end of [auxerr] *)
 //
 in
-case+ s1a.s1arg_srt of
-| Some s1t => let
-    val s2t = s1rt_tr (s1t)
-    val okay = s2rt_ltmat1 (s2t0, s2t)
+case+
+s1a.s1arg_srt
+of (* case *)
+| None() =>
+    s2var_make_id_srt(s1a.s1arg_sym, s2t0)
+  // end of [None]
+| Some(s1t) => let
+    val s2t = s1rt_tr(s1t)
+    val okay = s2rt_ltmat1(s2t0, s2t)
     val () = if ~okay then auxerr (s1a, s2t, s2t0)
   in
-    s2var_make_id_srt (s1a.s1arg_sym, s2t0) // HX: yes, [s2t0] should be used!
+    s2var_make_id_srt(s1a.s1arg_sym, s2t0) // HX: yes, [s2t0] should be used!
   end // end of [Some]
-| None () => s2var_make_id_srt (s1a.s1arg_sym, s2t0)
 //
 end (* end of [s1arg_trdn] *)
 
@@ -831,33 +873,38 @@ case+ e0.e1xp_node of
     val+~list_vt_cons (x, xs1) = xs
     val () = xs := xs1
 //
-    prval pfu = unit_v ()
+  prval pfu = unit_v()
+//
     val es =
-      list_map_vclo<s1exp> {unit_v} (pfu | x.1, !p_clo) where {
+      list_map_vclo<s1exp>{unit_v}(pfu | x.1, !p_clo) where
+    {
       var !p_clo =
         @lam (pf: !unit_v | s1e: s1exp): e1xp => e1xp_make_s1exp (loc0, s1e)
       // end of [var]
-    } // end of [val]
-    prval unit_v () = pfu
+    } // end of [where] // end of [val]
 //
-    val e0 = e1xp_app (loc0, e0, loc0, l2l (es))
-    val e1 = e1xp_normalize (e0)
-    val s1e1 = s1exp_make_e1xp (loc0, e1)
+  prval unit_v () = pfu
+//
+    val es = l2l(es)
+    val e0 = e1xp_app(loc0, e0, loc0, es)
+    val e1 = e1xp_normalize(e0)
+    val s1e1 = s1exp_make_e1xp( loc0, e1 )
   in
-    s1exp_app_unwind (s1e1, xs)
+    s1exp_app_unwind( s1e1, xs )
   end // end of [E1XPfun]
-| _ => let
-    val e1 = e1xp_normalize (e0)
-    val s1e1 = s1exp_make_e1xp (loc0, e1)
+| _ (* non-E1XPfun *) => let
+    val e1 = e1xp_normalize(e0)
+    val s1e1 = s1exp_make_e1xp(loc0, e1)
   in
-    s1exp_app_unwind (s1e1, xs)
+    s1exp_app_unwind( s1e1, xs )
   end // end of [_]
 //
 end // end of [s1exp_app_unwind_e1xp]
 
 (* ****** ****** *)
 
-fun s1exp_trup_invar
+fun
+s1exp_trup_invar
 (
   refval: int, s1e: s1exp
 ) : s2exp = let

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/reference.atxt
-** Time of generation: Sun Oct  2 10:33:56 2016
+** Time of generation: Wed May  3 17:36:19 2017
 *)
 
 (* ****** ****** *)
@@ -47,14 +47,25 @@ ref = ref_make_elt<a>
 
 implement
 {a}(*tmp*)
-ref_make_elt (x0) = let
-  val (pfat, pfgc | p) = ptr_alloc<a> ()
-  prval () = mfree_gc_v_elim (pfgc)
-  val () = !p := x0 // initialization
+ref_make_elt
+  (x0) = let
+//
+val
+(pfat,pfgc|p) = ptr_alloc<a>()
+prval () = mfree_gc_v_elim(pfgc)
+//
 in
-  ref_make_viewptr (pfat | p)
+  !p := x0;
+  ref_make_viewptr{a}(pfat | p)
 end // end of [ref_make_elt]
 
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+ref_make_type_elt
+  (_type_, x) = ref_make_elt<a>(x)
+//
 (* ****** ****** *)
 
 implement

@@ -782,6 +782,7 @@ d2ecl_node =
 *)
 //
   | D2Csaspdec of s2aspdec (* for static assumption *)
+  | D2Creassume of s2cst(*abstype*) // for static re-assumption
 //
   | D2Cextype of (string(*name*), s2exp(*def*))
   | D2Cextvar of (string(*name*), d2exp(*def*))
@@ -845,6 +846,7 @@ and d2exp_node =
 //
   | D2Ecstsp of $SYN.cstsp // special constants
 //
+  | D2Etyrep of (s2exp) // $tyrep(...)
   | D2Eliteral of (d2exp) // $literal: int, float, string
 //
   | D2Eextval of (s2exp(*type*), string(*name*))
@@ -1274,6 +1276,14 @@ d2exp_cstsp
 (
   loc: location, cst: $SYN.cstsp
 ) : d2exp // end-of-function
+//
+(* ****** ****** *)
+//
+fun
+d2exp_tyrep
+  (loc: location, s2e: s2exp): d2exp
+//
+(* ****** ****** *)
 //
 fun
 d2exp_literal
@@ -1857,9 +1867,12 @@ fun d2ecl_stavars (loc: location, xs: s2tavarlst): d2ecl
 *)
 //
 (* ****** ****** *)
-
-fun d2ecl_saspdec (loc: location, dec: s2aspdec): d2ecl
-
+//
+fun
+d2ecl_saspdec(loc: location, d0: s2aspdec): d2ecl
+fun
+d2ecl_reassume(loc: location, s2c_abs: s2cst): d2ecl
+//
 (* ****** ****** *)
 //
 fun

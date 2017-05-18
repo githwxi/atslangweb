@@ -107,12 +107,15 @@ token_node =
   | T_TILDE of () // ~ // often for 'not', 'free', etc.
 //
 // HX: for absprop, abstype, abst@ype;
-  | T_ABSTYPE of (int) //  absview, absviewtype, absviewt@ype
+  | T_ABSTYPE of
+      (int) // absview, absvtype, absvt@ype
+//
+  | T_ASSUME of () // for implementing abstypes
+  | T_REASSUME of () // for re-assuming abstypes
 //
   | T_AS of () // as // for refas-pattern
   | T_AND of () // and
-  | T_ASSUME of () // assume // for implementing abstypes
-  | T_BEGIN of () // begin // opening a sequence
+  | T_BEGIN of () // begin // initiating a sequence
   | T_CASE of (caskind) // case, case-, case+, prcase
   | T_CLASSDEC of () // classdec
   | T_DATASORT of () // datasort
@@ -193,14 +196,15 @@ token_node =
 //
   | T_DLRARRPSZ of () // $arrpsz/$arrptrsize
 //
-  | T_DLRD2CTYPE of () // $d2ctype(foo)/foo<...>)
+  | T_DLRTYREP of () // $tyrep(SomeType)
+  | T_DLRD2CTYPE of () // $d2ctype(foo/foo<...>)
 //
   | T_DLREFFMASK of () // $effmask
   | T_DLREFFMASK_ARG of (int) // ntm(0), exn(1), ref(2), wrt(3), all(4)
 //
   | T_DLREXTERN of () // $extern
-  | T_DLREXTKIND of () // $extkind
   | T_DLREXTYPE of () // externally named type
+  | T_DLREXTKIND of () // $extkind
   | T_DLREXTYPE_STRUCT of () // externally named struct
 //
   | T_DLREXTVAL of () // externally named value

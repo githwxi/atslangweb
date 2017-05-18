@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Mon Sep  5 21:48:36 2016
+** Time of generation: Wed May  3 17:36:13 2017
 *)
 
 (* ****** ****** *)
@@ -57,28 +57,31 @@ sortdef t0p = t@ype and vt0p = viewt@ype
 //
 absvtype
 arrayptr_vt0ype_addr_int_vtype
-  (a:vt0ype+, l: addr, n: int) = ptr (l)
+  (a:vt0ype+, l: addr, n: int) = ptr(l)
 //
 stadef
 arrayptr = arrayptr_vt0ype_addr_int_vtype
+//
 vtypedef
 arrayptr
-  (a:vt0p, n:int) = [l:addr] arrayptr (a, l, n)
+  (a:vt0p, n:int) = [l:addr] arrayptr(a, l, n)
 //
 #endif
 
 (* ****** ****** *)
-
+//
 absvtype
 arrayptrout_vt0ype_addr_int_vtype
-  (a:t@ype, l: addr, n: int) = ptr (l)
-stadef arrayptrout = arrayptrout_vt0ype_addr_int_vtype
-
+  (a:t@ype, l: addr, n: int) = ptr(l)
+//
+stadef
+arrayptrout = arrayptrout_vt0ype_addr_int_vtype
+//
 (* ****** ****** *)
 
 praxi
 lemma_arrayptr_param{a:vt0p}
-  {l:addr}{n:int} (A: !arrayptr (a, l, n)): [n >= 0] void
+  {l:addr}{n:int} (A: !arrayptr(a, l, n)): [n >= 0] void
 // end of [lemma_arrayptr_param]
 
 (* ****** ****** *)
@@ -86,12 +89,12 @@ lemma_arrayptr_param{a:vt0p}
 castfn
 arrayptr_encode :
   {a:vt0p}{l:addr}{n:int}
-  (array_v (INV(a), l, n), mfree_gc_v l | ptr l) -<0> arrayptr (a, l, n)
+  (array_v(INV(a), l, n), mfree_gc_v(l) | ptr(l)) -<0> arrayptr(a, l, n)
 // end of [arrayptr_encode]
 castfn
 arrayptr_encode2 :
   {a:vt0p}{l:addr}{n:int}
-  @(array_v (INV(a), l, n), mfree_gc_v l | ptr l) -<0> arrayptr (a, l, n)
+  @(array_v(INV(a), l, n), mfree_gc_v(l) | ptr(l)) -<0> arrayptr(a, l, n)
 // end of [arrayptr_encode2]
 
 (* ****** ****** *)
@@ -99,12 +102,12 @@ arrayptr_encode2 :
 castfn
 arrayptr_objectify
   {a:vt0p}{l:addr}{n:int}
-  (array_v (INV(a), l, n) | ptr(l)):<> (mfree_ngc_v(l) | arrayptr(a, l, n))
+  (array_v(INV(a), l, n) | ptr(l)):<> (mfree_ngc_v(l) | arrayptr(a, l, n))
 // end of [arrayptr_objectify]
 castfn
 arrayptr_unobjectify
   {a:vt0p}{l:addr}{n:int}
-  (mfree_ngc_v(l) | arrayptr(INV(a), l, n)):<> (array_v (a, l, n) | ptr(l))
+  (mfree_ngc_v(l) | arrayptr(INV(a), l, n)):<> (array_v(a, l, n) | ptr(l))
 // end of [arrayptr_objectify]
 
 (* ****** ****** *)
@@ -112,10 +115,12 @@ arrayptr_unobjectify
 castfn
 arrayptr2ptr
   {a:vt0p}
-  {l:addr}{n:int} (A: !arrayptr (INV(a), l, n)):<> ptr (l)
+  {l:addr}{n:int}
+  (A: !arrayptr(INV(a), l, n)):<> ptr(l)
 castfn
 arrayptrout2ptr
-  {a:t0p}{l:addr}{n:int} (A: !arrayptrout (INV(a), l, n)):<> ptr (l)
+  {a:t0p}{l:addr}{n:int}
+  (A: !arrayptrout(INV(a), l, n)):<> ptr(l)
 //
 (* ****** ****** *)
 
@@ -123,14 +128,14 @@ praxi
 arrayptr_takeout
   {a:vt0p}{l:addr}{n:int}
 (
-  A: !arrayptr (INV(a), l, n) >> arrayptrout (a?, l, n)
-) : array_v (a, l, n) // end of [arrayptr_takeout]
+  A: !arrayptr(INV(a), l, n) >> arrayptrout(a?, l, n)
+) : array_v(a, l, n) // end of [arrayptr_takeout]
 
 praxi
 arrayptr_addback
   {a:vt0p}{l:addr}{n:int}
 (
-  pf: array_v (INV(a), l, n) | A: !arrayptrout (a?, l, n) >> arrayptr (a, l, n)
+  pf: array_v(INV(a), l, n) | A: !arrayptrout(a?, l, n) >> arrayptr(a, l, n)
 ) : void // end of [arrayptr_addback]
 
 (* ****** ****** *)
@@ -139,21 +144,21 @@ castfn
 arrayptr_takeout_viewptr
   {a:vt0p}{l:addr}{n:int}
 (
-  A: !arrayptr (INV(a), l, n) >> arrayptrout (a?, l, n)
-) : (array_v (a, l, n) | ptr l) // endfun
+  A: !arrayptr(INV(a), l, n) >> arrayptrout(a?, l, n)
+) : (array_v(a, l, n) | ptr(l)) // endfun
 
 (* ****** ****** *)
 
 castfn
 arrpsz_encode :
   {a:vt0p}{n:int}
-  @(arrayptr (INV(a), n), size_t n) -<0> arrpsz (a, n)
+  @(arrayptr(INV(a), n), size_t(n)) -<0> arrpsz(a, n)
 // end of [arrpsz_encode]
 
 castfn
 arrpsz_decode :
   {a:vt0p}{n:int}
-  arrpsz (INV(a), n) -<0> @(arrayptr (a, n), size_t n)
+  arrpsz(INV(a), n) -<0> @(arrayptr(a, n), size_t(n))
 // end of [arrpsz_decode]
 
 (* ****** ****** *)
@@ -162,8 +167,8 @@ fun
 arrpsz_get_ptrsize
   {a:vt0p}{n:int}
 (
-  psz: arrpsz (INV(a), n), asz: &size_t? >> size_t (n)
-) :<!wrt> arrayptr (a, n) = "mac#%" // endfun
+  psz: arrpsz(INV(a), n), asz: &size_t? >> size_t(n)
+) :<!wrt> arrayptr(a, n) = "mac#%" // endfun
 
 (* ****** ****** *)
 
@@ -174,15 +179,15 @@ symintr arrayptr
 fun{
 a:t0p
 } arrayptr_make_elt
-  {n:int} (asz: size_t n, x: a):<!wrt> arrayptr (a, n)
+  {n:int} (asz: size_t(n), x: a):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_elt]
 
 (* ****** ****** *)
 
-fun{
-} arrayptr_make_intrange
+fun{}
+arrayptr_make_intrange
   {l,r:int | l <= r}
-  (l: int l, r: int r):<!wrt> arrayptr (intBtw(l, r), r-l)
+  (l: int l, r: int r):<!wrt> arrayptr(intBtw(l, r), r-l)
 // end of [arrayptr_make_intrange]
 
 (* ****** ****** *)
@@ -192,59 +197,68 @@ fun{
 fun
 arrayptr_make_arrpsz
   {a:vt0p}{n:int}
-  (psz: arrpsz (INV(a), n)):<> arrayptr (a, n) = "mac#%"
+  (psz: arrpsz(INV(a), n)):<> arrayptr(a, n) = "mac#%"
+//
 overload arrayptr with arrayptr_make_arrpsz
-
+//
 (* ****** ****** *)
-
-fun{a:t0p}
+//
+fun
+{a:t0p}
 arrayptr_make_list{n:int}
-  (asz: int n, xs: list (INV(a), n)):<!wrt> arrayptr (a, n)
+  (asz: int n, xs: list(INV(a), n)):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_list]
-fun{a:t0p}
+//
+fun
+{a:t0p}
 arrayptr_make_rlist{n:int}
-  (asz: int n, xs: list (INV(a), n)):<!wrt> arrayptr (a, n)
+  (asz: int n, xs: list(INV(a), n)):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_rlist]
-
+//
 (* ****** ****** *)
 
 fun{a:t0p}
 arrayptr_make_subarray
   {n:int}{st,ln:int | st+ln <= n}
-  (A: RD(arrayref (a, n)), size_t (st), size_t (ln)): arrayptr (a, ln)
-// end of [arrayref_make_subarray]
+  (A: RD(arrayref(a, n)), size_t(st), size_t(ln)): arrayptr(a, ln)
+// end of [arrayptr_make_subarray]
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 arrayptr_make_list_vt{n:int}
-  (asz: int n, xs: list_vt (INV(a), n)):<!wrt> arrayptr (a, n)
+  (asz: int n, xs: list_vt (INV(a), n)):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_list_vt]
-fun{a:vt0p}
+fun
+{a:vt0p}
 arrayptr_make_rlist_vt{n:int}
-  (asz: int n, xs: list_vt (INV(a), n)):<!wrt> arrayptr (a, n)
+  (asz: int n, xs: list_vt (INV(a), n)):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_rlist_vt]
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 arrayptr_make_uninitized
-  {n:int} (asz: size_t n):<!wrt> arrayptr (a?, n)
+  {n:int} (asz: size_t(n)):<!wrt> arrayptr(a?, n)
 // end of [arrayptr_make_uninitized]
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 arrayptr_imake_list{n:int}
 (
-  A: !arrayptr (INV(a), n) >> arrayptr (a?!, n), n: size_t (n)
+  A: !arrayptr(INV(a), n) >> arrayptr(a?!, n), n: size_t(n)
 ) : list_vt (a, n) // end of [arrayptr_imake_list]
 
 (* ****** ****** *)
 
-fun arrayptr_free
+fun
+arrayptr_free
   {a:t0p}{l:addr}{n:int}
-  (A: arrayptr (INV(a), l, n)):<!wrt> void = "mac#%"
+  (A: arrayptr(INV(a), l, n)):<!wrt> void = "mac#%"
 // end of [arrayptr_free]
 
 (* ****** ****** *)
@@ -257,14 +271,14 @@ fun{a:vt0p}
 fprint_arrayptr
   {l:addr}{n:int}
 (
-  out: FILEref, A: !arrayptr (INV(a), l, n), n: size_t n
+  out: FILEref, A: !arrayptr(INV(a), l, n), n: size_t(n)
 ) : void // end of [fprint_arrayptr]
 fun{a:vt0p}
 fprint_arrayptr_sep
   {l:addr}{n:int}
 (
   out: FILEref
-, A: !arrayptr (INV(a), l, n), n: size_t n, sep: NSH(string)
+, A: !arrayptr(INV(a), l, n), n: size_t(n), sep: NSH(string)
 ) : void // end of [fprint_arrayptr_sep]
 
 (* ****** ****** *)
@@ -273,12 +287,12 @@ fun{
 a:t0p}{tk:tk
 } arrayptr_get_at_gint
   {n:int}{i:nat | i < n}
-  (A: !arrayptr (INV(a), n), i: g1int (tk, i)):<> (a)
+  (A: !arrayptr(INV(a), n), i: g1int (tk, i)):<> (a)
 fun{
 a:t0p}{tk:tk
 } arrayptr_get_at_guint
   {n:int}{i:nat | i < n}
-  (A: !arrayptr (INV(a), n), i: g1uint (tk, i)):<> (a)
+  (A: !arrayptr(INV(a), n), i: g1uint (tk, i)):<> (a)
 //
 symintr arrayptr_get_at
 overload arrayptr_get_at with arrayptr_get_at_gint
@@ -290,12 +304,12 @@ fun{
 a:t0p}{tk:tk
 } arrayptr_set_at_gint
   {n:int}{i:nat | i < n}
-  (A: !arrayptr (INV(a), n), i: g1int (tk, i), x: a):<!wrt> void
+  (A: !arrayptr(INV(a), n), i: g1int (tk, i), x: a):<!wrt> void
 fun{
 a:t0p}{tk:tk
 } arrayptr_set_at_guint
   {n:int}{i:nat | i < n}
-  (A: !arrayptr (INV(a), n), i: g1uint (tk, i), x: a):<!wrt> void
+  (A: !arrayptr(INV(a), n), i: g1uint (tk, i), x: a):<!wrt> void
 //
 symintr arrayptr_set_at
 overload arrayptr_set_at with arrayptr_set_at_gint of 0
@@ -307,14 +321,14 @@ fun{
 a:vt0p}{tk:tk
 } arrayptr_exch_at_gint
   {n:int}{i:nat | i < n}
-  (A: !arrayptr (INV(a), n), i: g1int (tk, i), x: &a >> _):<!wrt> void
+  (A: !arrayptr(INV(a), n), i: g1int (tk, i), x: &a >> _):<!wrt> void
 // end of [arrayptr_exch_at_gint]
 //
 fun{
 a:vt0p}{tk:tk
 } arrayptr_exch_at_guint
   {n:int}{i:nat | i < n}
-  (A: !arrayptr (INV(a), n), i: g1uint (tk, i), x: &a >> _):<!wrt> void
+  (A: !arrayptr(INV(a), n), i: g1uint (tk, i), x: &a >> _):<!wrt> void
 // end of [arrayptr_exch_at_guint]
 //
 symintr arrayptr_exch_at
@@ -327,7 +341,7 @@ fun{a:vt0p}
 arrayptr_interchange
   {n:int}
 (
-  A: !arrayptr (INV(a), n), i: sizeLt n, j: sizeLt n
+  A: !arrayptr(INV(a), n), i: sizeLt n, j: sizeLt n
 ) :<!wrt> void // end of [arrayptr_interchange]
 
 (* ****** ****** *)
@@ -342,25 +356,27 @@ fun{
 a:vt0p
 } arrayptr_foreach{n:int}
 (
-  A: !arrayptr (INV(a), n), asz: size_t (n)
+  A: !arrayptr(INV(a), n), asz: size_t(n)
 ) : sizeLte(n) // end of [arrayptr_foreach]
 fun{
 a:vt0p}{env:vt0p
 } arrayptr_foreach_env{n:int}
 (
-  A: !arrayptr (INV(a), n), asz: size_t (n), env: &(env) >> _
+  A: !arrayptr(INV(a), n), asz: size_t(n), env: &(env) >> _
 ) : sizeLte(n) // end of [arrayptr_foreach_env]
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 arrayptr_foreach_fun
   {n:int}{fe:eff}
 (
-  A: !arrayptr (INV(a), n), asz: size_t n, f: (&a) -<fun,fe> void
+  A: !arrayptr(INV(a), n), asz: size_t(n), fwork: (&a) -<fun,fe> void
 ) :<fe> void // end of [arrayptr_foreach_fun]
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 arrayptr_foreach_funenv
   {v:view}
   {vt:vtype}
@@ -368,9 +384,9 @@ arrayptr_foreach_funenv
   {fe:eff}
 (
   pfv: !v
-| A: !arrayptr (INV(a), n)
-, asz: size_t n
-, f: (!v | &a, !vt) -<fun,fe> void
+| A: !arrayptr(INV(a), n)
+, asz: size_t(n)
+, fop: (!v | &a, !vt) -<fun,fe> void
 , env: !vt
 ) :<fe> void
 // end of [arrayptr_foreach_funenv]
@@ -387,13 +403,13 @@ fun{
 a:vt0p
 } arrayptr_iforeach{n:int}
 (
-  A: !arrayptr (INV(a), n), asz: size_t (n)
+  A: !arrayptr(INV(a), n), asz: size_t(n)
 ) : sizeLte(n) // end of [arrayptr_iforeach]
 fun{
 a:vt0p}{env:vt0p
 } arrayptr_iforeach_env{n:int}
 (
-  A: !arrayptr (INV(a), n), asz: size_t (n), env: &(env) >> _
+  A: !arrayptr(INV(a), n), asz: size_t(n), env: &(env) >> _
 ) : sizeLte(n) // end of [arrayptr_iforeach_env]
 
 (* ****** ****** *)
@@ -408,13 +424,13 @@ fun{
 a:vt0p
 } arrayptr_rforeach{n:int}
 (
-  A: !arrayptr (INV(a), n), asz: size_t (n)
+  A: !arrayptr(INV(a), n), asz: size_t(n)
 ) : sizeLte(n) // end of [arrayptr_rforeach]
 fun{
 a:vt0p}{env:vt0p
 } arrayptr_rforeach_env{n:int}
 (
-  A: !arrayptr (INV(a), n), asz: size_t (n), env: &(env) >> _
+  A: !arrayptr(INV(a), n), asz: size_t(n), env: &(env) >> _
 ) : sizeLte(n) // end of [arrayptr_rforeach_env]
 
 (* ****** ****** *)
@@ -428,7 +444,7 @@ fun{a:vt0p}
 arrayptr_initize
   {l:addr}{n:int}
 (
-  A: !arrayptr (a?, l, n) >> arrayptr (a, l, n), asz: size_t n
+  A: !arrayptr(a?, l, n) >> arrayptr(a, l, n), asz: size_t(n)
 ) : void // end of [arrayptr_initize]
 //
 macdef
@@ -444,7 +460,7 @@ fun{a:vt0p}
 arrayptr_uninitize
   {l:addr}{n:int}
 (
-  A: !arrayptr (INV(a), l, n) >> arrayptr (a?, l, n), asz: size_t n
+  A: !arrayptr(INV(a), l, n) >> arrayptr(a?, l, n), asz: size_t(n)
 ) : void // end of [arrayptr_uninitize]
 //
 macdef
@@ -459,7 +475,7 @@ array_uninitize$clear (i: size_t, x: &a >> a?): void
 fun{a:vt0p}
 arrayptr_freelin
   {l:addr}{n:int}
-  (A: arrayptr (INV(a), l, n), asz: size_t (n)): void
+  (A: arrayptr(INV(a), l, n), asz: size_t(n)): void
 // end of [arrayptr_freelin]
 
 (* ****** ****** *)
@@ -470,12 +486,12 @@ array_tabulate$fopr (index: size_t): (a)
 *)
 fun{a:vt0p}
 arrayptr_tabulate
-  {n:int} (asz: size_t n): arrayptr (a, n)
+  {n:int} (asz: size_t(n)): arrayptr(a, n)
 //
 fun{a:vt0p}
 arrayptr_tabulate_cloref
   {n:int}
-  (size_t n, (sizeLt(n)) -<cloref> a): arrayptr (a, n)
+  (size_t(n), (sizeLt(n)) -<cloref> a): arrayptr(a, n)
 //
 (* ****** ****** *)
 //
@@ -491,8 +507,8 @@ arrayptr_quicksort
 (* ****** ****** *)
 
 overload [] with arrayptr_get_at_gint of 0
-overload [] with arrayptr_get_at_guint of 0
 overload [] with arrayptr_set_at_gint of 0
+overload [] with arrayptr_get_at_guint of 0
 overload [] with arrayptr_set_at_guint of 0
 
 (* ****** ****** *)

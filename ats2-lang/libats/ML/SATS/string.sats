@@ -28,14 +28,20 @@
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: gmmhwxiATgmailDOTcom *)
 (* Start time: July, 2012 *)
+(* Authoremail: gmmhwxiATgmailDOTcom *)
 
 (* ****** ****** *)
-
-#define ATS_PACKNAME "ATSLIB.libats.ML"
-#define ATS_EXTERN_PREFIX "atslib_ML_" // prefix for external names
-
+//
+#define
+ATS_PACKNAME
+"ATSLIB.libats.ML"
+//
+// prefix for external names
+//
+#define
+ATS_EXTERN_PREFIX "atslib_ML_"
+//
 (* ****** ****** *)
 
 staload "libats/ML/SATS/basis.sats"
@@ -67,16 +73,30 @@ overload isneqz with string_isnot_empty
 //
 (* ****** ****** *)
 //
+// HX-2016-11-08:
+// str1 is a prefix of str2
+//
 fun{}
 string_is_prefix
 (
-  str1: string, str2: string
+  str1: NSH(string), str2: NSH(string)
 ) :<> bool // string_is_prefix
 //
 (* ****** ****** *)
 //
+// HX-2016-11-12:
+// str1 is a suffix of str2
+//
 fun{}
-string_copy(x: NSH(string)):<> string
+string_is_suffix
+(
+  str1: NSH(string), str2: NSH(string)
+) :<> bool // string_is_suffix
+//
+(* ****** ****** *)
+//
+fun{}
+string_copy(str: NSH(string)):<> string
 //
 (* ****** ****** *)
 //
@@ -94,18 +114,22 @@ string_make_substring
 ) :<> string // end-of-function
 
 (* ****** ****** *)
-
+//
 fun{}
 string_append
-  (x1: NSH(string), x2: NSH(string)):<> string
+(
+  x1: NSH(string), x2: NSH(string)
+) :<> string // end of [string_append]
+//
 overload + with string_append of 0
-
+//
 (* ****** ****** *)
 //
 fun{}
 string_append3
 (
-  x1: NSH(string), x2: NSH(string), x3: NSH(string)
+  x1: NSH(string)
+, x2: NSH(string), x3: NSH(string)
 ) :<> string // end of [string_append3]
 //
 (* ****** ****** *)
@@ -119,20 +143,32 @@ string_append4
 fun{}
 string_append5
 (
-  x1: NSH(string), x2: NSH(string)
-, x3: NSH(string), x4: NSH(string), x5: NSH(string)
+  x1: NSH(string)
+, x2: NSH(string), x3: NSH(string)
+, x4: NSH(string), x5: NSH(string)
 ) :<> string // end of [string_append5]
 fun{}
 string_append6
 (
-  x1: NSH(string), x2: NSH(string), x3: NSH(string)
-, x4: NSH(string), x5: NSH(string), x6: NSH(string)
+  x1: NSH(string), x2: NSH(string)
+, x3: NSH(string), x4: NSH(string)
+, x5: NSH(string), x6: NSH(string)
 ) :<> string // end of [string_append6]
 //
 (* ****** ****** *)
 //
 fun{}
-stringlst_concat(xs: list0 (string)):<> string
+mul_int_string
+(
+  ntime: int, x0: NSH(string)
+) :<> string // end-of-function
+//
+overload * with mul_int_string of 0
+//
+(* ****** ****** *)
+//
+fun{}
+stringlst_concat(xs: list0(string)):<> string
 //
 (* ****** ****** *)
 
@@ -143,16 +179,38 @@ string_implode(cs: list0(char)):<> string
 
 (* ****** ****** *)
 //
-fun
+fun{}
 string_tabulate
-  (n: size_t, f: (size_t) -<cloref1> charNZ): string
+  {n:int}
+(
+  n0: size_t(n), fopr: (sizeLt(n)) -<cloref1> charNZ
+) : string // end of [string_tabulate]
 //
 (* ****** ****** *)
 //
-fun
-string_forall(x: string, f: cfun(char, bool)): bool
-fun
-string_iforall(x: string, f: cfun2(int, char, bool)): bool
+fun{}
+string_exists
+  (x: string, f: cfun(char, bool)): bool
+fun{}
+string_iexists
+  (x: string, f: cfun2(int, char, bool)): bool
+//
+fun{}
+string_exists_method(string)(cfun(char, bool)): bool
+fun{}
+string_iexists_method(string)(cfun2(int, char, bool)): bool
+//
+overload .exists with string_exists_method
+overload .iexists with string_iexists_method
+//
+(* ****** ****** *)
+//
+fun{}
+string_forall
+  (x: string, f: cfun(char, bool)): bool
+fun{}
+string_iforall
+  (x: string, f: cfun2(int, char, bool)): bool
 //
 fun{}
 string_forall_method(string)(cfun(char, bool)): bool
@@ -164,10 +222,12 @@ overload .iforall with string_iforall_method
 //
 (* ****** ****** *)
 //
-fun
-string_foreach(x: string, f: cfun(char, void)): void
-fun
-string_iforeach(x: string, f: cfun2(int, char, void)): void
+fun{}
+string_foreach
+  (x: string, f: cfun(char, void)): void
+fun{}
+string_iforeach
+  (x: string, f: cfun2(int, char, void)): void
 //
 fun{}
 string_foreach_method(x: string)(cfun(char, void)): void
@@ -176,6 +236,19 @@ string_iforeach_method(x: string)(cfun2(int, char, void)): void
 //
 overload .foreach with string_foreach_method
 overload .iforeach with string_iforeach_method
+//
+(* ****** ****** *)
+//
+fun
+{res:vt0p}
+string_foldleft
+  (cs: string, ini: res, cfun(res, char, res)): res
+fun
+{res:vt0p}
+string_foldleft_method
+  (cs: string, TYPE(res))(ini: res, cfun(res, char, res)): res
+//
+overload .foldleft with string_foldleft_method
 //
 (* ****** ****** *)
 //

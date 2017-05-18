@@ -34,11 +34,19 @@
 (* ****** ****** *)
 
 datatype
-comarg = COMARGkey of (int, string)
+comarg = COMARG of (int, string)
 
 vtypedef
 comarglst(n:int) = list_vt(comarg, n)
 
+(* ****** ****** *)
+//
+fun
+print_comarg(x: comarg): void
+fun
+fprint_comarg
+  (out: FILEref, x: comarg): void
+//
 (* ****** ****** *)
 //
 fun
@@ -86,7 +94,7 @@ process_IATS_dir(dir: string): void
 (* ****** ****** *)
 //
 fun
-process_ATSPKGRELOCROOT((*void*)): void
+process_PATSRELOCROOT((*void*)): void
 //
 (* ****** ****** *)
 

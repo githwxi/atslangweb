@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Mon Sep  5 21:48:32 2016
+** Time of generation: Mon May  8 20:43:35 2017
 *)
 
 (* ****** ****** *)
@@ -106,22 +106,22 @@ lemma_strbuf_v_param
 
 castfn
 strptr2ptr
-  {l:addr} (x: !strptr l):<> ptr (l)
+  {l:addr}(x: !strptr l):<> ptr (l)
 castfn
 strnptr2ptr
-  {l:addr}{n:int} (x: !strnptr(l, n)):<> ptr(l)
+  {l:addr}{n:int}(x: !strnptr(l, n)):<> ptr(l)
 // end of [strnptr2ptr]
 
 (* ****** ****** *)
 //
 castfn
 strnptr2strptr
-  {l:addr}{n:int} (x: strnptr(l, n)):<> strptr(l)
+  {l:addr}{n:int}(x: strnptr(l, n)):<> strptr(l)
 // end of [strnptr2strptr]
 
 castfn
 strptr2strnptr
-  {l:addr} (x: strptr(l)):<> [n:int] strnptr(l, n)
+  {l:addr}(x: strptr(l)):<> [n:int] strnptr(l, n)
 // end of [strptr2strnptr]
 //
 (* ****** ****** *)
@@ -170,10 +170,10 @@ strptr_free_null
 
 fun{}
 strptr_is_null
-  {l:addr} (x: !strptr l):<> bool (l==null)
+  {l:addr} (x: !strptr(l)):<> bool(l==null)
 fun{}
 strptr_isnot_null
-  {l:addr} (x: !strptr l):<> bool (l > null)
+  {l:addr} (x: !strptr(l)):<> bool(l > null)
 
 (* ****** ****** *)
 
@@ -192,6 +192,13 @@ fun{}
 strnptr_isnot_null
   {l:addr}{n:int}
   (x: !strnptr(l, n)):<> bool(l > null)
+//
+(* ****** ****** *)
+//
+praxi
+strnptr_free_null
+  {l:addr|l <= null}{n:int}(x: strnptr(l, n)):<> void
+// end of [strnptr_free_null]
 //
 (* ****** ****** *)
 
@@ -256,10 +263,12 @@ fun prerr_strptr (x: !Strptr0): void = "mac#%"
 //
 (* ****** ****** *)
 //
-fun print_strbuf
-  {m,n:int} (buf: &strbuf(m, n)): void = "mac#%"
-fun prerr_strbuf
-  {m,n:int} (buf: &strbuf(m, n)): void = "mac#%"
+fun
+print_strbuf
+  {m,n:int}(buf: &strbuf(m, n)): void = "mac#%"
+fun
+prerr_strbuf
+  {m,n:int}(buf: &strbuf(m, n)): void = "mac#%"
 //
 fun
 fprint_strbuf{m,n:int}
@@ -268,17 +277,18 @@ fprint_strbuf{m,n:int}
 (* ****** ****** *)
 //
 fun{}
-strnptr_get_at_size {n:int}
+strnptr_get_at_size
+  {n:int}
   (str: !strnptr (n), i: sizeLt n):<> charNZ
 //
 fun{tk:tk}
 strnptr_get_at_gint
   {n:int}{i:nat | i < n}
-  (s: !strnptr (n), i: g1int (tk, i)):<> charNZ
+  (str: !strnptr(n), i: g1int(tk, i)):<> charNZ
 fun{tk:tk}
 strnptr_get_at_guint
   {n:int}{i:nat | i < n}
-  (s: !strnptr (n), i: g1uint (tk, i)):<> charNZ
+  (str: !strnptr(n), i: g1uint(tk, i)):<> charNZ
 //
 symintr strnptr_get_at
 overload strnptr_get_at with strnptr_get_at_size of 1
@@ -288,17 +298,18 @@ overload strnptr_get_at with strnptr_get_at_guint of 0
 (* ****** ****** *)
 //
 fun{}
-strnptr_set_at_size {n:int}
-  (str: !strnptr (n), i: sizeLt n, c: charNZ):<!wrt> void
+strnptr_set_at_size
+  {n:int}
+  (str: !strnptr(n), i: sizeLt n, c: charNZ):<!wrt> void
 //
 fun{tk:tk}
 strnptr_set_at_gint
   {n:int}{i:nat | i < n}
-  (s: !strnptr (n), i: g1int (tk, i), c: charNZ):<!wrt> void
+  (str: !strnptr(n), i: g1int(tk, i), c: charNZ):<!wrt> void
 fun{tk:tk}
 strnptr_set_at_guint
   {n:int}{i:nat | i < n}
-  (s: !strnptr (n), i: g1uint (tk, i), c: charNZ):<!wrt> void
+  (str: !strnptr(n), i: g1uint(tk, i), c: charNZ):<!wrt> void
 //
 symintr strnptr_set_at
 overload strnptr_set_at with strnptr_set_at_size of 1
@@ -325,20 +336,21 @@ strnptr_copy
 (* ****** ****** *)
 //
 fun{}
-strptr_append (x1: !Strptr0, x2: !Strptr0):<!wrt> Strptr0
+strptr_append
+  (x1: !Strptr0, x2: !Strptr0):<!wrt> Strptr0
 fun{}
-strnptr_append {n1,n2:nat}
-  (x1: !strnptr n1, x2: !strnptr n2):<!wrt> strnptr (n1+n2)
+strnptr_append{n1,n2:nat}
+  (x1: !strnptr n1, x2: !strnptr n2):<!wrt> strnptr(n1+n2)
 //
 (* ****** ****** *)
 
 fun{}
-strptrlst_free (xs: List_vt (Strptr0)):<!wrt> void
+strptrlst_free (xs: List_vt(Strptr0)):<!wrt> void
 
 (* ****** ****** *)
 
 fun{}
-strptrlst_concat (xs: List_vt (Strptr0)):<!wrt> Strptr0
+strptrlst_concat (xs: List_vt(Strptr0)):<!wrt> Strptr0
 
 (* ****** ****** *)
 

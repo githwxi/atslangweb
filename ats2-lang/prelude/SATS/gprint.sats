@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gprint.atxt
-** Time of generation: Mon Sep  5 21:48:37 2016
+** Time of generation: Wed May  3 17:36:15 2017
 *)
 
 (* ****** ****** *)
@@ -52,6 +52,11 @@ sortdef t0p = t@ype
 
 fun{}
 gprint$out(): FILEref
+
+(* ****** ****** *)
+
+fun{}
+gprint_flush(): void
 
 (* ****** ****** *)
 

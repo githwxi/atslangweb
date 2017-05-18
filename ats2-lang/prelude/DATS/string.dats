@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Sun Oct  2 10:33:54 2016
+** Time of generation: Wed May  3 17:36:18 2017
 *)
 
 (* ****** ****** *)
@@ -40,13 +40,15 @@
 (* Start time: April, 2012 *)
 
 (* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0 // no dynloading at run-time
-
+//
+// HX:
+#define // there is no need
+ATS_DYNLOADFLAG 0 // for dynloading
+//
 (* ****** ****** *)
-
+//
 staload UN = "prelude/SATS/unsafe.sats"
-
+//
 (* ****** ****** *)
 
 #define CNUL '\000'
@@ -56,16 +58,23 @@ staload UN = "prelude/SATS/unsafe.sats"
 overload + with add_ptr_bsz
 
 (* ****** ****** *)
-
-macdef castvwtp_trans = $UN.castvwtp0 // former name
-
+//
+// HX:
+// castvwtp_trans: formerly used name
+//
+macdef castvwtp_trans = $UN.castvwtp0
+//
 (* ****** ****** *)
-
+//
 extern
-fun memcpy
-  (d:ptr, s:ptr, n:size_t):<!wrt> ptr = "mac#atspre_string_memcpy"
+fun
+memcpy
+( d0: ptr
+, s0: ptr
+, n0: size_t
+) :<!wrt> ptr = "mac#atspre_string_memcpy"
 // end of [memcpy]
-
+//
 (* ****** ****** *)
 //
 implement
@@ -381,20 +390,71 @@ end // end of [loop]
 //
 val n1 = n + 1
 //
-val (pf, pfgc | p0) =
-  $effmask_wrt (malloc_gc(i2sz(n1)))
+val
+(pf, pfgc | p0) =
+$effmask_wrt(malloc_gc(i2sz(n1)))
 //
 val p1 = ptr_add<char>(p0, n)
-//
 val () =
-  $effmask_wrt ($UN.ptr0_set<char>(p1, CNUL))
+$effmask_wrt
+  ($UN.ptr0_set<char>(p1, CNUL))
 //
-val p0 = $effmask_wrt (loop (cs, n, p1))
+val p0 = $effmask_wrt(loop(cs, n, p1))
 //
 in
   castvwtp_trans{strnptr(n)}((pf, pfgc | p0))
 end // end of [string_make_rlistlen]
 
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+string_make_list_vt
+  (cs) = let
+//
+val n = list_vt_length(cs)
+//
+in
+  string_make_listlen_vt(cs, n)
+end (* end of [string_make_list_vt] *)
+//
+implement
+{}(*tmp*)
+string_make_listlen_vt
+  (cs, n) = str where
+{
+//
+  val cs2 = $UN.list_vt2t(cs)
+  val str = string_make_listlen(cs2, n)
+  val ((*freed*)) = list_vt_free<char>(cs)
+//
+} (* end of [string_make_listlen_vt] *)
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+string_make_rlist_vt
+  (cs) = let
+//
+val n = list_vt_length(cs)
+//
+in
+  string_make_rlistlen_vt(cs, n)
+end (* end of [string_make_rlist_vt] *)
+//
+implement
+{}(*tmp*)
+string_make_rlistlen_vt
+  (cs, n) = str where
+{
+//
+  val cs2 = $UN.list_vt2t(cs)
+  val str = string_make_rlistlen(cs2, n)
+  val ((*freed*)) = list_vt_free<char>(cs)
+//
+} (* end of [string_make_rlistlen_vt] *)
+//
 (* ****** ****** *)
 
 implement
@@ -416,6 +476,123 @@ val () = $UN.ptr0_set<char>(p_dst + ln, CNUL)
 in
   castvwtp_trans{strnptr(ln)}((pf, pfgc | p_dst))
 end // end of [string_make_substring]
+
+(* ****** ****** *)
+//
+implement
+string_make_stream$bufsize<> ((*void*)) = 16
+//
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+string_make_stream
+  (cs) = let
+//
+fun
+loop
+{l:addr}
+{n:int}
+{i:nat | i <= n}
+(
+  pf: b0ytes(n)@l, fpf: mfree_gc_v(l)
+| cs: stream(charNZ), p0: ptr(l), pi: ptr, n: size_t(n), i: size_t(i)
+) : Strptr1 = (
+if
+(i < n)
+then
+(
+case+ !cs of
+| stream_nil() => let
+    val () =
+    $UN.ptr0_set<char>(pi, CNUL)
+  in
+    $UN.castvwtp0((pf, fpf | p0))
+  end // end of [stream_nil]
+| stream_cons(c, cs) => let
+    val () = $UN.ptr0_set<char>(pi, c)
+  in
+    loop(pf, fpf | cs, p0, ptr_succ<char>(pi), n, succ(i))
+  end // end of [stream_cons]
+)
+else let
+//
+  val n2 = n + n
+  val (pf2, fpf2 | p02) = malloc_gc(n2)
+//
+  val _(*p02*) = memcpy(p02, p0, i)
+  val ((*freed*)) = mfree_gc(pf, fpf | p0)
+//
+in
+  loop(pf2, fpf2 | cs, p02, ptr_add<char>(p02, i), n2, i)
+end // end of [
+) (* end of [loop] *)
+//
+val n0 =
+string_make_stream$bufsize<>()
+//
+val n0 = i2sz(n0)
+val (pf, fpf | p0) = malloc_gc(n0)
+//
+in
+  $effmask_all(loop(pf, fpf | cs, p0, p0, n0, i2sz(0)))
+end // end of [string_make_stream]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+string_make_stream_vt
+  (cs) = let
+//
+fun
+loop
+{l:addr}
+{n:int}
+{i:nat | i <= n}
+(
+  pf: b0ytes(n)@l, fpf: mfree_gc_v(l)
+| cs: stream_vt(charNZ), p0: ptr(l), pi: ptr, n: size_t(n), i: size_t(i)
+) : Strptr1 = (
+if
+(i < n)
+then
+(
+case+ !cs of
+| ~stream_vt_nil() => let
+    val () =
+    $UN.ptr0_set<char>(pi, CNUL)
+  in
+    $UN.castvwtp0((pf, fpf | p0))
+  end // end of [stream_nil]
+| ~stream_vt_cons(c, cs) => let
+    val () = $UN.ptr0_set<char>(pi, c)
+  in
+    loop(pf, fpf | cs, p0, ptr_succ<char>(pi), n, succ(i))
+  end // end of [stream_cons]
+)
+else let
+//
+  val n2 = n + n
+  val (pf2, fpf2 | p02) = malloc_gc(n2)
+//
+  val _(*p02*) = memcpy(p02, p0, i)
+  val ((*freed*)) = mfree_gc(pf, fpf | p0)
+//
+in
+  loop(pf2, fpf2 | cs, p02, ptr_add<char>(p02, i), n2, i)
+end // end of [
+) (* end of [loop] *)
+//
+val n0 =
+string_make_stream$bufsize<>()
+//
+val n0 = i2sz(n0)
+val (pf, fpf | p0) = malloc_gc(n0)
+//
+in
+  $effmask_all(loop(pf, fpf | cs, p0, p0, n0, i2sz(0)))
+end // end of [string_make_stream_vt]
 
 (* ****** ****** *)
 //
@@ -521,6 +698,19 @@ in
   castvwtp_trans{strnptr(n)}((pf, pfgc | p))
 end // end of [string1_copy]
 
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+string_fset_at_size
+  (s0, i, c) = let
+  val s1 = string1_copy(s0)
+in
+//
+let val () = s1[i] := c in strnptr2string(s1) end
+//
+end // end of [string_fset_at_size]
+//
 (* ****** ****** *)
 
 implement
@@ -635,13 +825,13 @@ implement
 string1_append
   {n1,n2}(x1, x2) = let
 //
-val n1 = strlen (x1) and n2 = strlen (x2)
+val n1 = strlen(x1) and n2 = strlen(x2)
 //
 val n12 = n1 + n2
-val (pf, fpf | p) = malloc_gc (succ(n12))
+val (pf, fpf | p) = malloc_gc(succ(n12))
 //
-val p1 = memcpy (p, string2ptr(x1), n1)
-val p2 = memcpy (p + n1, string2ptr(x2), succ(n2))
+val p1 = memcpy(p, string2ptr(x1), n1)
+val p2 = memcpy(p + n1, string2ptr(x2), succ(n2))
 //
 in
   castvwtp_trans{strnptr(n1+n2)}((pf, fpf | p))
@@ -709,7 +899,8 @@ end // end of [string0_append6]
 
 implement
 {}(*tmp*)
-stringarr_concat(xs, asz) = let
+stringarr_concat
+  (xs, asz) = let
 //
 fun loop
 (
@@ -720,11 +911,11 @@ in
 if
 i > 0
 then let
-  val x = $UN.ptr0_get<string> (p1)
-  val nx: size_t = string_length (x)
-  val () = $UN.ptr0_set<size_t> (p2, nx)
+  val x = $UN.ptr0_get<string>(p1)
+  val nx: size_t = string_length(x)
+  val () = $UN.ptr0_set<size_t>(p2, nx)
 in
-  loop(ptr_succ<string> (p1), ptr_succ<size_t> (p2), pred(i), ntot+nx)
+  loop(ptr_succ<string>(p1), ptr_succ<size_t>(p2), pred(i), ntot+nx)
 end // end of [then]
 else ntot // end of [else]
 //
@@ -739,27 +930,42 @@ in
 if
 i > 0
 then let
-  val x = $UN.ptr0_get<string> (p1)
-  val nx = $UN.ptr0_get<size_t> (p2)
-  val _(*ptr*) = memcpy (pres, $UN.cast{ptr}(x), nx)
+//
+val x = $UN.ptr0_get<string>(p1)
+val nx = $UN.ptr0_get<size_t>(p2)
+val _(*ptr*) = memcpy(pres, $UN.cast{ptr}(x), nx)
+//
 in
-  loop2 (ptr_succ<string> (p1), ptr_succ<size_t> (p2), pred(i), pres+nx)
+  loop2(ptr_succ<string>(p1), ptr_succ<size_t>(p2), pred(i), pres+nx)
 end // end of [then]
-else $UN.ptr0_set<char> (pres, CNUL) // else
+else
+(
+  $UN.ptr0_set<char>(pres, CNUL)
+)
 //
 end // end of [loop2]
 //
-val p1 = $UN.cast{ptr}(xs)
-val nxs = arrayptr_make_uninitized<size_t> (asz)
-val p2 = arrayptr2ptr (nxs)
+val p1 =
+  $UN.cast{ptr}(xs)
+//
+val A0 =
+  arrayptr_make_uninitized<size_t>(asz)
+//
+val p2 = arrayptr2ptr(A0)
 //
 val ntot =
-  $effmask_all (loop (p1, p2, asz, i2sz(0)))
+  $effmask_all(loop(p1, p2, asz, i2sz(0)))
 //
-val (pf, pfgc | pres) = malloc_gc (g1ofg0(succ(ntot)))
-val ((*void*)) = $effmask_all (loop2 (p1, p2, asz, pres))
+val
+( pf
+, pfgc
+| pres
+) = malloc_gc(g1ofg0(succ(ntot)))
 //
-val ((*freed*)) = arrayptr_free (nxs)
+val ((*void*)) =
+  $effmask_all(loop2(p1, p2, asz, pres))
+//
+val ((*freed*)) = arrayptr_free{size_t?}(A0)
 //
 in
   castvwtp_trans{Strptr1}((pf, pfgc | pres))
@@ -778,65 +984,85 @@ val n = list_length(xs)
 prval() = lemma_list_param(xs)
 //
 prval
-[n:int] EQINT() = eqint_make_gint(n)
+[n:int]
+EQINT() = eqint_make_gint(n)
+typedef
+stringarr = arrayref(string,n)
 //
 val xs2 = arrayptr_make_list (n, xs)
 //
 val res =
 stringarr_concat
-  ($UN.castvwtp1{arrayref(string,n)}(xs2), i2sz(n))
+  ($UN.castvwtp1{stringarr}(xs2), i2sz(n))
 //
 val ((*freed*)) = arrayptr_free{string}(xs2)
 //
 } (* end of [stringlst_concat] *)
 
 (* ****** ****** *)
+//
+implement
+{}(*tmp*)
+string_implode
+  (cs) = string_make_list<>(cs)
+//
+(* ****** ****** *)
 
 implement
 {}(*tmp*)
 string_explode
-  {n}(x) = let
+  {n}(x0) = let
 //
-prval () = lemma_string_param (x)
+prval () = lemma_string_param(x0)
 //
-viewtypedef res(n) = list_vt (charNZ, n)
+viewtypedef res(n) = list_vt(charNZ, n)
 //
 fun loop
   {n:nat} .<n>.
 (
-  x: string n, res: &ptr? >> res(n)
+  x0: string(n)
+, res: &ptr? >> res(n)
 ) :<!wrt> void = let
-  val p = string2ptr (x)
-  val c = $UN.ptr1_get<Char> (p)
+  val p = string2ptr(x0)
+  val c = $UN.ptr1_get<Char>(p)
 in
 //
-if c != CNUL then let
-  prval () =
+if
+(c != CNUL)
+then let
+  prval() =
   __assert () where
   {
-    extern praxi __assert (): [n > 0] void
+    extern
+    praxi __assert (): [n > 0] void
   } (* prval *)
-  val () = res :=
+  val () =
+    res :=
     list_vt_cons{charNZ}{0}(c, _)
+  // end of [val]
   val+list_vt_cons (_, res1) = res
-  val x = $UN.cast{string(n-1)}(ptr1_succ<char>(p))
-  val () = loop (x, res1)
+  val x1 =
+    $UN.cast{string(n-1)}(ptr1_succ<char>(p))
+  // end of [val]
+  val ((*void*)) = loop (x1, res1)
 in
-  fold@ (res)
-end else let
-  prval () =
+  fold@(res)
+end // end of [then]
+else let
+  prval() =
   __assert () where
   {
-    extern praxi __assert (): [n == 0] void
+    extern
+    praxi __assert (): [n == 0] void
   } (* [prval] *)
 in
-  res := list_vt_nil ()
-end // end of [if]
+  res := list_vt_nil((*void*))
+end // end of [else]
 //
 end // end of [loop]
 //
 var res: ptr
-val () = $effmask_wrt (loop (x, res))
+val () = $effmask_wrt(loop(x0, res))
 //
 in
   res

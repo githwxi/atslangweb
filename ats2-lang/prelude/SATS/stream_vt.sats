@@ -30,13 +30,14 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Wed Oct  5 14:07:42 2016
+** Time of generation: Tue May  9 20:51:39 2017
 *)
 
 (* ****** ****** *)
-
-sortdef t0p = t@ype and vt0p = vt@ype
-
+(*
+sortdef
+t0p = t@ype and vt0p = vt@ype
+*)
 (* ****** ****** *)
 //
 #if(0)
@@ -80,8 +81,14 @@ fun{a:t0p}
 stream_vt_make_cons
   (a, stream_vt(INV(a))):<> stream_vt(a)
 //
+(* ****** ****** *)
+//
+fun{a:t0p}
+stream_vt_sing(a):<> stream_vt_con(a)
 fun{a:t0p}
 stream_vt_make_sing(x: a):<> stream_vt(a)
+//
+(* ****** ****** *)
 //
 fun{a:t0p}
 stream_vt_make_con
@@ -105,19 +112,25 @@ stream2list_vt
 // end of [stream2list_vt]
 
 (* ****** ****** *)
-
+//
+fun
+{a:vt0p}
+stream_vt_free
+  (xs: stream_vt(a)):<!wrt> void
+//
 fun{a:t0p}
-stream_vt_free (xs: stream_vt a):<!wrt> void
-fun{a:t0p}
-stream_vt_con_free (xs: stream_vt_con(a)):<!wrt> void
-
+stream_vt_con_free
+  (xs_con: stream_vt_con(a)):<!wrt> void
+//
 (* ****** ****** *)
-
-fun{a:t0p}
-stream_vt_take
-  (xs: stream_vt(INV(a)), n: intGte(0)): List0_vt(a)
-// end of [stream_vt_take]
-
+//
+fun{a:vt0p}
+stream_vt_takeLte
+  (xs: stream_vt(INV(a)), n: intGte(0)): stream_vt(a)
+// end of [stream_vt_takeLte]
+//
+overload .takeLte with stream_vt_takeLte
+//
 (* ****** ****** *)
 //
 fun{a:t0p}
@@ -182,11 +195,17 @@ stream_vt_filter_fun
 (
   xs: stream_vt(INV(a)), pred: (&a) -<fun> bool
 ) : stream_vt (a) // end of [stream_vt_filter_fun]
+//
 fun{a:t0p}
 stream_vt_filter_cloptr
 (
-  xs: stream_vt(INV(a)), pred: (&a) -<cloptr> bool
+  xs: stream_vt(INV(a)), pred: (&a) -<cloptr1> bool
 ) : stream_vt (a) // end of [stream_vt_filter_cloptr]
+fun{a:t0p}
+stream_vt_ifilter_cloptr
+(
+  xs: stream_vt(INV(a)), pred: (intGte(0), &a) -<cloptr1> bool
+) : stream_vt (a) // end of [stream_vt_ifilter_cloptr]
 //
 fun{a:vt0p}
 stream_vt_filterlin
@@ -207,50 +226,84 @@ a:vt0p}{b:vt0p
   (xs: stream_vt(INV(a))): stream_vt(b)
 fun{
 a:vt0p}{b:vt0p
-} stream_vt_map$fopr (x: &a >> a?!): b // lin-cleared
+} stream_vt_map$fopr(x: &a >> a?!):<1> (b)
 //
 fun{
 a:vt0p}{b:vt0p
 } stream_vt_map_fun
 (
-  xs: stream_vt(INV(a)), fopr: (&a >> a?!) -<fun1> b
+xs: stream_vt(INV(a)), fopr: (&a >> a?!) -<fun1> b
 ) : stream_vt(b) // end-of-function
 fun{
 a:vt0p}{b:vt0p
 } stream_vt_map_cloptr
 (
-  xs: stream_vt(INV(a)), fopr: (&a >> a?!) -<cloptr1> b
+xs: stream_vt(INV(a)), fopr: (&a >> a?!) -<cloptr1> b
+) : stream_vt(b) // end-of-function
+//
+(* ****** ****** *)
+//
+fun{
+a:vt0p}{b:vt0p
+} stream_vt_imap
+  (xs: stream_vt(INV(a))): stream_vt(b)
+//
+fun{
+a:vt0p}{b:vt0p
+} stream_vt_imap$fopr(i: intGte(0), x: &a >> a?!):<1> (b)
+//
+fun{
+a:vt0p}{b:vt0p
+} stream_vt_imap_fun
+(
+xs: stream_vt(INV(a)), fopr: (intGte(0), &a >> a?!) -<fun1> b
+) : stream_vt(b) // end-of-function
+fun{
+a:vt0p}{b:vt0p
+} stream_vt_imap_cloptr
+(
+xs: stream_vt(INV(a)), fopr: (intGte(0), &a >> a?!) -<cloptr1> b
 ) : stream_vt(b) // end-of-function
 //
 (* ****** ****** *)
 //
 fun{
 a1,a2:t0p}{b:vt0p
-} stream_vt_map2$fopr
-  (x1: &a1 >> _, x2: &a2 >> _): b
+} stream_vt_map2
+(
+  xs1: stream_vt(INV(a1))
+, xs2: stream_vt(INV(a2))
+) : stream_vt(b) // end of [stream_vt_map2]
+//
 fun{
 a1,a2:t0p}{b:vt0p
-} stream_vt_map2 (
-  xs1: stream_vt (INV(a1))
-, xs2: stream_vt (INV(a2))
-) : stream_vt (b) // end of [stream_vt_map2]
+} stream_vt_map2$fopr(x1: &a1 >> _, x2: &a2 >> _):<1> b
 //
 fun{
 a1,a2:t0p}{b:vt0p
 } stream_vt_map2_fun
 (
   xs1: stream_vt(INV(a1))
-, xs2: stream_vt(INV(a2))
-, fopr: (&a1 >> _, &a2 >> _) -<fun> b
+, xs2: stream_vt(INV(a2)), fopr: (&a1 >> _, &a2 >> _) -<fun1> b
 ) : stream_vt(b) // end of [stream_vt_map2_fun]
 fun{
 a1,a2:t0p}{b:vt0p
 } stream_vt_map2_cloptr
 (
   xs1: stream_vt(INV(a1))
-, xs2: stream_vt(INV(a2))
-, fopr: (&a1 >> _, &a2 >> _) -<cloptr1> b
+, xs2: stream_vt(INV(a2)), fopr: (&a1 >> _, &a2 >> _) -<cloptr1> b
 ) : stream_vt(b) // end of [stream_vt_map2_cloptr]
+//
+(* ****** ****** *)
+//
+fun{
+res:t0p
+}{a:vt0p}
+stream_vt_scan_cloptr
+(
+  xs: stream_vt(INV(a))
+, ini: res, fopr: (res, &a >> a?!) -<cloptr1> res
+) : stream_vt(res) // end of [stream_vt_scan_cloptr]
 //
 (* ****** ****** *)
 
@@ -294,6 +347,12 @@ stream_vt_foreach_cloptr
 ) : void // end of [stream_vt_foreach_cloptr]
 //
 fun{a:vt0p}
+stream_vt_rforeach_cloptr
+(
+  stream_vt(INV(a)), fwork: (&a >> a?!) -<cloptr1> void
+) : void // end of [stream_vt_rforeach_cloptr]
+//
+fun{a:vt0p}
 stream_vt_iforeach_cloptr
 (
   stream_vt(INV(a)), fwork: (intGte(0), &a >> a?!) -<cloptr1> void
@@ -306,8 +365,16 @@ res:vt0p
 }{a:vt0p}
 stream_vt_foldleft_cloptr
 (
-  xs: stream_vt(a), init: res, fopr: (res, &a >> a?!) -<cloptr1> res
+  xs: stream_vt(INV(a)), init: res, fopr: (res, &a >> a?!) -<cloptr1> res
 ) : res // end of [stream_vt_foldleft_cloptr]
+//
+fun{
+res:vt0p
+}{a:vt0p}
+stream_vt_ifoldleft_cloptr
+(
+  xs: stream_vt(INV(a)), init: res, fopr: (Nat, res, &a >> a?!) -<cloptr1> res
+) : res // end of [stream_vt_ifoldleft_cloptr]
 //
 (* ****** ****** *)
 

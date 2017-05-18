@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Mon Oct  3 09:01:09 2016
+** Time of generation: Tue May  9 20:24:00 2017
 *)
 
 (* ****** ****** *)
@@ -68,11 +68,6 @@ fun isStreamSubscriptExn (x: !exn):<> bool = "mac#isStreamSubscriptExn"
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
-stream_sing(a):<> stream_con(a)
-//
-(* ****** ****** *)
-//
 fun
 {a:t0p}
 stream_is_nil(xs: stream(a)): bool
@@ -81,12 +76,20 @@ fun
 stream_is_cons(xs: stream(a)): bool
 //
 (* ****** ****** *)
-
+//
 fun{a:t0p}
 stream_make_nil(): stream(a)
 fun{a:t0p}
+stream_make_cons
+  (a, stream(INV(a))):<> stream(a)
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+stream_sing(a):<> stream_con(a)
+fun{a:t0p}
 stream_make_sing(x: a): stream(a)
-
+//
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -127,9 +130,16 @@ stream_get_at_exn
 (* ****** ****** *)
 
 fun{a:t0p}
+stream_takeLte
+  (xs: stream(INV(a)), n: intGte(0)): stream_vt(a)
+// end of [stream_takeLte]
+
+(* ****** ****** *)
+
+fun{a:t0p}
 stream_take_exn{n:nat}
   (xs: stream(INV(a)), n: int n):<!laz> list_vt(a, n)
-// end of [stream_take_lte]
+// end of [stream_take_exn]
 
 (* ****** ****** *)
 
@@ -137,6 +147,10 @@ fun{a:t0p}
 stream_drop_exn
   (xs: stream(INV(a)), n: intGte(0)):<!laz> stream(a)
 // end of [stream_drop_exn]
+fun{a:t0p}
+stream_drop_opt
+  (xs: stream(INV(a)), n: intGte(0)):<!laz> Option_vt(stream(a))
+// end of [stream_drop_opt]
 
 (* ****** ****** *)
 //
@@ -189,7 +203,7 @@ a:t0p}{b:t0p
 //
 fun{
 a:t0p}{b:t0p
-} stream_imap{n:int}
+} stream_imap
   (xs: stream(INV(a))):<!laz> stream(b)
 //
 fun{
@@ -325,7 +339,14 @@ stream_tabulate_cloref
 //
 fun
 {a:t0p}
-stream_foreach (xs: stream(a)): void
+stream_labelize
+  (stream(INV(a))): stream(@(intGte(0), a))
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+stream_foreach(xs: stream(a)): void
 fun
 {a:t0p}
 {env:vt0p}
@@ -349,6 +370,17 @@ stream_foreach_cloref
 //
 (* ****** ****** *)
 //
+fun{
+res:vt0p}{a:t0p
+} stream_foldleft_fun
+  (xs: stream(a), ini: res, fopr: (res, a) -<fun1> res): res
+fun{
+res:vt0p}{a:t0p
+} stream_foldleft_cloref
+  (xs: stream(a), ini: res, fopr: (res, a) -<cloref1> res): res
+//
+(* ****** ****** *)
+//
 fun{}
 fprint_stream$sep (out: FILEref): void
 fun{a:t0p}
@@ -357,8 +389,21 @@ fprint_stream
 //
 (* ****** ****** *)
 //
+fun{a:t0p}
+stream_skip_while_cloref
+  (xs: &stream(INV(a)) >> _, test: (a) -<cloref1> bool): intGte(0)
+fun{a:t0p}
+stream_skip_until_cloref
+  (xs: &stream(INV(a)) >> _, test: (a) -<cloref1> bool): intGte(0)
+//
+(* ****** ****** *)
+//
 // overloading for certain symbols
 //
+(* ****** ****** *)
+
+overload + with stream_append
+
 (* ****** ****** *)
 
 overload [] with stream_nth_exn

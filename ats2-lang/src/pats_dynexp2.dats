@@ -386,24 +386,38 @@ d2exp_s0tring (loc, x) = d2exp_make_node (loc, D2Es0tring (x))
 (* ****** ****** *)
 
 implement
-d2exp_top (loc) = d2exp_make_node (loc, D2Etop ())
+d2exp_top (loc) =
+  d2exp_make_node (loc, D2Etop())
 implement
-d2exp_top2 (loc, s2e) = d2exp_make_node (loc, D2Etop2 (s2e))
+d2exp_top2 (loc, s2e) =
+  d2exp_make_node (loc, D2Etop2(s2e))
+//
 implement
-d2exp_empty (loc) = d2exp_make_node (loc, D2Eempty ())
-
+d2exp_empty (loc) =
+  d2exp_make_node (loc, D2Eempty())
+//
 (* ****** ****** *)
 
 implement
 d2exp_cstsp
-  (loc, csp) = d2exp_make_node (loc, D2Ecstsp (csp))
+  (loc, csp) =
+  d2exp_make_node(loc, D2Ecstsp(csp))
 // end of [d2exp_cstsp]
 
 (* ****** ****** *)
 
 implement
+d2exp_tyrep
+  (loc, s2e) =
+  d2exp_make_node(loc, D2Etyrep(s2e))
+// end of [d2exp_tyrep]
+
+(* ****** ****** *)
+
+implement
 d2exp_literal
-  (loc, d2e) = d2exp_make_node (loc, D2Eliteral (d2e))
+  (loc, d2e) =
+  d2exp_make_node(loc, D2Eliteral(d2e))
 // end of [d2exp_literal]
 
 (* ****** ****** *)
@@ -1256,7 +1270,11 @@ d2ecl_stavars
 //
 implement
 d2ecl_saspdec
-  (loc, d) = d2ecl_make_node (loc, D2Csaspdec (d))
+  (loc, d0) = d2ecl_make_node(loc, D2Csaspdec(d0))
+//
+implement
+d2ecl_reassume
+  (loc, s2c) = d2ecl_make_node(loc, D2Creassume(s2c))
 //
 (* ****** ****** *)
 //

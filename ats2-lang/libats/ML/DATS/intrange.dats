@@ -46,15 +46,15 @@ staload "libats/ML/SATS/intrange.sats"
 implement
 {}(*tmp*)
 int_repeat_lazy
-  (n, f) =
-  int_repeat_cloref<> (n, lazy2cloref(f))
+  (n, fopr) =
+  int_repeat_cloref<> (n, lazy2cloref(fopr))
 //
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
 int_repeat_cloref
-  (n, f) = let
+  (n, fopr) = let
 //
 fun
 loop
@@ -63,15 +63,22 @@ loop
 ) : void = (
 //
 if n > 0
-  then let val () = f () in loop (n-1, f) end
-  else ()
+  then let val () = fopr() in loop(n-1, fopr) end
+  else ((*void*))
 //
 ) (* end of [loop] *)
 //
 in
-  loop (n, f)
+  loop (n, fopr)
 end // end of [int_repeat_cloref]
 
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+int_repeat_method
+  (n) = lam(fopr) => int_repeat_cloref(n, fopr)
+//
 (* ****** ****** *)
 //
 implement
@@ -220,29 +227,44 @@ aux
 ) : stream(int) => $delay(stream_cons(n, aux(n+1)))
 ) (n) // end of [int_streamGte]
 //
+implement
+{}(*tmp*)
+int_streamGte_vt(n) =
+(
+fix
+aux
+(
+  n:int
+) : stream_vt(int) => $ldelay(stream_vt_cons(n, aux(n+1)))
+) (n) // end of [int_streamGte_vt]
+//
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-int_list_map_cloref
+int_list0_map_cloref
   (n, f) = list0_tabulate<a> (n, f)
 //
 implement
 {a}(*tmp*)
-int_list_map_method
-  (n, tres) = lam(f) => int_list_map_cloref<a> (n, f)
+int_list0_map_method
+  (n, tres) = lam(f) => int_list0_map_cloref<a> (n, f)
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-int_array_map_cloref
-  (n, f) = array0_tabulate<a> (i2sz(n), f)
+int_array0_map_cloref
+  (n, fopr) =
+(
+array0_tabulate<a>
+  (i2sz(n), lam(i) => fopr(sz2i(i)))
+)
 //
 implement
 {a}(*tmp*)
-int_array_map_method
-  (n, tres) = lam(f) => int_array_map_cloref<a> (n, f)
+int_array0_map_method
+  (n, tres) = lam(f) => int_array0_map_cloref<a> (n, f)
 //
 (* ****** ****** *)
 //
@@ -255,7 +277,7 @@ int_stream_map_cloref
 fun
 auxmain
 (
-  i: int
+  i: Nat
 ) : stream(a) = $delay
 (
 if
@@ -281,7 +303,7 @@ int_stream_vt_map_cloref
 fun
 auxmain
 (
-  i: int
+  i: Nat
 ) : stream_vt(a) = $ldelay
 (
 if

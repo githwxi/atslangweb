@@ -33,10 +33,13 @@
 (* Starting time: December, 2015 *)
 
 (* ****** ****** *)
-
-#define ATS_PACKNAME "ATSLIB.libats.ML"
-#define ATS_EXTERN_PREFIX "atslib_ML_" // prefix for external names
-
+//
+#define
+ATS_PACKNAME "ATSLIB.libats.ML"
+//
+#define
+ATS_EXTERN_PREFIX "atslib_ML_" // prefix for external names
+//
 (* ****** ****** *)
 
 staload "libats/ML/SATS/basis.sats"
@@ -190,27 +193,43 @@ overload fprint with fprint_gvhashtbl of 20
 //
 (* ****** ****** *)
 //
-fun gvalue_nil(): gvalue
+fun{}
+gvalue_nil(): gvalue
 //
-fun gvalue_int(int): gvalue
+fun{}
+gvalue_int(int): gvalue
 //
-fun gvalue_ptr(ptr): gvalue
+fun{}
+gvalue_ptr(ptr): gvalue
 //
-fun gvalue_bool(bool): gvalue
-fun gvalue_char(char): gvalue
+fun{}
+gvalue_bool(bool): gvalue
+fun{}
+gvalue_char(char): gvalue
 //
-fun gvalue_float(double): gvalue
-fun gvalue_string(string): gvalue
+fun{}
+gvalue_float(double): gvalue
+fun{}
+gvalue_string(string): gvalue
 //
 (* ****** ****** *)
 //
-fun gvalue_ref(gvref): gvalue
+fun{}
+gvalue_box{a:type}(x: a): gvalue
 //
-fun gvalue_list(xs: gvlist): gvalue
+(* ****** ****** *)
 //
-fun gvalue_array(xs: gvarray): gvalue
+fun{}
+gvalue_ref(gvref): gvalue
 //
-fun gvalue_hashtbl(kxs: gvhashtbl): gvalue
+fun{}
+gvalue_list(xs: gvlist): gvalue
+//
+fun{}
+gvalue_array(xs: gvarray): gvalue
+//
+fun{}
+gvalue_hashtbl(kxs: gvhashtbl): gvalue
 //
 (* ****** ****** *)
 //
@@ -301,14 +320,14 @@ gvhashtbl_push_atkey
 //
 (* ****** ****** *)
 //
-fun
+fun{}
 gvhashtbl_foreach_cloref
 (
   tbl: gvhashtbl
 , fwork: (string, &gvalue >> _) -<cloref1> void
 ) : void // end of [gvhashtbl_foreach_cloref]
 //
-fun
+fun{}
 gvhashtbl_foreach_method
 (
   tbl: gvhashtbl
@@ -319,7 +338,7 @@ gvhashtbl_foreach_method
 //
 (* ****** ****** *)
 //
-fun
+fun{}
 gvhashtbl_listize1(gvhashtbl): list0 @(string, gvalue)
 //
 (* ****** ****** *)

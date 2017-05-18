@@ -256,11 +256,14 @@ d1ecl_node =
 *)
   | D1Ctkindef of t1kindef // primitive tkind
   | D1Csexpdefs of (int(*knd*), s1expdeflst) // static definitions
-  | D1Csaspdec of s1aspdec // static assumption
 //
-  | D1Cdatdecs of
-      (int(*knd*), d1atdeclst, s1expdeflst) // DT declarations
+  | D1Csaspdec of s1aspdec // static assumption
+  | D1Creassume of sqi0de(*abstype*) // static re-assumption
+//
   | D1Cexndecs of e1xndeclst // exception constructor declarations
+  | D1Cdatdecs of
+      (int(*knd*), d1atdeclst, s1expdeflst) // datatype declarations
+    // end of [D1Cdatdecs]
 //
   | D1Cclassdec of (i0de, s1expopt)
 //
@@ -327,6 +330,7 @@ and d1exp_node =
 //
   | D1Ecstsp of cstsp // special constants
 //
+  | D1Etyrep of s1exp // $tyrep(...)
   | D1Eliteral of d1exp // $literal: int, float, string
 //
   | D1Eextval of (s1exp (*type*), string (*name*))
@@ -621,6 +625,14 @@ fun d1exp_empty (loc: location): d1exp
 fun
 d1exp_cstsp
   (loc: location, x: cstsp): d1exp
+//
+(* ****** ****** *)
+//
+fun
+d1exp_tyrep
+  (loc: location, s1e: s1exp): d1exp
+//
+(* ****** ****** *)
 //
 fun
 d1exp_literal
@@ -1036,37 +1048,66 @@ fun
 d1ecl_codegen(loc: location, knd: int, xs: e1xplst): d1ecl
 //
 (* ****** ****** *)
-
-fun d1ecl_datsrts (loc: location, ds: d1atsrtdeclst): d1ecl
-
-fun d1ecl_srtdefs (loc: location, ds: s1rtdeflst): d1ecl
-
-fun d1ecl_stacsts (loc: location, ds: s1tacstlst): d1ecl
-fun d1ecl_stacons (loc: location, knd: int, ds: s1taconlst): d1ecl
-
+//
+fun
+d1ecl_datsrts
+  (loc: location, ds: d1atsrtdeclst): d1ecl
+//
+fun
+d1ecl_srtdefs(loc: location, ds: s1rtdeflst): d1ecl
+//
+(* ****** ****** *)
+//
+fun
+d1ecl_stacsts(loc: location, ds: s1tacstlst): d1ecl
+fun
+d1ecl_stacons(loc: location, knd: int, ds: s1taconlst): d1ecl
+//
 (*
-fun d1ecl_stavars (loc: location, ds: s1tavarlst): d1ecl
+fun
+d1ecl_stavars (loc: location, ds: s1tavarlst): d1ecl
 *)
-
-fun d1ecl_tkindef (loc: location, d: t1kindef): d1ecl
-
-fun d1ecl_sexpdefs
+//
+(* ****** ****** *)
+//
+fun
+d1ecl_tkindef
+  (loc: location, d0: t1kindef): d1ecl
+//
+fun
+d1ecl_sexpdefs
   (loc: location, knd: int, ds: s1expdeflst): d1ecl
 // end of [d1ecl_sexpdefs]
-
-fun d1ecl_saspdec (loc: location, d: s1aspdec): d1ecl
-
-fun d1ecl_exndecs (loc: location, ds: e1xndeclst): d1ecl
-
-fun d1ecl_datdecs
+//
+(* ****** ****** *)
+//
+fun
+d1ecl_saspdec(loc: location, d0: s1aspdec): d1ecl
+//
+fun
+d1ecl_reassume(loc: location, qid: sqi0de): d1ecl
+//
+(* ****** ****** *)
+//
+fun
+d1ecl_exndecs
+  (loc: location, ds: e1xndeclst): d1ecl
+//
+fun
+d1ecl_datdecs
 (
-  loc: location, knd: int, ds1: d1atdeclst, ds2: s1expdeflst
+  loc: location
+, knd: int, ds1: d1atdeclst, ds2: s1expdeflst
 ) : d1ecl // end of [d1ecl_datdecs]
-
-fun d1ecl_classdec
+//
+fun
+d1ecl_classdec
   (loc: location, id: i0de, sup: s1expopt): d1ecl
+//
+(* ****** ****** *)
 
-fun d1ecl_dcstdecs
+fun
+d1ecl_dcstdecs
 (
   loc: location
 , knd: int(*0/1:sta/ext*)

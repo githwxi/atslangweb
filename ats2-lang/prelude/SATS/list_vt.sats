@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Mon Sep  5 21:48:35 2016
+** Time of generation: Mon May  8 20:54:01 2017
 *)
 
 (* ****** ****** *)
@@ -63,7 +63,9 @@ list_vt0ype_int_vtype
     list_vt_cons(a, n+1) of (a, list_vt0ype_int_vtype(a, n))
 // end of [list_vt0ype_int_vtype]
 //
-stadef list_vt = list_vt0ype_int_vtype
+stadef
+list_vt = list_vt0ype_int_vtype
+//
 vtypedef
 List_vt(a:vt0p) = [n:int] list_vt(a, n)
 vtypedef
@@ -237,7 +239,7 @@ list_vt_copylin_fun{n:int}{fe:eff}
 (* ****** ****** *)
 
 fun{x:t0p}
-list_vt_free (xs: List_vt(INV(x))):<!wrt> void
+list_vt_free(xs: List_vt(INV(x))):<!wrt> void
 
 (* ****** ****** *)
 //
@@ -326,17 +328,6 @@ list_vt_concat
 // end of [list_vt_concat]
 
 (* ****** ****** *)
-
-fun{x:vt0p}
-list_vt_separate{n:int}
-(
-  xs: &list_vt(INV(x), n) >> list_vt(x, n1)
-) : #[n1:nat|n1 <= n] list_vt(x, n-n1)
-
-fun{x:vt0p}
-list_vt_separate$pred (x: &RD(x)): bool
-
-(* ****** ****** *)
 //
 fun{x:t0p}
 list_vt_filter{n:int}
@@ -360,10 +351,35 @@ list_vt_filterlin$clear (x: &x >> x?):<!wrt> void
 (* ****** ****** *)
 
 fun{x:vt0p}
-list_vt_app (xs: !List_vt(INV(x))): void
-fun{x:vt0p}
-list_vt_app$fwork (x: &x >> _): void
+list_vt_separate{n:int}
+(
+xs: &list_vt(INV(x), n) >> list_vt(x, n1), n1: &int? >> int(n1)
+) : #[n1:nat|n1 <= n] list_vt(x, n-n1)
 
+fun{x:vt0p}
+list_vt_separate$pred(x: &RD(x)): bool
+
+(* ****** ****** *)
+
+fun{x:vt0p}
+list_vt_take_until{n:int}
+(
+xs: &list_vt(INV(x), n) >> list_vt(x, n-n1), n1: &int? >> int(n1)
+) : #[n1:nat|n1 <= n] list_vt(x, n1)
+
+fun{x:vt0p}
+list_vt_take_until$pred(x: &RD(x)): bool
+
+(* ****** ****** *)
+//
+fun
+{x:vt0p}
+list_vt_app
+  (xs: !List_vt(INV(x))): void
+fun
+{x:vt0p}
+list_vt_app$fwork (x: &x >> _): void
+//
 (* ****** ****** *)
 //
 fun{x:vt0p}
@@ -452,6 +468,12 @@ x:vt0p
 ) :<fe> void // end of [list_vt_foreach_fun]
 fun{
 x:vt0p
+} list_vt_foreach_cloref
+  {fe:eff} (
+  xs: !List_vt(INV(x)), f: (&x) -<cloref,fe> void
+) :<fe> void // end of [list_vt_foreach_cloref]
+fun{
+x:vt0p
 } list_vt_foreach_funenv
   {v:view}{vt:viewtype}{fe:eff} (
   pfv: !v
@@ -481,13 +503,27 @@ x:vt0p}{env:vt0p
 //
 (* ****** ****** *)
 //
+(*
+HX-2016-12:
+Fisher–Yates shuffle
+*)
+//
+fun{a:t0p}
+list_vt_permute
+  {n:int}(xs: list_vt(INV(a), n)): list_vt(a, n)
+//
+fun{(*void*)}
+list_vt_permute$randint{n:int | n > 0}(int(n)): natLt(n)
+//
+(* ****** ****** *)
+//
 fun{
 a:vt0p
 } list_vt_mergesort
   {n:int} (xs: list_vt(INV(a), n)):<!wrt> list_vt(a, n)
 fun{
 a:vt0p
-} list_vt_mergesort$cmp (x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
+} list_vt_mergesort$cmp(x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
 //
 fun{
 a:vt0p
@@ -504,7 +540,7 @@ a:vt0p
   {n:int} (xs: list_vt(INV(a), n)):<!wrt> list_vt(a, n)
 fun{
 a:vt0p
-} list_vt_quicksort$cmp (x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
+} list_vt_quicksort$cmp(x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
 //
 fun{
 a:vt0p
@@ -515,12 +551,13 @@ a:vt0p
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
-streamize_list_vt_elt(List_vt(a)):<!wrt> stream_vt(a)
+fun{a:vt0p}
+streamize_list_vt_elt(List_vt(INV(a))):<!wrt> stream_vt(a)
 //
 (* ****** ****** *)
 //
-// overloading for certain symbols
+// HX: overloading
+// for certain symbols
 //
 (* ****** ****** *)
 //

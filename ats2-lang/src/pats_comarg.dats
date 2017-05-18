@@ -69,10 +69,24 @@ staload "./pats_comarg.sats"
 
 %{^
 //
-extern char* patsopt_ATSPKGRELOCROOT_get () ;
+extern char* patsopt_PATSRELOCROOT_get () ;
 //
 %} // end of [%{^]
 
+(* ****** ****** *)
+//
+implement
+print_comarg(x) =
+fprint_comarg(stdout_ref, x)
+//
+implement
+fprint_comarg(out, x) =
+(
+case+ x of
+| COMARG(i, k) =>
+  fprint!(out, "COMARG(", i, ", ", k, ")")
+)
+//
 (* ****** ****** *)
 
 implement
@@ -81,7 +95,7 @@ comarg_parse
 //
 fun
 loop
-  {n,i:nat | i <= n} .<n-i>.
+{n,i:nat|i <= n} .<n-i>.
 (
   str: string n, n: int n, i: int i
 ) :<> comarg = 
@@ -89,8 +103,8 @@ loop
   if i < n
     then (
     if (str[i] <> '-')
-      then COMARGkey (i, str) else loop (str, n, i+1)
-    ) else COMARGkey (n, str)
+      then COMARG (i, str) else loop (str, n, i+1)
+    ) else COMARG (n, str)
 ) (* end of [if] *)  
 // end of [loop]
 //
@@ -101,7 +115,7 @@ val len = string_length (str)
 val len = int1_of_size1 (len)
 //
 in
-  loop (str, len, 0)
+  loop(str, len, 0)
 end // end of [comarg_parse]
 
 (* ****** ****** *)
@@ -265,8 +279,14 @@ implement
 process_IATS_dir
   (dir) = let
 //
-val () = $FIL.the_pathlst_ppush (dir)
-val () = $GLOB.the_IATS_dirlst_ppush (dir)
+val () = $FIL.the_pathlst_ppush(dir)
+val () = $GLOB.the_IATS_dirlst_ppush(dir)
+//
+(*
+// HX-2017-01-31: push from the back!
+val () = $FIL.the_pathlst_ppushb(dir)
+val () = $GLOB.the_IATS_dirlst_ppushb(dir)
+*)
 //
 in
   // nothing
@@ -286,7 +306,7 @@ getenv
 in (* in-of-local *)
 
 implement
-process_ATSPKGRELOCROOT() = let
+process_PATSRELOCROOT() = let
 //
 val
 opt =
@@ -299,7 +319,7 @@ get
 (
 // argless
 ) : Stropt =
-  "mac#patsopt_ATSPKGRELOCROOT_get"
+  "mac#patsopt_PATSRELOCROOT_get"
 // end of [extern]
 //
 } (* where *) // end of [val]
@@ -310,7 +330,10 @@ val def = (
 //
 if
 issome
-then stropt_unsome(opt)
+then
+(
+stropt_unsome(opt)
+) (* end of [then] *)
 else let
 //
 val
@@ -325,12 +348,12 @@ if issome
 //
 ) : string // end of [val]
 val
-ATSPKGRELOCROOT =
-  sprintf("/tmp/.ATSPKGRELOCROOT-%s", @(user))
+PATSRELOCROOT =
+  sprintf("/tmp/.PATSRELOCROOT-%s", @(user))
 // end of [val]
 //
 in
-  string_of_strptr(ATSPKGRELOCROOT)
+  string_of_strptr(PATSRELOCROOT)
 end // end of [else]
 //
 ) : string // end of [val]
@@ -339,18 +362,18 @@ end // end of [else]
 val () =
 println!
 (
-  "process_ATSPKGRELOCROOT: def = ", def
+  "process_PATSRELOCROOT: def = ", def
 ) (* end of [val] *)
 *)
 //
 val key =
-  $SYM.symbol_ATSPKGRELOCROOT
+  $SYM.symbol_PATSRELOCROOT
 val e1xp =
   e1xp_string ($LOC.location_dummy, def)
 //
 in
   $TRENV1.the_e1xpenv_addperv (key, e1xp)
-end // end of [process_ATSPKGRELOCROOT]
+end // end of [process_PATSRELOCROOT]
 
 end // end of [local]
 

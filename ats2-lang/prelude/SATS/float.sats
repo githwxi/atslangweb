@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Mon Oct 17 23:04:07 2016
+** Time of generation: Wed May  3 17:36:09 2017
 *)
 
 (* ****** ****** *)
@@ -208,27 +208,26 @@ g0float_cmp_type
 fun
 {tk:tk}
 g0float_lt : g0float_cmp_type(tk)
+overload < with g0float_lt of 0
 fun
 {tk:tk}
 g0float_lte : g0float_cmp_type(tk)
+overload <= with g0float_lte of 0
 fun
 {tk:tk}
 g0float_gt : g0float_cmp_type(tk)
+overload > with g0float_gt of 0
 fun
 {tk:tk}
 g0float_gte : g0float_cmp_type(tk)
+overload >= with g0float_gte of 0
 fun
 {tk:tk}
 g0float_eq : g0float_cmp_type(tk)
+overload = with g0float_eq of 0
 fun
 {tk:tk}
 g0float_neq : g0float_cmp_type(tk)
-//
-overload < with g0float_lt of 0
-overload <= with g0float_lte of 0
-overload > with g0float_gt of 0
-overload >= with g0float_gte of 0
-overload = with g0float_eq of 0
 overload != with g0float_neq of 0
 overload <> with g0float_neq of 0
 //

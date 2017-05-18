@@ -63,7 +63,9 @@ datatype p3at_node =
   | P3Tany of d2var // wildcard
   | P3Tvar of (d2var) // mutability from the context
 //
-  | P3Tcon of (pckind, d2con, int(*npf*), p3atlst(*arg*))
+  | P3Tcon of
+      (pckind, d2con, int(*npf*), p3atlst(*arg*))
+    // P3Tcon
 //
   | P3Tint of (int)
   | P3Tintrep of string(*rep*)
@@ -77,7 +79,10 @@ datatype p3at_node =
 //
   | P3Tempty (* empty pattern *)
 //
-  | P3Trec of (int(*knd*), int(*npf*), labp3atlst)
+  | P3Trec of
+      (int(*knd*), int(*npf*), pckind, labp3atlst)
+    // P3Trec
+//
   | P3Tlst of (int(*lin*), s2exp(*elt*), p3atlst) // pattern list
 //
   | P3Trefas of (d2var, p3at) // referenced pattern
@@ -119,9 +124,14 @@ overload fprint with fprint_p3atlst
 
 (* ****** ****** *)
 
-fun p3at_make_node (
-  loc: location, s2e: s2exp, node: p3at_node
+fun
+p3at_make_node
+(
+  loc: location
+, s2e: s2exp, node: p3at_node
 ) : p3at // end of [p3at_make_node]
+
+(* ****** ****** *)
 
 fun p3at_any (
   loc: location, s2e: s2exp, d2v: d2var
@@ -164,12 +174,17 @@ fun p3at_f0loat (
 //
 fun p3at_empty (loc: location, s2f: s2exp): p3at
 
-fun p3at_rec (
+fun p3at_rec
+(
   loc: location
-, s2f: s2exp, knd: int, npf: int, lp3ts: labp3atlst
+, s2f: s2exp
+, knd: int, npf: int, pck: pckind, lp3ts: labp3atlst
 ) : p3at // end of [p3at_rec]
-fun p3at_lst (
-  loc: location, s2f: s2exp, lin: int, s2e_elt: s2exp, p3ts: p3atlst
+//
+fun p3at_lst
+(
+  loc: location
+, s2f: s2exp, lin: int, s2e_elt: s2exp, p3ts: p3atlst
 ) : p3at // end of [p3at_lst]
 
 fun p3at_refas (
@@ -230,6 +245,8 @@ d3ecl_node =
 //
   | D3Csaspdec of (s2aspdec)
 //
+  | D3Creassume of (s2cst) // abstype
+//
   | D3Cextype of (string(*name*), s2exp(*def*))
   | D3Cextvar of (string(*name*), d3exp(*def*))
   | D3Cextcode of (int(*knd*), int(*pos*), string(*code*))  
@@ -286,6 +303,8 @@ and d3exp_node =
 //
   | D3Ecstsp of ($SYN.cstsp)
 //
+  | D3Etyrep of (s2exp) // $tyrep(...)
+//
   | D3Eliteral of (d3exp) // $literal: int, float, string
 //
   | D3Etop of () // unspecified value
@@ -304,7 +323,7 @@ and d3exp_node =
   | D3Efreeat of (d3exp)
 //
   | D3Eitem of
-      (d2itm, t2mpmarglst) // HX: for temporary use
+      (d2itm, t2mpmarglst) // temporary use
     // end of [D3Eitem]
 //
   | D3Elet of (d3eclist, d3exp)
@@ -636,11 +655,17 @@ fun d3exp_cstsp
 // end of [d3exp_cstsp]
 
 (* ****** ****** *)
-
-fun d3exp_literal
+//
+fun
+d3exp_tyrep
+  (loc: location, s2f: s2exp, s2e_rep: s2exp): d3exp
+// end of [d3exp_tyrep]
+//
+fun
+d3exp_literal
   (loc: location, s2f: s2exp, d3e_lit: d3exp): d3exp
 // end of [d3exp_literal]
-
+//
 (* ****** ****** *)
 //
 fun
@@ -1097,9 +1122,12 @@ fun d3ecl_none (loc: location): d3ecl
 fun d3ecl_list (loc: location, xs: d3eclist): d3ecl
 
 (* ****** ****** *)
-
-fun d3ecl_saspdec (loc: location, d2c: s2aspdec): d3ecl
-
+//
+fun
+d3ecl_saspdec(loc: location, d2c: s2aspdec): d3ecl
+fun
+d3ecl_reassume(loc: location, s2c_abs: s2cst): d3ecl
+//
 (* ****** ****** *)
 
 fun d3ecl_extype

@@ -101,7 +101,6 @@ staload _(*anon*) = "libats/ML/DATS/hashtblref.dats"
 implement
 print_gvalue(x0) =
   fprint_gvalue(stdout_ref, x0)
-//
 implement
 prerr_gvalue(x0) =
   fprint_gvalue(stderr_ref, x0)
@@ -205,36 +204,53 @@ fprint_val<gvalue> = fprint_gvalue
 (* ****** ****** *)
 //
 implement
+{}(*tmp*)
 gvalue_nil() = GVnil()
 //
 implement
+{}(*tmp*)
 gvalue_int(i) = GVint(i)
 //
 implement
+{}(*tmp*)
 gvalue_ptr(p) = GVptr(p)
 //
 implement
+{}(*tmp*)
 gvalue_bool(x) = GVbool(x)
 implement
+{}(*tmp*)
 gvalue_char(x) = GVchar(x)
 //
 implement
+{}(*tmp*)
 gvalue_float(x) = GVfloat(x)
 implement
+{}(*tmp*)
 gvalue_string(x) = GVstring(x)
 //
 (* ****** ****** *)
+
+implement
+{}(*tmp*)
+gvalue_box(x) = GVptr($UN.cast2ptr(x))
+
+(* ****** ****** *)
 //
 implement
+{}(*tmp*)
 gvalue_ref(r) = GVref(r)
 //
 implement
+{}(*tmp*)
 gvalue_list(xs) = GVlist(xs)
 //
 implement
+{}(*tmp*)
 gvalue_array(xs) = GVarray(xs)
 //
 implement
+{}(*tmp*)
 gvalue_hashtbl(kxs) = GVhashtbl(kxs)
 //
 (* ****** ****** *)
@@ -249,8 +265,8 @@ implement
 gvarray_make_nil
   (asz) =
 (
-  array0_make_elt(i2sz(asz), GVnil())
-)
+array0_make_elt<gvalue>(i2sz(asz), GVnil())
+) (* gvarray_make_nil *)
 //
 (* ****** ****** *)
 
@@ -416,7 +432,9 @@ val () =
 //
 in
 //
-case+ tbl[k] of
+case+
+tbl[k]
+of // case+
 | GVnil() => GVnil()
 | GVlist(xs) =>
   (
@@ -450,7 +468,9 @@ val () =
 //
 in
 //
-case+ tbl[k] of
+case+
+tbl[k]
+of // case+
 | GVnil() =>
   tbl[k] := GVlist(list0_sing(x))
 | GVlist(xs) =>
@@ -467,18 +487,18 @@ end // end of [gvhashtbl_push_atkey]
 
 (* ****** ****** *)
 //
-implement
+implement{}
 gvhashtbl_foreach_cloref
   (tbl, fwork) =
   hashtbl_foreach_cloref<key,itm>(tbl, fwork)
 //
-implement
+implement{}
 gvhashtbl_foreach_method(tbl) =
-  lam (fwork) => hashtbl_foreach_cloref<key,itm>(tbl, fwork)
+  lam(fwork) => hashtbl_foreach_cloref<key,itm>(tbl, fwork)
 //
 (* ****** ****** *)
 //
-implement
+implement{}
 gvhashtbl_listize1(tbl) = hashtbl_listize1<key,itm>(tbl)
 //
 (* ****** ****** *)

@@ -28,15 +28,15 @@
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
 (* Start time: May, 2012 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
 
 (* ****** ****** *)
 
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Sun Oct  2 10:33:52 2016
+** Time of generation: Wed May  3 17:36:16 2017
 *)
 
 (* ****** ****** *)
@@ -49,10 +49,11 @@ ATS_DYNLOADFLAG 0 // no dynloading
 staload UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-
+//
 implement
-g0int2int<intknd,intknd> = g0int2int_int_int
-
+g0int2int<intknd,intknd> =
+  g0int2int_int_int(*unary*)
+//
 (* ****** ****** *)
 //
 implement
@@ -118,11 +119,15 @@ fprint_val<int> (out, x) = fprint_int (out, x)
 implement
 {}(*tmp*)
 mul_int1_size0(i, j) =
-  let val i = g1int2uint_int_size(i) in i * j end
+let val i =
+  g1int2uint_int_size(i) in i * j
+end // end of [mul_int1_size0]
 implement
 {}(*tmp*)
 mul_size0_int1(i, j) =
-  let val j = g1int2uint_int_size(j) in i * j end
+let val j =
+  g1int2uint_int_size(j) in i * j
+end // end of [mul_size0_int1]
 //
 (* ****** ****** *)
 
@@ -165,7 +170,8 @@ end // end of [g0int_npow]
 (* ****** ****** *)
 //
 implement
-g1int2int<intknd,intknd> = g1int2int_int_int
+g1int2int<intknd,intknd> =
+  g1int2int_int_int(*unary*)
 //
 (* ****** ****** *)
 //
@@ -221,46 +227,58 @@ implement
 g1int_min<intknd> = g1int_min_int
 //
 (* ****** ****** *)
-
+//
 implement
 {tk}(*tmp*)
-g1int_sgn(x) = compare_g1int_int<tk> (x, 0)
-
+g0int_sgn(x) =
+g1int_sgn<tk>(g1ofg0_int{tk}(x))
+implement
+{tk}(*tmp*)
+g1int_sgn(x) =
+compare_g1int_int<tk>(x, 0(*int*))
+//
 (* ****** ****** *)
 //
-implement{
-} add_size1_int1
-  {i,j}(i, j) = $UN.cast{size_t(i+j)}(i+g0i2u(j))
-implement{
-} add_int1_size1
-  {i,j}(i, j) = $UN.cast{size_t(i+j)}(g0i2u(i)+j)
+implement{}
+add_size1_int1
+  {i,j}(i, j) =
+  $UN.cast{size_t(i+j)}(i+g0i2u(j))
+implement{}
+add_int1_size1
+  {i,j}(i, j) =
+  $UN.cast{size_t(i+j)}(g0i2u(i)+j)
 //
-implement{
-} sub_size1_int1
-  {i,j}(i, j) = $UN.cast{size_t(i-j)}(i-g0i2u(j))
+implement{}
+sub_size1_int1
+  {i,j}(i, j) =
+  $UN.cast{size_t(i-j)}(i-g0i2u(j))
 //
 (* ****** ****** *)
 
 implement
 {tk}(*tmp*)
 g1int_mul2
-  {i,j}(x, y) = let
+{i,j}(x, y) = let
 //
-prval pf =
-  mul_make{i,j}() in (pf | g1int_mul<tk> (x, y))
+prval
+pfmul =
+mul_make{i,j}() in
+  (pfmul | g1int_mul<tk>(x, y))
 //
-end // end of [let] // end of [g1int_mul2]
+end // end of [g1int_mul2]
 
 (* ****** ****** *)
 //
 implement
 {}(*tmp*)
 mul_int1_size1
-  {i,j}(i, j) = $UN.cast{size_t(i*j)}(g0i2u(i)*j)
+  {i,j}(i, j) =
+  $UN.cast{size_t(i*j)}(g0i2u(i)*j)
 implement
 {}(*tmp*)
 mul_size1_int1
-  {i,j}(i, j) = $UN.cast{size_t(i*j)}(i*g0i2u(j))
+  {i,j}(i, j) =
+  $UN.cast{size_t(i*j)}(i*g0i2u(j))
 //
 (* ****** ****** *)
 
@@ -269,8 +287,9 @@ implement
 g1int_ndiv
   {i,j}(x, y) = let
 //
-val q =
-g1int_div<tk>(x, y) in $UN.cast{g1int(tk,ndiv(i,j))}(q)
+val quot =
+g1int_div<tk>(x, y) in
+  $UN.cast{g1int(tk,ndiv(i,j))}(quot)
 //
 end // end of [let] // end of [g1int_ndiv]
 
@@ -281,19 +300,28 @@ implement
 g1int_ndiv2
   {i,j}(x, y) = let
 //
-val [q:int] q = g1int_div (x, y)
+val
+[q:int] q = g1int_div(x, y)
 //
 prval
 [q2:int,r:int]
 pf_istot = divmod_istot{i,j}()
 //
 prval
-EQINT((*void*)) = $UN.castview0{EQINT(q,q2)}(0)
+EQINT((*void*)) =
+  $UN.castview0{EQINT(q,q2)}(0)
 //
 in
   (pf_istot | q(*quotient*))
 end // end of [let] // end of [g1int_ndiv2]
 
+(* ****** ****** *)
+//
+implement
+{tk}(*tmp*)
+ndiv_g1int_int1
+  (x, y) = g1i2i(g1int_ndiv(x, g1i2i(y)))
+//
 (* ****** ****** *)
 
 implement
@@ -301,14 +329,15 @@ implement
 g1int_nmod2
   {i,j}(x, y) = let
 //
-val r = g1int_nmod (x, y)
+val r = g1int_nmod(x, y)
 //
 prval
 [q:int,r2:int]
 pf_istot = divmod_istot{i,j}()
 //
 prval
-EQINT((*void*)) = $UN.castview0{EQINT(i%j,r2)}(0)
+EQINT((*void*)) =
+  $UN.castview0{EQINT(i%j,r2)}(0)
 //
 in
   (pf_istot | r(*remainder*))
@@ -317,8 +346,9 @@ end // end of [let] // end of [g1int_nmod2]
 (* ****** ****** *)
 //
 implement
-nmod_g1int_int1<intknd>
-  (x, y) = g1i2i(g1int_nmod (x, g1i2i(y)))
+{tk}(*tmp*)
+nmod_g1int_int1
+  (x, y) = g1i2i(g1int_nmod(x, g1i2i(y)))
 //
 (* ****** ****** *)
 
@@ -342,24 +372,32 @@ end // end of [let] // end of [nmod2_g1int_int1]
 
 (* ****** ****** *)
 
+(*
+//
+// HX-2016-12:
+// [ngcd] is no longer pre-declared
+//
 implement
 {tk}(*tmp*)
 g1int_ngcd
   (x, y) = let
 //
-fun loop{i,j:nat} .<j>.
+fun
+loop{i,j:nat} .<j>.
 (
-  x: g1int (tk, i), y: g1int (tk, j)
-) :<> [r:nat] g1int (tk, r) = let
+  x: g1int(tk, i)
+, y: g1int(tk, j)
+) :<> [r:nat] g1int(tk, r) = let
 in
 //
-if y > 0 then loop (y, g1int_nmod (x, y)) else x
+if y > 0 then loop (y, g1int_nmod(x, y)) else x
 //
 end // end of [loop]
 //
 in
   loop (x, y)
 end // end of [g1int_ngcd]
+*)
 
 (* ****** ****** *)
 //
