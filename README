@@ -5,4 +5,28 @@
 # Running on OpenShift(gmhwxi@gmail.com)
 #
 *)
+######
+
+The following steps are for building various
+ATS2 commands needed by the website.
+
+######
+
+ats1-lang: for building atscc (ATS1-Anairiats)
+
+######
+
+ats2-lang: for building patscc (ATS2-Anairiats)
+
+######
+
+ats2-lang/utils/libatsopt: for building libatsopt.a
+
+######
+
+ats2-lang/utils/atsynmark: for building pats2xhtml
+ats2-lang/utils/libatsynmark: for building libatsynmark.a
+
+######
+
 ###### end of [README] ######
