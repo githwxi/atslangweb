@@ -12,20 +12,43 @@ ATS2 commands needed by the website.
 
 ######
 
-ats1-lang: for building atscc (ATS1-Anairiats)
+NOTE: please compile in the following dir:
+
+app-root/runtime/repo (instead of app-root/repo)!!!
 
 ######
 
-ats2-lang: for building patscc (ATS2-Anairiats)
+MYREPO =
+app-root/runtime/repo/
 
 ######
 
-ats2-lang/utils/libatsopt: for building libatsopt.a
+source ${MYREPO}/.bash_myenv
 
 ######
 
-ats2-lang/utils/atsynmark: for building pats2xhtml
-ats2-lang/utils/libatsynmark: for building libatsynmark.a
+ats1-lang:
+for building atscc (ATS1-Anairiats)
+
+######
+
+ats2-lang:
+for building patscc (ATS2-Anairiats)
+
+######
+
+ats2-lang/utils/libatsopt:
+for building libatsopt.a
+and putting it into ats1-lang/ccomb/lib
+
+######
+
+ats2-lang/utils/atsynmark:
+for building pats2xhtml
+
+ats2-lang/utils/libatsynmark: 
+for building libatsynmark.a
+and putting it into ats1-lang/ccomb/lib
 
 ######
 
