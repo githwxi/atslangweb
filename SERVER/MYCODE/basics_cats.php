@@ -65,7 +65,8 @@ $atslangweb_patsopt_atscc2js_preamble = "
 //
 #define
 LIBATSCC2JS_targetloc
-\"\$PATSHOME/contrib/libatscc2js/ATS2-0.3.2\"
+\"\$PATSHOME\\
+/contrib/libatscc2js/ATS2-0.3.2\"
 //
 #include
 \"{\$LIBATSCC2JS}/staloadall.hats\"
