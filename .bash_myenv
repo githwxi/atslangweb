@@ -1,0 +1,30 @@
+#######
+#
+# For building ATS1 and ATS2
+#
+#######
+
+export \
+MYREPO=${HOME}/app-root/repo
+
+#######
+
+export \
+ATSHOME=${MYREPO}/ats1-lang
+export ATSHOMERELOC=ATS-0.2.12
+
+#######
+
+export \
+PATSHOME=${MYREPO}/ats2-lang
+export \
+PATSCONTRIB=${MYREPO}/ats2-lang-contrib
+
+#######
+
+export PATH=${PATH}:${ATSHOME}/bin
+export PATH=${PATH}:${PATSHOME}/bin
+
+#######
+
+###### end of [.bash_myenv] ######
