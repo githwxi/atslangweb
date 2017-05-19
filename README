@@ -52,4 +52,8 @@ and putting it into ats1-lang/ccomb/lib
 
 ######
 
+ats2-lang/contrib/CATS-atscc2js: for building atscc2js
+  
+######
+
 ###### end of [README] ######
