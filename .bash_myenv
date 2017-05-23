@@ -6,7 +6,7 @@
 
 export \
 MYREPO=\
-${HOME}/app-root/runtime/repo
+${HOME}app-root/runtime/repo
 
 #######
 
