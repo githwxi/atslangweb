@@ -113,12 +113,22 @@ implement
 fprint_impenv
   (out, env) = let
 //
-fun loop (
+fun
+loop
+(
   out: FILEref, env: !impenv, i: int
 ) : void = let
 in
 //
 case+ env of
+| IMPENVnil
+  (
+  // argless
+  ) => let
+    prval () = fold@(env)
+  in
+    (*nothing*)
+  end // end of [IMPENVnil]
 | IMPENVcons
   (
     s2v, s2f, !p_env
@@ -135,9 +145,6 @@ case+ env of
   in
     // nothing
   end // end of [IMPENVcons]
-| IMPENVnil () => let
-    prval () = fold@ (env) in (*nothing*)
-  end // end of [IMPENVnil]
 //
 end // end of [loop]
 //
@@ -150,10 +157,17 @@ end // end of [fprint_impenv]
 implement
 impenv_find
   (env, s2v) = let
+(*
+//
+val () =
+println! ("impenv_find")
+//
+*)
 in
 //
 case+ env of
-| IMPENVcons (
+| IMPENVcons
+  (
     s2v1, s2f, !p_env
   ) => (
     if s2v = s2v1 then let
@@ -171,9 +185,10 @@ case+ env of
   ) // end of [IMPENVcons]
 | IMPENVnil
     ((*void*)) => let
-    prval () = fold@ (env)
+    val s2t = s2var_get_srt(s2v)
+    prval ((*folded*)) = fold@ (env)
   in
-    s2exp2hnf_cast(s2exp_errexp(s2var_get_srt(s2v)))
+    s2exp2hnf_cast(s2exp_errexp(s2t))
   end // end of [IMPENVnil]
 //
 end // end of [impenv_find]
@@ -183,6 +198,7 @@ end // end of [impenv_find]
 implement
 impenv_update
   (env, s2v, s2f) = let
+//
 (*
 val () =
 println!
@@ -199,7 +215,15 @@ aux
 ) :<cloref1> bool =
 //
 case+ env of
-| IMPENVcons (
+| IMPENVnil
+  (
+    // argless
+  ) => false where
+  {
+    prval () = fold@(env)
+  } // end of [IMPENVnil]
+| IMPENVcons
+  (
     s2v1, !p_s2f, !p_env
   ) => (
     if (
@@ -215,16 +239,22 @@ case+ env of
       val ans = aux(!p_env)
       prval () = fold@(env) in ans
     end // end of [if]
-  ) // end of [IMPENVcons]
-| IMPENVnil () => let
-    prval () = fold@ (env) in false
-  end // end of [IMPENVnil]
+  ) (* end of [IMPENVcons] *)
 //
-val s2e = s2hnf2exp(s2f)
-val s2t = s2var_get_srt(s2v)
+val
+s2e = s2hnf2exp(s2f)
+//
+val
+s2t = s2e.s2exp_srt
+val
+s2v_s2t = s2var_get_srt(s2v)
 //
 in
-  if s2rt_ltmat1(s2e.s2exp_srt, s2t) then aux(env) else false
+//
+if
+s2rt_ltmat1(s2t, s2v_s2t)
+  then aux(env) else false
+//
 end // end of [impenv_update]
 
 (* ****** ****** *)
@@ -237,13 +267,16 @@ s2hnf_is_err
 implement
 s2hnf_is_err
   (s2f) = let
-  val s2e = s2hnf2exp (s2f)
+//
+val s2e = s2hnf2exp(s2f)
+//
 in
 //
 case+
 s2e.s2exp_node
-of // case+
-| S2Eerrexp() => true | _(*non-S2Eerrexp*) => false
+of (* case+ *)
+| S2Eerrexp() => true
+| _(*non-S2Eerrexp*) => false
 //
 end // end of [s2hnf_is_err]
 //
@@ -253,6 +286,7 @@ extern
 fun
 impenv_make_nil
   ((*void*)): impenv
+//
 extern
 fun
 impenv_make_svarlst
@@ -298,7 +332,8 @@ implement
 impenv_free(env) = let
 //
 (*
-val () = println! ("impenv_free")
+val () =
+println! ("impenv_free")
 *)
 //
 in
@@ -352,9 +387,12 @@ auxenv
 (
   env: !s2varlst_vt, s2vs: s2varlst
 ) : s2varlst_vt = let
-  val env2 = list_vt_copy (env)
+//
+val
+env2 = list_vt_copy<s2var>(env)
+//
 in
-  list_reverse_append2_vt<s2var> (s2vs, env2)
+  list_reverse_append2_vt<s2var>(s2vs, env2)
 end // end of [auxenv]
 
 (* ****** ****** *)
@@ -366,6 +404,11 @@ auxfvar
 ) : bool =
 (
 case+ env of
+| list_vt_nil
+    ((*void*)) =>
+  (
+    fold@env; true
+  ) (* list_vt_nil *)
 | list_vt_cons
     (s2v, !p_env1) => (
     if (s2v = s2v0)
@@ -379,7 +422,6 @@ case+ env of
         ans
       end // end of [else]
   ) (* end of [list_vt_cons] *)
-| list_vt_nil() => (fold@env; true)
 ) (* end of [auxfvar] *)
 
 (* ****** ****** *)
@@ -399,11 +441,13 @@ val
 ismatch =
 auxmat_env
 (
-  env, env_pat, env_arg, s2e0_pat, s2e0_arg
+  env
+, env_pat, env_arg
+, s2e0_pat, s2e0_arg
 ) (* end of [val] *)
 //
-val ((*void*)) = list_vt_free (env_pat)
-val ((*void*)) = list_vt_free (env_arg)
+val ((*void*)) = list_vt_free(env_pat)
+val ((*void*)) = list_vt_free(env_arg)
 //
 } (* end of [auxmat] *)
 
@@ -422,11 +466,13 @@ val
 ismatch =
 auxmatlst_env
 (
-  env, env_pat, env_arg, s2es_pat, s2es_arg
+  env
+, env_pat, env_arg
+, s2es_pat, s2es_arg
 ) (* end of [val] *)
 //
-val ((*void*)) = list_vt_free (env_pat)
-val ((*void*)) = list_vt_free (env_arg)
+val ((*void*)) = list_vt_free(env_pat)
+val ((*void*)) = list_vt_free(env_arg)
 //
 } (* end of [auxmatlst] *)
 
@@ -451,10 +497,14 @@ val s2en_arg = s2e0_arg.s2exp_node
 (*
 val () =
 println!
-  ("auxmat_env: s2e0_pat(aft) = ", s2e0_pat)
+(
+"auxmat_env: s2e0_pat(aft) = ", s2e0_pat
+)
 val () =
 println!
-  ("auxmat_env: s2e0_arg(aft) = ", s2e0_arg)
+(
+"auxmat_env: s2e0_arg(aft) = ", s2e0_arg
+)
 *)
 //
 in
@@ -489,6 +539,10 @@ s2en_pat of
   end // end of [S2Evar]
 //
 | S2Ecst(s2c) => let
+  (*
+    val () =
+    println! ("auxmat_env: s2c = ", s2c)
+  *)
   in
     case+ s2en_arg of
     | S2Ecst(s2c_arg) =>
@@ -558,9 +612,9 @@ s2en_pat of
       ) => ismatch where
       {
         val
-        env_pat = auxenv (env_pat, s2vs_pat)
+        env_pat = auxenv(env_pat, s2vs_pat)
         val
-        env_arg = auxenv (env_arg, s2vs_arg)
+        env_arg = auxenv(env_arg, s2vs_arg)
         val
         syneq =
         s2explst_syneq_env
@@ -602,14 +656,25 @@ auxmatlst_env
 ) : bool = let
 //
 (*
-val () = println! ("auxmatlst_env: s2es_pat = ", s2es_pat)
-val () = println! ("auxmatlst_env: s2es_arg = ", s2es_arg)
+val () =
+println!
+(
+  "auxmatlst_env: s2es_pat = ", s2es_pat
+) (* println! *)
+val () =
+println!
+(
+  "auxmatlst_env: s2es_arg = ", s2es_arg
+) (* println! *)
 *)
 //
 in
 //
 case+
 s2es_pat of
+| list_nil
+    ((*void*)) => true
+  // list_nil
 | list_cons
   (
     s2e_pat, s2es_pat
@@ -628,7 +693,6 @@ s2es_pat of
        end // end of [list_cons]
      | list_nil () => true // HX: deadcode
   ) // end of [list_cons]
-| list_nil ((*void*)) => true
 //
 end // end of [auxmatlst]
 
@@ -782,19 +846,27 @@ in
 if
 d2c0=d2c1
 then let
-  val env =
-    impenv_make_svarlst (imp.hiimpdec_imparg)
-  val ans = auxmatlstlst (env, imp.hiimpdec_tmparg, t2mas)
+//
+val env =
+impenv_make_svarlst(imp.hiimpdec_imparg)
+val ans =
+auxmatlstlst(env, imp.hiimpdec_tmparg, t2mas)
+//
 in
-  if ans then let
-    val tsub =
-      impenv2tmpsub (env)
-    // end of [val]
-  in
-    TMPCSTMATsome (imp, tsub, knd)
-  end else let
-    val () = impenv_free (env) in TMPCSTMATnone ()
-  end // end of [if]
+//
+if
+(ans)
+then let
+  val tsub =
+    impenv2tmpsub (env)
+  // end of [val]
+in
+  TMPCSTMATsome(imp, tsub, knd)
+end // end of [then]
+else let
+  val () = impenv_free(env) in TMPCSTMATnone()
+end // end of [else]
+//
 end // end of [then]
 else TMPCSTMATnone() // else
 // end of [if]
@@ -829,17 +901,22 @@ then let
     auxmatlstlst (env, tmparg, t2mas)
   // end of [val]
 in
-  if ans then let
-    val tsub1 =
-      impenv2tmpsub (env)
-    val tsub01 =
-      tmpsub_append (tsub0, tsub1)
-    // end of [val]
-  in
-    TMPCSTMATsome (imp, tsub01, knd)
-  end else let
-    val () = impenv_free (env) in TMPCSTMATnone ()
-  end // end of [if]
+//
+if
+(ans)
+then let
+  val tsub1 =
+    impenv2tmpsub(env)
+  val tsub01 =
+    tmpsub_append(tsub0, tsub1)
+  // end of [val]
+in
+  TMPCSTMATsome(imp, tsub01, knd)
+end // end of [then]
+else let
+  val () = impenv_free(env) in TMPCSTMATnone()
+end // end of [else]
+//
 end // end of [then]
 else TMPCSTMATnone() // else
 //
@@ -859,21 +936,27 @@ println! ("hiimpdeclst_tmpcst_match: d2c0 = ", d2c0)
 in
 //
 case+ imps of
-| list_cons (
+| list_nil
+    () => TMPCSTMATnone()
+  // list_nil
+| list_cons
+  (
     imp, imps
   ) => let
     val opt =
-      hiimpdec_tmpcst_match (imp, d2c0, t2mas, knd)
+      hiimpdec_tmpcst_match(imp, d2c0, t2mas, knd)
     // end of [val]
   in
     case+ opt of
+//
     | TMPCSTMATsome _ => opt
     | TMPCSTMATsome2 _ => opt
+//
     | TMPCSTMATnone _ =>
-        hiimpdeclst_tmpcst_match (imps, d2c0, t2mas, knd)
+        hiimpdeclst_tmpcst_match(imps, d2c0, t2mas, knd)
       // end of [TMPCSTMATnone]
+//
   end // end of [list_cons]
-| list_nil () => TMPCSTMATnone ()
 //
 end // end of [hiimpdeclst_tmpcst_match]
 
@@ -892,9 +975,14 @@ val () =
 if
 d2c=d2c0
 then let
-  val env = IMPENVnil ()
-  val () = ans := auxmatlstlst (env, s2ess, t2mas)
-  val () = impenv_free (env)
+val
+env = IMPENVnil()
+//
+val () =
+ans :=
+auxmatlstlst(env, s2ess, t2mas)
+//
+val ((*freed*)) = impenv_free(env)
 //
 in
   // nothing
@@ -925,11 +1013,18 @@ end // end of [hifundec2tmpvarmat]
 implement
 hifundecopt2tmpvarmat
   (hfdopt, t2mas) = let
+(*
+//
+val () =
+println!
+  ("hifundecopt2tmpvarmat")
+//
+*)
 in
 //
 case hfdopt of
-| ~None_vt () => TMPVARMATnone ()
-| ~Some_vt (hfd) => hifundec2tmpvarmat (hfd, t2mas)
+| ~None_vt() => TMPVARMATnone()
+| ~Some_vt(hfd) => hifundec2tmpvarmat(hfd, t2mas)
 //
 end // end of [hifundecopt2tmpvarmat]
 
@@ -944,7 +1039,7 @@ val d2v = hfd.hifundec_var
 in
 //
 if d2v=d2v0
-  then hifundec2tmpvarmat (hfd, t2mas) else TMPVARMATnone()
+  then hifundec2tmpvarmat(hfd, t2mas) else TMPVARMATnone()
 //
 end // end of [hifundec_tmpvar_match]
 
@@ -965,11 +1060,13 @@ in
 if
 d2v=d2v0
 then let
-  val s2vs = hfd.hifundec_imparg
-  val tsub1 = auxbndlstlst (s2vs, t2mas)
-  val tsub01 = tmpsub_append (tsub0, tsub1)
+//
+val s2vs = hfd.hifundec_imparg
+val tsub1 = auxbndlstlst(s2vs, t2mas)
+val tsub01 = tmpsub_append(tsub0, tsub1)
+//
 in
-  TMPVARMATsome (hfd, tsub01, 0(*local*))
+  TMPVARMATsome(hfd, tsub01, 0(*local*))
 end // end of [then]
 else TMPVARMATnone() // end of [else]
 //
@@ -983,17 +1080,27 @@ tmpvarmat_tmpvar_match
 //
 var ans: bool = false
 //
-val-TMPVARMATsome2 (d2v, s2ess, flab) = mat
+val-TMPVARMATsome2(d2v, s2ess, flab) = mat
+//
+val () = (
+//
+if
+d2v=d2v0
+then let
+val
+env = IMPENVnil()
 //
 val () =
-  if d2v = d2v0 then let
-  val env = IMPENVnil ()
-  val () = ans := auxmatlstlst (env, s2ess, t2mas)
-  val () = impenv_free (env)
+ans :=
+auxmatlstlst(env, s2ess, t2mas)
+//
+val ((*freed*)) = impenv_free(env)
 //
 in
   // nothing
-end //end of [val]
+end // end of [if]
+//
+) (* end of [val] *)
 //
 in
 //
@@ -1008,16 +1115,25 @@ end // end of [local]
 extern
 fun
 ccomp_funlab_tmpsubst
-  (env: !ccompenv, loc0: location, hse0: hisexp, fl: funlab, tsub: tmpsub): primval
+(
+  env: !ccompenv
+, loc0: loc_t, hse0: hisexp, fl: funlab, tsub: tmpsub
+) : primval // end of [ccomp_funlab_tmpsubst]
+//
 extern
 fun
 ccomp_funlab_tmpsubst_none
-  (env: !ccompenv, loc0: location, hse0: hisexp, fl: funlab, tsub: tmpsub): primval
+(
+  env: !ccompenv
+, loc0: loc_t, hse0: hisexp, fl: funlab, tsub: tmpsub
+) : primval // end of [ccomp_funlab_tmpsubst_none]
+//
 extern
 fun
 ccomp_funlab_tmpsubst_some
 (
-  env: !ccompenv, loc0: location, hse0: hisexp, fl: funlab, tsub: tmpsub, fent: funent
+  env: !ccompenv
+, loc0: loc_t, hse0: hisexp, fl: funlab, tsub: tmpsub, fent: funent
 ) : primval // end of [ccomp_funlab_tmpsubst_some]
 //
 (* ****** ****** *)
@@ -1040,6 +1156,8 @@ case+ opt of
 //
 end // end of [ccomp_funlab_tmpsubst]
 
+(* ****** ****** *)
+
 implement
 ccomp_funlab_tmpsubst_none
   (env, loc0, hse0, flab, tsub) = let
@@ -1049,6 +1167,9 @@ val t2mas = funlab_get_tmparg (flab)
 in
 //
 case+ t2mas of
+| list_nil _ =>
+    primval_make2_funlab (loc0, hse0, flab)
+  // end of [list_nil]
 | list_cons _ => let
     val-Some(d2c) = funlab_get_d2copt(flab)
     val t2mas = t2mpmarglst_tsubst(loc0, tsub, t2mas)
@@ -1056,9 +1177,10 @@ case+ t2mas of
   in
     ccomp_tmpcstmat(env, loc0, hse0, d2c, t2mas, tmpmat)
   end (* end of [list_cons] *)
-| list_nil () => primval_make2_funlab (loc0, hse0, flab)
 //
 end // end of [ccomp_funlab_tmpsubst_none]
+
+(* ****** ****** *)
 
 implement
 ccomp_funlab_tmpsubst_some
@@ -1066,8 +1188,9 @@ ccomp_funlab_tmpsubst_some
 //
 (*
 val out = stdout_ref
+//
 val () =
-  fprintln!
+fprintln!
 (
   out, "ccomp_funlab_tmpsubst_some: tsub = ", tsub
 ) // end of [val]
