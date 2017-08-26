@@ -5,21 +5,15 @@
 #######
 
 export \
-MYREPO=\
-${HOME}app-root/runtime/repo
-
-#######
-
-export \
-ATSHOME=${MYREPO}/ats1-lang
+ATSHOME=${HOME}/ats1-lang
 export ATSHOMERELOC=ATS-0.2.12
 
 #######
 
 export \
-PATSHOME=${MYREPO}/ats2-lang
+PATSHOME=${HOME}/ats2-lang
 export \
-PATSCONTRIB=${MYREPO}/ats2-lang-contrib
+PATSCONTRIB=${HOME}/ats2-lang-contrib
 
 #######
 
