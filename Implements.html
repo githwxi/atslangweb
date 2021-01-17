@@ -542,10 +542,10 @@ style="margin-left:8px;"
 <h1>Implementations of ATS</h1>
 
 <ul name="Implements">
-<li><a href="#ATSproto">ATS/Proto</a></li>
-<li><a href="#ATSgeizella">ATS/Geizella</a></li>
-<li><a href="#ATSanairiats">ATS/Anairiats</a></li>
-<li><a href="#ATSpostiats">ATS/Postiats</a></li>
+<li><a href="#ATSproto">ATS/Proto(ATS0)</a></li>
+<li><a href="#ATSgeizella">ATS/Geizella(ATS1)</a></li>
+<li><a href="#ATSanairiats">ATS/Anairiats(ATS1)</a></li>
+<li><a href="#ATSpostiats">ATS/Postiats(ATS2)</a></li>
 </ul>
 <!--php-->
 
@@ -606,11 +606,11 @@ adopted, making ATS/Geizella particularly well-suited for direct
 interaction with C (that incurs no run-time overhead).  As for
 parametric polymorphism, it is supported in ATS/Geizella through the
 use of templates. ATS/Geizella is now largely out of active use as
-ATS/Anairiats, an implementation of ATS1 that is also nearly entirely
-written in ATS1, can be self-bootstrapped successfully. At this point,
-ATS/Geizella primarily serves as the backup for ATS/Anairiats in case
-it is needed for building ATS/Postiats, which implements ATS2 (the 2nd
-edition of ATS).
+ATS/Anairiats, another implementation of ATS1 that is also nearly
+entirely written in ATS1, can be self-bootstrapped successfully. At
+this point, ATS/Geizella primarily serves as the backup for
+ATS/Anairiats in case it is needed for building ATS/Postiats, which
+implements ATS2 (the 2nd edition of ATS).
 
 </p>
 
@@ -627,9 +627,9 @@ style="margin-bottom:0px">
 <a id="ATSanairiats">ATS/Anairiats(ATS1)</a></h2>
 <p>
 
-ATS/Anairiats is another previously released implementation of ATS1.
-It is nearly entirely written in ATS1 itself, consisting of 100K+
-lines of source code. When compared to ATS/Geizella, the first
+ATS/Anairiats is the second previously released implementation of
+ATS1.  It is nearly entirely written in ATS1 itself, consisting of
+100K+ lines of source code. When compared to ATS/Geizella, the first
 implementation of ATS1 (written in OCaml), ATS/Anairiats is
 significantly more efficient, and it issues in general more
 informative messages for identifying program errors. ATS/Anairiats is
